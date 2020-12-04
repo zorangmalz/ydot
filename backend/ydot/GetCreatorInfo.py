@@ -44,23 +44,26 @@ def searchChannelId(name):
     return ChannelId
 
 # ChannelId를 활용해 Channel Snippet 사용
-def findSnippet(url, channelid):
+def findSnippet(channelid):
+    channelUrl = "https://www.googleapis.com/youtube/v3/channels"
     params={'part': 'snippet', 'id' : channelid, 'key' : DEVELOPER_KEY}
-    res = requests.get(url, params=params)
+    res = requests.get(channelUrl, params=params)
     snippet = res.json()
     return snippet['items'][0]['snippet']
 
 # ChannelId를 활용해 Channel Statistics 사용
-def findStatistics(url, channelid):
+def findStatistics(channelid):
+    channelUrl = "https://www.googleapis.com/youtube/v3/channels"
     params={'part': 'statistics', 'id' : channelid, 'key' : DEVELOPER_KEY}
-    res = requests.get(url, params=params)
+    res = requests.get(channelUrl, params=params)
     statistics = res.json()
     return statistics['items'][0]['statistics']
 
 # ChannelId를 활용해 Channel topicDetails 사용
-def findtopicDetails(url, channelid):
+def findtopicDetails(channelid):
+    channelUrl = "https://www.googleapis.com/youtube/v3/channels"
     params={'part': 'topicDetails', 'id' : channelid, 'key' : DEVELOPER_KEY}
-    res = requests.get(url, params=params)
+    res = requests.get(channelUrl, params=params)
     topicDetails = res.json()
     if ('topicDetails' in topicDetails['items'][0]): 
         if ('topicCategories' in topicDetails['items'][0]['topicDetails']):
@@ -68,11 +71,11 @@ def findtopicDetails(url, channelid):
         else: return "미분류"
     else: return "미분류"
 
-def firstChannel(url, name):
+def firstChannel(name):
     originId = searchChannelId(name)
-    snippet = findSnippet(channelUrl, originId)
-    statistics = findStatistics(channelUrl, originId)
-    topicDetails = findtopicDetails(channelUrl, originId)
+    snippet = findSnippet(originId)
+    statistics = findStatistics(originId)
+    topicDetails = findtopicDetails(originId)
     topicLength = len(topicDetails)
     topicKind = ""
     if (statistics['hiddenSubscriberCount'] == True):
@@ -103,8 +106,8 @@ def firstChannel(url, name):
 
     return YoutuberInfo
 
-def create_Creator(url, name):
-    channel = list(firstChannel(url, name).values())
+def create_Creator(name):
+    channel = list(firstChannel(name).values())
     # if (channel.empty == True)
     Creator(
         createdDate=channel[0],
@@ -123,4 +126,4 @@ def create_Creator(url, name):
     ).save()
 
 if __name__ == '__main__':
-    create_Creator(channelUrl, "보물섬")
+    create_Creator( "돌잼")

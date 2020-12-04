@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ydotdata',
     'creator',
+    'django_mysql',
 ]
 
 MIDDLEWARE = [
