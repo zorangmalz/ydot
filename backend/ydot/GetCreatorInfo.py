@@ -73,22 +73,32 @@ def firstChannel(url, name):
     snippet = findSnippet(channelUrl, originId)
     statistics = findStatistics(channelUrl, originId)
     topicDetails = findtopicDetails(channelUrl, originId)
+    topicLength = len(topicDetails)
+    topicKind = ""
     if (statistics['hiddenSubscriberCount'] == True):
         return pd.Series([])
+
+    if (topicLength > 1) :
+        for i in range(topicLength):
+            topicKind += topicDetails[i]
+            topicKind += ", "
+    else:
+        topicKind = topicDetails
+
     YoutuberInfo = {
-        'GetTime' : getDate,
-        'ChannelId' : originId, 
-        'ChannelTitle' : name, 
-        'ChannelKind' : topicDetails,
-        'ChannelRegion' : "KR",
-        'ChannelLogoD' : snippet['thumbnails']['default']['url'], 
-        'ChannelLogoM' : snippet['thumbnails']['medium']['url'], 
-        'ChannelLogoH' : snippet['thumbnails']['high']['url'], 
-        'ChannelDescription' : snippet['description'],
-        'ChannelSubscriberCount' : statistics['subscriberCount'],
-        'ChannelViewCount' : statistics['viewCount'],
-        'ChannelVideoCount' : statistics['videoCount'],
-        'ChannelPublishedAt' : snippet['publishedAt']
+        'GetTime': getDate,
+        'ChannelId': originId,
+        'ChannelTitle': name,
+        'ChannelKind': topicKind,
+        'ChannelRegion': "KR",
+        'ChannelLogoD': snippet['thumbnails']['default']['url'],
+        'ChannelLogoM': snippet['thumbnails']['medium']['url'],
+        'ChannelLogoH': snippet['thumbnails']['high']['url'],
+        'ChannelDescription': snippet['description'],
+        'ChannelSubscriberCount': statistics['subscriberCount'],
+        'ChannelViewCount': statistics['viewCount'],
+        'ChannelVideoCount': statistics['videoCount'],
+        'ChannelPublishedAt': snippet['publishedAt']
     }
 
     return YoutuberInfo
