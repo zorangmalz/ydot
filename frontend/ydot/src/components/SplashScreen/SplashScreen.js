@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header, { FAQ, GuideBox, vh, vw } from '../Style'
+import { Link } from 'react-router-dom';
 
 export default function SplashScreen() {
     const [email, setEmail] = useState("")
@@ -103,7 +104,7 @@ export default function SplashScreen() {
                             margin: 0,
                             marginTop: 10
                         }}>비밀번호를 잊으셨나요?</div>
-                        <input style={{
+                        <Link to={'/home'}><input style={{
                             cursor: "pointer",
                             outline: 0,
                             width: 300,
@@ -114,8 +115,9 @@ export default function SplashScreen() {
                             fontSize: 16,
                             color: "#ffffff",
                             borderWidth: 0,
-                            fontWeight: "bold"
-                        }} type="button" value="참여하기" />
+                            fontWeight: "bold",
+                            textDecorationLine: "none"
+                        }} type="button" value="참여하기" /></Link>
                     </div>
                     <input style={{
                         cursor: "pointer",

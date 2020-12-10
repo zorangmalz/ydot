@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { FaUserCircle, FaArrowRight } from 'react-icons/fa';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FiArrowRightCircle } from 'react-icons/fi';
@@ -8,6 +9,17 @@ export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
 
 export default function Header({ splash, bold }) {
+    const MenuItem = ({ active, children, to }) => (
+        <Link to={to} style={{
+            fontSize: 21,
+            color: "#202426",
+            fontWeight: active ? "bold" : "normal",
+            marginRight: 40,
+            textDecorationLine: "none"
+        }} >
+            {children}
+        </Link>
+    )
     return (
         <header style={{
             width: 68 * vw,
@@ -34,31 +46,25 @@ export default function Header({ splash, bold }) {
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <div style={{
+                    <div to={'/'} style={{
                         fontSize: 40,
                         fontWeight: "bold",
                         color: "#202426",
+                        marginRight: 72,
                     }}>Y.</div>
                     {splash ?
                         <></>
                         :
                         <>
+                            <MenuItem to={'/home'} >
+                                {bold === "Home" ? "Home" : bold === "Creator" ? "크리에이터" : "Home"}
+                            </MenuItem>
+                            <MenuItem to={'/auction'}>
+                                배당권 경매
+                            </MenuItem>
                             <div style={{
                                 fontSize: 21,
-                                color: "#202426",
-                                fontWeight: bold === "Home" || bold === "Creator" ? "bold" : "normal",
-                                marginRight: 40,
-                                marginLeft: 72,
-                            }}>{bold === "Home" ? "Home" : bold === "Creator" ? "크리에이터" : "Home"}</div>
-                            <div style={{
-                                fontSize: 21,
-                                fontWeight: bold === "Auction" ? "bold" : "normal",
-                                color: "#202426",
-                                marginRight: 40
-                            }}>배당권 경매</div>
-                            <div style={{
-                                fontSize: 21,
-                                fontWeight: bold === "Money" ? "bold" : "normal",
+                                fontWeight: "normal",
                                 color: "#202426"
                             }}>내 자산</div>
                         </>
@@ -82,7 +88,7 @@ export function GuideBox({ navigation, icon, title, content, button, center }) {
                 paddingBottom: 30,
                 display: "flex",
                 flexDirection: "column",
-                alignItems:"center",
+                alignItems: "center",
                 marginLeft: 20,
                 marginRight: 20,
             }}>
@@ -184,6 +190,8 @@ export function FAQ({ title, content, value, onClick }) {
 
 //HomeMain.js와 AuctionMain.js 요소
 export function CreatorInfo({ ongoing, img, name, introduction, start }) {
+    const direct = "/home/" + String(name)
+    const auctiondirect = "/auction/" + String(name)
     return (
         <>
             <div style={{
@@ -221,7 +229,7 @@ export function CreatorInfo({ ongoing, img, name, introduction, start }) {
                     marginBottom: 10,
                 }}>경매 시작일 : {start}</div>
                 {ongoing ?
-                    <input style={{
+                    <Link to={auctiondirect}><input style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 400,
@@ -233,9 +241,10 @@ export function CreatorInfo({ ongoing, img, name, introduction, start }) {
                         fontSize: 14,
                         fontWeight: "bold",
                         color: "#ffffff",
-                    }} type="button" value="공모 참여하기" />
+                        textDecorationLine: "none"
+                    }} type="button" value="공모 참여하기" /></Link>
                     :
-                    <button style={{
+                    <Link to={direct}><button style={{
                         cursor: "pointer",
                         outline: 0,
                         display: "flex",
@@ -245,15 +254,17 @@ export function CreatorInfo({ ongoing, img, name, introduction, start }) {
                         border: 0,
                         height: 25,
                         marginTop: 10,
+                        textDecorationLine: "none"
                     }}>
-                        <p style={{
+                        <div style={{
                             fontSize: 16,
                             color: "#202426",
                             marginRight: 12,
-                            lineHeight: 1.38
-                        }}>상세정보</p>
+                            lineHeight: 1.38,
+                            textDecorationLine: "none"
+                        }}>상세정보</div>
                         <FiArrowRightCircle size={22} color="#202426" />
-                    </button>
+                    </button></Link>
                 }
             </div>
         </>
@@ -447,3 +458,88 @@ const BoldAuction = styled.div`
     font-weight: bold;
     text-align: left;
 `
+
+//단순히 다른곳에 붙이면 넓이가 %로 되어있어 안됨
+export function BuyInput({ title, unit, value, setValue }) {
+    return (
+        <div style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "94%",
+            paddingLeft: "3%",
+            paddingRight: "3%",
+            backgroundColor: "#efefef",
+            height: 50,
+            alignSelf: "center",
+            borderRadius: 10,
+            marginTop: 20,
+        }}>
+            <div style={{
+                fontSize: 18,
+                opacity: 0.6,
+                color: "#202426",
+                minWidth: 40,
+                marginRight: "8%"
+            }}>{title}</div>
+            <input
+                style={{
+                    width: "70%",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    outline: 0,
+                    border: 0,
+                    backgroundColor: "#efefef",
+                    textAlign: "right"
+                }}
+                type="text" value={value} onChange={({ text }) => setValue(text)}
+            />
+            <div style={{
+                fontSize: 18,
+                opacity: 0.6,
+                color: "#202426",
+                minWidth: 40,
+                fontWeight: "bold",
+                textAlign: "right"
+            }}>{unit}</div>
+        </div>
+    )
+}
+
+export function Calculator({ value, setValue, unit }) {
+    return (
+        <div style={{
+            width: "74%",
+            backgroundColor: "#F2F2F2",
+            borderRadius: 50,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            paddingLeft: "13%",
+            paddingRight: "13%",
+            marginBottom: 10,
+            height: 40,
+        }}>
+            <input onChange={({ text }) => setValue(text)} style={{
+                width: "81%",
+                height: 26,
+                textAlign: "right",
+                verticalAlign: "center",
+                fontSize: 18,
+                color: "#737576",
+                backgroundColor: "#F2F2F2",
+                border: 0,
+                outline: 0,
+            }} type="text" value={value} />
+            <div style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "#202426",
+                marginLeft: "3%"
+            }}>{unit}</div>
+        </div>
+    )
+}

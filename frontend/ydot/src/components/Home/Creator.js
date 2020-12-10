@@ -5,9 +5,13 @@ import { IoMdShare } from 'react-icons/io'
 import { AiFillYoutube } from 'react-icons/ai'
 import { ImTwitch } from 'react-icons/im'
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'
+import { useHistory } from 'react-router-dom'
 
 export default function Creator() {
+    const history = useHistory()
     const [infor, setInfor] = useState(true)
+    const name = "지순’s 일상"
+    const auctiondirect = "/auction/" + String(name)
     const QA = [
         {
             title: 'Q1. 자기 소개 부탁드립니다!',
@@ -107,7 +111,7 @@ export default function Creator() {
                 <Line width={1280} />
                 {infor ?
                     <>
-                        <input style={{
+                        <input onClick={() => history.push(auctiondirect)} style={{
                             cursor: "pointer",
                             outline: 0,
                             position: "fixed",
@@ -118,7 +122,8 @@ export default function Creator() {
                             fontSize: 24,
                             color: "#ffffff",
                             fontWeight: "bold",
-                            alignSelf: "center"
+                            alignSelf: "center",
+                            textDecorationLine: "none"
                         }} type="button" value="공모 참여하기" />
                         <div style={{
                             width: 1060,
