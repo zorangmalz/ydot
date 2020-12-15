@@ -1,8 +1,14 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Header, { CreatorInfo, vh, vw } from '../Style'
 import { AiOutlineQuestionCircle } from 'react-icons/ai'
+import {useFirebase} from "react-redux-firebase"
 
 export default function HomeMain() {
+    const firebase=useFirebase()
+    useEffect(()=>{
+        firebase.auth().onAuthStateChanged((user)=>
+        console.log(user))
+    })
     const jison = {
         ongoing: false,
         img: "",

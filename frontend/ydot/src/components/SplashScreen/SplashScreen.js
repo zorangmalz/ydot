@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header, { FAQ, GuideBox, vh, vw } from '../Style'
 import {useFirebase} from "react-redux-firebase"
-import fire from '../../fbase'
+// import fire from '../../fbase'
 import { useHistory } from "react-router-dom"
 export default function SplashScreen() {
     const history=useHistory()
@@ -55,14 +55,17 @@ export default function SplashScreen() {
         console.log(nickname)
     },[nickname])
     const login=()=>{
-
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(()=>{
-            fire.auth().signInWithEmailAndPassword(name,nickname).then((user)=>{
-                return history.push("/home")
-            }).catch((error)=>{
-                console.log(error)
+        firebase.login({
+            email:name,
+            password:nickname
+        }).then(()=>{
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(()=>{
+                firebase.auth().onAuthStateChanged((user)=>{
+                    return history.push("/home")
+                })
             })
         })
+        
         
     }
     return (
