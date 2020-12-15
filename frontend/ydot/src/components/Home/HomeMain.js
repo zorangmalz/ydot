@@ -1,14 +1,24 @@
 import React,{useEffect} from 'react'
 import Header, { CreatorInfo, vh, vw } from '../Style'
 import { AiOutlineQuestionCircle } from 'react-icons/ai'
-import {useFirebase} from "react-redux-firebase"
-
+import {useFirebase,useFirestore} from "react-redux-firebase"
+import { useSelector } from "react-redux";
 export default function HomeMain() {
     const firebase=useFirebase()
+    const firestore=useFirestore()
+    const { uid } = useSelector((state) => state.firebase.auth);
     useEffect(()=>{
         firebase.auth().onAuthStateChanged((user)=>
         console.log(user))
-    })
+ 
+    
+    },[])
+    // function add(){
+    //     firestore.collection("User").doc(uid).set({
+    //         uid:uid,
+    //         hi:"hi"
+    //     })
+    // }
     const jison = {
         ongoing: false,
         img: "",

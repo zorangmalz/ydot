@@ -6,6 +6,7 @@ import HomeMain from './components/Home/HomeMain';
 import Creator from './components/Home/Creator';
 import AuctionMain from './components/Auction/AuctionMain';
 import AuctionCreator from './components/Auction/AuctionCreator';
+import PrivateRoute from "./components/PrivateRoute"
 
 function App() {
   return (
@@ -14,10 +15,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={SplashScreen} />
           {/* 여기서 : id가 먼저 렌더링 될 수 있게 나와야 한다. */}
-          <Route path="/home/:id"><Creator /></Route>
-          <Route path="/home"><HomeMain /></Route>
-          <Route path="/auction/:id"><AuctionCreator /></Route>
-          <Route path="/auction"><AuctionMain /></Route>
+          <PrivateRoute path="/home/:id"><Creator /></PrivateRoute>
+          <PrivateRoute path="/home"><HomeMain /></PrivateRoute>
+          <PrivateRoute path="/auction/:id"><AuctionCreator /></PrivateRoute>
+          <PrivateRoute path="/auction"><AuctionMain /></PrivateRoute>
         </Switch>
       </Router>
     </>
