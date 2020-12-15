@@ -180,7 +180,7 @@ export default function Creator() {
                                             <div style={{
                                                 fontSize: 21,
                                                 fontWeight: "bold",
-                                                color: "#202426",
+                                                color: "#202426", 
                                                 marginRight: 10
                                             }}>3.5</div>
                                             <BsStarFill style={{ marginRight: 8 }} color="#ffde00" size={18} />

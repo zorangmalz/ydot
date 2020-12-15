@@ -10,7 +10,7 @@ export default function AuctionMain({}) {
             introduction: ["브이로거 지순이의 일상을 만나보세요!", <br />, "대학교부터 알바까지 일상을 공유하고 있습니다."],
             start: "2020/12/20 오전 11시",
         },
-        {
+        { 
             ongoing: true,
             img: "",
             name: "청춘 댕댕",

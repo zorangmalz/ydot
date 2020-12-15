@@ -1,10 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header, { FAQ, GuideBox, vh, vw } from '../Style'
-import { Link } from 'react-router-dom';
-
+import {useFirebase} from "react-redux-firebase"
+import fire from '../../fbase'
+import { useHistory } from "react-router-dom"
 export default function SplashScreen() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const history=useHistory()
+    const firebase=useFirebase()
+    const [inputs, setInputs] = useState({  
+        name: '',
+        nickname: '',
+    })
+    const { name, nickname } = inputs   
+    const onChange = (e) => {
+     const { name, value } = e.target   
+     const nextInputs = {            
+             ...inputs,  
+             [name]: value,
+         }
+         setInputs(nextInputs)       
+     }
+
     const firstguide = {
         title: "크리에이터 정보 확인",
         content: ["크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히", <br />, "읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을", <br />, "가지고 있습니다. 경쟁 크리에이터들과 비교해 투자할", <br />, "크리에이터를 선정해 보세요"],
@@ -29,6 +44,27 @@ export default function SplashScreen() {
     const [three, setThree] = useState(false)
     const [four, setFour] = useState(false)
     const [five, setFive] = useState(false)
+    const [test,setTest]=useState("")
+    // useEffect(()=>{
+    //     fire.firestore().collection("User").doc("userA").get().then(doc=>{
+    //         setTest(doc.data().name)
+    //         console.log(doc.data().name)
+    //     })
+    // })
+    useEffect(()=>{
+        console.log(nickname)
+    },[nickname])
+    const login=()=>{
+
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(()=>{
+            fire.auth().signInWithEmailAndPassword(name,nickname).then((user)=>{
+                return history.push("/home")
+            }).catch((error)=>{
+                console.log(error)
+            })
+        })
+        
+    }
     return (
         <>
             <Header splash={true} />
@@ -62,7 +98,7 @@ export default function SplashScreen() {
                             fontWeight: "bold",
                             color: "#202426",
                             textAlign: "left"
-                        }}>처음 가지는 <br />나만의 크리에이터</p>
+                        }}>처음 가지는 <br />나만의 크리에이터</p> 
                         <p style={{
                             fontSize: 24,
                             color: "#202426",
@@ -80,7 +116,7 @@ export default function SplashScreen() {
                             borderBottomColor: "#202426",
                             paddingBottom: 10,
                             verticalAlign: "center"
-                        }} type="text" name="email" value={email} placeholder="이메일 주소" onChange={({ text }) => setEmail(text)} />
+                        }} type="text" name="name" placeholder="이메일 주소" onChange={onChange}  value={name} />
                         <input style={{
                             fontSize: 18,
                             opacity: 0.8,
@@ -92,7 +128,7 @@ export default function SplashScreen() {
                             paddingBottom: 10,
                             marginTop: 10,
                             verticalAlign: "center"
-                        }} type="password" name="password" value={password} placeholder="비밀번호" onChange={({ text }) => setPassword(text)} />
+                        }} type="password" name="nickname"placeholder="비밀번호" onChange={onChange} value={nickname}  />
                         <div style={{
                             alignSelf: "flex-end",
                             fontSize: 18,
@@ -104,7 +140,8 @@ export default function SplashScreen() {
                             margin: 0,
                             marginTop: 10
                         }}>비밀번호를 잊으셨나요?</div>
-                        <Link to={'/home'}><input style={{
+                        {/* <Link to={'/home'}> */}
+                            <input onClick={login} style={{
                             cursor: "pointer",
                             outline: 0,
                             width: 300,
@@ -117,7 +154,8 @@ export default function SplashScreen() {
                             borderWidth: 0,
                             fontWeight: "bold",
                             textDecorationLine: "none"
-                        }} type="button" value="참여하기" /></Link>
+                        }} type="button" value="참여하기" />
+                        {/* </Link> */}
                     </div>
                     <input style={{
                         cursor: "pointer",
