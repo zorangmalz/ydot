@@ -1,17 +1,18 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import Header, { CreatorInfo, vh, vw } from '../Style'
 import { AiOutlineQuestionCircle } from 'react-icons/ai'
 import {useFirebase,useFirestore} from "react-redux-firebase"
 import { useSelector } from "react-redux";
 export default function HomeMain() {
+    
     const firebase=useFirebase()
     const firestore=useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
+    const [items,setItems]=useState([]);
+
     useEffect(()=>{
-        firebase.auth().onAuthStateChanged((user)=>
-        console.log(user))
- 
-    
+   load()
+        
     },[])
     // function add(){
     //     firestore.collection("User").doc(uid).set({
@@ -19,27 +20,55 @@ export default function HomeMain() {
     //         hi:"hi"
     //     })
     // }
-    const jison = {
-        ongoing: false,
-        img: "",
-        name: "지순’s 일상",
-        introduction: ["브이로거 지순이의 일상을 만나보세요!", <br />, "대학교부터 알바까지 일상을 공유하고 있습니다."],
-        start: "2020/12/20 오전 11시"
+    useEffect(()=>{
+        console.log(items)
+    },[items])
+    async function load(){
+        firestore.collection("Creator").onSnapshot(querySnapshot=>{
+            const list=[]
+            querySnapshot.forEach(doc=>{
+                list.push({
+                    img:"",
+                    name:doc.id,
+                    FundingNum:doc.data().FundingNum,
+                    FundingTotal:doc.data().FundingTotal,
+                    percent:doc.data().FundingTotal/doc.data().FundingAim*100
+                })
+            })
+            setItems(list)
+        })
+        console.log(items)
     }
-    const dang = {
-        ongoing: false,
-        img: "",
-        name: "청춘 댕댕",
-        introduction: ["귀여운 청춘 댕댕이와 함께하는 랜선 애견!", <br />, "청춘이의 댕댕미 넘치는 영상을 만나보세요."],
-        start: "2020/12/20 오전 11시"
-    }
-    const tire = {
-        ongoing: false,
-        img: "",
-        name: "타이어 아저씨 TV",
-        introduction: ["고급부터 가성비까지 폭넓게 다루는", <br />, "타이어 아저씨의 미식로그"],
-        start: "2020/12/20 오전 11시"
-    }
+    const CreatorList = [
+        {
+            
+            img: "",
+            name: "지순’s 일상",
+            FundingNum: 10000,
+            FundingTotal: 900000,
+        },
+        { 
+            
+            img: "",
+            name: "청춘 댕댕",
+            FundingNum: 10000,
+            FundingTotal: 900000,
+        },
+        {
+            
+            img: "",
+            name: "타이어 아저씨 TV",
+            FundingNum: 10000,
+            FundingTotal: 900000,
+        },
+        {
+            
+            img: "",
+            name: "타이어 아저씨 TV",
+            FundingNum: 10000,
+            FundingTotal: 900000,
+        },
+    ]
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#ffffff"}}>
             <Header splash={false} bold="Home" />
@@ -58,27 +87,15 @@ export default function HomeMain() {
                 alignItems: "center",
                 justifyContent: "center"
             }}>
-                <CreatorInfo
-                    ongoing={jison.ongoing}
-                    img={jison.img}
-                    name={jison.name}
-                    introduction={jison.introduction}
-                    start={jison.start}
-                />
-                <CreatorInfo
-                    ongoing={dang.ongoing}
-                    img={dang.img}
-                    name={dang.name}
-                    introduction={dang.introduction}
-                    start={dang.start}
-                />
-                <CreatorInfo
-                    ongoing={tire.ongoing}
-                    img={tire.img}
-                    name={tire.name}
-                    introduction={tire.introduction}
-                    start={tire.start}
-                />
+               {items.map(element => 
+                        <CreatorInfo  
+                            img={element.img} 
+                            name={element.name}
+                            FundingNum={element.FundingNum}
+                            FundingTotal={element.FundingTotal}
+                            percent={element.percent}
+                        />
+                    )}
             </div>
             <div style={{
                 display: "flex",

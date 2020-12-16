@@ -23,7 +23,14 @@ export default function AuctionMain({}) {
             name: "타이어 아저씨 TV",
             introduction: ["고급부터 가성비까지 폭넓게 다루는", <br />, "타이어 아저씨의 미식로그"],
             start: "2020/12/20 오전 11시",
-        }
+        },
+        {
+            ongoing: true,
+            img: "",
+            name: "타이어 아저씨 TV",
+            introduction: ["고급부터 가성비까지 폭넓게 다루는", <br />, "타이어 아저씨의 미식로그"],
+            start: "2020/12/20 오전 11시",
+        },
     ]
     return (
         <>
@@ -48,7 +55,7 @@ export default function AuctionMain({}) {
                     alignItems: "center",
                     justifyContent: "center"
                 }}>
-                    {CreatorList.map(element => 
+                    {/* {CreatorList.map(element => 
                         <CreatorInfo 
                             ongoing={element.ongoing}
                             img={element.img} 
@@ -56,7 +63,7 @@ export default function AuctionMain({}) {
                             introduction={element.introduction}
                             start={element.start}
                         />
-                    )}
+                    )} */}
                 </div>
             </div>
         </>

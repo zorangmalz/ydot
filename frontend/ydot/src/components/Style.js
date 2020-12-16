@@ -189,7 +189,7 @@ export function FAQ({ title, content, value, onClick }) {
 }
 
 //HomeMain.js와 AuctionMain.js 요소
-export function CreatorInfo({ ongoing, img, name, introduction, start }) {
+export function CreatorInfo({ img, name, FundingNum, FundingTotal,percent }) {
     const direct = "/home/" + String(name)
     const auctiondirect = "/auction/" + String(name)
     return (
@@ -197,7 +197,7 @@ export function CreatorInfo({ ongoing, img, name, introduction, start }) {
             <div style={{
                 width: 400,
                 paddingTop: 20,
-                paddingBottom: ongoing ? 0 : 20,
+                paddingBottom: 20,
                 backgroundColor: "#efefef",
                 borderRadius: 30,
                 display: "flex",
@@ -220,15 +220,22 @@ export function CreatorInfo({ ongoing, img, name, introduction, start }) {
                     color: "#202426",
                     opacity: 0.8,
                     marginTop: 10
-                }}>{introduction}</div>
+                }}>{FundingNum} 개 판매</div>
                 <div style={{
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#202426",
                     marginTop: 10,
                     marginBottom: 10,
-                }}>경매 시작일 : {start}</div>
-                {ongoing ?
+                }}>{FundingTotal} 원 펀딩</div>
+ <div style={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginTop: 10,
+                    marginBottom: 10,
+                }}>{percent} %</div>
+                {/* {ongoing ?
                     <Link to={auctiondirect}><input style={{
                         cursor: "pointer",
                         outline: 0,
@@ -265,7 +272,7 @@ export function CreatorInfo({ ongoing, img, name, introduction, start }) {
                         }}>상세정보</div>
                         <FiArrowRightCircle size={22} color="#202426" />
                     </button></Link>
-                }
+                } */}
             </div>
         </>
     )
