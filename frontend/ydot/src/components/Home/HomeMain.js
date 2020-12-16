@@ -12,7 +12,6 @@ export default function HomeMain() {
 
     useEffect(()=>{
    load()
-        
     },[])
     // function add(){
     //     firestore.collection("User").doc(uid).set({
@@ -20,10 +19,9 @@ export default function HomeMain() {
     //         hi:"hi"
     //     })
     // }
-    useEffect(()=>{
-        console.log(items)
-    },[items])
+ 
     async function load(){
+        var date=new Date()
         firestore.collection("Creator").onSnapshot(querySnapshot=>{
             const list=[]
             querySnapshot.forEach(doc=>{
@@ -32,43 +30,44 @@ export default function HomeMain() {
                     name:doc.id,
                     FundingNum:doc.data().FundingNum,
                     FundingTotal:doc.data().FundingTotal,
-                    percent:doc.data().FundingTotal/doc.data().FundingAim*100
+                    percent:doc.data().FundingTotal/doc.data().FundingAim*100,
+                    Deadline:parseInt((doc.data().Deadline-date.getTime())/86400000)
                 })
             })
             setItems(list)
         })
-        console.log(items)
+        
     }
-    const CreatorList = [
-        {
+    // const CreatorList = [
+    //     {
             
-            img: "",
-            name: "지순’s 일상",
-            FundingNum: 10000,
-            FundingTotal: 900000,
-        },
-        { 
+    //         img: "",
+    //         name: "지순’s 일상",
+    //         FundingNum: 10000,
+    //         FundingTotal: 900000,
+    //     },
+    //     { 
             
-            img: "",
-            name: "청춘 댕댕",
-            FundingNum: 10000,
-            FundingTotal: 900000,
-        },
-        {
+    //         img: "",
+    //         name: "청춘 댕댕",
+    //         FundingNum: 10000,
+    //         FundingTotal: 900000,
+    //     },
+    //     {
             
-            img: "",
-            name: "타이어 아저씨 TV",
-            FundingNum: 10000,
-            FundingTotal: 900000,
-        },
-        {
+    //         img: "",
+    //         name: "타이어 아저씨 TV",
+    //         FundingNum: 10000,
+    //         FundingTotal: 900000,
+    //     },
+    //     {
             
-            img: "",
-            name: "타이어 아저씨 TV",
-            FundingNum: 10000,
-            FundingTotal: 900000,
-        },
-    ]
+    //         img: "",
+    //         name: "타이어 아저씨 TV",
+    //         FundingNum: 10000,
+    //         FundingTotal: 900000,
+    //     },
+    // ]
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#ffffff"}}>
             <Header splash={false} bold="Home" />
@@ -94,6 +93,7 @@ export default function HomeMain() {
                             FundingNum={element.FundingNum}
                             FundingTotal={element.FundingTotal}
                             percent={element.percent}
+                            Deadline={element.Deadline}
                         />
                     )}
             </div>

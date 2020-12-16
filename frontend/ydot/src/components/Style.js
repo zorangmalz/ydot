@@ -189,7 +189,7 @@ export function FAQ({ title, content, value, onClick }) {
 }
 
 //HomeMain.js와 AuctionMain.js 요소
-export function CreatorInfo({ img, name, FundingNum, FundingTotal,percent }) {
+export function CreatorInfo({ img, name, FundingNum, FundingTotal,percent,Deadline }) {
     const direct = "/home/" + String(name)
     const auctiondirect = "/auction/" + String(name)
     return (
@@ -235,6 +235,13 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal,percent }) {
                     marginTop: 10,
                     marginBottom: 10,
                 }}>{percent} %</div>
+                <div style={{
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginTop: 10,
+                    marginBottom: 10,
+                }}>D-{Deadline==0? 0 : Deadline}</div>
                 {/* {ongoing ?
                     <Link to={auctiondirect}><input style={{
                         cursor: "pointer",
