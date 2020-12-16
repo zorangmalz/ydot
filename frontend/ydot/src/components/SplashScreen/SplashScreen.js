@@ -61,7 +61,7 @@ export default function SplashScreen() {
         }).then(()=>{
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(()=>{
                 firebase.auth().onAuthStateChanged((user)=>{
-                    return history.push("/home")
+                history.push("/home")
                 })
             })
         })

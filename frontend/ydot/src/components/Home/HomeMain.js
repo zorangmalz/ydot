@@ -3,8 +3,10 @@ import Header, { CreatorInfo, vh, vw } from '../Style'
 import { AiOutlineQuestionCircle } from 'react-icons/ai'
 import {useFirebase,useFirestore} from "react-redux-firebase"
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom"
+import { Link } from 'react-router-dom';
 export default function HomeMain() {
-    
+    const history=useHistory()
     const firebase=useFirebase()
     const firestore=useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
@@ -68,6 +70,8 @@ export default function HomeMain() {
     //         FundingTotal: 900000,
     //     },
     // ]
+    
+
     return (
         <div style={{display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#ffffff"}}>
             <Header splash={false} bold="Home" />
@@ -86,7 +90,10 @@ export default function HomeMain() {
                 alignItems: "center",
                 justifyContent: "center"
             }}>
+                
                {items.map(element => 
+
+               
                         <CreatorInfo  
                             img={element.img} 
                             name={element.name}
@@ -95,7 +102,9 @@ export default function HomeMain() {
                             percent={element.percent}
                             Deadline={element.Deadline}
                         />
+                        
                     )}
+                    
             </div>
             <div style={{
                 display: "flex",

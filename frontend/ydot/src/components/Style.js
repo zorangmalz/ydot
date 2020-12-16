@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaUserCircle, FaArrowRight } from 'react-icons/fa';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FiArrowRightCircle } from 'react-icons/fi';
-
+import { useHistory } from "react-router-dom"
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
 
@@ -190,11 +190,18 @@ export function FAQ({ title, content, value, onClick }) {
 
 //HomeMain.js와 AuctionMain.js 요소
 export function CreatorInfo({ img, name, FundingNum, FundingTotal,percent,Deadline }) {
+    const history=useHistory()
+
     const direct = "/home/" + String(name)
     const auctiondirect = "/auction/" + String(name)
+//link 쓰려다가 화면이 이상해져서 history 로 대체. 뭔차인지는 모르겠음ㅇ
+    function move(){
+        history.push("/home/" + String(name))
+    }
     return (
         <>
-            <div style={{
+        
+            <div onClick={move} style={{
                 width: 400,
                 paddingTop: 20,
                 paddingBottom: 20,
@@ -242,6 +249,7 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal,percent,Deadli
                     marginTop: 10,
                     marginBottom: 10,
                 }}>D-{Deadline==0? 0 : Deadline}</div>
+                
                 {/* {ongoing ?
                     <Link to={auctiondirect}><input style={{
                         cursor: "pointer",
@@ -281,6 +289,7 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal,percent,Deadli
                     </button></Link>
                 } */}
             </div>
+            
         </>
     )
 }
