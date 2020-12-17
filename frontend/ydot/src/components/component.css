@@ -1,0 +1,22 @@
+.assetTitle {
+    opacity: 0.6;
+    color: #202426;
+    font-size: 18;
+    font-weight: normal;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+.startColumn {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: start;    
+}
+
+.spaceRow { 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

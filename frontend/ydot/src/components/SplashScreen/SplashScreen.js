@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import Header, { FAQ, GuideBox, vh, vw } from '../Style'
-import {useFirebase} from "react-redux-firebase"
+import { useFirebase } from "react-redux-firebase"
 // import fire from '../../fbase'
 import { useHistory } from "react-router-dom"
 export default function SplashScreen() {
-    const history=useHistory()
-    const firebase=useFirebase()
-    const [inputs, setInputs] = useState({  
+    const history = useHistory()
+    const firebase = useFirebase()
+    const [inputs, setInputs] = useState({
         name: '',
         nickname: '',
     })
-    const { name, nickname } = inputs   
+    const { name, nickname } = inputs
     const onChange = (e) => {
-     const { name, value } = e.target   
-     const nextInputs = {            
-             ...inputs,  
-             [name]: value,
-         }
-         setInputs(nextInputs)       
-     }
+        const { name, value } = e.target
+        const nextInputs = {
+            ...inputs,
+            [name]: value,
+        }
+        setInputs(nextInputs)
+    }
 
     const firstguide = {
         title: "크리에이터 정보 확인",
@@ -44,29 +44,29 @@ export default function SplashScreen() {
     const [three, setThree] = useState(false)
     const [four, setFour] = useState(false)
     const [five, setFive] = useState(false)
-    const [test,setTest]=useState("")
+    const [test, setTest] = useState("")
     // useEffect(()=>{
     //     fire.firestore().collection("User").doc("userA").get().then(doc=>{
     //         setTest(doc.data().name)
     //         console.log(doc.data().name)
     //     })
     // })
-    useEffect(()=>{
+    useEffect(() => {
         console.log(nickname)
-    },[nickname])
-    const login=()=>{
+    }, [nickname])
+    const login = () => {
         firebase.login({
-            email:name,
-            password:nickname
-        }).then(()=>{
-            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(()=>{
-                firebase.auth().onAuthStateChanged((user)=>{
-                history.push("/home")
+            email: name,
+            password: nickname
+        }).then(() => {
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+                firebase.auth().onAuthStateChanged((user) => {
+                    history.push("/home")
                 })
             })
         })
-        
-        
+
+
     }
     return (
         <>
@@ -101,7 +101,7 @@ export default function SplashScreen() {
                             fontWeight: "bold",
                             color: "#202426",
                             textAlign: "left"
-                        }}>처음 가지는 <br />나만의 크리에이터</p> 
+                        }}>처음 가지는 <br />나만의 크리에이터</p>
                         <p style={{
                             fontSize: 24,
                             color: "#202426",
@@ -119,7 +119,7 @@ export default function SplashScreen() {
                             borderBottomColor: "#202426",
                             paddingBottom: 10,
                             verticalAlign: "center"
-                        }} type="text" name="name" placeholder="이메일 주소" onChange={onChange}  value={name} />
+                        }} type="text" name="name" placeholder="이메일 주소" onChange={onChange} value={name} />
                         <input style={{
                             fontSize: 18,
                             opacity: 0.8,
@@ -131,7 +131,7 @@ export default function SplashScreen() {
                             paddingBottom: 10,
                             marginTop: 10,
                             verticalAlign: "center"
-                        }} type="password" name="nickname"placeholder="비밀번호" onChange={onChange} value={nickname}  />
+                        }} type="password" name="nickname" placeholder="비밀번호" onChange={onChange} value={nickname} />
                         <div style={{
                             alignSelf: "flex-end",
                             fontSize: 18,
@@ -143,8 +143,7 @@ export default function SplashScreen() {
                             margin: 0,
                             marginTop: 10
                         }}>비밀번호를 잊으셨나요?</div>
-                        {/* <Link to={'/home'}> */}
-                            <input onClick={login} style={{
+                        <input onClick={login} style={{
                             cursor: "pointer",
                             outline: 0,
                             width: 300,
@@ -158,7 +157,6 @@ export default function SplashScreen() {
                             fontWeight: "bold",
                             textDecorationLine: "none"
                         }} type="button" value="참여하기" />
-                        {/* </Link> */}
                     </div>
                     <input style={{
                         cursor: "pointer",
@@ -255,8 +253,8 @@ export default function SplashScreen() {
                 </div>
             </div>
             <div style={{
-                width : 56 * vw,
-                height : 150,
+                width: 56 * vw,
+                height: 150,
                 paddingLeft: 22 * vw,
                 paddingRight: 22 * vw,
                 backgroundColor: "#202426",
@@ -280,10 +278,10 @@ export default function SplashScreen() {
                     flexDirection: "column",
                     alignItems: "flex-start",
                 }}>
-                    <div style={{fontSize: 14, color: "#ffffff", marginBottom: 7}}>주식회사 조랑말즈</div>
-                    <div style={{fontSize: 14, color: "#ffffff", marginBottom: 7}}>대표자 : 김현명</div>
-                    <div style={{fontSize: 14, color: "#ffffff", marginBottom: 7}}>주소 : 서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
-                    <div style={{fontSize: 14, color: "#ffffff"}}>연락처 : 010-4337-6607</div>
+                    <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주식회사 조랑말즈</div>
+                    <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>대표자 : 김현명</div>
+                    <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주소 : 서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
+                    <div style={{ fontSize: 14, color: "#ffffff" }}>연락처 : 010-4337-6607</div>
                 </div>
             </div>
         </>
