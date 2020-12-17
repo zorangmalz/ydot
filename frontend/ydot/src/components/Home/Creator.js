@@ -7,48 +7,86 @@ import { ImTwitch } from 'react-icons/im'
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'
 import { useHistory } from 'react-router-dom'
 import callAPI from "../../line"
+import {useFirebase,useFirestore} from "react-redux-firebase"
+import { useSelector } from "react-redux";
 
+export default function Creator() {
 
 //팝업부분을 여기다 구현해놓음. 나중에 input값을 coinAmount변수로 넣어서 주면 됨
 async function transaction(){
-//여기에 나중에 얼마 코인 보내고 얼마 받고 설정, 팝업에서
-let AdminAddress="tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
-let AdminSecret="msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
-let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-let UserSecret="t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-
-let path=`/v1/wallets/${UserAddress}/base-coin/transfer`
-let coinAmount="100"
-let txid=await callAPI("POST",path,{
-    "walletSecret":UserSecret,
-    "toAddress":AdminAddress,
-    "amount":coinAmount
-})
-//amount 부분을 조정하면됨. 그거에 비례해서 토큰 트랜잭션 띄워주기
-//callapi 는 line.js에 만들어둠
-console.log(txid)
-//txid=transaction hash. 이걸 파베에 저장~
-transactionToken(coinAmount)
-}
-async function transactionToken(coinAmount){
-
-    //요건 코인의 양에 따라 다시 토큰을 재분배해주는것
-
+    //여기에 나중에 얼마 코인 보내고 얼마 받고 설정, 팝업에서
     let AdminAddress="tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
     let AdminSecret="msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
     let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
     let UserSecret="t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-    let ContractID="b2e77278"
-    let path=`/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
     
+    let path=`/v1/wallets/${UserAddress}/base-coin/transfer`
+    let coinAmount="1000000"
     let txid=await callAPI("POST",path,{
-        "walletSecret":AdminSecret,
-        "toAddress":UserAddress,
+        "walletSecret":UserSecret,
+        "toAddress":AdminAddress,
         "amount":coinAmount
     })
+    //amount 부분을 조정하면됨. 그거에 비례해서 토큰 트랜잭션 띄워주기
+    //callapi 는 line.js에 만들어둠
     console.log(txid)
-}
-export default function Creator() {
+    //txid=transaction hash. 이걸 파베에 저장~
+    transactionToken(coinAmount)
+    }
+    async function transactionToken(coinAmount){
+    
+        //요건 코인의 양에 따라 다시 토큰을 재분배해주는것
+    
+        let AdminAddress="tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
+        let AdminSecret="msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
+        let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let UserSecret="t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+        let ContractID="fb37526d"
+        let path=`/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
+        
+        let txid=await callAPI("POST",path,{
+            "walletSecret":AdminSecret,
+            "toAddress":UserAddress,
+            "amount":coinAmount
+        })
+        console.log(txid)
+        
+        firestoreUpload(coinAmount,txid)
+    
+    }
+    async function firestoreUpload(coinAmount,txid){
+        const len=coinAmount.length
+        var coin=coinAmount.slice(0,len-6)
+        
+        const today=new Date()
+        const year=today.getFullYear();
+        const month=today.getMonth()+1
+        const day=today.getDate()
+
+        firestore.collection("User").doc(uid).collection("Fund").doc(name).set({
+            DayTime:year+"/"+month+"/"+day,
+            Money:Number(coin),
+            TransactionHash:txid,
+            Number:Number(coin),
+            ongoing:0
+            
+        })
+        var now
+        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").get().then(doc=>{
+            now=doc.data().FundingTotal
+        })
+        console.log(now)
+        console.log(coin)
+        console.log(Number(now)+Number(coin))
+        alert(Number(now)+Number(coin))
+        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").update({
+            FundingTotal:Number(now)+Number(coin)
+            
+        })
+    }
+
+    const firestore=useFirestore()
+    const { uid } = useSelector((state) => state.firebase.auth);
     const history = useHistory()
     const [infor, setInfor] = useState(true)
     const name = "지순’s 일상"
