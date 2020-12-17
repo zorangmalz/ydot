@@ -6,7 +6,48 @@ import { AiFillYoutube } from 'react-icons/ai'
 import { ImTwitch } from 'react-icons/im'
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'
 import { useHistory } from 'react-router-dom'
+import callAPI from "../../line"
 
+
+//팝업부분을 여기다 구현해놓음. 나중에 input값을 coinAmount변수로 넣어서 주면 됨
+async function transaction(){
+//여기에 나중에 얼마 코인 보내고 얼마 받고 설정, 팝업에서
+let AdminAddress="tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
+let AdminSecret="msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
+let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+let UserSecret="t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+
+let path=`/v1/wallets/${UserAddress}/base-coin/transfer`
+let coinAmount="100"
+let txid=await callAPI("POST",path,{
+    "walletSecret":UserSecret,
+    "toAddress":AdminAddress,
+    "amount":coinAmount
+})
+//amount 부분을 조정하면됨. 그거에 비례해서 토큰 트랜잭션 띄워주기
+//callapi 는 line.js에 만들어둠
+console.log(txid)
+//txid=transaction hash. 이걸 파베에 저장~
+transactionToken(coinAmount)
+}
+async function transactionToken(coinAmount){
+
+    //요건 코인의 양에 따라 다시 토큰을 재분배해주는것
+
+    let AdminAddress="tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
+    let AdminSecret="msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
+    let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+    let UserSecret="t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+    let ContractID="b2e77278"
+    let path=`/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
+    
+    let txid=await callAPI("POST",path,{
+        "walletSecret":AdminSecret,
+        "toAddress":UserAddress,
+        "amount":coinAmount
+    })
+    console.log(txid)
+}
 export default function Creator() {
     const history = useHistory()
     const [infor, setInfor] = useState(true)
@@ -111,7 +152,7 @@ export default function Creator() {
                 <Line width={1280} />
                 {infor ?
                     <>
-                        <input onClick={() => history.push(auctiondirect)} style={{
+                        <input onClick={transaction} style={{
                             cursor: "pointer",
                             outline: 0,
                             position: "fixed",
@@ -445,40 +486,7 @@ export default function Creator() {
                                             marginLeft: 10
                                         }}>개</div>
                                     </div>
-                                    <div style={{
-                                        opacity: 0.6,
-                                        fontSize: 18,
-                                        color: "#202426",
-                                        marginBottom: 10,
-                                        marginLeft: 10
-                                    }}>구매 가격</div>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        width: 230,
-                                        paddingLeft: 30,
-                                        paddingRight: 30,
-                                        paddingTop: 17,
-                                        paddingBottom: 17,
-                                        borderRadius: 50,
-                                        backgroundColor: "#F2F2F2",
-                                        marginBottom: 20
-                                    }}>
-                                        <input type="text" onChange={({ text }) => setPrice(text)} value={price} style={{
-                                            fontSize: 18,
-                                            color: "#202426",
-                                            border: 0,
-                                            backgroundColor: "#F2F2F2",
-                                            textAlign: "right"
-                                        }} />
-                                        <div style={{
-                                            fontSize: 18,
-                                            fontWeight: "bold",
-                                            color: "#202426",
-                                            marginLeft: 10
-                                        }}>원</div>
-                                    </div>
+                                    
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
@@ -513,6 +521,19 @@ export default function Creator() {
                                             marginLeft: 10
                                         }}>%</div>
                                     </div>
+                                    <input style={{
+                                        cursor: "pointer",
+                                        outline: 0,
+                                        width: 290,
+                                        height: 60,
+                                        marginTop: 40,
+                                        borderRadius: 50,
+                                        fontSize: 18,
+                                        fontWeight: "bold",
+                                        color: "#ffffff",
+                                        backgroundColor: "#e78276",
+                                        border: 0
+                                    }} type="button" value="계산" />
                                 </div>
                                 <div style={{
                                     display: "flex",
@@ -588,19 +609,7 @@ export default function Creator() {
                                             marginLeft: 10
                                         }}>%</div>
                                     </div>
-                                    <input style={{
-                                        cursor: "pointer",
-                                        outline: 0,
-                                        width: 290,
-                                        height: 60,
-                                        marginTop: 40,
-                                        borderRadius: 50,
-                                        fontSize: 18,
-                                        fontWeight: "bold",
-                                        color: "#ffffff",
-                                        backgroundColor: "#e78276",
-                                        border: 0
-                                    }} type="button" value="계산" />
+                                  
                                 </div>
                                 <div style={{
                                     width: 290,
