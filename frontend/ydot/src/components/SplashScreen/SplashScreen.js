@@ -3,6 +3,7 @@ import Header, { FAQ, GuideBox, vh, vw } from '../Style'
 import { useFirebase } from "react-redux-firebase"
 // import fire from '../../fbase'
 import { useHistory } from "react-router-dom"
+import splash from '../icon/splash.png'
 export default function SplashScreen() {
     const history = useHistory()
     const firebase = useFirebase()
@@ -76,11 +77,12 @@ export default function SplashScreen() {
                 flexDirection: "row",
                 alignItems: "flex-start",
                 justifyContent: "center",
-                backgroundColor: "#ffffff",
+                backgroundColor: "#F5F5F5",
                 width: 100 * vw,
-                height: 540
+                height: 470,
+                paddingTop: 40
             }}>
-                <img src="src/components/icon/splash.png" alt="" style={{
+                <img src={splash} style={{
                     width: 264,
                     height: 400
                 }} />
@@ -118,7 +120,9 @@ export default function SplashScreen() {
                             width: 295,
                             borderBottomColor: "#202426",
                             paddingBottom: 10,
-                            verticalAlign: "center"
+                            verticalAlign: "center",
+                            backgroundColor: "#F5F5F5",
+                            outline: 0
                         }} type="text" name="name" placeholder="이메일 주소" onChange={onChange} value={name} />
                         <input style={{
                             fontSize: 18,
@@ -130,9 +134,13 @@ export default function SplashScreen() {
                             borderBottomColor: "#202426",
                             paddingBottom: 10,
                             marginTop: 10,
-                            verticalAlign: "center"
+                            verticalAlign: "center",
+                            backgroundColor: "#F5F5F5",
+                            outline: 0
                         }} type="password" name="nickname" placeholder="비밀번호" onChange={onChange} value={nickname} />
-                        <div style={{
+                        <input type="button" style={{
+                            outline: 0,
+                            cursor: "pointer",
                             alignSelf: "flex-end",
                             fontSize: 18,
                             opacity: 0.6,
@@ -142,7 +150,7 @@ export default function SplashScreen() {
                             textDecorationLine: "underline",
                             margin: 0,
                             marginTop: 10
-                        }}>비밀번호를 잊으셨나요?</div>
+                        }} value="비밀번호를 잊으셨나요?" />
                         <input onClick={login} style={{
                             cursor: "pointer",
                             outline: 0,
@@ -169,18 +177,19 @@ export default function SplashScreen() {
                         fontSize: 16,
                         color: "#e78276",
                         borderWidth: 0,
+                        backgroundColor: "#F5F5F5"
                     }} type="button" value="비밀번호를 확인해주세요" />
                 </div>
             </div>
             <div style={{
                 width: 100 * vw,
-                backgroundColor: "#efefef",
-                paddingTop: 80,
+                backgroundColor: "#ffffff",
+                paddingTop: 40,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center"
             }}>
-                <p style={{
+                {/* <p style={{
                     fontSize: 24,
                     fontWeight: "bold",
                     color: "#202426",
@@ -213,44 +222,44 @@ export default function SplashScreen() {
                         button={threeguide.button}
                         center={threeguide.content}
                     />
-                </div>
+                </div> */}
                 <p style={{
-                    marginTop: 100,
                     fontSize: 24,
                     fontWeight: "bold",
                     color: "#202426",
                     marginBottom: 40,
                 }}>FAQ</p>
-                <div>
-                    <FAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setOne(!one)}
-                    />
-                    <FAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setTwo(!two)}
-                    />
-                    <FAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setThree(!three)}
-                    />
-                    <FAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setFour(!four)}
-                    />
-                    <FAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setFive(!five)}
-                    />
-                    <div style={{
-                        textAlign: "right",
-                        fontSize: 18,
-                        color: "#202426",
-                        textDecorationLine: "underline",
-                        paddingRight: 20,
-                        marginBottom: 12.5 * vh
-                    }}>더 궁금한 질문이 있으신가요?</div>
-                </div>
+                <FAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                    onClick={() => setOne(!one)}
+                />
+                <FAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                    onClick={() => setTwo(!two)}
+                />
+                <FAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                    onClick={() => setThree(!three)}
+                />
+                <FAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                    onClick={() => setFour(!four)}
+                />
+                <FAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                    onClick={() => setFive(!five)}
+                />
+                <input type="button" style={{
+                    alignSelf: "flex-end",
+                    fontSize: 18,
+                    color: "#202426",
+                    textDecorationLine: "underline",
+                    marginBottom: 12.5 * vh,
+                    outline: 0,
+                    cursor: "pointer",
+                    backgroundColor: "#ffffff",
+                    border: 0,
+                }} value="더 궁금한 질문이 있으신가요?" />
             </div>
             <div style={{
                 width: 56 * vw,

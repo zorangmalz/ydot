@@ -5,6 +5,7 @@ import { FaUserCircle, FaArrowRight, FaArrowDown } from 'react-icons/fa';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
 import { FiArrowRightCircle } from 'react-icons/fi';
+import { BiCheckCircle } from 'react-icons/bi'
 import { useHistory } from "react-router-dom"
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
@@ -147,7 +148,7 @@ export function FAQ({ title, content, value, onClick }) {
             width: 840,
             height: value ? 160 : 80,
             borderRadius: 30,
-            backgroundColor: "#ffffff",
+            backgroundColor: "#efefef",
             paddingBottom: value ? 40 : 0,
             paddingLeft: 40,
             paddingRight: 40,
@@ -172,7 +173,7 @@ export function FAQ({ title, content, value, onClick }) {
                     cursor: "pointer",
                     outline: 0,
                     border: 0,
-                    backgroundColor: "#ffffff"
+                    backgroundColor: "#efefef"
                 }}><AiFillCaretDown size={24} color="#202426" /></button>
             </div>
             {value ?
@@ -568,6 +569,7 @@ export function Calculator({ value, setValue, unit }) {
     )
 }
 
+//Popup 디자인
 export function PopupOne() {
     const [use, setUse] = useState(false)
     const [one, setOne] = useState(false)
@@ -596,7 +598,7 @@ export function PopupOne() {
             justifyContent: "center",
             width: 100 * vw,
             height: 100 * vh,
-            backgroundColor: "#959697"
+            backgroundColor: "rgba(0, 0, 0, 0.4)"
         }}>
             <div style={{
                 width: 340,
@@ -852,7 +854,7 @@ export function PopupTwo() {
             justifyContent: "center",
             width: 100 * vw,
             height: 100 * vh,
-            backgroundColor: "#959697"
+            backgroundColor: "rgba(0, 0, 0, 0.4)"
         }}>
             <div style={{
                 width: 340,
@@ -891,7 +893,7 @@ export function PopupTwo() {
                         outline: 0,
                         border: 0,
                         textAlign: "right"
-                    }} value={money} onChange={({text}) => setMoney(text)} />
+                    }} value={money} onChange={({ text }) => setMoney(text)} />
                     <div style={{
                         fontSize: 18,
                         fontWeight: "normal",
@@ -972,7 +974,7 @@ export function PopupTwo() {
                     textAlign: "right",
                     marginBottom: 20,
                 }}>최대 100,000 ₩</div>
-                <FaArrowDown size={32} color="#000000" style={{marginBottom: 20, height: 40, width: 32}} />
+                <FaArrowDown size={32} color="#000000" style={{ marginBottom: 20, height: 40, width: 32 }} />
                 <div style={{
                     fontSize: 20,
                     fontWeight: "bold",
@@ -994,6 +996,76 @@ export function PopupTwo() {
                     color: "#ffffff",
                     alignSelf: "center",
                 }} value="펀딩하기" />
+            </div>
+        </div>
+    )
+}
+
+export function PopupThree() {
+    const address = "0x649640518e043295c86e674b4904…e6989215db2"
+    return (
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 100 * vw,
+            height: 100 * vh,
+            backgroundColor: "rgba(0, 0, 0, 0.4)"
+        }}>
+            <div style={{
+                width: 340,
+                height: 376,
+                paddingTop: 30,
+                paddingBottom: 40,
+                paddingRight: 30,
+                paddingLeft: 30,
+                backgroundColor: "#ffffff",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <div style={{
+                    fontSize: 21,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 40,
+                }}>펀딩 완료</div>
+                <BiCheckCircle color="#202426" size={120} style={{width: 120, height: 120, marginBottom: 40}} />
+                <div style={{
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#161513",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 20,
+                }}>Tx hash</div>
+                <div style={{
+                    fontSize: 12,
+                    color: "#202426",
+                    lineHeight: 1.33,
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column"
+                }}>
+                    <div style={{textAlign: "center", marginBottom: 10}}>{address}</div>
+                    <input type="button" style={{ marginRight: 18, fontSize: 12, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20}} value="View in LINK Scope" />
+                </div>
+                <input type="button" style={{
+                    cursor: "pointer",
+                    width: 300,
+                    height: 48,
+                    border: 0,
+                    outline: 0,
+                    borderRadius: 10,
+                    backgroundColor: "#202426",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#ffffff",
+                    alignSelf: "center",
+                }} value="완료" />
             </div>
         </div>
     )
