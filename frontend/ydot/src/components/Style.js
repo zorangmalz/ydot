@@ -319,6 +319,7 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal, percent, Dead
     )
 }
 
+//HomeMain.js랑 Creator.js에서 많이 사용
 export function CloseBeta({img, title, content}) {
     return (
         <>
@@ -450,17 +451,18 @@ export function QAList({ title, content }) {
             alignItems: "flex-start"
         }}>
             <div style={{
-                fontSize: 21,
+                fontSize: 18,
                 fontWeight: "bold",
                 color: "#161513",
+                letterSpacing: 0.22,
                 marginBottom: 20
             }}>{title}</div>
             <div style={{
-                fontSize: 18,
+                fontSize: 16,
                 opacity: 0.8,
-                color: "#161513",
-                lineHeight: 1.39,
-                marginBottom: 40
+                color: "#202426",
+                lineHeight: 1.88,
+                marginBottom: 20
             }}>{content}</div>
         </div>
     )
@@ -630,7 +632,7 @@ export function Calculator({ value, setValue, unit }) {
 }
 
 //Popup 디자인
-export function PopupOne() {
+export function PopupOne({ setVisible, setNextVisible }) {
     const [use, setUse] = useState(false)
     const [one, setOne] = useState(false)
     const [two, setTwo] = useState(false)
@@ -650,9 +652,14 @@ export function PopupOne() {
     const FourIcon = four ? <BsCheck color="#161513" size={16} /> : <></>
     const InvestIcon = invest ? <BsCheck color="#161513" size={16} /> : <></>
 
+    const onNext = () => {
+        setVisible(false)
+        setNextVisible(true)
+    }
+
     return (
         <div style={{
-            position: "relative",
+            position: "absolute",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -660,17 +667,17 @@ export function PopupOne() {
             width: 100 * vw,
             height: 100 * vh,
         }}>
-            <div style={{
+            <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
                 width: 100 * vw,
                 height: 100 * vh,
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 0,
+                zIndex: 1,
             }} />
             <div style={{
-                zIndex: 1,
+                zIndex: 2,
                 width: 340,
                 height: 376,
                 paddingTop: 30,
@@ -868,7 +875,7 @@ export function PopupOne() {
                         justifyContent: "center"
                     }}>{InvestIcon}</button>
                 </div>
-                <input type="button" style={{
+                <input onClick={onNext} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
@@ -901,7 +908,7 @@ function PopupReducer(state, action) {
     }
 }
 
-export function PopupTwo() {
+export function PopupTwo({ setVisible, setNextVisible }) {
     const [number, dispatch] = useReducer(PopupReducer, 0)
     const onTwentyfive = () => {
         dispatch({ type: "25" })
@@ -916,6 +923,10 @@ export function PopupTwo() {
         dispatch({ type: "max" })
     }
     const [money, setMoney] = useState("")
+    const onNext = () => {
+        setVisible(false)
+        setNextVisible(true)
+    }
     return (
         <div style={{
             position: "relative",
@@ -926,7 +937,7 @@ export function PopupTwo() {
             width: 100 * vw,
             height: 100 * vh,
         }}>
-            <div style={{
+            <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
                 width: 100 * vw,
@@ -1063,7 +1074,7 @@ export function PopupTwo() {
                     textAlign: "center",
                     marginBottom: 40,
                 }}>30 JSC</div>
-                <input type="button" style={{
+                <input onClick={onNext} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
@@ -1081,7 +1092,7 @@ export function PopupTwo() {
     )
 }
 
-export function PopupThree() {
+export function PopupThree({ setVisible }) {
     const address = "0x649640518e043295c86e674b4904…e6989215db2"
     return (
         <div style={{
@@ -1093,7 +1104,7 @@ export function PopupThree() {
             width: 100 * vw,
             height: 100 * vh,
         }}>
-            <div style={{
+            <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
                 width: 100 * vw,
@@ -1143,7 +1154,7 @@ export function PopupThree() {
                     <div style={{ textAlign: "center", marginBottom: 10 }}>{address}</div>
                     <input type="button" style={{ marginRight: 18, fontSize: 12, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20 }} value="View in LINK Scope" />
                 </div>
-                <input type="button" style={{
+                <input onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
