@@ -12,20 +12,19 @@ import { PopupOne, PopupThree, PopupTwo } from './components/Style';
 
 function App() {
   return (
-    <SplashScreen />
-    // <>
-    //   <Router>
-    //     <Switch>
-    //       <Route path="/" exact component={SplashScreen} />
-    //       {/* 여기서 : id가 먼저 렌더링 될 수 있게 나와야 한다. */}
-    //       {/* 로그인 이후에는 그냥 route말고 미리 설정한 privateroute로 감싸기 */}
-    //       <PrivateRoute path="/home/:id"><Creator /></PrivateRoute>
-    //       <PrivateRoute path="/home"><HomeMain /></PrivateRoute>
-    //       <PrivateRoute path="/auction/:id"><AuctionCreator /></PrivateRoute>
-    //       <PrivateRoute path="/auction"><AuctionMain /></PrivateRoute>
-    //     </Switch>
-    //   </Router>
-    // </>
+    <>
+      <Router>
+        <Switch>
+          <Route path="/" exact component={SplashScreen} />
+          {/* 여기서 : id가 먼저 렌더링 될 수 있게 나와야 한다. */}
+          {/* 로그인 이후에는 그냥 route말고 미리 설정한 privateroute로 감싸기 */}
+          <PrivateRoute path="/home/:id"><Creator /></PrivateRoute>
+          <PrivateRoute path="/home"><HomeMain /></PrivateRoute>
+          <PrivateRoute path="/auction/:id"><AuctionCreator /></PrivateRoute>
+          <PrivateRoute path="/auction"><AuctionMain /></PrivateRoute>
+        </Switch>
+      </Router>
+    </>
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
