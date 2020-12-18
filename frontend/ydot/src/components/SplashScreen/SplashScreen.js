@@ -146,7 +146,7 @@ export default function SplashScreen() {
                             opacity: 0.6,
                             color: "#202426",
                             borderWidth: 0,
-                            backgroundColor: "#ffffff",
+                            backgroundColor: "#F5F5F5",
                             textDecorationLine: "underline",
                             margin: 0,
                             marginTop: 10

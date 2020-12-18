@@ -61,14 +61,9 @@ export default function Header({ splash, bold, active }) {
                             <MenuItem to={'/home'} >
                                 펀딩하기
                             </MenuItem>
-                            <MenuItem to={'/auction'}>
-                                배당권 경매
-                            </MenuItem>
-                          
-                                  <MenuItem to={'/asset'}>
+                            <MenuItem to={'/asset'}>
                                 내 자산
-                                </MenuItem>
-                           
+                            </MenuItem>
                         </>
                     }
                 </div>
@@ -320,6 +315,43 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal, percent, Dead
                 } */}
             </div>
 
+        </>
+    )
+}
+
+export function CloseBeta({img, title, content}) {
+    return (
+        <>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                marginLeft: 20,
+                marginRight: 20
+            }}>
+                <img src={img} style={{width: 80, height: 80, marginTop: 7, marginRight: 40}} />
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start"
+                }}>
+                    <div style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        marginBottom: 10
+                    }}>{title}</div>
+                    <div style={{
+                        opacity: 0.8,
+                        fontSize: 16,
+                        color: "#202426",
+                        lineHeight: 1.88,
+                        letterSpacing: 0.19,
+                        width: 390,
+                    }}>{content}</div>
+                </div>
+            </div>
         </>
     )
 }

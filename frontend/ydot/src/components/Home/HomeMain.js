@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import Header, { CreatorInfo, vh, vw } from '../Style'
+import Header, { CloseBeta, CreatorInfo, vh, vw } from '../Style'
 import { AiOutlineQuestionCircle } from 'react-icons/ai'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { Link } from 'react-router-dom';
 import callAPI from "../../line"
+
+//클로즈 베타 이미지
+import fan from '../icon/fan.png'
+import auction from '../icon/auction.jpg'
+import moneyBag from '../icon/money-bag.jpg'
+import personalInfo from '../icon/personal-information.jpg'
 
 //임시 이미지
 import Creatorone from '../icon/Creatorone.png'
@@ -150,213 +156,44 @@ export default function HomeMain() {
             }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
             <div style={{
                 display: "flex",
+                flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                marginTop: 40,
             }}>
-                <div style={{
-                    marginTop: 33,
-                    width: 1060,
-                    borderRadius: 30,
-                    backgroundColor: "#f4f5f7",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                }}>
-                    <ul style={{
-                        marginLeft: 100,
-                        marginRight: 116,
-                        marginTop: 30,
-                        marginBottom: 30,
-                    }}>
-                        <li style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-start"
-                        }}>
-                            <div style={{
-                                fontSize: 16,
-                                color: "#202426",
-                                opacity: 0.6,
-                                width: 221,
-                                textAlign: "left"
-                            }}>크리에이터 이름</div>
-                            <div style={{
-                                fontSize: 16,
-                                color: "#202426",
-                                opacity: 0.6,
-                                width: 150,
-                                textAlign: "left"
-                            }}>예상 배당액</div>
-                            <div style={{
-                                fontSize: 16,
-                                color: "#202426",
-                                opacity: 0.6,
-                                width: 220,
-                                textAlign: "left"
-                            }}>일일 조회수</div>
-                            <div style={{
-                                fontSize: 16,
-                                color: "#202426",
-                                opacity: 0.6,
-                                textAlign: "left"
-                            }}>일일 구독자수</div>
-                        </li>
-                        <li style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-start",
-                            marginTop: 20
-                        }}>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                width: 221,
-                                textAlign: "left"
-                            }}>1 지순's 일상</div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#78e185",
-                                width: 150,
-                                textAlign: "left",
-                                fontWeight: "bold"
-                            }}>1,100</div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                width: 220,
-                                textAlign: "left",
-                                display: "flex",
-                                flexDirection: "row",
-                                fontWeight: "bold"
-                            }}>1,000,000 (<div style={{ color: "#78e185" }}>+1.12%</div>)
-                            </div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                textAlign: "left",
-                                display: "flex",
-                                flexDirection: "row",
-                                fontWeight: "bold",
-                                marginRight: 30
-                            }}>10,000 (<div style={{ color: "#78e185" }}>+100</div>)
-                            </div>
-                            <input style={{
-                                cursor: "pointer",
-                                outline: 0,
-                                fontSize: 16,
-                                color: "#212426",
-                                textDecorationLine: "underline",
-                                opacity: 0.6,
-                                border: 0,
-                                margin: 0,
-                            }} type="button" value="자세히" />
-                        </li>
-                        <li style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-start",
-                            marginTop: 20
-                        }}>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                width: 221,
-                                textAlign: "left"
-                            }}>2 청춘 댕댕</div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#78e185",
-                                width: 150,
-                                textAlign: "left",
-                                fontWeight: "bold"
-                            }}>100,000</div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                width: 220,
-                                textAlign: "left",
-                                display: "flex",
-                                flexDirection: "row",
-                                fontWeight: "bold"
-                            }}>1,000,000 (<div style={{ color: "#78e185" }}>+1.12%</div>)
-                            </div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                textAlign: "left",
-                                display: "flex",
-                                flexDirection: "row",
-                                fontWeight: "bold",
-                                marginRight: 30
-                            }}>10,000 (<div style={{ color: "#78e185" }}>+100</div>)
-                            </div>
-                            <input style={{
-                                cursor: "pointer",
-                                outline: 0,
-                                fontSize: 16,
-                                color: "#212426",
-                                textDecorationLine: "underline",
-                                opacity: 0.6,
-                                border: 0,
-                                margin: 0,
-                            }} type="button" value="자세히" />
-                        </li>
-                        <li style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "flex-start",
-                            marginTop: 20
-                        }}>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                width: 221,
-                                textAlign: "left"
-                            }}>3 타이어 아저씨 TV</div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#e78276",
-                                width: 150,
-                                textAlign: "left",
-                                fontWeight: "bold"
-                            }}>100,000</div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                width: 220,
-                                textAlign: "left",
-                                display: "flex",
-                                flexDirection: "row",
-                                fontWeight: "bold"
-                            }}>1,000,000 (<div style={{ color: "#e78276" }}>-1.12%</div>)
-                            </div>
-                            <div style={{
-                                fontSize: 18,
-                                color: "#202426",
-                                textAlign: "left",
-                                display: "flex",
-                                flexDirection: "row",
-                                fontWeight: "bold",
-                                marginRight: 30
-                            }}>10,000 (<div style={{ color: "#e78276" }}>-100</div>)
-                            </div>
-                            <input style={{
-                                cursor: "pointer",
-                                outline: 0,
-                                fontSize: 16,
-                                color: "#212426",
-                                textDecorationLine: "underline",
-                                opacity: 0.6,
-                                border: 0,
-                                margin: 0,
-                            }} type="button" value="자세히" />
-                        </li>
-                    </ul>
-                </div>
+                <CloseBeta 
+                    img={personalInfo}
+                    title="크리에이터 정보 확인"
+                    content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
+                    읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
+                    가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
+                />
+                <CloseBeta 
+                    img={auction}
+                    title="크라우드 펀딩 참여"
+                    content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
+                    각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
+                    빠르게 마음에 드는 크리에이터를 선점하세요!"
+                />
+            </div>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 44,
+            }}>
+                <CloseBeta 
+                    img={moneyBag}
+                    title="토큰 및 리워드 수령"
+                    content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
+                />
+                <CloseBeta 
+                    img={fan}
+                    title="피드백은 언제나 환영입니다!"
+                    content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
+                    언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
+                />
             </div>
         </div>
     )
