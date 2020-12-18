@@ -620,15 +620,25 @@ export function PopupOne() {
 
     return (
         <div style={{
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             width: 100 * vw,
             height: 100 * vh,
-            backgroundColor: "rgba(0, 0, 0, 0.4)"
         }}>
             <div style={{
+                position: "absolute",
+                top: 0,
+                width: 100 * vw,
+                height: 100 * vh,
+                backgroundColor: "#000000",
+                opacity: 0.4,
+                zIndex: 0,
+            }} />
+            <div style={{
+                zIndex: 1,
                 width: 340,
                 height: 376,
                 paddingTop: 30,
@@ -876,15 +886,25 @@ export function PopupTwo() {
     const [money, setMoney] = useState("")
     return (
         <div style={{
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             width: 100 * vw,
             height: 100 * vh,
-            backgroundColor: "rgba(0, 0, 0, 0.4)"
         }}>
             <div style={{
+                position: "absolute",
+                top: 0,
+                width: 100 * vw,
+                height: 100 * vh,
+                backgroundColor: "#000000",
+                opacity: 0.4,
+                zIndex: 0,
+            }} />
+            <div style={{
+                zIndex: 1,
                 width: 340,
                 height: 376,
                 paddingTop: 30,
@@ -1033,15 +1053,25 @@ export function PopupThree() {
     const address = "0x649640518e043295c86e674b4904…e6989215db2"
     return (
         <div style={{
+            position: "relative",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             width: 100 * vw,
             height: 100 * vh,
-            backgroundColor: "rgba(0, 0, 0, 0.4)"
         }}>
             <div style={{
+                position: "absolute",
+                top: 0,
+                width: 100 * vw,
+                height: 100 * vh,
+                backgroundColor: "#000000",
+                opacity: 0.4,
+                zIndex: 0,
+            }} />
+            <div style={{
+                zIndex: 1,
                 width: 340,
                 height: 376,
                 paddingTop: 30,
