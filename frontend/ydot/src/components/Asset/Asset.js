@@ -4,7 +4,10 @@ import "../component.css"
 import { useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { Link } from 'react-router-dom';
+
+//이미지
 import assetgraph from '../icon/assetgraph.png'
+import jisuncard from '../icon/jisuncard.png'
 
 export default function Asset() {
     const firestore = useFirestore()
@@ -474,6 +477,27 @@ export default function Asset() {
                                     </div>
                                 </>
                             )}
+                        </div>
+                        <div style={{
+                            opacity: 0.6,
+                            fontSize: 18,
+                            color: "#202426",
+                            maxWidth: "20%",
+                            minWidth: 180,
+                            marginTop: 20,
+                            marginBottom: 20
+                        }}>보유카드</div>
+                        <div style={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between"
+                        }}>
+                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
+                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
+                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
+                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
                         </div>
                     </div>
                 </>
