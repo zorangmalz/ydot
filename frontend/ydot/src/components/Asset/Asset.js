@@ -1,8 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Header, { vh, vw } from '../Style'
 import "../component.css"
-
+import { useSelector } from "react-redux";
+import {useFirebase,useFirestore} from "react-redux-firebase"
+import { Link } from 'react-router-dom';
 export default function Asset() {
+
+    const firestore=useFirestore()
+    const { uid } = useSelector((state) => state.firebase.auth);
+    const [items,setItems]=useState([])
+useEffect(()=>{
+    firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
+        const list = []
+        
+        querySnapshot.forEach(doc => {
+            list.push({
+               date:doc.data().DayTime,
+               name:doc.id,
+               unit:doc.data().unit,
+               state:doc.data().ongoing,
+               hash:"https://explorer.blockchain.line.me/cashew/transaction/"+doc.data().TransactionHash.txHash,
+               amount:doc.data().Number,
+               total:doc.data().Money,
+               price:doc.data().Money/doc.data().Number,
+               
+            })
+            
+            
+        })
+        setItems(list)
+    })
+},[])
     const [section, setSection] = useState(true)
     const data = [
         {
@@ -526,7 +554,7 @@ export default function Asset() {
                             <div style={{ width: 60 }}>상태</div>
                         </div>
                         <div style={{ width: "100%", height: 1, backgroundColor: "#D2D3D3", marginBottom: 20 }} />
-                        {participate.map(element =>
+                        {items.map(element =>
                             <div style={{
                                 display: "flex",
                                 flexDirection: "row",
@@ -545,7 +573,9 @@ export default function Asset() {
                                 <div style={{ width: 70 }}>{element.amount}</div>
                                 <div style={{ width: 100 }}>{element.price}</div>
                                 <div style={{ width: 100 }}>{element.total}</div>
-                                <div style={{ width: 60 }}>{element.state}</div>
+                                <a href={element.hash}  target="_blank">
+                                <div style={{ width: 60 }}>{element.state==0? "진행중" : (element.state==1? "실패":"성공") }</div>
+                                </a>
                             </div>
                         )}
                     </div>

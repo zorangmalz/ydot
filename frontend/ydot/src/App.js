@@ -22,6 +22,7 @@ function App() {
           <PrivateRoute path="/home"><HomeMain /></PrivateRoute>
           <PrivateRoute path="/auction/:id"><AuctionCreator /></PrivateRoute>
           <PrivateRoute path="/auction"><AuctionMain /></PrivateRoute>
+          <PrivateRoute path="/asset"><Asset /></PrivateRoute>
         </Switch>
       </Router>
     </>
