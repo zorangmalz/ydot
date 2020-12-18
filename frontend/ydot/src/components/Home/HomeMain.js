@@ -5,7 +5,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { Link } from 'react-router-dom';
-import callAPI from "../../line"
+
 
 //클로즈 베타 이미지
 import fan from '../icon/fan.png'
@@ -19,29 +19,6 @@ import Creatortwo from '../icon/Creatortwo.png'
 import Creatorthree from '../icon/Creatorthree.png'
 import Creatorfour from '../icon/Creatorfour.png'
 
-//유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-async function CoinAmount() {
-    let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-    let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-
-    let path = `/v1/wallets/${UserAddress}/base-coin`
-
-    let txid = await callAPI("GET", path)
-    console.log(txid)
-    TokenNumber()
-}
-//유저의 토큰 개수. 내자산 및 팝업에서 토큰 개수 및 토큰 양 보여주는데 사용
-async function TokenNumber() {
-    let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-    let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-    let path = `/v1/wallets/${UserAddress}/service-tokens`
-    let txid = await callAPI("GET", path)
-    //내자산 팝업에서 보유토큰에 쓰일 변수
-    // console.log(txid.length)
-
-
-    //유저의 코인 총량. 내 자산에서 원 대신에 보여주면 됨
-}
 
 
 export default function HomeMain() {
@@ -53,7 +30,7 @@ export default function HomeMain() {
 
     useEffect(() => {
         load()
-        CoinAmount()
+        
     }, [])
     // function add(){
     //     firestore.collection("User").doc(uid).set({
