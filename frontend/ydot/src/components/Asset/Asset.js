@@ -197,7 +197,7 @@ export default function Asset() {
                         paddingLeft: 8 * vw,
                         paddingRight: 8 * vw,
                         backgroundColor: "#ffffff",
-                        height: 80 * vh,
+                        height: 90 * vh,
                     }}>
                         <div style={{
                             display: "flex",
@@ -506,7 +506,7 @@ export default function Asset() {
                     <div style={{
                         width: 68 * vw,
                         backgroundColor: "#ffffff",
-                        height: 80 * vh,
+                        height: 90 * vh,
                     }}>
                         <div style={{
                             fontSize: 18,
