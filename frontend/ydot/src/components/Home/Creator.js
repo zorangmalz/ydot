@@ -110,7 +110,7 @@ export default function Creator() {
         const month = today.getMonth() + 1
         const day = today.getDate()
 
-        firestore.collection("User").doc(uid).collection("Fund").doc(name).set({
+        firestore.collection("User").doc(uid).collection("Fund").doc(names).set({
             DayTime: year + "/" + month + "/" + day,
             Money: Number(coin),
             TransactionHash: txid,
@@ -131,12 +131,12 @@ export default function Creator() {
 
         })
     }
-
+    
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
     const history = useHistory()
-    const name = "지순’s 일상"
-    const auctiondirect = "/auction/" + String(name)
+    const names = "지순’s 일상"
+    const auctiondirect = "/auction/" + String(names)
     const QA = [
         {
             title: 'Q1. 자기 소개 부탁드립니다!',
@@ -190,6 +190,24 @@ export default function Creator() {
     const [modalOne, setModalOne] = useState(false)
     const [modalTwo, setModalTwo] = useState(false)
     const [modalThree, setModalThree] = useState(false)
+
+    //input
+    const [inputs, setInputs] = useState({
+        name: '',
+        nickname: '',
+    })
+    const { name, nickname } = inputs
+    const onChange = (e) => {
+        const { name, value } = e.target
+        const nextInputs = {
+            ...inputs,
+            [name]: value,
+        }
+        setInputs(nextInputs)
+    }
+    useEffect(()=>{
+        console.log(name,nickname)
+    })
     return (
         <>
             {modalOne ?
@@ -277,7 +295,7 @@ export default function Creator() {
                                             fontWeight: "bold",
                                             color: "#202426",
                                             marginBottom: 10
-                                        }}>900
+                                        }}>10,000
                                         <div style={{
                                                 display: "inline-block",
                                                 fontSize: 16,
@@ -341,7 +359,7 @@ export default function Creator() {
                                                 fontSize: 21,
                                                 fontWeight: "bold",
                                                 marginLeft: 4,
-                                            }}>1</div> LINK
+                                            }}>1.636</div> LINK
                                     </div>
                                         <div style={{
                                             fontSize: 16,
@@ -354,7 +372,7 @@ export default function Creator() {
                                                 fontSize: 21,
                                                 fontWeight: "bold",
                                                 marginLeft: 4,
-                                            }}>1000</div> LINK
+                                            }}>16,362.236</div> LINK
                                     </div>
                                     </div>
                                 </div>
@@ -804,7 +822,7 @@ export default function Creator() {
                                                 backgroundColor: "#F2F2F2",
                                                 marginBottom: 20
                                             }}>
-                                                <input type="text" onChange={({ text }) => setAmount(text)} value={amount} style={{
+                                                <input  type="text" name="name" placeholder="100" onChange={onChange} value={name} style={{
                                                     fontSize: 18,
                                                     color: "#202426",
                                                     border: 0,
@@ -839,7 +857,7 @@ export default function Creator() {
                                                 backgroundColor: "#F2F2F2",
                                                 marginBottom: 20
                                             }}>
-                                                <input type="text" onChange={({ text }) => setRate(text)} value={rate} style={{
+                                                <input type="text" name="nickname" placeholder="5" onChange={onChange} value={nickname} style={{
                                                     fontSize: 18,
                                                     color: "#202426",
                                                     border: 0,
