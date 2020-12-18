@@ -193,10 +193,10 @@ export default function Creator() {
     return (
         <>
             {modalOne ?
-                <PopupOne setVisible={setModalOne} nextVisible={setModalTwo} />
+                <PopupOne setVisible={setModalOne} setNextVisible={setModalTwo} />
                 :
                 modalTwo ? 
-                    <PopupTwo setVisible={setModalTwo} nextVisible={setModalThree} />
+                    <PopupTwo setVisible={setModalTwo} setNextVisible={setModalThree} />
                     :
                     modalThree ?
                         <PopupThree setVisible={setModalThree} />

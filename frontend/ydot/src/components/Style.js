@@ -1036,7 +1036,7 @@ export function PopupTwo({ setVisible, setNextVisible }) {
     }
     return (
         <div style={{
-            position: "relative",
+            position: "absolute",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -1203,7 +1203,7 @@ export function PopupThree({ setVisible }) {
     const address = "0x649640518e043295c86e674b4904…e6989215db2"
     return (
         <div style={{
-            position: "relative",
+            position: "absolute",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
