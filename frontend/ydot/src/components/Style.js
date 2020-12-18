@@ -16,7 +16,7 @@ export default function Header({ splash, bold }) {
         <header style={{
             zIndex: 3,
             width: 68 * vw,
-            height: 80,
+            height: 90,
             backgroundColor: "#ffffff",
             paddingTop: 12,
             paddingBottom: 12,
