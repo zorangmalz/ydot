@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useState,useEffect } from 'react'
 import Header, { CreatorIntro, Information, Line, vh, vw, QAList } from '../Style'
 import { GoHeart } from 'react-icons/go'
 import { IoMdShare } from 'react-icons/io'
@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom'
 import callAPI from "../../line"
 import {useFirebase,useFirestore} from "react-redux-firebase"
 import { useSelector } from "react-redux";
+import {PopupOne,PopupTwo,PopupThree} from "../Style"
 
 export default function Creator() {
 
@@ -142,8 +143,10 @@ async function transaction(){
     const [profit, setProfit] = useState("1000")
     const [goodrate, setGoodRate] = useState("5")
     return (
+        
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef" }}>
             <Header splash={false} bold="Creator" />
+            
             <div style={{
                 backgroundColor: "#efefef",
                 display: "flex",

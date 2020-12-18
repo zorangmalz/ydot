@@ -64,11 +64,11 @@ export default function Header({ splash, bold, active }) {
                             <MenuItem to={'/auction'}>
                                 배당권 경매
                             </MenuItem>
-                            <div style={{
-                                fontSize: 21,
-                                fontWeight: bold === "Asset" ? "bold" : "normal",
-                                color: "#202426"
-                            }}>내 자산</div>
+                          
+                                  <MenuItem to={'/asset'}>
+                                내 자산
+                                </MenuItem>
+                           
                         </>
                     }
                 </div>
