@@ -45,6 +45,8 @@ function reducer(state, action) {
 export default function Creator() {
     //펀딩정보, 채널 정보, 리워드 계산기
     const [infor, dispatch] = useReducer(reducer, 0)
+    const [fund,setFund]=useState(0)
+
     const onFund = () => {
         dispatch({ type: "fund" })
     }
@@ -56,83 +58,16 @@ export default function Creator() {
     }
 
     //Progress Circle 관련
-    const percentage = 70
+    
 
     //팝업부분을 여기다 구현해놓음. 나중에 input값을 coinAmount변수로 넣어서 주면 됨
-    async function transaction() {
+    function modal(){
         setModalOne(true)
-        //여기에 나중에 얼마 코인 보내고 얼마 받고 설정, 팝업에서
-        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
-        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-
-        let path = `/v1/wallets/${UserAddress}/base-coin/transfer`
-        let coinAmount = "1000000"
-        let txid = await callAPI("POST", path, {
-            "walletSecret": UserSecret,
-            "toAddress": AdminAddress,
-            "amount": coinAmount
-        })
-        //amount 부분을 조정하면됨. 그거에 비례해서 토큰 트랜잭션 띄워주기
-        //callapi 는 line.js에 만들어둠
-        console.log(txid)
-        //txid=transaction hash. 이걸 파베에 저장~
-        transactionToken(coinAmount)
-    }
-    async function transactionToken(coinAmount) {
-
-        //요건 코인의 양에 따라 다시 토큰을 재분배해주는것
-
-        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
-        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-        let ContractID = "fb37526d"
-        let path = `/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
-
-        let txid = await callAPI("POST", path, {
-            "walletSecret": AdminSecret,
-            "toAddress": UserAddress,
-            "amount": coinAmount
-        })
-        console.log(txid)
-
-        firestoreUpload(coinAmount, txid)
-
-    }
-    async function firestoreUpload(coinAmount, txid) {
-        const len = coinAmount.length
-        var coin = coinAmount.slice(0, len - 6)
-
-        const today = new Date()
-        const year = today.getFullYear();
-        const month = today.getMonth() + 1
-        const day = today.getDate()
-
-        firestore.collection("User").doc(uid).collection("Fund").doc(names).set({
-            DayTime: year + "/" + month + "/" + day,
-            Money: Number(coin),
-            TransactionHash: txid,
-            Number: Number(coin),
-            ongoing: 0
-
-        })
-        var now
-        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").get().then(doc => {
-            now = doc.data().FundingTotal
-        })
-        console.log(now)
-        console.log(coin)
-        console.log(Number(now) + Number(coin))
-        alert(Number(now) + Number(coin))
-        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").update({
-            FundingTotal: Number(now) + Number(coin)
-
-        })
     }
     
+    
     const firestore = useFirestore()
+
     const { uid } = useSelector((state) => state.firebase.auth);
     const history = useHistory()
     const names = "지순’s 일상"
@@ -192,6 +127,7 @@ export default function Creator() {
     const [modalThree, setModalThree] = useState(false)
     const [reward,setReward]=useState("")
     const [roi,setRoi]=useState("")
+    const[percentage,setPercentage]=useState(0)
     //input
     const [inputs, setInputs] = useState({
         name: '',
@@ -207,10 +143,17 @@ export default function Creator() {
         setInputs(nextInputs)
     }
     useEffect(()=>{
-        console.log(name,nickname)
-        
-    })
-
+        getInfo()
+       
+    },[])
+    useEffect(()=>{
+        setPercentage((fund/16360*100).toFixed(2))
+    },[fund])
+    function getInfo(){
+        firestore.collection("Creator").doc("[Vlog] 지순's 일상").onSnapshot(doc=>{
+            setFund(doc.data().FundingTotal)
+        })
+    }
     function calculate(){
         console.log(nickname,"this")
         var a=((Math.pow(1+Number(nickname)/100,12)-1)*10296940.94-16362236)/16362236
@@ -241,7 +184,7 @@ export default function Creator() {
                     justifyContent: "flex-start",
                     alignItems: "center",
                 }}>
-                    <input onClick={transaction} style={{
+                    <input onClick={modal} style={{
                         cursor: "pointer",
                         outline: 0,
                         position: "fixed",
@@ -306,7 +249,7 @@ export default function Creator() {
                                             fontWeight: "bold",
                                             color: "#202426",
                                             marginBottom: 10
-                                        }}>10,000
+                                        }}>{fund}
                                         <div style={{
                                                 display: "inline-block",
                                                 fontSize: 16,
@@ -351,7 +294,7 @@ export default function Creator() {
                                             fontWeight: "bold",
                                             color: "#202426",
                                             marginBottom: 10
-                                        }}>1000
+                                        }}>10000
                                         <div style={{
                                                 display: "inline-block",
                                                 fontSize: 16,
@@ -461,13 +404,13 @@ export default function Creator() {
                         }}>
                             <CloseBeta
                                 img={analytics}
-                                title="채널 수익의 20% 분배"
-                                content="3개월뒤 6개월간 채널수익의 20%를 리워드로 수령합니다. (2021/03/20일 ~ 2021/09/20)"
+                                title="채널 수익의 100% 분배"
+                                content="12개월간 채널수익의 100%를 리워드로 수령합니다. (2021/03/20일 ~ 2021/09/20)"
                             />
                             <CloseBeta
                                 img={awesomeCoins}
-                                title="월 평균 3%의 예상 성장률"
-                                content="해당 크리에이터의 펀딩 금액은 월 3%의 성장을 가정해 산정되었습니다. 성장률은 높을수도 낮을수도 있습니다."
+                                title="월 평균 9.05%의 예상 성장률"
+                                content="해당 크리에이터의 펀딩 금액은 월 9.05%의 성장을 가정해 산정되었습니다. 성장률은 높을수도 낮을수도 있습니다."
                             />
                         </div>
                         <div style={{

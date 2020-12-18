@@ -24,8 +24,9 @@ export default function Asset() {
                     state: doc.data().ongoing,
                     hash: "https://explorer.blockchain.line.me/cashew/transaction/" + doc.data().TransactionHash.txHash,
                     amount: doc.data().Number,
-                    total: doc.data().Money,
-                    price: doc.data().Money / doc.data().Number,
+                    total: Number(doc.data().Money)/1000000,
+                    price: doc.data().per,
+                    
                 })
             })
             setItems(list)
@@ -388,7 +389,7 @@ export default function Asset() {
                                                 opacity: 0.6,
                                                 fontSize: 14,
                                                 color: "#202426"
-                                            }}>{element.unit}</div>
+                                            }}>{element.per}</div>
                                         </div>
                                         <div style={{
                                             display: "flex",
@@ -600,8 +601,8 @@ export default function Asset() {
                                 <div style={{ width: 70 }}>{element.date}</div>
                                 <div style={{ width: 100 }}>{element.name}</div>
                                 <div style={{ width: 70 }}>{element.amount}</div>
-                                <div style={{ width: 100 }}>{element.price}</div>
-                                <div style={{ width: 100 }}>{element.total}</div>
+                                <div style={{ width: 100 }}>{element.price}     LINK</div>
+                                <div style={{ width: 100 }}>{element.total}     LINK</div>
                                 <a href={element.hash} target="_blank">
                                     <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
                                 </a>

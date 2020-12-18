@@ -428,7 +428,7 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal, percent, Dead
                     marginLeft: 20,
                     marginBottom: 10,
                     alignSelf: "flex-start"
-                }}><div style={{ display: "inline-block", fontWeight: "bold" }}>{FundingTotal}</div> 원 펀딩</div>
+                }}><div style={{ display: "inline-block", fontWeight: "bold" }}>{FundingTotal}</div> LINK 펀딩</div>
                 <ProgressBar completed={percent} />
                 {/* {ongoing ?
                     <Link to={auctiondirect}><input style={{
@@ -1098,6 +1098,35 @@ function PopupReducer(state, action) {
 }
 
 export function PopupTwo({ setVisible, setNextVisible }) {
+
+    const firestore = useFirestore()
+    const { uid } = useSelector((state) => state.firebase.auth);
+    const [money, setMoney] = useState("")
+    const [amount,setAmount]=useState("")
+    const [tok,setTok]=useState("")
+    //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
+async function CoinAmount() {
+    let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+    let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+
+    let path = `/v1/wallets/${UserAddress}/base-coin`
+
+    let txid = await callAPI("GET", path)
+    console.log(txid.amount)
+    var a=Number(txid.amount)/1000000
+    setAmount(a)
+}
+const onChange = (e) => {
+    console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
+    console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
+    setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
+}
+useEffect(()=>{
+    CoinAmount()
+},[])
+useEffect(()=>{
+    setTok((Number(money)/1.636).toFixed(6))
+},[money])
     const [number, dispatch] = useReducer(PopupReducer, 0)
     const onTwentyfive = () => {
         dispatch({ type: "25" })
@@ -1111,10 +1140,89 @@ export function PopupTwo({ setVisible, setNextVisible }) {
     const onMax = () => {
         dispatch({ type: "max" })
     }
-    const [money, setMoney] = useState("")
+    
     const onNext = () => {
+        transaction()
         setVisible(false)
         setNextVisible(true)
+    }
+
+
+    async function transaction() {
+        
+        //여기에 나중에 얼마 코인 보내고 얼마 받고 설정, 팝업에서
+        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
+        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
+        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+
+        let path = `/v1/wallets/${UserAddress}/base-coin/transfer`
+        let coinAmount = String(money*1000000)
+        let txid = await callAPI("POST", path, {
+            "walletSecret": UserSecret,
+            "toAddress": AdminAddress,
+            "amount": coinAmount
+        })
+        //amount 부분을 조정하면됨. 그거에 비례해서 토큰 트랜잭션 띄워주기
+        //callapi 는 line.js에 만들어둠
+        console.log(txid)
+        //txid=transaction hash. 이걸 파베에 저장~
+        transactionToken(coinAmount)
+    }
+    async function transactionToken(coinAmount) {
+
+        //요건 코인의 양에 따라 다시 토큰을 재분배해주는것
+
+        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
+        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
+        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+        let ContractID = "fb37526d"
+        let path = `/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
+        console.log(tok)
+        let token=String(tok*1000000)
+        console.log(token)
+        let txid = await callAPI("POST", path, {
+            "walletSecret": AdminSecret,
+            "toAddress": UserAddress,
+            "amount": token
+        })
+        console.log(txid)
+
+        firestoreUpload(coinAmount,tok, txid)
+
+    }
+    async function firestoreUpload(coinAmount,tok, txid) {
+        const names = "지순’s 일상"
+        const len = coinAmount.length
+        
+
+        const today = new Date()
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1
+        const day = today.getDate()
+
+        firestore.collection("User").doc(uid).collection("Fund").doc(names).set({
+            DayTime: year + "/" + month + "/" + day,
+            Money: Number(coinAmount),
+            TransactionHash: txid,
+            Number: Number(tok),
+            ongoing: 0,
+            per:1.636
+
+        })
+        var now
+        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").get().then(doc => {
+            now = doc.data().FundingTotal
+        })
+        console.log(now)
+        
+        
+        
+        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").update({
+            FundingTotal: Number(now) + Number(coinAmount)/1000000
+
+        })
     }
     return (
         <div style={{
@@ -1173,12 +1281,12 @@ export function PopupTwo({ setVisible, setNextVisible }) {
                         outline: 0,
                         border: 0,
                         textAlign: "right"
-                    }} value={money} onChange={({ text }) => setMoney(text)} />
+                    }} value={money} onChange={onChange} />
                     <div style={{
                         fontSize: 18,
                         fontWeight: "normal",
                         color: "#202426"
-                    }}>원</div>
+                    }}>LINK</div>
                 </div>
                 <div style={{
                     width: 240,
@@ -1253,7 +1361,7 @@ export function PopupTwo({ setVisible, setNextVisible }) {
                     width: 222,
                     textAlign: "right",
                     marginBottom: 20,
-                }}>최대 100,000 ₩</div>
+                }}>최대 {amount} LINK</div>
                 <FaArrowDown size={32} color="#000000" style={{ marginBottom: 20, height: 40, width: 32 }} />
                 <div style={{
                     fontSize: 20,
@@ -1262,7 +1370,7 @@ export function PopupTwo({ setVisible, setNextVisible }) {
                     width: "100%",
                     textAlign: "center",
                     marginBottom: 40,
-                }}>30 JSC</div>
+                }}>{tok} JSC</div>
                 <input onClick={onNext} type="button" style={{
                     cursor: "pointer",
                     width: 300,
@@ -1283,6 +1391,18 @@ export function PopupTwo({ setVisible, setNextVisible }) {
 
 export function PopupThree({ setVisible }) {
     const address = "0x649640518e043295c86e674b4904…e6989215db2"
+    const firestore = useFirestore()
+    const { uid } = useSelector((state) => state.firebase.auth);
+    const [hash,setHash]=useState("")
+    function getInfo(){
+        firestore.collection("User").doc(uid).collection("Fund").doc("지순’s 일상").onSnapshot(doc=>{
+            setHash(doc.data().TransactionHash.txHash)
+        })
+        console.log("g")
+    }
+    useEffect(()=>{
+        getInfo()
+    },[])
     return (
         <div style={{
             position: "absolute",
@@ -1340,7 +1460,7 @@ export function PopupThree({ setVisible }) {
                     display: "flex",
                     flexDirection: "column"
                 }}>
-                    <div style={{ textAlign: "center", marginBottom: 10 }}>{address}</div>
+                    <div style={{ textAlign: "center", marginBottom: 10 }}>{hash}</div>
                     <input type="button" style={{ marginRight: 18, fontSize: 12, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20 }} value="View in LINK Scope" />
                 </div>
                 <input onClick={() => setVisible(false)} type="button" style={{
