@@ -190,7 +190,8 @@ export default function Creator() {
     const [modalOne, setModalOne] = useState(false)
     const [modalTwo, setModalTwo] = useState(false)
     const [modalThree, setModalThree] = useState(false)
-
+    const [reward,setReward]=useState("")
+    const [roi,setRoi]=useState("")
     //input
     const [inputs, setInputs] = useState({
         name: '',
@@ -207,7 +208,17 @@ export default function Creator() {
     }
     useEffect(()=>{
         console.log(name,nickname)
+        
     })
+
+    function calculate(){
+        console.log(nickname,"this")
+        var a=((Math.pow(1+Number(nickname)/100,12)-1)*10296940.94-16362236)/16362236
+        console.log(a)
+        setRoi((a*100).toFixed(2))
+        var b=Number(name)*a+Number(name)
+        setReward(b.toFixed(0))
+    }
     return (
         <>
             {modalOne ?
@@ -372,7 +383,7 @@ export default function Creator() {
                                                 fontSize: 21,
                                                 fontWeight: "bold",
                                                 marginLeft: 4,
-                                            }}>16,362.236</div> LINK
+                                            }}>16,360</div> LINK
                                     </div>
                                     </div>
                                 </div>
@@ -899,24 +910,14 @@ export default function Creator() {
                                                 marginBottom: 20,
                                                 border: "2px solid #212426"
                                             }}>
-                                                <input type="text" onChange={({ text }) => setProfit(text)} value={profit} style={{
-                                                    fontSize: 18,
-                                                    fontWeight: "bold",
-                                                    color: "#202426",
-                                                    border: 0,
-                                                    backgroundColor: "#ffffff",
-                                                    textAlign: "right",
-                                                    outline: 0,
-                                                    height: 24,
-                                                    width: "100%",
-                                                }} />
+                                                
                                                 <div style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
                                                     marginLeft: 10,
                                                     height: 24
-                                                }}>LINK</div>
+                                                }}>{reward}LINK</div>
                                             </div>
                                             <div style={{
                                                 opacity: 0.6,
@@ -938,7 +939,7 @@ export default function Creator() {
                                                 backgroundColor: "#ffffff",
                                                 border: "2px solid #212426"
                                             }}>
-                                                <input type="text" onChange={({ text }) => setGoodRate(text)} value={goodrate} style={{
+                                                {/* <input type="text" onChange={({ text }) => setGoodRate(text)} value={goodrate} style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
@@ -946,13 +947,14 @@ export default function Creator() {
                                                     backgroundColor: "#ffffff",
                                                     textAlign: "right",
                                                     outline: 0,
-                                                }} />
+                                                }} /> */}
                                                 <div style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginLeft: 10
-                                                }}>%</div>
+                                                    marginLeft: 10,
+                                                    textAlign:"right"
+                                                }}>{roi}%</div>
                                             </div>
                                         </div>
                                         <div style={{
@@ -993,7 +995,7 @@ export default function Creator() {
                                         marginTop: 40,
                                         marginBottom: 100,
                                     }}>
-                                        <input style={{
+                                        <input onClick={calculate} style={{
                                             cursor: "pointer",
                                             outline: 0,
                                             width: 290,
