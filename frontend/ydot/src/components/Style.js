@@ -426,15 +426,10 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal, percent, Dead
                     color: "#202426",
                     marginTop: 10,
                     marginLeft: 20,
+                    marginBottom: 10,
                     alignSelf: "flex-start"
                 }}><div style={{ display: "inline-block", fontWeight: "bold" }}>{FundingTotal}</div> 원 펀딩</div>
-                <div style={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    color: "#202426",
-                    marginTop: 10,
-                    marginLeft: 20,
-                }}>{percent} %</div>
+                <ProgressBar completed={percent} />
                 {/* {ongoing ?
                     <Link to={auctiondirect}><input style={{
                         cursor: "pointer",
@@ -516,6 +511,40 @@ export function CloseBeta({img, title, content}) {
         </>
     )
 }
+
+export function ProgressBar({ completed }) {
+
+    const containerStyles = {
+        height: 20,
+        width: 195,
+        backgroundColor: "#dbdbdb",
+        borderRadius: 10,
+        marginLeft: 20
+    }
+
+    const fillerStyles = {
+        height: '100%',
+        width: completed.toFixed(1) < 5 ? "5%" : `${completed}%`,
+        backgroundColor: "#202426",
+        borderRadius: 'inherit',
+        textAlign: "center",
+        borderRadius: 10,
+    }
+
+    const labelStyles = {
+        fontSize: 14,
+        color: '#ffffff',
+        fontWeight: 'bold'
+    }
+
+    return (
+        <div style={containerStyles}>
+            <div style={fillerStyles}>
+                <span style={labelStyles}>{`${completed.toFixed(1)}%`}</span>
+            </div>
+        </div>
+    );
+};
 
 
 //Creator.js 요소
