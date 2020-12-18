@@ -8,7 +8,7 @@ import AuctionMain from './components/Auction/AuctionMain';
 import AuctionCreator from './components/Auction/AuctionCreator';
 import PrivateRoute from "./components/PrivateRoute"
 import Asset from './components/Asset/Asset';
-import { PopupOne, PopupThree, PopupTwo } from './components/Style';
+import { MyInfo, PopupOne, PopupThree, PopupTwo } from './components/Style';
 
 function App() {
   return (

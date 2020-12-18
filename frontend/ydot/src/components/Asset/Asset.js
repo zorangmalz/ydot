@@ -1,36 +1,33 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header, { vh, vw } from '../Style'
 import "../component.css"
 import { useSelector } from "react-redux";
-import {useFirebase,useFirestore} from "react-redux-firebase"
+import { useFirebase, useFirestore } from "react-redux-firebase"
 import { Link } from 'react-router-dom';
-export default function Asset() {
+import assetgraph from '../icon/assetgraph.png'
 
-    const firestore=useFirestore()
+export default function Asset() {
+    const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
-    const [items,setItems]=useState([])
-useEffect(()=>{
-    firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
-        const list = []
-        
-        querySnapshot.forEach(doc => {
-            list.push({
-               date:doc.data().DayTime,
-               name:doc.id,
-               unit:doc.data().unit,
-               state:doc.data().ongoing,
-               hash:"https://explorer.blockchain.line.me/cashew/transaction/"+doc.data().TransactionHash.txHash,
-               amount:doc.data().Number,
-               total:doc.data().Money,
-               price:doc.data().Money/doc.data().Number,
-               
+    const [items, setItems] = useState([])
+    useEffect(() => {
+        firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
+            const list = []
+            querySnapshot.forEach(doc => {
+                list.push({
+                    date: doc.data().DayTime,
+                    name: doc.id,
+                    unit: doc.data().unit,
+                    state: doc.data().ongoing,
+                    hash: "https://explorer.blockchain.line.me/cashew/transaction/" + doc.data().TransactionHash.txHash,
+                    amount: doc.data().Number,
+                    total: doc.data().Money,
+                    price: doc.data().Money / doc.data().Number,
+                })
             })
-            
-            
+            setItems(list)
         })
-        setItems(list)
-    })
-},[])
+    }, [])
     const [section, setSection] = useState(true)
     const data = [
         {
@@ -256,8 +253,16 @@ useEffect(()=>{
                                     }}>원</div>
                                 </div>
                             </div>
-                            <div className="startColumn">
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "flex-start",
+                            }}>
                                 <div className="assetTitle">월별 배당 그래프</div>
+                                <img src={assetgraph} style={{
+                                    width: 566,
+                                    height: 212,
+                                }} />
                             </div>
                         </div>
                         <div className="spaceRow">
@@ -573,8 +578,8 @@ useEffect(()=>{
                                 <div style={{ width: 70 }}>{element.amount}</div>
                                 <div style={{ width: 100 }}>{element.price}</div>
                                 <div style={{ width: 100 }}>{element.total}</div>
-                                <a href={element.hash}  target="_blank">
-                                <div style={{ width: 60 }}>{element.state==0? "진행중" : (element.state==1? "실패":"성공") }</div>
+                                <a href={element.hash} target="_blank">
+                                    <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
                                 </a>
                             </div>
                         )}

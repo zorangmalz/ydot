@@ -10,20 +10,11 @@ import { useHistory } from "react-router-dom"
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
 
-export default function Header({ splash, bold, active }) {
-    const MenuItem = ({ children, to }) => (
-        <Link to={to} style={{
-            fontSize: 21,
-            color: "#202426",
-            fontWeight: active ? "bold" : "normal",
-            marginRight: 40,
-            textDecorationLine: "none",
-        }} >
-            {children}
-        </Link>
-    )
+export default function Header({ splash, bold }) {
+    const [mine, setMine] = useState(false)
     return (
         <header style={{
+            zIndex: 3,
             width: 68 * vw,
             height: 80,
             backgroundColor: "#ffffff",
@@ -36,6 +27,11 @@ export default function Header({ splash, bold, active }) {
             alignItems: "center",
             justifyContent: "space-between"
         }}>
+            {mine ? 
+                <MyInfo />
+                :
+                <></>
+            }
             <div style={{
                 width: "100%",
                 display: "flex",
@@ -58,18 +54,129 @@ export default function Header({ splash, bold, active }) {
                         <></>
                         :
                         <>
-                            <MenuItem to={'/home'} >
-                                펀딩하기
-                            </MenuItem>
-                            <MenuItem to={'/asset'}>
-                                내 자산
-                            </MenuItem>
+                            <Link to={'/home'} style={{
+                                fontSize: 21,
+                                color: "#202426",
+                                fontWeight: bold ===  "Home" ? "bold" : "normal",
+                                marginRight: 40,
+                                textDecorationLine: "none",
+                            }}>펀딩하기</Link>
+                            <Link to={'/asset'} style={{
+                                fontSize: 21,
+                                color: "#202426",
+                                fontWeight: bold ===  "Asset" ? "bold" : "normal",
+                                marginRight: 40,
+                                textDecorationLine: "none",
+                            }}>내 자산</Link>
                         </>
                     }
                 </div>
-                {splash ? <></> : <FaUserCircle color="#202426" size={48} />}
+                {splash ? <></> : <button style={{
+                    backgroundColor: "#ffffff",
+                    border: 0,
+                    outline: 0,
+                    cursor: "pointer"
+                }} onClick={() => setMine(!mine)}><FaUserCircle color="#202426" size={48} /></button>}
             </div>
         </header>
+    )
+}
+
+export function MyInfo() {
+    const data = [
+        {
+            title: "지갑주소",
+            content: "0xE50…336BC"
+        },
+        {
+            title: "지갑 잔액",
+            content: [700, <div style={{ fontWeight: "normal", display: "inline-block", fontSize: 12 }}>LINK</div>]
+        },
+        {
+            title: "지갑주소",
+            content: [300, <div style={{ fontWeight: "normal", display: "inline-block", fontSize: 12 }}>LINK</div>]
+        },
+    ]
+    return (
+        <>
+            <div style={{
+                position: "absolute",
+                zIndex: 3,
+                top: 90,
+                right: 16 * vw + 10,
+                width: 250,
+                height: 282,
+                paddingTop: 30,
+                paddingLeft: 30,
+                paddingRight: 20,
+                paddingBottom: 20,
+                backgroundColor: "#ffffff",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                border: "solid 2px rgba(33, 36, 38, 0.8)"
+            }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    marginBottom: 10,
+                }}>
+                    <div style={{
+                        fontSize: 12,
+                        opacity: 0.6,
+                        color: "#202426",
+                    }}>내 계정</div>
+                    <input type="button" style={{
+                        outline: 0,
+                        cursor: "pointer",
+                        border: 0,
+                        backgroundColor: "#ffffff",
+                        fontSize: 12,
+                        opacity: 0.6,
+                        color: "#202426",
+                        textDecorationLine: "underline"
+                    }} value="로그아웃" />
+                </div>
+                <div style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 20
+                }}>hyunmyung137@gmail.com</div>
+                {data.map(element =>
+                    <>
+                        <div style={{
+                            fontSize: 12,
+                            opacity: 0.6,
+                            color: "#202426",
+                        }}>{element.title}</div>
+                        <div style={{
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            color: "#202426",
+                            marginBottom: 20
+                        }}>{element.content}</div>
+                    </>
+                )}
+                <div style={{
+                    fontSize: 12,
+                    opacity: 0.6,
+                    color: "#202426",
+                }}>보유 토큰</div>
+                <div style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 20,
+                    textDecorationLine: "underline"
+                }}>
+                    3<div style={{display: "inline-block", fontWeight: "normal", textDecorationLine: "underline", fontSize: 12}}>개</div>
+                </div>
+            </div>
+        </>
     )
 }
 
