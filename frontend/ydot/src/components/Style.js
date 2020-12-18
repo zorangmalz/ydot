@@ -10,14 +10,14 @@ import { useHistory } from "react-router-dom"
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
 
-export default function Header({ splash, bold }) {
-    const MenuItem = ({ active, children, to }) => (
+export default function Header({ splash, bold, active }) {
+    const MenuItem = ({ children, to }) => (
         <Link to={to} style={{
             fontSize: 21,
             color: "#202426",
             fontWeight: active ? "bold" : "normal",
             marginRight: 40,
-            textDecorationLine: "none"
+            textDecorationLine: "none",
         }} >
             {children}
         </Link>
@@ -59,7 +59,7 @@ export default function Header({ splash, bold }) {
                         :
                         <>
                             <MenuItem to={'/home'} >
-                                {bold === "펀딩하기" ? "펀딩하기" : bold === "Creator" ? "펀딩하기" : "펀딩하기"}
+                                펀딩하기
                             </MenuItem>
                             <MenuItem to={'/auction'}>
                                 배당권 경매
@@ -202,56 +202,84 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal, percent, Dead
     }
     return (
         <>
-
             <div onClick={move} style={{
-                width: 400,
-                paddingTop: 20,
-                paddingBottom: 20,
-                backgroundColor: "#efefef",
-                borderRadius: 30,
+                width: 235,
+                height: 266,
+                borderRadius: 20,
+                border: "1px solid #202426",
+                backgroundColor: "#ffffff",
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
                 marginLeft: 20,
                 marginRight: 20,
             }}>
-                <img src={img} alt="나중에" style={{ width: 120, height: 120, borderRadius: 60 }} />
                 <div style={{
-                    fontSize: 18,
+                    position: "relative",
+                    width: 235,
+                    height: 120,
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-end",
+                    justifyContent: "flex-end"
+                }}>
+                    <img src={img} style={{
+                        zIndex: 0,
+                        position: "absolute",
+                        top: 0,
+                        width: 235,
+                        height: 120,
+                        borderTopLeftRadius: 20,
+                        borderTopRightRadius: 20
+                    }} />
+                    <div style={{
+                        zIndex: 1,
+                        width: 30,
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                        height: 18,
+                        paddingTop: 4,
+                        paddingBottom: 4,
+                        backgroundColor: "#202426",
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "#ffffff",
+                        textAlign: "center",
+                        verticalAlign: "center"
+                    }}>D-{Deadline == 0 ? 0 : Deadline}</div>
+                </div>
+                <div style={{
+                    fontSize: 16,
                     fontWeight: "bold",
                     color: "#161513",
-                    marginTop: 20
+                    marginTop: 10,
+                    marginLeft: 20,
+                    alignSelf: "flex-start"
                 }}>{name}</div>
                 <div style={{
                     fontSize: 16,
-                    lineHeight: 1.88,
                     textAlign: "center",
                     color: "#202426",
-                    opacity: 0.8,
-                    marginTop: 10
-                }}>{FundingNum} 개 판매</div>
+                    marginTop: 10,
+                    marginLeft: 20,
+                    alignSelf: "flex-start"
+                }}><div style={{ display: "inline-block", fontWeight: "bold" }}>{FundingNum}</div> 개 판매</div>
+                <div style={{
+                    fontSize: 16,
+                    textAlign: "center",
+                    color: "#202426",
+                    marginTop: 10,
+                    marginLeft: 20,
+                    alignSelf: "flex-start"
+                }}><div style={{ display: "inline-block", fontWeight: "bold" }}>{FundingTotal}</div> 원 펀딩</div>
                 <div style={{
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#202426",
                     marginTop: 10,
-                    marginBottom: 10,
-                }}>{FundingTotal} 원 펀딩</div>
-                <div style={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    color: "#202426",
-                    marginTop: 10,
-                    marginBottom: 10,
+                    marginLeft: 20,
                 }}>{percent} %</div>
-                <div style={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    color: "#202426",
-                    marginTop: 10,
-                    marginBottom: 10,
-                }}>D-{Deadline == 0 ? 0 : Deadline}</div>
-
                 {/* {ongoing ?
                     <Link to={auctiondirect}><input style={{
                         cursor: "pointer",
@@ -1033,7 +1061,7 @@ export function PopupThree() {
                     textAlign: "center",
                     marginBottom: 40,
                 }}>펀딩 완료</div>
-                <BiCheckCircle color="#202426" size={120} style={{width: 120, height: 120, marginBottom: 40}} />
+                <BiCheckCircle color="#202426" size={120} style={{ width: 120, height: 120, marginBottom: 40 }} />
                 <div style={{
                     fontSize: 14,
                     fontWeight: "bold",
@@ -1050,8 +1078,8 @@ export function PopupThree() {
                     display: "flex",
                     flexDirection: "column"
                 }}>
-                    <div style={{textAlign: "center", marginBottom: 10}}>{address}</div>
-                    <input type="button" style={{ marginRight: 18, fontSize: 12, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20}} value="View in LINK Scope" />
+                    <div style={{ textAlign: "center", marginBottom: 10 }}>{address}</div>
+                    <input type="button" style={{ marginRight: 18, fontSize: 12, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20 }} value="View in LINK Scope" />
                 </div>
                 <input type="button" style={{
                     cursor: "pointer",
