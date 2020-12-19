@@ -47,9 +47,9 @@ export default function HomeMain() {
             querySnapshot.forEach(doc => {
                 list.push({
                     img: count === 1 ? Creatorone : count === 2 ? Creatortwo : count === 3 ? Creatorthree : Creatorfour,
-                    name: doc.id,
+                    name: doc.id==="[Vlog] 지순's 일상" ? "Pood" : doc.id,
                     FundingNum: doc.data().FundingNum,
-                    FundingTotal: doc.data().FundingTotal,
+                    FundingTotal: doc.data().FundingAim,
                     percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
                     Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
                 })

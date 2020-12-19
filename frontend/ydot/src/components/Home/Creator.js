@@ -121,7 +121,7 @@ export default function Creator() {
     const [price, setPrice] = useState("1000")
     const [rate, setRate] = useState("5")
     const [profit, setProfit] = useState("1000")
-    const [goodrate, setGoodRate] = useState("5")
+    const [goodrate, setGoodRate] = useState("")
     const [modalOne, setModalOne] = useState(false)
     const [modalTwo, setModalTwo] = useState(false)
     const [modalThree, setModalThree] = useState(false)
@@ -160,7 +160,7 @@ export default function Creator() {
         console.log(a)
         setRoi((a*100).toFixed(2))
         var b=Number(name)*a+Number(name)
-        setReward(b.toFixed(0))
+        setReward(b.toFixed(2))
     }
     return (
         <>
@@ -232,7 +232,7 @@ export default function Creator() {
                                     fontWeight: "bold",
                                     color: "#202426",
                                     marginBottom: 20,
-                                }}>[Vlog] 지순’s 일상 유튜브 펀딩</div>
+                                }}>Pood의 먹방 유튜브 펀딩</div>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",
@@ -506,7 +506,7 @@ export default function Creator() {
                                     fontWeight: "bold",
                                     color: "#161513",
                                     marginBottom: 40,
-                                }}>- 브이로거 지순이의 일상을 만나보세요! 대학교부터 알바까지 일상을 공유하고 있습니다. -</div>
+                                }}>- Pood님의 채널을 보세요! 랍스타부터 참치까지 다양한 먹방을 하고 있습니다. -</div>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",
@@ -577,8 +577,8 @@ export default function Creator() {
                                             height: 272,
                                             marginRight: 40,
                                         }}>
-                                            <CreatorIntro title="채널 이름" content="지순’s 일상" other={false} />
-                                            <CreatorIntro title="섹터 구분" content="일상/Vlog" other={false} />
+                                            <CreatorIntro title="채널 이름" content="Pood" other={false} />
+                                            <CreatorIntro title="섹터 구분" content="먹방" other={false} />
                                             <CreatorIntro title="YDOT Rating" content={
                                                 <div style={{
                                                     display: "flex",
@@ -853,14 +853,15 @@ export default function Creator() {
                                                 marginBottom: 20,
                                                 border: "2px solid #212426"
                                             }}>
-                                                
+                                        
                                                 <div style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginLeft: 10,
-                                                    height: 24
-                                                }}>{reward}LINK</div>
+                                                    textAlign:"end",
+                                                    height: 24,
+                                                    textAlign:"right"
+                                                }}>{reward}   LINK</div>
                                             </div>
                                             <div style={{
                                                 opacity: 0.6,
@@ -882,15 +883,6 @@ export default function Creator() {
                                                 backgroundColor: "#ffffff",
                                                 border: "2px solid #212426"
                                             }}>
-                                                {/* <input type="text" onChange={({ text }) => setGoodRate(text)} value={goodrate} style={{
-                                                    fontSize: 18,
-                                                    fontWeight: "bold",
-                                                    color: "#202426",
-                                                    border: 0,
-                                                    backgroundColor: "#ffffff",
-                                                    textAlign: "right",
-                                                    outline: 0,
-                                                }} /> */}
                                                 <div style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",

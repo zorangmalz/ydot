@@ -1192,11 +1192,33 @@ useEffect(()=>{
         firestoreUpload(coinAmount,tok, txid)
 
     }
+    async function mint(){
+        const today = new Date()
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1
+        const day = today.getDate()
+        let AdminAddress="tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
+        let AdminSecret="msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
+        let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let contractId="7d8a9402"
+        let tokenType="10000002"
+        let tokenIdName="TestToken"
+        let info="user1@ydot.xyz 님께서 Pood님께 "+year + "/" + month + "/" + day+"에 편딩하셨습니다"
+        let path = `/v1/item-tokens/${contractId}/non-fungibles/${tokenType}/mint`;
+        let a=await callAPI('POST', path, {
+            "ownerAddress": AdminAddress,
+            "ownerSecret": AdminSecret,
+            "name": tokenIdName,
+            "toAddress": UserAddress,
+            "meta" : info 
+        });
+        console.log(a)
+        return a
+    }
     async function firestoreUpload(coinAmount,tok, txid) {
+        let nTxid=await mint()
         const names = "지순’s 일상"
         const len = coinAmount.length
-        
-
         const today = new Date()
         const year = today.getFullYear();
         const month = today.getMonth() + 1
@@ -1206,9 +1228,11 @@ useEffect(()=>{
             DayTime: year + "/" + month + "/" + day,
             Money: Number(coinAmount),
             TransactionHash: txid,
+            NftTx:nTxid,
             Number: Number(tok),
             ongoing: 0,
-            per:1.636
+            per:1.636,
+            channel:"Pood"
 
         })
         var now

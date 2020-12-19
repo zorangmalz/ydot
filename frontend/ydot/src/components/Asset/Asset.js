@@ -13,13 +13,25 @@ export default function Asset() {
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
     const [items, setItems] = useState([])
+    const [itemss, setItemss] = useState([])
+    useEffect(() => {
+        firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
+            const list = []
+            querySnapshot.forEach(doc => {
+                list.push({
+                    hash: "https://explorer.blockchain.line.me/cashew/transaction/" + doc.data().NftTx.txHash,  
+                })
+            })
+            setItemss(list)
+        })
+    }, [])
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
                 list.push({
                     date: doc.data().DayTime,
-                    name: doc.id,
+                    name: doc.data().channel,
                     unit: doc.data().unit,
                     state: doc.data().ongoing,
                     hash: "https://explorer.blockchain.line.me/cashew/transaction/" + doc.data().TransactionHash.txHash,
@@ -28,6 +40,7 @@ export default function Asset() {
                     price: doc.data().per,
                     
                 })
+                console.log(doc.data().channel)
             })
             setItems(list)
         })
@@ -101,53 +114,53 @@ export default function Asset() {
             getmoney: 2000,
         },
     ]
-    const participate = [
-        {
-            date: "10/20",
-            name: "지순's 일상",
-            unit: "JST",
-            amount: 2000,
-            price: 1,
-            total: 2000,
-            state: "진행중"
-        },
-        {
-            date: "9/10",
-            name: "지순's 일상",
-            unit: "JST",
-            amount: 2000,
-            price: 1,
-            total: 2000,
-            state: "성공"
-        },
-        {
-            date: "1/20",
-            name: "지순's 일상",
-            unit: "JST",
-            amount: 2000,
-            price: 1,
-            total: 2000,
-            state: "실패"
-        },
-        {
-            date: "12/20",
-            name: "지순's 일상",
-            unit: "JST",
-            amount: 2000,
-            price: 1,
-            total: 2000,
-            state: "성공"
-        },
-        {
-            date: "12/9",
-            name: "지순's 일상",
-            unit: "JST",
-            amount: 2000,
-            price: 1,
-            total: 2000,
-            state: "성공"
-        },
-    ]
+    // const participate = [
+    //     {
+    //         date: "10/20",
+    //         name: "지순's 일상",
+    //         unit: "JST",
+    //         amount: 2000,
+    //         price: 1,
+    //         total: 2000,
+    //         state: "진행중"
+    //     },
+    //     {
+    //         date: "9/10",
+    //         name: "지순's 일상",
+    //         unit: "JST",
+    //         amount: 2000,
+    //         price: 1,
+    //         total: 2000,
+    //         state: "성공"
+    //     },
+    //     {
+    //         date: "1/20",
+    //         name: "지순's 일상",
+    //         unit: "JST",
+    //         amount: 2000,
+    //         price: 1,
+    //         total: 2000,
+    //         state: "실패"
+    //     },
+    //     {
+    //         date: "12/20",
+    //         name: "지순's 일상",
+    //         unit: "JST",
+    //         amount: 2000,
+    //         price: 1,
+    //         total: 2000,
+    //         state: "성공"
+    //     },
+    //     {
+    //         date: "12/9",
+    //         name: "지순's 일상",
+    //         unit: "JST",
+    //         amount: 2000,
+    //         price: 1,
+    //         total: 2000,
+    //         state: "성공"
+    //     },
+    // ]
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef" }}>
             <Header splash={false} bold="Asset" />
@@ -495,10 +508,11 @@ export default function Asset() {
                             alignItems: "center",
                             justifyContent: "space-between"
                         }}>
-                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
-                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
-                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
-                            <img src={jisuncard} style={{width: "23%", height: 120, borderRadius: 20}}/>
+                               {itemss.map(element =>
+                               <a href={element.hash} target="_blank">
+                            <img src={jisuncard} style={{width: 120, height: 120, borderRadius: 20}}/>
+                            </a>
+                               )}
                         </div>
                     </div>
                 </>
@@ -604,7 +618,7 @@ export default function Asset() {
                                 <div style={{ width: 100 }}>{element.price}     LINK</div>
                                 <div style={{ width: 100 }}>{element.total}     LINK</div>
                                 <a href={element.hash} target="_blank">
-                                    <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                    <div style={{ width: 60 }}>{element.state == 0 ? "성공" : (element.state == 1 ? "실패" : "성공")}</div>
                                 </a>
                             </div>
                         )}
