@@ -14,6 +14,7 @@ export default function Asset() {
     const { uid } = useSelector((state) => state.firebase.auth);
     const [items, setItems] = useState([])
     const [itemss, setItemss] = useState([])
+    const [itemsss, setItemsss] = useState([])
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
             const list = []
@@ -43,6 +44,29 @@ export default function Asset() {
                 console.log(doc.data().channel)
             })
             setItems(list)
+        })
+    }, [])
+    useEffect(() => {
+        firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
+            const list = []
+            querySnapshot.forEach(doc => {
+                list.push({
+                    img:"#4c4c4c",
+                    name:"Pood의 먹방",
+                    unit:"Pood",
+                    chain:"LINK",
+                    price:doc.data().per,
+                    amount:(doc.data().Number).toFixed(2),
+                    total:Number(doc.data().Money)/1000000,
+                    number:"0/12",
+                    next:"1/20",
+                    actual:"-",
+                    accumulate:"-"
+                    
+                })
+                console.log(doc.data().channel)
+            })
+            setItemsss(list)
         })
     }, [])
     const [section, setSection] = useState(true)
@@ -346,6 +370,151 @@ export default function Asset() {
                             flexDirection: "column",
                             marginTop: 10
                         }}>
+                            {itemsss.map(element =>
+                                <>
+                                    <div style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "flex-start",
+                                        justifyContent: "space-between",
+                                        width: "100%",
+                                        paddingBottom: 20,
+                                        paddingTop: 20,
+                                        borderBottom: "1px solid #D2D3D3"
+                                    }}>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            maxWidth: "20%",
+                                            minWidth: 180
+                                        }}>
+                                            <div style={{ width: 54, height: 54, borderRadius: 27, backgroundColor: element.img, marginRight: 10 }} />
+                                            <div style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: "flex-start",
+                                                justifyContent: "flex-start"
+                                            }}>
+                                                <div style={{
+                                                    fontWeight: "bold",
+                                                    fontSize: 18,
+                                                    color: "#202426",
+                                                    marginBottom: 8,
+                                                }}>{element.name}</div>
+                                                <div style={{
+                                                    opacity: 0.6,
+                                                    fontWeight: "bold",
+                                                    fontSize: 14,
+                                                    color: "#202426"
+                                                }}>{element.unit}</div>
+                                            </div>
+                                        </div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "flex-start",
+                                            maxWidth: "10%",
+                                            minWidth: 70,
+                                        }}>
+                                            <div style={{
+                                                fontSize: 18,
+                                                color: "#202426",
+                                                marginBottom: 8,
+                                            }}>{element.amount}</div>
+                                            <div style={{
+                                                opacity: 0.6,
+                                                fontSize: 14,
+                                                color: "#202426"
+                                            }}>{element.per}</div>
+                                        </div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "flex-start",
+                                            maxWidth: "9%",
+                                            minWidth: 70,
+                                        }}>
+                                            <div style={{
+                                                fontSize: 18,
+                                                color: "#202426",
+                                                marginBottom: 8,
+                                            }}>{element.price}</div>
+                                            <div style={{
+                                                opacity: 0.6,
+                                                fontSize: 14,
+                                                color: "#202426"
+                                            }}>{element.chain}</div>
+                                        </div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "flex-start",
+                                            maxWidth: "13%",
+                                            minWidth: 110,
+                                        }}>
+                                            <div style={{
+                                                fontSize: 18,
+                                                color: "#202426",
+                                                marginBottom: 8,
+                                            }}>{element.total}</div>
+                                            <div style={{
+                                                opacity: 0.6,
+                                                fontSize: 14,
+                                                color: "#202426"
+                                            }}>{element.chain}</div>
+                                        </div>
+                                        <div style={{
+                                            fontSize: 18,
+                                            color: "#202426",
+                                            maxWidth: "10%",
+                                            minWidth: 70
+                                        }}>{element.number}</div>
+                                        <div style={{
+                                            fontSize: 18,
+                                            color: "#202426",
+                                            maxWidth: "11%",
+                                            minWidth: 90
+                                        }}>{element.next}</div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "flex-start",
+                                            maxWidth: "12%",
+                                            minWidth: 110,
+                                        }}>
+                                            <div style={{
+                                                fontSize: 18,
+                                                color: "#78e185",
+                                                marginBottom: 8,
+                                            }}>{element.actual}</div>
+                                            <div style={{
+                                                opacity: 0.6,
+                                                fontSize: 14,
+                                                color: "#202426"
+                                            }}>{element.chain}</div>
+                                        </div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "flex-start",
+                                            maxWidth: "14%",
+                                            minWidth: 110,
+                                        }}>
+                                            <div style={{
+                                                fontSize: 18,
+                                                color: "#202426",
+                                                marginBottom: 8,
+                                            }}>{element.accumulate}</div>
+                                            <div style={{
+                                                opacity: 0.6,
+                                                fontSize: 14,
+                                                color: "#202426"
+                                            }}>{element.chain}</div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                             {data.map(element =>
                                 <>
                                     <div style={{

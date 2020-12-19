@@ -1177,7 +1177,7 @@ useEffect(()=>{
         let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
         let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
         let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-        let ContractID = "fb37526d"
+        let ContractID = "138bd530"
         let path = `/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
         console.log(tok)
         let token=String(tok*1000000)
@@ -1202,7 +1202,7 @@ useEffect(()=>{
         let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
         let contractId="7d8a9402"
         let tokenType="10000002"
-        let tokenIdName="TestToken"
+        let tokenIdName="Pood"
         let info="user1@ydot.xyz 님께서 Pood님께 "+year + "/" + month + "/" + day+"에 편딩하셨습니다"
         let path = `/v1/item-tokens/${contractId}/non-fungibles/${tokenType}/mint`;
         let a=await callAPI('POST', path, {
