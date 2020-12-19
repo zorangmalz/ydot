@@ -103,7 +103,7 @@ export default function HomeMain() {
                 alignSelf: "center"
             }}>크리에이터 정보</div>
             <div style={{
-                width: 100 * vw,
+                width: "100vw",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",

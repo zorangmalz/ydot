@@ -1,4 +1,4 @@
-import React, { useReducer, useState,useEffect } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaUserCircle, FaArrowRight, FaArrowDown } from 'react-icons/fa';
@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
+export const DesktopMinWidthNotPadding = 1224 * 58 / 68 + 7.4 * vw
 
 
 export default function Header({ splash, bold }) {
@@ -20,19 +21,20 @@ export default function Header({ splash, bold }) {
     return (
         <header style={{
             zIndex: 3,
-            width: 68 * vw,
+            width: "68vw",
+            minWidth: 1224 * 90 / 100,
             height: 90,
             backgroundColor: "#ffffff",
             paddingTop: 12,
             paddingBottom: 12,
-            paddingLeft: 16 * vw,
-            paddingRight: 16 * vw,
+            paddingLeft: "16vw",
+            paddingRight: "16vw",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between"
         }}>
-            {mine ? 
+            {mine ?
                 <MyInfo />
                 :
                 <></>
@@ -62,14 +64,14 @@ export default function Header({ splash, bold }) {
                             <Link to={'/home'} style={{
                                 fontSize: 21,
                                 color: "#202426",
-                                fontWeight: bold ===  "Home" ? "bold" : "normal",
+                                fontWeight: bold === "Home" ? "bold" : "normal",
                                 marginRight: 40,
                                 textDecorationLine: "none",
                             }}>펀딩하기</Link>
                             <Link to={'/asset'} style={{
                                 fontSize: 21,
                                 color: "#202426",
-                                fontWeight: bold ===  "Asset" ? "bold" : "normal",
+                                fontWeight: bold === "Asset" ? "bold" : "normal",
                                 marginRight: 40,
                                 textDecorationLine: "none",
                             }}>내 자산</Link>
@@ -90,46 +92,46 @@ export default function Header({ splash, bold }) {
 export function MyInfo() {
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
-    const [leng,setLeng]=useState("")
-    const [email,setEmail]=useState("")
-    const [amount,setAmount]=useState("")
-    const [wallet,setWallet]=useState("")
+    const [leng, setLeng] = useState("")
+    const [email, setEmail] = useState("")
+    const [amount, setAmount] = useState("")
+    const [wallet, setWallet] = useState("")
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-async function CoinAmount() {
-    let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-    let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+    async function CoinAmount() {
+        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
 
-    let path = `/v1/wallets/${UserAddress}/base-coin`
+        let path = `/v1/wallets/${UserAddress}/base-coin`
 
-    let txid = await callAPI("GET", path)
-    console.log(txid.amount)
-    var a=Number(txid.amount)/1000000
-    setAmount(a)
-    TokenNumber()
-}
-//유저의 토큰 개수. 내자산 및 팝업에서 토큰 개수 및 토큰 양 보여주는데 사용
-async function TokenNumber() {
-    let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-    let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-    let path = `/v1/wallets/${UserAddress}/service-tokens`
-    let txid = await callAPI("GET", path)
-    //내자산 팝업에서 보유토큰에 쓰일 변수
-    console.log(txid.length)
-    setLeng(txid.length)
+        let txid = await callAPI("GET", path)
+        console.log(txid.amount)
+        var a = Number(txid.amount) / 1000000
+        setAmount(a)
+        TokenNumber()
+    }
+    //유저의 토큰 개수. 내자산 및 팝업에서 토큰 개수 및 토큰 양 보여주는데 사용
+    async function TokenNumber() {
+        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+        let path = `/v1/wallets/${UserAddress}/service-tokens`
+        let txid = await callAPI("GET", path)
+        //내자산 팝업에서 보유토큰에 쓰일 변수
+        console.log(txid.length)
+        setLeng(txid.length)
 
-    //유저의 코인 총량. 내 자산에서 원 대신에 보여주면 됨
-}
+        //유저의 코인 총량. 내 자산에서 원 대신에 보여주면 됨
+    }
 
-function getInfo(){
-    firestore.collection("User").doc(uid).get().then(doc=>{
-        setEmail(doc.data().email)
-        setWallet(doc.data().wallet)
-    })
-}
-useEffect(()=>{
-    CoinAmount()
-    getInfo()
-},[])
+    function getInfo() {
+        firestore.collection("User").doc(uid).get().then(doc => {
+            setEmail(doc.data().email)
+            setWallet(doc.data().wallet)
+        })
+    }
+    useEffect(() => {
+        CoinAmount()
+        getInfo()
+    }, [])
     const data = [
         {
             title: "지갑주소",
@@ -189,31 +191,31 @@ useEffect(()=>{
                     color: "#202426",
                     marginBottom: 20
                 }}>{email}</div>
-          
-                        <div style={{
-                            fontSize: 12,
-                            opacity: 0.6,
-                            color: "#202426",
-                        }}>지갑 주소</div>
-                        <div style={{
-                            fontSize: 12,
-                            fontWeight: "bold",
-                            color: "#202426",
-                            marginBottom: 20
-                        }}>{wallet}</div>
-          
-          <div style={{
-                            fontSize: 12,
-                            opacity: 0.6,
-                            color: "#202426",
-                        }}>지갑 잔액</div>
-                        <div style={{
-                            fontSize: 12,
-                            fontWeight: "bold",
-                            color: "#202426",
-                            marginBottom: 20
-                        }}>{amount}LINK</div>
-          
+
+                <div style={{
+                    fontSize: 12,
+                    opacity: 0.6,
+                    color: "#202426",
+                }}>지갑 주소</div>
+                <div style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 20
+                }}>{wallet}</div>
+
+                <div style={{
+                    fontSize: 12,
+                    opacity: 0.6,
+                    color: "#202426",
+                }}>지갑 잔액</div>
+                <div style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 20
+                }}>{amount}LINK</div>
+
                 <div style={{
                     fontSize: 12,
                     opacity: 0.6,
@@ -226,7 +228,7 @@ useEffect(()=>{
                     marginBottom: 20,
                     textDecorationLine: "underline"
                 }}>
-                    {leng}<div style={{display: "inline-block", fontWeight: "normal", textDecorationLine: "underline", fontSize: 12}}>개</div>
+                    {leng}<div style={{ display: "inline-block", fontWeight: "normal", textDecorationLine: "underline", fontSize: 12 }}>개</div>
                 </div>
             </div>
         </>
@@ -475,7 +477,7 @@ export function CreatorInfo({ img, name, FundingNum, FundingTotal, percent, Dead
 }
 
 //HomeMain.js랑 Creator.js에서 많이 사용
-export function CloseBeta({img, title, content}) {
+export function CloseBeta({ img, title, content }) {
     return (
         <>
             <div style={{
@@ -485,7 +487,7 @@ export function CloseBeta({img, title, content}) {
                 marginLeft: 20,
                 marginRight: 20
             }}>
-                <img src={img} style={{width: 80, height: 80, marginTop: 7, marginRight: 40}} />
+                <img src={img} style={{ width: 80, height: 80, marginTop: 7, marginRight: 40 }} />
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
@@ -661,7 +663,7 @@ export function QAList({ title, content }) {
 export function CreatorProfile({ img, name, start, predict, sell, state }) {
     return (
         <div style={{
-            width: 68 * vw - 40,
+            width: "68vw" - 40,
             height: 70,
             paddingLeft: 40,
             paddingTop: 16,
@@ -853,14 +855,14 @@ export function PopupOne({ setVisible, setNextVisible }) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            width: 100 * vw,
-            height: 100 * vh,
+            width: "100vw",
+            height: "100vh",
         }}>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
-                width: 100 * vw,
-                height: 100 * vh,
+                width: "100vw",
+                height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
                 zIndex: 1,
@@ -1102,31 +1104,31 @@ export function PopupTwo({ setVisible, setNextVisible }) {
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
     const [money, setMoney] = useState("")
-    const [amount,setAmount]=useState("")
-    const [tok,setTok]=useState("")
+    const [amount, setAmount] = useState("")
+    const [tok, setTok] = useState("")
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-async function CoinAmount() {
-    let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-    let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
+    async function CoinAmount() {
+        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
 
-    let path = `/v1/wallets/${UserAddress}/base-coin`
+        let path = `/v1/wallets/${UserAddress}/base-coin`
 
-    let txid = await callAPI("GET", path)
-    console.log(txid.amount)
-    var a=Number(txid.amount)/1000000
-    setAmount(a)
-}
-const onChange = (e) => {
-    console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
-    console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
-    setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
-}
-useEffect(()=>{
-    CoinAmount()
-},[])
-useEffect(()=>{
-    setTok((Number(money)/1.636).toFixed(6))
-},[money])
+        let txid = await callAPI("GET", path)
+        console.log(txid.amount)
+        var a = Number(txid.amount) / 1000000
+        setAmount(a)
+    }
+    const onChange = (e) => {
+        console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
+        console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
+        setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
+    }
+    useEffect(() => {
+        CoinAmount()
+    }, [])
+    useEffect(() => {
+        setTok((Number(money) / 1.636).toFixed(6))
+    }, [money])
     const [number, dispatch] = useReducer(PopupReducer, 0)
     const onTwentyfive = () => {
         dispatch({ type: "25" })
@@ -1140,7 +1142,6 @@ useEffect(()=>{
     const onMax = () => {
         dispatch({ type: "max" })
     }
-    
     const onNext = () => {
         transaction()
         setVisible(false)
@@ -1149,7 +1150,7 @@ useEffect(()=>{
 
 
     async function transaction() {
-        
+
         //여기에 나중에 얼마 코인 보내고 얼마 받고 설정, 팝업에서
         let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
         let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
@@ -1157,7 +1158,7 @@ useEffect(()=>{
         let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
 
         let path = `/v1/wallets/${UserAddress}/base-coin/transfer`
-        let coinAmount = String(money*1000000)
+        let coinAmount = String(money * 1000000)
         let txid = await callAPI("POST", path, {
             "walletSecret": UserSecret,
             "toAddress": AdminAddress,
@@ -1170,17 +1171,16 @@ useEffect(()=>{
         transactionToken(coinAmount)
     }
     async function transactionToken(coinAmount) {
-
         //요건 코인의 양에 따라 다시 토큰을 재분배해주는것
-
         let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
         let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
         let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
         let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
         let ContractID = "138bd530"
         let path = `/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
+
         console.log(tok)
-        let token=String(tok*1000000)
+        let token = String(tok * 1000000)
         console.log(token)
         let txid = await callAPI("POST", path, {
             "walletSecret": AdminSecret,
@@ -1188,35 +1188,35 @@ useEffect(()=>{
             "amount": token
         })
         console.log(txid)
-
-        firestoreUpload(coinAmount,tok, txid)
-
+        firestoreUpload(coinAmount, tok, txid)
     }
-    async function mint(){
+
+    async function mint() {
         const today = new Date()
         const year = today.getFullYear();
         const month = today.getMonth() + 1
         const day = today.getDate()
-        let AdminAddress="tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
-        let AdminSecret="msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
-        let UserAddress="tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let contractId="7d8a9402"
-        let tokenType="10000002"
-        let tokenIdName="Pood"
-        let info="user1@ydot.xyz 님께서 Pood님께 "+year + "/" + month + "/" + day+"에 편딩하셨습니다"
+        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
+        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
+        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
+        let contractId = "7d8a9402"
+        let tokenType = "10000002"
+        let tokenIdName = "Pood"
+        let info = "user1@ydot.xyz 님께서 Pood님께 " + year + "/" + month + "/" + day + "에 편딩하셨습니다"
         let path = `/v1/item-tokens/${contractId}/non-fungibles/${tokenType}/mint`;
-        let a=await callAPI('POST', path, {
+        let a = await callAPI('POST', path, {
             "ownerAddress": AdminAddress,
             "ownerSecret": AdminSecret,
             "name": tokenIdName,
             "toAddress": UserAddress,
-            "meta" : info 
+            "meta": info
         });
         console.log(a)
         return a
     }
-    async function firestoreUpload(coinAmount,tok, txid) {
-        let nTxid=await mint()
+
+    async function firestoreUpload(coinAmount, tok, txid) {
+        let nTxid = await mint()
         const names = "지순’s 일상"
         const len = coinAmount.length
         const today = new Date()
@@ -1228,11 +1228,11 @@ useEffect(()=>{
             DayTime: year + "/" + month + "/" + day,
             Money: Number(coinAmount),
             TransactionHash: txid,
-            NftTx:nTxid,
+            NftTx: nTxid,
             Number: Number(tok),
             ongoing: 0,
-            per:1.636,
-            channel:"Pood"
+            per: 1.636,
+            channel: "Pood"
 
         })
         var now
@@ -1240,11 +1240,11 @@ useEffect(()=>{
             now = doc.data().FundingTotal
         })
         console.log(now)
-        
-        
-        
+
+
+
         await firestore.collection("Creator").doc("[Vlog] 지순's 일상").update({
-            FundingTotal: Number(now) + Number(coinAmount)/1000000
+            FundingTotal: Number(now) + Number(coinAmount) / 1000000
 
         })
     }
@@ -1255,14 +1255,14 @@ useEffect(()=>{
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            width: 100 * vw,
-            height: 100 * vh,
+            width: "100vw",
+            height: "100vh",
         }}>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
-                width: 100 * vw,
-                height: 100 * vh,
+                width: "100vw",
+                height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
                 zIndex: 0,
@@ -1417,16 +1417,16 @@ export function PopupThree({ setVisible }) {
     const address = "0x649640518e043295c86e674b4904…e6989215db2"
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
-    const [hash,setHash]=useState("")
-    function getInfo(){
-        firestore.collection("User").doc(uid).collection("Fund").doc("지순’s 일상").onSnapshot(doc=>{
+    const [hash, setHash] = useState("")
+    function getInfo() {
+        firestore.collection("User").doc(uid).collection("Fund").doc("지순’s 일상").onSnapshot(doc => {
             setHash(doc.data().TransactionHash.txHash)
         })
         console.log("g")
     }
-    useEffect(()=>{
+    useEffect(() => {
         getInfo()
-    },[])
+    }, [])
     return (
         <div style={{
             position: "absolute",
@@ -1434,14 +1434,14 @@ export function PopupThree({ setVisible }) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            width: 100 * vw,
-            height: 100 * vh,
+            width: "100vw",
+            height: "100vh",
         }}>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
-                width: 100 * vw,
-                height: 100 * vh,
+                width: "100vw",
+                height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
                 zIndex: 0,

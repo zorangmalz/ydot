@@ -3,8 +3,17 @@ import Header, { FAQ, GuideBox, vh, vw } from '../Style'
 import { useFirebase } from "react-redux-firebase"
 // import fire from '../../fbase'
 import { useHistory } from "react-router-dom"
+
+//모바일 대응
+import { useMediaQuery } from 'react-responsive'
+
+//이미지
 import splash from '../icon/splash.png'
+
 export default function SplashScreen() {
+    const Desktop = ({children}) => {
+        const isDesktop = useMediaQuery({minWidth: 1224})
+    }
     const history = useHistory()
     const firebase = useFirebase()
     const [inputs, setInputs] = useState({
@@ -78,7 +87,7 @@ export default function SplashScreen() {
                 alignItems: "flex-start",
                 justifyContent: "center",
                 backgroundColor: "#F5F5F5",
-                width: 100 * vw,
+                width: "100vw",
                 height: 470,
                 paddingTop: 40
             }}>
@@ -182,7 +191,7 @@ export default function SplashScreen() {
                 </div>
             </div>
             <div style={{
-                width: 100 * vw,
+                width: "100vw",
                 backgroundColor: "#ffffff",
                 paddingTop: 40,
                 display: "flex",
@@ -254,7 +263,7 @@ export default function SplashScreen() {
                     fontSize: 18,
                     color: "#202426",
                     textDecorationLine: "underline",
-                    marginBottom: 12.5 * vh,
+                    marginBottom: "12.5vh",
                     outline: 0,
                     cursor: "pointer",
                     backgroundColor: "#ffffff",
@@ -262,10 +271,10 @@ export default function SplashScreen() {
                 }} value="더 궁금한 질문이 있으신가요?" />
             </div>
             <div style={{
-                width: 56 * vw,
+                width: "56vw",
                 height: 150,
-                paddingLeft: 22 * vw,
-                paddingRight: 22 * vw,
+                paddingLeft: "22vw",
+                paddingRight: "22vw",
                 backgroundColor: "#202426",
                 paddingTop: 27,
                 paddingBottom: 26,

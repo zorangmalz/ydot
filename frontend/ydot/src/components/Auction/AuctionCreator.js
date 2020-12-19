@@ -149,11 +149,11 @@ export default function AuctionCreator() {
         <>
             <Header splash={false} bold="Auction" />
             <div style={{
-                width: 68 * vw,
-                paddingLeft: 16 * vw,
-                paddingRight: 16 * vw,
+                width: "68vw",
+                paddingLeft: "16vw",
+                paddingRight: "16vw",
                 backgroundColor: "#efefef",
-                paddingBottom: 5 * vh,
+                paddingBottom: "5vh",
             }}>
                 <CreatorProfile
                     img={Creator.img}
@@ -164,7 +164,7 @@ export default function AuctionCreator() {
                     state={Creator.state}
                 />
                 <div style={{
-                    width: 68 * vw,
+                    width: "68vw",
                     paddingTop: 10,
                     paddingBottom: 16,
                     backgroundColor: "#202426",
@@ -188,7 +188,7 @@ export default function AuctionCreator() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        width: 22.9 * vw,
+                        width: "22.9vw",
                     }}>
                         <div style={{
                             width: "100%",
@@ -293,7 +293,7 @@ export default function AuctionCreator() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        width: 29.1 * vw,
+                        width: "29.1vw",
                         minHeight: 700
                     }}>
                         <div style={{ width: "100%", backgroundColor: "#ffffff", borderBottom: "1px solid #D2D3D3" }}>
@@ -553,7 +553,7 @@ export default function AuctionCreator() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        width: 15 * vw,
+                        width: "15vw",
                         minHeight: 700
                     }}>
                         <div style={{

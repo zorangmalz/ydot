@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header, { vh, vw } from '../Style'
+import Header, { DesktopMinWidthNotPadding, vh, vw } from '../Style'
 import "../component.css"
 import { useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase"
@@ -189,9 +189,10 @@ export default function Asset() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef" }}>
             <Header splash={false} bold="Asset" />
             <div style={{
-                width: 68 * vw,
+                width: "68vw",
                 height: 36,
                 paddingTop: 20,
+                minWidth: DesktopMinWidthNotPadding,
                 backgroundColor: "#ffffff",
                 borderBottom: "1px solid #797B7C",
 
@@ -231,11 +232,12 @@ export default function Asset() {
             {section ?
                 <>
                     <div style={{
-                        width: 52 * vw,
-                        paddingLeft: 8 * vw,
-                        paddingRight: 8 * vw,
+                        width: "52vw",
+                        minWidth: 1224 * 52 / 68,
+                        paddingLeft: "8vw",
+                        paddingRight: "8vw",
                         backgroundColor: "#ffffff",
-                        height: 90 * vh,
+                        height: "90vh",
                     }}>
                         <div style={{
                             display: "flex",
@@ -677,20 +679,21 @@ export default function Asset() {
                             alignItems: "center",
                             justifyContent: "space-between"
                         }}>
-                               {itemss.map(element =>
-                               <a href={element.hash} target="_blank">
-                            <img src={jisuncard} style={{width: 120, height: 120, borderRadius: 20}}/>
-                            </a>
-                               )}
+                            {itemss.map(element =>
+                                <a href={element.hash} target="_blank">
+                                    <img src={jisuncard} style={{ width: 120, height: 120, borderRadius: 20 }} />
+                                </a>
+                            )}
                         </div>
                     </div>
                 </>
                 :
                 <>
                     <div style={{
-                        width: 68 * vw,
+                        width: "68vw",
                         backgroundColor: "#ffffff",
-                        height: 90 * vh,
+                        minWidth: DesktopMinWidthNotPadding,
+                        minHeight: "90vh"
                     }}>
                         <div style={{
                             fontSize: 18,

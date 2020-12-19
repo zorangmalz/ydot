@@ -45,7 +45,7 @@ function reducer(state, action) {
 export default function Creator() {
     //펀딩정보, 채널 정보, 리워드 계산기
     const [infor, dispatch] = useReducer(reducer, 0)
-    const [fund,setFund]=useState(0)
+    const [fund, setFund] = useState(0)
 
     const onFund = () => {
         dispatch({ type: "fund" })
@@ -58,14 +58,14 @@ export default function Creator() {
     }
 
     //Progress Circle 관련
-    
+
 
     //팝업부분을 여기다 구현해놓음. 나중에 input값을 coinAmount변수로 넣어서 주면 됨
-    function modal(){
+    function modal() {
         setModalOne(true)
     }
-    
-    
+
+
     const firestore = useFirestore()
 
     const { uid } = useSelector((state) => state.firebase.auth);
@@ -125,9 +125,9 @@ export default function Creator() {
     const [modalOne, setModalOne] = useState(false)
     const [modalTwo, setModalTwo] = useState(false)
     const [modalThree, setModalThree] = useState(false)
-    const [reward,setReward]=useState("")
-    const [roi,setRoi]=useState("")
-    const[percentage,setPercentage]=useState(0)
+    const [reward, setReward] = useState("")
+    const [roi, setRoi] = useState("")
+    const [percentage, setPercentage] = useState(0)
     //input
     const [inputs, setInputs] = useState({
         name: '',
@@ -142,24 +142,24 @@ export default function Creator() {
         }
         setInputs(nextInputs)
     }
-    useEffect(()=>{
+    useEffect(() => {
         getInfo()
-       
-    },[])
-    useEffect(()=>{
-        setPercentage((fund/16360*100).toFixed(2))
-    },[fund])
-    function getInfo(){
-        firestore.collection("Creator").doc("[Vlog] 지순's 일상").onSnapshot(doc=>{
+
+    }, [])
+    useEffect(() => {
+        setPercentage((fund / 16360 * 100).toFixed(2))
+    }, [fund])
+    function getInfo() {
+        firestore.collection("Creator").doc("[Vlog] 지순's 일상").onSnapshot(doc => {
             setFund(doc.data().FundingTotal)
         })
     }
-    function calculate(){
-        console.log(nickname,"this")
-        var a=((Math.pow(1+Number(nickname)/100,12)-1)*10296940.94-16362236)/16362236
+    function calculate() {
+        console.log(nickname, "this")
+        var a = ((Math.pow(1 + Number(nickname) / 100, 12) - 1) * 10296940.94 - 16362236) / 16362236
         console.log(a)
-        setRoi((a*100).toFixed(2))
-        var b=Number(name)*a+Number(name)
+        setRoi((a * 100).toFixed(2))
+        var b = Number(name) * a + Number(name)
         setReward(b.toFixed(2))
     }
     return (
@@ -167,7 +167,7 @@ export default function Creator() {
             {modalOne ?
                 <PopupOne setVisible={setModalOne} setNextVisible={setModalTwo} />
                 :
-                modalTwo ? 
+                modalTwo ?
                     <PopupTwo setVisible={setModalTwo} setNextVisible={setModalThree} />
                     :
                     modalThree ?
@@ -175,7 +175,7 @@ export default function Creator() {
                         :
                         <></>
             }
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef", maxHeight: modalOne ? 100 * vh : modalTwo ? 100 * vh : modalThree ? 100 * vh : 3000, overflowY : modalOne ? "hidden" : modalTwo ? "hidden" : modalThree ? "hidden" : "scroll" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef", maxHeight: modalOne ? "100vh" : modalTwo ? "100vh" : modalThree ? "100vh" : 3000, overflowY: modalOne ? "hidden" : modalTwo ? "hidden" : modalThree ? "hidden" : "scroll" }}>
                 <Header splash={false} bold="Home" />
                 <div style={{
                     backgroundColor: "#efefef",
@@ -188,23 +188,26 @@ export default function Creator() {
                         cursor: "pointer",
                         outline: 0,
                         position: "fixed",
+                        zIndex: 5,
                         height: 90,
-                        top: 100 * vh - 90,
-                        width: 68 * vw,
-                        maxWidth: 1280,
+                        bottom: 0,
+                        width: "68vw",
+                        minWidth: 1224 * 58 / 68 + 7.4 * vw,
                         backgroundColor: "#202426",
                         fontSize: 24,
                         color: "#ffffff",
+                        border: 0,
                         fontWeight: "bold",
                         alignSelf: "center",
                         textDecorationLine: "none"
                     }} type="button" value="공모 참여하기" />
                     <div style={{
-                        width: 58 * vw,
+                        width: "58vw",
+                        minWidth: 1224 * 48 / 58,
                         paddingTop: 40,
                         paddingBottom: 40,
-                        paddingLeft: 5 * vw,
-                        paddingRight: 5 * vw,
+                        paddingLeft: "5vw",
+                        paddingRight: "5vw",
                         backgroundColor: "#ffffff",
                         display: "flex",
                         flexDirection: "row",
@@ -224,7 +227,7 @@ export default function Creator() {
                                 alignItems: "flex-start",
                                 justifyContent: "space-between",
                                 maxWidth: 550,
-                                width: 42 * vw,
+                                width: "42vw",
                                 height: 238
                             }}>
                                 <div style={{
@@ -250,7 +253,7 @@ export default function Creator() {
                                             color: "#202426",
                                             marginBottom: 10
                                         }}>{fund}
-                                        <div style={{
+                                            <div style={{
                                                 display: "inline-block",
                                                 fontSize: 16,
                                                 fontWeight: "normal",
@@ -384,9 +387,10 @@ export default function Creator() {
                     <div style={{
                         marginTop: 10,
                         marginBottom: 10,
-                        width: 58 * vw,
-                        paddingLeft: 5 * vw,
-                        paddingRight: 5 * vw,
+                        width: "58vw",
+                        minWidth: 1224 * 48 / 58,
+                        paddingLeft: "5vw",
+                        paddingRight: "5vw",
                         paddingTop: 48,
                         paddingBottom: 54,
                         backgroundColor: "#ffffff",
@@ -437,7 +441,8 @@ export default function Creator() {
                         backgroundColor: "#ffffff",
                     }}>
                         <div style={{
-                            width: 68 * vw,
+                            width: "68vw",
+                            minWidth: 1224 * 58 / 68 + 7.4 * vw,
                             paddingTop: 20,
                             backgroundColor: "#ffffff",
                             display: "flex",
@@ -491,71 +496,71 @@ export default function Creator() {
                         </div>
                     </div>
                     {infor === 0 ?
-                        <>
+                        <div style={{
+                            width: "68vw",
+                            minWidth: 1224 * 58 / 68 + 7.4 * vw,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            backgroundColor: "#ffffff",
+                            paddingBottom: 200,
+                        }}>
+                            <img src={solitude} alt="나중에" style={{ width: "100%", height: 200, marginTop: 20, marginBottom: 40 }} />
+                            <div style={{
+                                fontSize: 24,
+                                fontWeight: "bold",
+                                color: "#161513",
+                                marginBottom: 40,
+                            }}>- Pood님의 채널을 보세요! 랍스타부터 참치까지 다양한 먹방을 하고 있습니다. -</div>
                             <div style={{
                                 display: "flex",
-                                flexDirection: "column",
+                                flexDirection: "row",
                                 alignItems: "center",
-                                backgroundColor: "#ffffff",
-                                paddingBottom: 200,
-                                width: 68 * vw,
+                                justifyContent: "space-between",
+                                marginBottom: 40,
+                                width: 1020,
+                                paddingRight: 20,
+                                paddingLeft: 20,
+                                paddingTop: 20,
+                                paddingBottom: 20,
+                                border: "2px solid #212426",
+                                borderRadius: 30,
                             }}>
-                                <img src={solitude} alt="나중에" style={{ width: 68 * vw, maxWidth: 1280, height: 200, marginTop: 20, marginBottom: 40 }} />
-                                <div style={{
-                                    fontSize: 24,
-                                    fontWeight: "bold",
-                                    color: "#161513",
-                                    marginBottom: 40,
-                                }}>- Pood님의 채널을 보세요! 랍스타부터 참치까지 다양한 먹방을 하고 있습니다. -</div>
-                                <div style={{
+                                {Invest.map(element => <div style={{
                                     display: "flex",
-                                    flexDirection: "row",
+                                    flexDirection: "column",
                                     alignItems: "center",
                                     justifyContent: "space-between",
-                                    marginBottom: 40,
-                                    width: 1020,
-                                    paddingRight: 20,
-                                    paddingLeft: 20,
-                                    paddingTop: 20,
-                                    paddingBottom: 20,
-                                    border: "2px solid #212426",
-                                    borderRadius: 30,
+                                    width: 290,
                                 }}>
-                                    {Invest.map(element => <div style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        width: 290,
-                                    }}>
-                                        <img src={element.img} alt="나중에" style={{ width: 80, height: 80, marginBottom: 20 }} />
-                                        <div style={{
-                                            fontSize: 18,
-                                            fontWeight: "bold",
-                                            color: "#202426",
-                                            marginBottom: 10,
-                                            textAlign: "center"
-                                        }}>{element.title}</div>
-                                        <div style={{
-                                            opacity: 0.8,
-                                            fontSize: 16,
-                                            color: "#202426",
-                                            lineHeight: 1.88,
-                                            textAlign: "center",
-                                        }}>{element.content}</div>
-                                    </div>)}
-                                </div>
-                                {QA.map(element => <QAList title={element.title} content={element.content} />)}
+                                    <img src={element.img} alt="나중에" style={{ width: 80, height: 80, marginBottom: 20 }} />
+                                    <div style={{
+                                        fontSize: 18,
+                                        fontWeight: "bold",
+                                        color: "#202426",
+                                        marginBottom: 10,
+                                        textAlign: "center"
+                                    }}>{element.title}</div>
+                                    <div style={{
+                                        opacity: 0.8,
+                                        fontSize: 16,
+                                        color: "#202426",
+                                        lineHeight: 1.88,
+                                        textAlign: "center",
+                                    }}>{element.content}</div>
+                                </div>)}
                             </div>
-                        </>
+                            {QA.map(element => <QAList title={element.title} content={element.content} />)}
+                        </div>
                         :
                         infor === 1 ?
                             <>
                                 <div style={{
-                                    width: 58 * vw,
+                                    width: "58vw",
+                                    minWidth: 1224 * 48 / 58,
                                     paddingTop: 40,
-                                    paddingLeft: 5 * vw,
-                                    paddingRight: 5 * vw,
+                                    paddingLeft: "5vw",
+                                    paddingRight: "5vw",
                                     backgroundColor: "#ffffff",
                                     display: "flex",
                                     flexDirection: "row",
@@ -644,9 +649,10 @@ export default function Creator() {
                                 </div>
                                 <div style={{
                                     backgroundColor: "#ffffff",
-                                    width: 58 * vw,
-                                    paddingLeft: 5 * vw,
-                                    paddingRight: 5 * vw,
+                                    width: "58vw",
+                                    minWidth: 1224 * 48 / 58,
+                                    paddingLeft: "5vw",
+                                    paddingRight: "5vw",
                                     display: "flex",
                                     flexDirection: "column",
                                     paddingTop: 40,
@@ -654,13 +660,15 @@ export default function Creator() {
                                 }}>
                                     <div style={{
                                         fontSize: 21,
+                                        alignSelf: "flex-start",
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 30,
                                         textAlign: "left"
                                     }}>누적 조회수</div>
                                     <div style={{
-                                        width: 58 * vw,
+                                        width: "100%",
+                                        alignSelf: "center",
                                         height: 273,
                                         marginBottom: 40,
                                         borderRadius: 30,
@@ -674,12 +682,14 @@ export default function Creator() {
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
+                                        alignSelf: "flex-start",
                                         fontWeight: "bold",
                                         marginBottom: 30,
                                         textAlign: "left"
                                     }}>누적 구독자</div>
                                     <div style={{
-                                        width: 58 * vw,
+                                        width: "100%",
+                                        alignSelf: "center",
                                         height: 273,
                                         marginBottom: 40,
                                         borderRadius: 30,
@@ -693,12 +703,14 @@ export default function Creator() {
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
+                                        alignSelf: "flex-start",
                                         fontWeight: "bold",
                                         marginBottom: 30,
                                         textAlign: "left"
                                     }}>월별 조회수 획득</div>
                                     <div style={{
-                                        width: 58 * vw,
+                                        width: "100%",
+                                        alignSelf: "center",
                                         height: 273,
                                         marginBottom: 40,
                                         borderRadius: 30,
@@ -713,11 +725,13 @@ export default function Creator() {
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
+                                        alignSelf: "flex-start",
                                         marginBottom: 30,
                                         textAlign: "left"
                                     }}>월별 구독자 획득</div>
                                     <div style={{
-                                        width: 58 * vw,
+                                        width: "100%",
+                                        alignSelf: "center",
                                         height: 273,
                                         marginBottom: 130,
                                         borderRadius: 30,
@@ -734,9 +748,10 @@ export default function Creator() {
                             <>
                                 <div style={{
                                     backgroundColor: "#ffffff",
-                                    width: 58 * vw,
-                                    paddingLeft: 5 * vw,
-                                    paddingRight: 5 * vw,
+                                    width: "58vw",
+                                    minWidth: 1224 * 48 / 58,
+                                    paddingLeft: "5vw",
+                                    paddingRight: "5vw",
                                     display: "flex",
                                     flexDirection: "column",
                                     paddingTop: 40,
@@ -776,7 +791,7 @@ export default function Creator() {
                                                 backgroundColor: "#F2F2F2",
                                                 marginBottom: 20
                                             }}>
-                                                <input  type="text" name="name" placeholder="100" onChange={onChange} value={name} style={{
+                                                <input type="text" name="name" placeholder="100" onChange={onChange} value={name} style={{
                                                     fontSize: 18,
                                                     color: "#202426",
                                                     border: 0,
@@ -854,14 +869,14 @@ export default function Creator() {
                                                 marginBottom: 20,
                                                 border: "2px solid #212426"
                                             }}>
-                                        
+
                                                 <div style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    textAlign:"end",
+                                                    textAlign: "end",
                                                     height: 24,
-                                                    textAlign:"right"
+                                                    textAlign: "right"
                                                 }}>{reward}   LINK</div>
                                             </div>
                                             <div style={{
@@ -890,7 +905,7 @@ export default function Creator() {
                                                     fontWeight: "bold",
                                                     color: "#202426",
                                                     marginLeft: 10,
-                                                    textAlign:"right"
+                                                    textAlign: "right"
                                                 }}>{roi}%</div>
                                             </div>
                                         </div>

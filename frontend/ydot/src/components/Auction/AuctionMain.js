@@ -40,7 +40,7 @@ export default function AuctionMain({}) {
                 flexDirection: "column",
                 alignItems: "center",
                 backgroundColor: "#ffffff",
-                width: 100 * vw,
+                width: "100vw",
                 paddingTop: 40
             }}>
                 <div style={{
