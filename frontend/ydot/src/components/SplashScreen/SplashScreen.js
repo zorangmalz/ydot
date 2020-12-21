@@ -11,9 +11,15 @@ import { useMediaQuery } from 'react-responsive'
 import splash from '../icon/splash.png'
 
 export default function SplashScreen() {
-    const Desktop = ({children}) => {
-        const isDesktop = useMediaQuery({minWidth: 1224})
+    const Mobile = ({ children }) => {
+        const isMobile = useMediaQuery({ maxWidth: 767 })
+        return isMobile ? children : null
     }
+    const Default = ({ children }) => {
+        const isNotMobile = useMediaQuery({ minWidth: 768 })
+        return isNotMobile ? children : null
+    }
+
     const history = useHistory()
     const firebase = useFirebase()
     const [inputs, setInputs] = useState({
@@ -79,126 +85,127 @@ export default function SplashScreen() {
 
     }
     return (
-        <>
-            <Header splash={true} />
-            <div style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                justifyContent: "center",
-                backgroundColor: "#F5F5F5",
-                width: "100vw",
-                height: 470,
-                paddingTop: 40
-            }}>
-                <img src={splash} style={{
-                    width: 264,
-                    height: 400
-                }} />
+        <div>
+            <Default>
+                <Header splash={true} />
                 <div style={{
                     display: "flex",
-                    flexDirection: "column",
-                    width: 300,
-                    marginLeft: 176
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                    justifyContent: "center",
+                    backgroundColor: "#F5F5F5",
+                    width: "100vw",
+                    height: 470,
+                    paddingTop: 40
                 }}>
+                    <img src={splash} style={{
+                        width: 264,
+                        height: 400
+                    }} />
                     <div style={{
                         display: "flex",
                         flexDirection: "column",
                         width: 300,
-                        height: 400
+                        marginLeft: 176
                     }}>
-                        <p style={{
-                            fontSize: 36,
-                            fontWeight: "bold",
-                            color: "#202426",
-                            textAlign: "left"
-                        }}>처음 가지는 <br />나만의 크리에이터</p>
-                        <p style={{
-                            fontSize: 24,
-                            color: "#202426",
-                            marginTop: 10,
-                            textAlign: "left",
-                            marginBottom: 30
-                        }}>클로즈 베타 테스트 진행중!</p>
-                        <input style={{
-                            fontSize: 18,
-                            opacity: 0.8,
-                            color: "#202426",
-                            borderWidth: 0,
-                            borderBottomWidth: 1,
-                            width: 295,
-                            borderBottomColor: "#202426",
-                            paddingBottom: 10,
-                            verticalAlign: "center",
-                            backgroundColor: "#F5F5F5",
-                            outline: 0
-                        }} type="text" name="name" placeholder="이메일 주소" onChange={onChange} value={name} />
-                        <input style={{
-                            fontSize: 18,
-                            opacity: 0.8,
-                            color: "#202426",
-                            borderWidth: 0,
-                            borderBottomWidth: 1,
-                            width: 295,
-                            borderBottomColor: "#202426",
-                            paddingBottom: 10,
-                            marginTop: 10,
-                            verticalAlign: "center",
-                            backgroundColor: "#F5F5F5",
-                            outline: 0
-                        }} type="password" name="nickname" placeholder="비밀번호" onChange={onChange} value={nickname} />
-                        <input type="button" style={{
-                            outline: 0,
-                            cursor: "pointer",
-                            alignSelf: "flex-end",
-                            fontSize: 18,
-                            opacity: 0.6,
-                            color: "#202426",
-                            borderWidth: 0,
-                            backgroundColor: "#F5F5F5",
-                            textDecorationLine: "underline",
-                            margin: 0,
-                            marginTop: 10
-                        }} value="비밀번호를 잊으셨나요?" />
-                        <input onClick={login} style={{
-                            cursor: "pointer",
-                            outline: 0,
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
                             width: 300,
-                            height: 48,
-                            borderRadius: 5,
-                            backgroundColor: "#202426",
+                            height: 400
+                        }}>
+                            <p style={{
+                                fontSize: 36,
+                                fontWeight: "bold",
+                                color: "#202426",
+                                textAlign: "left"
+                            }}>처음 가지는 <br />나만의 크리에이터</p>
+                            <p style={{
+                                fontSize: 24,
+                                color: "#202426",
+                                marginTop: 10,
+                                textAlign: "left",
+                                marginBottom: 30
+                            }}>클로즈 베타 테스트 진행중!</p>
+                            <input style={{
+                                fontSize: 18,
+                                opacity: 0.8,
+                                color: "#202426",
+                                borderWidth: 0,
+                                borderBottomWidth: 1,
+                                width: 295,
+                                borderBottomColor: "#202426",
+                                paddingBottom: 10,
+                                verticalAlign: "center",
+                                backgroundColor: "#F5F5F5",
+                                outline: 0
+                            }} type="text" name="name" placeholder="이메일 주소" onChange={onChange} value={name} />
+                            <input style={{
+                                fontSize: 18,
+                                opacity: 0.8,
+                                color: "#202426",
+                                borderWidth: 0,
+                                borderBottomWidth: 1,
+                                width: 295,
+                                borderBottomColor: "#202426",
+                                paddingBottom: 10,
+                                marginTop: 10,
+                                verticalAlign: "center",
+                                backgroundColor: "#F5F5F5",
+                                outline: 0
+                            }} type="password" name="nickname" placeholder="비밀번호" onChange={onChange} value={nickname} />
+                            <input type="button" style={{
+                                outline: 0,
+                                cursor: "pointer",
+                                alignSelf: "flex-end",
+                                fontSize: 18,
+                                opacity: 0.6,
+                                color: "#202426",
+                                borderWidth: 0,
+                                backgroundColor: "#F5F5F5",
+                                textDecorationLine: "underline",
+                                margin: 0,
+                                marginTop: 10
+                            }} value="비밀번호를 잊으셨나요?" />
+                            <input onClick={login} style={{
+                                cursor: "pointer",
+                                outline: 0,
+                                width: 300,
+                                height: 48,
+                                borderRadius: 5,
+                                backgroundColor: "#202426",
+                                marginTop: 20,
+                                fontSize: 16,
+                                color: "#ffffff",
+                                borderWidth: 0,
+                                fontWeight: "bold",
+                                textDecorationLine: "none"
+                            }} type="button" value="참여하기" />
+                        </div>
+                        <input style={{
+                            cursor: "pointer",
+                            outline: 0,
+                            width: 200,
+                            height: 26,
+                            alignSelf: "center",
+                            backgroundColor: "#ffffff",
                             marginTop: 20,
                             fontSize: 16,
-                            color: "#ffffff",
+                            color: "#e78276",
                             borderWidth: 0,
-                            fontWeight: "bold",
-                            textDecorationLine: "none"
-                        }} type="button" value="참여하기" />
+                            backgroundColor: "#F5F5F5"
+                        }} type="button" value="비밀번호를 확인해주세요" />
                     </div>
-                    <input style={{
-                        cursor: "pointer",
-                        outline: 0,
-                        width: 200,
-                        height: 26,
-                        alignSelf: "center",
-                        backgroundColor: "#ffffff",
-                        marginTop: 20,
-                        fontSize: 16,
-                        color: "#e78276",
-                        borderWidth: 0,
-                        backgroundColor: "#F5F5F5"
-                    }} type="button" value="비밀번호를 확인해주세요" />
                 </div>
-            </div>
-            <div style={{
-                width: "100vw",
-                backgroundColor: "#ffffff",
-                paddingTop: 40,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-            }}>
-                {/* <p style={{
+                <div style={{
+                    width: "100vw",
+                    backgroundColor: "#ffffff",
+                    paddingTop: 40,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center"
+                }}>
+                    {/* <p style={{
                     fontSize: 24,
                     fontWeight: "bold",
                     color: "#202426",
@@ -232,76 +239,81 @@ export default function SplashScreen() {
                         center={threeguide.content}
                     />
                 </div> */}
-                <p style={{
-                    fontSize: 24,
-                    fontWeight: "bold",
-                    color: "#202426",
-                    marginBottom: 40,
-                }}>FAQ</p>
-                <FAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                    onClick={() => setOne(!one)}
-                />
-                <FAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                    onClick={() => setTwo(!two)}
-                />
-                <FAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                    onClick={() => setThree(!three)}
-                />
-                <FAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                    onClick={() => setFour(!four)}
-                />
-                <FAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                    "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                    onClick={() => setFive(!five)}
-                />
-                <input type="button" style={{
-                    alignSelf: "flex-end",
-                    fontSize: 18,
-                    color: "#202426",
-                    textDecorationLine: "underline",
-                    marginBottom: "12.5vh",
-                    outline: 0,
-                    cursor: "pointer",
-                    backgroundColor: "#ffffff",
-                    border: 0,
-                }} value="더 궁금한 질문이 있으신가요?" />
-            </div>
-            <div style={{
-                width: "56vw",
-                height: 150,
-                paddingLeft: "22vw",
-                paddingRight: "22vw",
-                backgroundColor: "#202426",
-                paddingTop: 27,
-                paddingBottom: 26,
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "flex-start"
-            }}>
-                <div style={{
-                    fontSize: 60,
-                    fontWeight: "bold",
-                    lineHeight: 1.37,
-                    color: "#f5f4f4",
-                    lineHeight: 1.37,
-                    marginRight: 55
-                }}>Y.</div>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                }}>
-                    <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주식회사 조랑말즈</div>
-                    <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>대표자 : 김현명</div>
-                    <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주소 : 서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
-                    <div style={{ fontSize: 14, color: "#ffffff" }}>연락처 : 010-4337-6607</div>
+                    <p style={{
+                        fontSize: 24,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        marginBottom: 40,
+                    }}>FAQ</p>
+                    <FAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                        onClick={() => setOne(!one)}
+                    />
+                    <FAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                        onClick={() => setTwo(!two)}
+                    />
+                    <FAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                        onClick={() => setThree(!three)}
+                    />
+                    <FAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                        onClick={() => setFour(!four)}
+                    />
+                    <FAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                        onClick={() => setFive(!five)}
+                    />
+                    <input type="button" style={{
+                        textAlign: "right",
+                        fontSize: 18,
+                        width: 920,
+                        color: "#202426",
+                        textDecorationLine: "underline",
+                        marginBottom: "12.5vh",
+                        outline: 0,
+                        cursor: "pointer",
+                        backgroundColor: "#ffffff",
+                        border: 0,
+                    }} value="더 궁금한 질문이 있으신가요?" />
                 </div>
-            </div>
-        </>
+                <div style={{
+                    width: "56vw",
+                    height: 150,
+                    paddingLeft: "22vw",
+                    paddingRight: "22vw",
+                    backgroundColor: "#202426",
+                    paddingTop: 27,
+                    paddingBottom: 26,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "flex-start"
+                }}>
+                    <div style={{
+                        fontSize: 60,
+                        fontWeight: "bold",
+                        lineHeight: 1.37,
+                        color: "#f5f4f4",
+                        lineHeight: 1.37,
+                        marginRight: 55
+                    }}>Y.</div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                    }}>
+                        <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주식회사 조랑말즈</div>
+                        <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>대표자 : 김현명</div>
+                        <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주소 : 서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
+                        <div style={{ fontSize: 14, color: "#ffffff" }}>연락처 : 010-4337-6607</div>
+                    </div>
+                </div>
+            </Default>
+            <Mobile>
+                
+            </Mobile>
+        </div>
     )
 }
