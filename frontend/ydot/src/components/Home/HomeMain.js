@@ -24,21 +24,36 @@ import CaverExtKAS from "caver-js-ext-kas"
 
 
 export default function HomeMain() {
-    
+    require('dotenv').config();
     const history = useHistory()
     const firebase = useFirebase()
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
     const [items, setItems] = useState([]);
+    
     const chainId=1001
     const accessKeyId="KASK8QUCLZUJ1K1YZ9GB2VJ2"
     const secretAccessKey="BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
    
     async function kasTest(){
-        const caver = new CaverExtKAS()
-        caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-        const blockNumber = await caver.rpc.klay.getBlockNumber()
-console.log(blockNumber)
+        var wallet
+        await firestore.collection("User").doc(uid).get().then(doc=>{
+            wallet=doc.data().wallet
+        })
+        if(wallet){
+console.log("Not new")
+        }else{
+            const caver = new CaverExtKAS()
+            caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+          
+    const account = await caver.kas.wallet.createAccount()
+    console.log(account)
+            firestore.collection("User").doc(uid).update({
+                wallet:account.address
+            }
+                
+            )
+        }
     }
     useEffect(() => {
         load()
