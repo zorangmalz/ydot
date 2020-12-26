@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import Header, { FAQ, GuideBox, vh, vw } from '../Style'
-import { useFirebase } from "react-redux-firebase"
+import Header, { FAQ, CreatorInfo, GuideBox, vh, vw, CloseBeta, BottomTag, TopBanner } from '../Style'
+import { useFirebase, useFirestore } from "react-redux-firebase"
 // import fire from '../../fbase'
 import { useHistory } from "react-router-dom"
 
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
 
-//이미지
-import splash from '../icon/splash.png'
+//클로즈 베타 이미지
+import fan from '../icon/fan.png'
+import auction from '../icon/auction.jpg'
+import moneyBag from '../icon/money-bag.jpg'
+import personalInfo from '../icon/personal-information.jpg'
+
+//임시 이미지
+import Exampleone from '../icon/exampleone.png'
+import Exampletwo from '../icon/exampletwo.png'
+import Examplethree from '../icon/examplethree.png'
+import Examplefour from '../icon/examplefour.png'
+import { MBottomTag, MCloseBeta, MCreatorInfo, MFAQ, MHeader, MTopBanner } from '../Mobile'
 
 export default function SplashScreen() {
     const Mobile = ({ children }) => {
-        const isMobile = useMediaQuery({ maxWidth: 767 })
+        const isMobile = useMediaQuery({ maxWidth: 450 })
         return isMobile ? children : null
     }
     const Default = ({ children }) => {
-        const isNotMobile = useMediaQuery({ minWidth: 768 })
+        const isNotMobile = useMediaQuery({ minWidth: 451 })
         return isNotMobile ? children : null
     }
 
@@ -36,37 +46,12 @@ export default function SplashScreen() {
         setInputs(nextInputs)
     }
 
-    const firstguide = {
-        title: "크리에이터 정보 확인",
-        content: ["크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히", <br />, "읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을", <br />, "가지고 있습니다. 경쟁 크리에이터들과 비교해 투자할", <br />, "크리에이터를 선정해 보세요"],
-        button: "크리에이터 정보",
-        center: false
-    }
-    const twoguide = {
-        title: "배당권 입찰",
-        content: ["모든 모의 투자자에게는 10만원이 지급됩니다.", <br />, "구매하려는 배당권의 개수와 가격을 적어 경매에", <br />, "참여합니다. 제일 높은 입찰가부터 낙찰이 진행되며,", <br />, "다른 참여자의 입찰가는 호가창에 표시됩니다."],
-        button: "역경매 가이드",
-        center: true
-    }
-    const threeguide = {
-        title: "배당권 낙찰 & 배당 수령",
-        content: ["배당권에 낙찰되면 경매가 끝난 후 배당권을 수령합니다.", <br />, "3개월간 타 투자자와 배당권을 거래할 수 있습니다.", <br />, "배당권을 보유한 유저는 배당을 받을 수 있으며,", <br />, "배당은 조회수 기반으로 산출됩니다. (월별 조회수 *2 ₩)"],
-        button: "배당권 거래 가이드",
-        center: false
-    }
-
     const [one, setOne] = useState(true)
     const [two, setTwo] = useState(false)
     const [three, setThree] = useState(false)
     const [four, setFour] = useState(false)
     const [five, setFive] = useState(false)
-    const [test, setTest] = useState("")
-    // useEffect(()=>{
-    //     fire.firestore().collection("User").doc("userA").get().then(doc=>{
-    //         setTest(doc.data().name)
-    //         console.log(doc.data().name)
-    //     })
-    // })
+
     useEffect(() => {
         console.log(nickname)
     }, [nickname])
@@ -81,238 +66,309 @@ export default function SplashScreen() {
                 })
             })
         })
+    }
 
+    //진행중인 펀딩
+    const [items, setItems] = useState([]);
+    const firestore = useFirestore()
 
+    useEffect(() => {
+        load()
+    }, [])
+
+    async function load() {
+        var date = new Date()
+        firestore.collection("Creator").onSnapshot(querySnapshot => {
+            const list = []
+            var count = 1
+            querySnapshot.forEach(doc => {
+                list.push({
+                    img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
+                    name: doc.id === "[Vlog] 지순's 일상" ? "Pood" : doc.id,
+                    FundingNum: doc.data().FundingNum,
+                    FundingTotal: doc.data().FundingAim,
+                    percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
+                    Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
+                })
+                count = count + 1
+            })
+            setItems(list)
+        })
     }
     return (
         <div>
             <Default>
-                <Header splash={true} />
                 <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-start",
-                    justifyContent: "center",
-                    backgroundColor: "#F5F5F5",
-                    width: "100vw",
-                    height: 470,
-                    paddingTop: 40
-                }}>
-                    <img src={splash} style={{
-                        width: 264,
-                        height: 400
-                    }} />
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        width: 300,
-                        marginLeft: 176
-                    }}>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            width: 300,
-                            height: 400
-                        }}>
-                            <p style={{
-                                fontSize: 36,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                textAlign: "left"
-                            }}>처음 가지는 <br />나만의 크리에이터</p>
-                            <p style={{
-                                fontSize: 24,
-                                color: "#202426",
-                                marginTop: 10,
-                                textAlign: "left",
-                                marginBottom: 30
-                            }}>클로즈 베타 테스트 진행중!</p>
-                            <input style={{
-                                fontSize: 18,
-                                opacity: 0.8,
-                                color: "#202426",
-                                borderWidth: 0,
-                                borderBottomWidth: 1,
-                                width: 295,
-                                borderBottomColor: "#202426",
-                                paddingBottom: 10,
-                                verticalAlign: "center",
-                                backgroundColor: "#F5F5F5",
-                                outline: 0
-                            }} type="text" name="name" placeholder="이메일 주소" onChange={onChange} value={name} />
-                            <input style={{
-                                fontSize: 18,
-                                opacity: 0.8,
-                                color: "#202426",
-                                borderWidth: 0,
-                                borderBottomWidth: 1,
-                                width: 295,
-                                borderBottomColor: "#202426",
-                                paddingBottom: 10,
-                                marginTop: 10,
-                                verticalAlign: "center",
-                                backgroundColor: "#F5F5F5",
-                                outline: 0
-                            }} type="password" name="nickname" placeholder="비밀번호" onChange={onChange} value={nickname} />
-                            <input type="button" style={{
-                                outline: 0,
-                                cursor: "pointer",
-                                alignSelf: "flex-end",
-                                fontSize: 18,
-                                opacity: 0.6,
-                                color: "#202426",
-                                borderWidth: 0,
-                                backgroundColor: "#F5F5F5",
-                                textDecorationLine: "underline",
-                                margin: 0,
-                                marginTop: 10
-                            }} value="비밀번호를 잊으셨나요?" />
-                            <input onClick={login} style={{
-                                cursor: "pointer",
-                                outline: 0,
-                                width: 300,
-                                height: 48,
-                                borderRadius: 5,
-                                backgroundColor: "#202426",
-                                marginTop: 20,
-                                fontSize: 16,
-                                color: "#ffffff",
-                                borderWidth: 0,
-                                fontWeight: "bold",
-                                textDecorationLine: "none"
-                            }} type="button" value="참여하기" />
-                        </div>
-                        <input style={{
-                            cursor: "pointer",
-                            outline: 0,
-                            width: 200,
-                            height: 26,
-                            alignSelf: "center",
-                            backgroundColor: "#ffffff",
-                            marginTop: 20,
-                            fontSize: 16,
-                            color: "#e78276",
-                            borderWidth: 0,
-                            backgroundColor: "#F5F5F5"
-                        }} type="button" value="비밀번호를 확인해주세요" />
-                    </div>
-                </div>
-                <div style={{
-                    width: "100vw",
-                    backgroundColor: "#ffffff",
-                    paddingTop: 40,
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center"
-                }}>
-                    {/* <p style={{
-                    fontSize: 24,
-                    fontWeight: "bold",
-                    color: "#202426",
-                    marginBottom: 40
-                }}>클로즈 베타는 다음과 같이 진행됩니다.</p>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "center"
+                    backgroundColor: "#ffffff",
+                    overflow: "auto",
                 }}>
-                    <GuideBox
-                        icon={<img src="../icon/personal-information.jpg" width={100} height={100} style={{ alignSelf: "center" }} />}
-                        title={firstguide.title}
-                        content={firstguide.content}
-                        button={firstguide.button}
-                        center={firstguide.content}
-                    />
-                    <GuideBox
-                        icon={<img src="../icon/auction.jpg" width={100} height={100} style={{ alignSelf: "center" }} />}
-                        title={twoguide.title}
-                        content={twoguide.content}
-                        button={twoguide.button}
-                        center={twoguide.content}
-                    />
-                    <GuideBox
-                        icon={<img src="../icon/money-bag.jpg" width={100} height={100} style={{ alignSelf: "center" }} />}
-                        title={threeguide.title}
-                        content={threeguide.content}
-                        button={threeguide.button}
-                        center={threeguide.content}
-                    />
-                </div> */}
-                    <p style={{
-                        fontSize: 24,
+                    <Header bold="Home" />
+                    <TopBanner />
+                    <div style={{
+                        fontSize: 21,
                         fontWeight: "bold",
                         color: "#202426",
                         marginBottom: 40,
-                    }}>FAQ</p>
-                    <FAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setOne(!one)}
-                    />
-                    <FAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setTwo(!two)}
-                    />
-                    <FAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setThree(!three)}
-                    />
-                    <FAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setFour(!four)}
-                    />
-                    <FAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                        "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                        onClick={() => setFive(!five)}
-                    />
-                    <input type="button" style={{
-                        textAlign: "right",
-                        fontSize: 18,
-                        width: 920,
-                        color: "#202426",
-                        textDecorationLine: "underline",
-                        marginBottom: "12.5vh",
-                        outline: 0,
-                        cursor: "pointer",
-                        backgroundColor: "#ffffff",
-                        border: 0,
-                    }} value="더 궁금한 질문이 있으신가요?" />
-                </div>
-                <div style={{
-                    width: "56vw",
-                    height: 150,
-                    paddingLeft: "22vw",
-                    paddingRight: "22vw",
-                    backgroundColor: "#202426",
-                    paddingTop: 27,
-                    paddingBottom: 26,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start"
-                }}>
-                    <div style={{
-                        fontSize: 60,
-                        fontWeight: "bold",
-                        lineHeight: 1.37,
-                        color: "#f5f4f4",
-                        lineHeight: 1.37,
-                        marginRight: 55
-                    }}>Y.</div>
+                        marginTop: 40,
+                    }}>진행중인 펀드</div>
                     <div style={{
                         display: "flex",
-                        flexDirection: "column",
-                        alignItems: "flex-start",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        minWidth: 1060,
+                        width: "56vw",
                     }}>
-                        <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주식회사 조랑말즈</div>
-                        <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>대표자 : 김현명</div>
-                        <div style={{ fontSize: 14, color: "#ffffff", marginBottom: 7 }}>주소 : 서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
-                        <div style={{ fontSize: 14, color: "#ffffff" }}>연락처 : 010-4337-6607</div>
+                        {items.map(element =>
+                            <CreatorInfo
+                                img={element.img}
+                                name={element.name}
+                                FundingNum={element.FundingNum}
+                                percent={element.percent}
+                                Deadline={element.Deadline}
+                            />
+                        )}
                     </div>
+                    <div style={{
+                        fontSize: 21,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        marginBottom: 40,
+                        marginTop: 40,
+                    }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
+                    <div style={{
+                        width: "56vw",
+                        minWidth: 1060,
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}>
+                        <div style={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                        }}>
+                            <CloseBeta
+                                img={personalInfo}
+                                title="크리에이터 정보 확인"
+                                content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
+                    읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
+                    가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
+                            />
+                            <CloseBeta
+                                img={auction}
+                                title="크라우드 펀딩 참여"
+                                content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
+                    각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
+                    빠르게 마음에 드는 크리에이터를 선점하세요!"
+                            />
+                        </div>
+                        <div style={{
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            marginTop: 40,
+                        }}>
+                            <CloseBeta
+                                img={moneyBag}
+                                title="토큰 및 리워드 수령"
+                                content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
+                            />
+                            <CloseBeta
+                                img={fan}
+                                title="피드백은 언제나 환영입니다!"
+                                content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
+                    언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
+                            />
+                        </div>
+                    </div>
+                    <div style={{
+                        width: "100vw",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }}>
+                        <p style={{
+                            fontSize: 24,
+                            fontWeight: "bold",
+                            color: "#202426",
+                            marginTop: 40,
+                            marginBottom: 40,
+                        }}>FAQ</p>
+                        <FAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setOne(!one)}
+                        />
+                        <FAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setTwo(!two)}
+                        />
+                        <FAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setThree(!three)}
+                        />
+                        <FAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setFour(!four)}
+                        />
+                        <FAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setFive(!five)}
+                        />
+                        <input type="button" style={{
+                            textAlign: "right",
+                            fontSize: 16,
+                            minWidth: 1060,
+                            width: "56vw",
+                            color: "#202426",
+                            textDecorationLine: "underline",
+                            marginTop: 20,
+                            marginBottom: 40,
+                            outline: 0,
+                            cursor: "pointer",
+                            backgroundColor: "#ffffff",
+                            border: 0,
+                        }} value="더 궁금한 질문이 있으신가요?" />
+                    </div>
+                    <BottomTag />
                 </div>
             </Default>
             <Mobile>
-                
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#ffffff",
+                }}>
+                    <MHeader bold="Home" />
+                    <MTopBanner />
+                    <div style={{
+                        fontSize: 21,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        marginBottom: 20,
+                        marginTop: 40,
+                    }}>진행중인 펀드</div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        minWidth: 300,
+                        width: "100vw",
+                    }}>
+                        {items.map(element =>
+                            <MCreatorInfo
+                                img={element.img}
+                                name={element.name}
+                                FundingNum={element.FundingNum}
+                                percent={element.percent}
+                                Deadline={element.Deadline}
+                            />
+                        )}
+                    </div>
+                    <div style={{
+                        fontSize: 21,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        marginBottom: 40,
+                        marginTop: 40,
+                        width: "90vw",
+                        textAlign: "center"
+                    }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
+                    <div style={{
+                        width: "100vw",
+                        minWidth: 300,
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}>
+                        <MCloseBeta
+                            img={personalInfo}
+                            title="크리에이터 정보 확인"
+                            content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
+                    읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
+                    가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
+                        />
+                        <MCloseBeta
+                            img={auction}
+                            title="크라우드 펀딩 참여"
+                            content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
+                    각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
+                    빠르게 마음에 드는 크리에이터를 선점하세요!"
+                        />
+                        <MCloseBeta
+                            img={moneyBag}
+                            title="토큰 및 리워드 수령"
+                            content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
+                        />
+                        <MCloseBeta
+                            img={fan}
+                            title="피드백은 언제나 환영입니다!"
+                            content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
+                    언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
+                        />
+                    </div>
+                    <div style={{
+                        width: "100vw",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }}>
+                        <p style={{
+                            fontSize: 24,
+                            fontWeight: "bold",
+                            color: "#202426",
+                            marginTop: 40,
+                            marginBottom: 40,
+                        }}>FAQ</p>
+                        <MFAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸",
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setOne(!one)}
+                        />
+                        <MFAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setTwo(!two)}
+                        />
+                        <MFAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setThree(!three)}
+                        />
+                        <MFAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setFour(!four)}
+                        />
+                        <MFAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
+                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
+                            onClick={() => setFive(!five)}
+                        />
+                        <input type="button" style={{
+                            textAlign: "right",
+                            fontSize: 16,
+                            minWidth: 300,
+                            width: "90vw",
+                            color: "#202426",
+                            textDecorationLine: "underline",
+                            marginTop: 20,
+                            marginBottom: 40,
+                            outline: 0,
+                            cursor: "pointer",
+                            backgroundColor: "#ffffff",
+                            border: 0,
+                        }} value="더 궁금한 질문이 있으신가요?" />
+                    </div>
+                    <MBottomTag />
+                </div>
             </Mobile>
         </div>
     )

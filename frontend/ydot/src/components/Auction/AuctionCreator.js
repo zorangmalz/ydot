@@ -147,7 +147,7 @@ export default function AuctionCreator() {
     const [buytotal, setBuytotal] = useState("")
     return (
         <>
-            <Header splash={false} bold="Auction" />
+            <Header bold="Auction" />
             <div style={{
                 width: "68vw",
                 paddingLeft: "16vw",

@@ -187,7 +187,7 @@ export default function Asset() {
     // ]
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef" }}>
-            <Header splash={false} bold="Asset" />
+            <Header bold="Asset" />
             <div style={{
                 width: "68vw",
                 height: 36,

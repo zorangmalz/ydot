@@ -176,7 +176,7 @@ export default function Creator() {
                         <></>
             }
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef", maxHeight: modalOne ? "100vh" : modalTwo ? "100vh" : modalThree ? "100vh" : 3000, overflowY: modalOne ? "hidden" : modalTwo ? "hidden" : modalThree ? "hidden" : "scroll" }}>
-                <Header splash={false} bold="Home" />
+                <Header bold="Home" />
                 <div style={{
                     backgroundColor: "#efefef",
                     display: "flex",

@@ -6,13 +6,6 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { Link } from 'react-router-dom';
 
-
-//클로즈 베타 이미지
-import fan from '../icon/fan.png'
-import auction from '../icon/auction.jpg'
-import moneyBag from '../icon/money-bag.jpg'
-import personalInfo from '../icon/personal-information.jpg'
-
 //임시 이미지
 import Creatorone from '../icon/Creatorone.png'
 import Creatortwo from '../icon/Creatortwo.png'
@@ -30,41 +23,34 @@ export default function HomeMain() {
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
     const [items, setItems] = useState([]);
-    
-    const chainId=1001
-    const accessKeyId="KASK8QUCLZUJ1K1YZ9GB2VJ2"
-    const secretAccessKey="BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
-   
-    async function kasTest(){
+
+    const chainId = 1001
+    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
+    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
+
+    async function kasTest() {
         var wallet
-        await firestore.collection("User").doc(uid).get().then(doc=>{
-            wallet=doc.data().wallet
+        await firestore.collection("User").doc(uid).get().then(doc => {
+            wallet = doc.data().wallet
         })
-        if(wallet){
-console.log("Not new")
-        }else{
+        if (wallet) {
+            console.log("Not new")
+        } else {
             const caver = new CaverExtKAS()
             caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-          
-    const account = await caver.kas.wallet.createAccount()
-    console.log(account)
+
+            const account = await caver.kas.wallet.createAccount()
+            console.log(account)
             firestore.collection("User").doc(uid).update({
-                wallet:account.address
+                wallet: account.address
             }
-                
+
             )
         }
     }
     useEffect(() => {
         load()
-        kasTest()
     }, [])
-    // function add(){
-    //     firestore.collection("User").doc(uid).set({
-    //         uid:uid,
-    //         hi:"hi"
-    //     })
-    // }
 
     async function load() {
         var date = new Date()
@@ -120,7 +106,7 @@ console.log("Not new")
 
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#ffffff" }}>
-            <Header splash={false} bold="Home" />
+            <Header bold="Home" />
             <div style={{
                 fontSize: 21,
                 fontWeight: "bold",
@@ -142,63 +128,12 @@ console.log("Not new")
                         img={element.img}
                         name={element.name}
                         FundingNum={element.FundingNum}
-                        FundingTotal={element.FundingTotal}
                         percent={element.percent}
                         Deadline={element.Deadline}
                     />
                 )}
             </div>
-            <div style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 60,
-                fontSize: 21,
-                fontWeight: "bold",
-                color: "#202426",
-            }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
-            <div style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 40,
-            }}>
-                <CloseBeta 
-                    img={personalInfo}
-                    title="크리에이터 정보 확인"
-                    content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
-                    읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
-                    가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
-                />
-                <CloseBeta 
-                    img={auction}
-                    title="크라우드 펀딩 참여"
-                    content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
-                    각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
-                    빠르게 마음에 드는 크리에이터를 선점하세요!"
-                />
-            </div>
-            <div style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 44,
-            }}>
-                <CloseBeta 
-                    img={moneyBag}
-                    title="토큰 및 리워드 수령"
-                    content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
-                />
-                <CloseBeta 
-                    img={fan}
-                    title="피드백은 언제나 환영입니다!"
-                    content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
-                    언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
-                />
-            </div>
+            
         </div>
     )
 }

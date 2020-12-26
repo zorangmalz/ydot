@@ -1,8 +1,8 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FaUserCircle, FaArrowRight, FaArrowDown } from 'react-icons/fa';
-import { AiFillCaretDown } from 'react-icons/ai';
+import { FaUserCircle, FaArrowRight, FaArrowDown, FaFacebook } from 'react-icons/fa';
+import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
 import { FiArrowRightCircle } from 'react-icons/fi';
 import { BiCheckCircle } from 'react-icons/bi'
@@ -10,25 +10,22 @@ import { useHistory } from "react-router-dom"
 import callAPI from "../line"
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
+import kakaotalk from "./icon/kakaotalk.png"
+import topbanner from "./icon/topbanner.png"
 
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
 export const DesktopMinWidthNotPadding = 1224 * 58 / 68 + 7.4 * vw
 
-
-export default function Header({ splash, bold }) {
+export default function Header({ bold }) {
     const [mine, setMine] = useState(false)
     return (
         <header style={{
             zIndex: 3,
-            width: "68vw",
-            minWidth: 1224 * 90 / 100,
-            height: 90,
+            width: "56vw",
+            minWidth: 1060,
+            height: 80,
             backgroundColor: "#ffffff",
-            paddingTop: 12,
-            paddingBottom: 12,
-            paddingLeft: "16vw",
-            paddingRight: "16vw",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
@@ -51,41 +48,119 @@ export default function Header({ splash, bold }) {
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <div to={'/'} style={{
+                    <Link to={'/home'} style={{
                         fontSize: 40,
                         fontWeight: "bold",
                         color: "#202426",
                         marginRight: 72,
-                    }}>Y.</div>
-                    {splash ?
-                        <></>
-                        :
-                        <>
-                            <Link to={'/home'} style={{
-                                fontSize: 21,
-                                color: "#202426",
-                                fontWeight: bold === "Home" ? "bold" : "normal",
-                                marginRight: 40,
-                                textDecorationLine: "none",
-                            }}>펀딩하기</Link>
-                            <Link to={'/asset'} style={{
-                                fontSize: 21,
-                                color: "#202426",
-                                fontWeight: bold === "Asset" ? "bold" : "normal",
-                                marginRight: 40,
-                                textDecorationLine: "none",
-                            }}>내 자산</Link>
-                        </>
-                    }
+                        textDecorationLine: "none",
+                    }}>Y<div style={{
+                        display: "inline-block",
+                        color: "#da877a"
+                    }}>.</div></Link>
+                    <>
+                        <Link to={'/home'} style={{
+                            fontSize: 21,
+                            color: "#202426",
+                            fontWeight: bold === "Home" ? "bold" : "normal",
+                            marginRight: 40,
+                            textDecorationLine: "none",
+                        }}>Home</Link>
+                        <Link to={'/fund'} style={{
+                            fontSize: 21,
+                            color: "#202426",
+                            fontWeight: bold === "Fund" ? "bold" : "normal",
+                            marginRight: 40,
+                            textDecorationLine: "none",
+                        }}>펀딩하기</Link>
+                        <Link to={'/asset'} style={{
+                            fontSize: 21,
+                            color: "#202426",
+                            fontWeight: bold === "Asset" ? "bold" : "normal",
+                            marginRight: 40,
+                            textDecorationLine: "none",
+                        }}>내 자산</Link>
+                    </>
                 </div>
-                {splash ? <></> : <button style={{
+                <button style={{
                     backgroundColor: "#ffffff",
                     border: 0,
                     outline: 0,
                     cursor: "pointer"
-                }} onClick={() => setMine(!mine)}><FaUserCircle color="#202426" size={48} /></button>}
+                }} onClick={() => setMine(!mine)}><FaUserCircle color="#202426" size={48} /></button>
             </div>
         </header>
+    )
+}
+
+export function TopBanner() {
+    return (
+        <>
+            <div style={{
+                width: "100vw",
+                minWidth: 1060,
+                height: 418,
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <img src={topbanner} height="418" style={{objectFit: "cover", minWidth: 1060}} />
+                <div style={{position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 1060, height: 418, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))"}} />
+                <div style={{
+                   position: "absolute",
+                   zIndex: 2,
+                   top: 224,
+                   width: "56vw",
+                   minWidth: 1060,
+                   display: "flex",
+                   flexDirection: "column",
+                   alignItems: "flex-start",
+                }}>
+                    <div style={{
+                        fontSize: 24,
+                        color: "#ffffff",
+                        marginBottom: 20,
+                    }}>이달의 크리에이터</div>
+                    <div style={{
+                        fontSize: 36,
+                        fontWeight: "bold",
+                        color: "#ffffff",
+                        marginBottom: 20,
+                    }}>브이로거 리영자</div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
+                        <div style={{
+                            width: 20,
+                            color: "#ffffff",
+                            cursor: "pointer",
+                            fontSize: 26,
+                            marginRight: 4,
+                            fontWeight: "bold",
+                            opacity: 0.6,
+                        }}>{"<"}</div>
+                        <div style={{
+                            color: "#ffffff",
+                            fontSize: 24,
+                            marginRight: 4,
+                            opacity: 0.6,
+                        }}>5/6</div>
+                        <div style={{
+                            width: 20,
+                            color: "#ffffff",
+                            cursor: "pointer",
+                            fontSize: 26,
+                            marginRight: 4,
+                            fontWeight: "bold",
+                            opacity: 0.6,
+                        }}>{">"}</div>
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
 
@@ -203,7 +278,6 @@ export function MyInfo() {
                     color: "#202426",
                     marginBottom: 20
                 }}>{wallet}</div>
-
                 <div style={{
                     fontSize: 12,
                     opacity: 0.6,
@@ -302,19 +376,19 @@ export function FAQ({ title, content, value, onClick }) {
     return (
         <div style={{
             display: "flex",
-            width: 840,
-            height: value ? 160 : 80,
+            width: "56vw",
+            minWidth: 1060,
+            height: value ? 132 : 64,
             borderRadius: 30,
             backgroundColor: "#efefef",
-            paddingBottom: value ? 40 : 0,
-            paddingLeft: 40,
-            paddingRight: 40,
+            paddingBottom: value ? 20 : 0,
             flexDirection: "column",
             justifyContent: "center",
             marginBottom: 20
         }}>
             <div style={{
-                width: "100%",
+                paddingLeft: 40,
+                paddingRight: 40,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -323,7 +397,6 @@ export function FAQ({ title, content, value, onClick }) {
                 <p style={{
                     fontSize: 18,
                     color: "#o202426",
-                    lineHeight: 3.33,
                     fontWeight: "bold"
                 }}>{title}</p>
                 <button onClick={onClick} style={{
@@ -338,7 +411,9 @@ export function FAQ({ title, content, value, onClick }) {
                     fontSize: 16,
                     lineHeight: 1.88,
                     color: "#202426",
-                    textAlign: "left"
+                    textAlign: "left",
+                    marginLeft: 40,
+                    marginRight: 40,
                 }}>{content}</div>
                 :
                 <></>
@@ -348,130 +423,78 @@ export function FAQ({ title, content, value, onClick }) {
 }
 
 //HomeMain.js와 AuctionMain.js 요소
-export function CreatorInfo({ img, name, FundingNum, FundingTotal, percent, Deadline }) {
+export function CreatorInfo({ img, name, FundingNum, percent, Deadline }) {
     const history = useHistory()
 
     const direct = "/home/" + String(name)
     const auctiondirect = "/auction/" + String(name)
     //link 쓰려다가 화면이 이상해져서 history 로 대체. 뭔차인지는 모르겠음ㅇ
     function move() {
-        history.push("/home/" + String(name))
+        history.push("/fund/" + String(name))
     }
     return (
         <>
             <div onClick={move} style={{
                 width: 235,
-                height: 266,
+                height: 302,
                 borderRadius: 20,
-                border: "1px solid #202426",
+                border: "1px solid #D2D3D3",
                 backgroundColor: "#ffffff",
                 display: "flex",
                 flexDirection: "column",
-                marginLeft: 20,
-                marginRight: 20,
+                alignItems: "center",
             }}>
-                <div style={{
-                    position: "relative",
+                <img src={img} style={{
                     width: 235,
                     height: 120,
                     borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    justifyContent: "flex-end"
-                }}>
-                    <img src={img} style={{
-                        zIndex: 0,
-                        position: "absolute",
-                        top: 0,
-                        width: 235,
-                        height: 120,
-                        borderTopLeftRadius: 20,
-                        borderTopRightRadius: 20
-                    }} />
-                    <div style={{
-                        zIndex: 1,
-                        width: 30,
-                        paddingLeft: 10,
-                        paddingRight: 10,
-                        height: 18,
-                        paddingTop: 4,
-                        paddingBottom: 4,
-                        backgroundColor: "#202426",
-                        fontSize: 14,
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                        textAlign: "center",
-                        verticalAlign: "center"
-                    }}>D-{Deadline == 0 ? 0 : Deadline}</div>
-                </div>
+                    borderTopRightRadius: 20
+                }} />
                 <div style={{
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#161513",
-                    marginTop: 10,
-                    marginLeft: 20,
-                    alignSelf: "flex-start"
+                    marginTop: 20,
+                    width: 195,
                 }}>{name}</div>
                 <div style={{
                     fontSize: 16,
-                    textAlign: "center",
-                    color: "#202426",
+                    color: "#161513",
                     marginTop: 10,
-                    marginLeft: 20,
-                    alignSelf: "flex-start"
-                }}><div style={{ display: "inline-block", fontWeight: "bold" }}>{FundingNum}</div> 개 판매</div>
+                    width: 195,
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{FundingNum}</div> 원 펀딩</div>
                 <div style={{
                     fontSize: 16,
-                    textAlign: "center",
                     color: "#202426",
                     marginTop: 10,
-                    marginLeft: 20,
                     marginBottom: 10,
-                    alignSelf: "flex-start"
-                }}><div style={{ display: "inline-block", fontWeight: "bold" }}>{FundingTotal}</div> LINK 펀딩</div>
+                    width: 195,
+                    fontWeight: "bold",
+                }}>{percent.toFixed(0)}% | D-{Deadline}</div>
                 <ProgressBar completed={percent} />
-                {/* {ongoing ?
-                    <Link to={auctiondirect}><input style={{
-                        cursor: "pointer",
-                        outline: 0,
-                        width: 400,
-                        height: 50,
-                        borderBottomLeftRadius: 30,
-                        borderBottomRightRadius: 30,
-                        borderWidth: 0,
-                        backgroundColor: "#202426",
-                        fontSize: 14,
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                        textDecorationLine: "none"
-                    }} type="button" value="공모 참여하기" /></Link>
-                    :
-                    <Link to={direct}><button style={{
-                        cursor: "pointer",
-                        outline: 0,
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        border: 0,
-                        height: 25,
-                        marginTop: 10,
-                        textDecorationLine: "none"
-                    }}>
-                        <div style={{
-                            fontSize: 16,
-                            color: "#202426",
-                            marginRight: 12,
-                            lineHeight: 1.38,
-                            textDecorationLine: "none"
-                        }}>상세정보</div>
-                        <FiArrowRightCircle size={22} color="#202426" />
-                    </button></Link>
-                } */}
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 10,
+                    fontSize: 12,
+                    fontWeight: "normal",
+                    color: "#161513",
+                    width: 195,
+                }}>
+                    <div style={{
+                        border: "1px solid #202426",
+                        padding: "4px 8px",
+                        borderRadius: 20,
+                        marginRight: 4,
+                    }}># 먹방</div>
+                    <div style={{
+                        border: "1px solid #202426",
+                        padding: "4px 8px",
+                        borderRadius: 20,
+                    }}># 고속 성장</div>
+                </div>
             </div>
-
         </>
     )
 }
@@ -484,8 +507,6 @@ export function CloseBeta({ img, title, content }) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "flex-start",
-                marginLeft: 20,
-                marginRight: 20
             }}>
                 <img src={img} style={{ width: 80, height: 80, marginTop: 7, marginRight: 40 }} />
                 <div style={{
@@ -498,7 +519,8 @@ export function CloseBeta({ img, title, content }) {
                         fontSize: 18,
                         fontWeight: "bold",
                         color: "#202426",
-                        marginBottom: 10
+                        marginBottom: 10,
+                        width: 390,
                     }}>{title}</div>
                     <div style={{
                         opacity: 0.8,
@@ -517,17 +539,16 @@ export function CloseBeta({ img, title, content }) {
 export function ProgressBar({ completed }) {
 
     const containerStyles = {
-        height: 20,
+        height: 10,
         width: 195,
-        backgroundColor: "#dbdbdb",
+        backgroundColor: "#efefef",
         borderRadius: 10,
-        marginLeft: 20
     }
 
     const fillerStyles = {
         height: '100%',
         width: completed.toFixed(1) < 5 ? "5%" : `${completed}%`,
-        backgroundColor: "#202426",
+        backgroundColor: "#e78276",
         borderRadius: 'inherit',
         textAlign: "center",
         borderRadius: 10,
@@ -542,7 +563,7 @@ export function ProgressBar({ completed }) {
     return (
         <div style={containerStyles}>
             <div style={fillerStyles}>
-                <span style={labelStyles}>{`${completed.toFixed(1)}%`}</span>
+                {/* <span style={labelStyles}>{`${completed.toFixed(1)}%`}</span> */}
             </div>
         </div>
     );
@@ -1073,7 +1094,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: "#202426",
+                    backgroundColor: "#e78276",
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#ffffff",
@@ -1310,7 +1331,7 @@ export function PopupTwo({ setVisible, setNextVisible }) {
                         fontSize: 18,
                         fontWeight: "normal",
                         color: "#202426"
-                    }}>LINK</div>
+                    }}>원</div>
                 </div>
                 <div style={{
                     width: 240,
@@ -1385,7 +1406,7 @@ export function PopupTwo({ setVisible, setNextVisible }) {
                     width: 222,
                     textAlign: "right",
                     marginBottom: 20,
-                }}>최대 {amount} LINK</div>
+                }}>최대 {amount} ₩</div>
                 <FaArrowDown size={32} color="#000000" style={{ marginBottom: 20, height: 40, width: 32 }} />
                 <div style={{
                     fontSize: 20,
@@ -1402,7 +1423,7 @@ export function PopupTwo({ setVisible, setNextVisible }) {
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: "#202426",
+                    backgroundColor: "#e78276",
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#ffffff",
@@ -1494,7 +1515,7 @@ export function PopupThree({ setVisible }) {
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: "#202426",
+                    backgroundColor: "#e78276",
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#ffffff",
@@ -1502,5 +1523,117 @@ export function PopupThree({ setVisible }) {
                 }} value="완료" />
             </div>
         </div>
+    )
+}
+
+export function BottomTag() {
+    return (
+        <>
+            <div style={{
+                width: "100vw",
+                minWidth: 1060,
+                backgroundColor: "#ffffff",
+                paddingTop: 20,
+                paddingBottom: 40,
+                borderTop: "1px solid #D2D3D3",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+            }}>
+                <div style={{
+                    fontSize: 74,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    letterSpacing: 0.89,
+                    marginBottom: 20,
+                }}>Y<div style={{display: "inline-block", color: "#da877a"}}>.</div></div>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 40,
+                }}>
+                    <input type="button" style={{
+                        fontSize: 18,
+                        color: "#202426",
+                        cursor: "pointer",
+                        outline: 0,
+                        backgroundColor: "#ffffff",
+                        border: 0,
+                        marginRight: 40,
+                    }} value="About" />
+                    <input type="button" style={{
+                        fontSize: 18,
+                        color: "#202426",
+                        cursor: "pointer",
+                        outline: 0,
+                        backgroundColor: "#ffffff",
+                        border: 0,
+                        marginRight: 40,
+                    }} value="Contact" />
+                    <input type="button" style={{
+                        fontSize: 18,
+                        color: "#202426",
+                        cursor: "pointer",
+                        outline: 0,
+                        backgroundColor: "#ffffff",
+                        border: 0,
+                        marginRight: 40,
+                    }} value="Privacy Policy" />
+                    <input type="button" style={{
+                        fontSize: 18,
+                        color: "#202426",
+                        cursor: "pointer",
+                        outline: 0,
+                        backgroundColor: "#ffffff",
+                        border: 0,
+                        marginRight: 40,
+                    }} value="Terms of Service" />
+                    <input type="button" style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        cursor: "pointer",
+                        outline: 0,
+                        backgroundColor: "#ffffff",
+                        border: 0,
+                    }} value="Risk Disclosure" />
+                </div>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <img style={{width: 48, height: 48, marginRight: 40}} src={kakaotalk} />
+                    <AiFillTwitterCircle style={{width: 54, height: 54, marginRight: 40}} color="#202426" />
+                    <FaFacebook style={{width: 48, height: 48}} color="#202426" />
+                </div>
+            </div>
+            <div style={{
+                width: "100vw",
+                minWidth: 1060,
+                backgroundColor: "#202426",
+                paddingTop: 20,
+                paddingBottom: 20,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+            }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: 20,
+                }}>
+                    <div style={{ fontSize: 14, color: "#ffffff", marginRight: 20 }}>주식회사 조랑말즈</div>
+                    <div style={{ fontSize: 14, color: "#ffffff", marginRight: 20 }}>대표자 : 김현명</div>
+                    <div style={{ fontSize: 14, color: "#ffffff", marginRight: 20 }}>서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
+                    <div style={{ fontSize: 14, color: "#ffffff" }}>사업자 등록번호 : 20310-2300-12302</div>
+                </div>
+                <div style={{ fontSize: 14, color: "#ffffff", opacity: 0.9, fontWeight: "bold" }}>© Jorangmals Co., Ltd.</div>
+            </div>
+        </>
     )
 }

@@ -48,8 +48,8 @@ ReactDOM.render(
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <BrowserRouter>
-    <App />
-    </BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ReactReduxFirebaseProvider>
     </Provider>
   </React.StrictMode>,
