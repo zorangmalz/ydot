@@ -35,6 +35,7 @@ export default function FundMain() {
             var count = 1
             querySnapshot.forEach(doc => {
                 list.push({
+                    id: count,
                     img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
                     name: doc.id === "[Vlog] 지순's 일상" ? "Pood" : doc.id,
                     FundingNum: doc.data().FundingNum,
@@ -156,16 +157,35 @@ export default function FundMain() {
                             alignSelf: "center",
                             color: "#202426",
                             textAlign: "center",
-                            marginBottom: 40
+                            marginBottom: 20
                         }}>진행중인 펀딩</div>
                         <div style={{
                             width: "90vw",
                             minWidth: 300,
                             display: "flex",
-                            flexDirection: "column",
+                            flexDirection: "row",
                             alignItems: "center",
+                            justifyContent: "space-evenly"
                         }}>
-                            {items.map(element =>
+                            {items.filter(ele => ele.id < 3).map(element =>
+                                <MCreatorInfo
+                                    img={element.img}
+                                    name={element.name}
+                                    FundingNum={element.FundingNum}
+                                    percent={element.percent}
+                                    Deadline={element.Deadline}
+                                />
+                            )}
+                        </div>
+                        <div style={{
+                            width: "90vw",
+                            minWidth: 300,
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-evenly"
+                        }}>
+                            {items.filter(ele => ele.id > 2).map(element =>
                                 <MCreatorInfo
                                     img={element.img}
                                     name={element.name}
@@ -194,15 +214,42 @@ export default function FundMain() {
                         alignItems: "center",
                         marginBottom: 40,
                     }}>
-                        {items.map(element =>
-                            <MCreatorInfo
-                                img={element.img}
-                                name={element.name}
-                                FundingNum={element.FundingNum}
-                                percent={element.percent}
-                                Deadline={element.Deadline}
-                            />
-                        )}
+                        <div style={{
+                            width: "90vw",
+                            minWidth: 300,
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-evenly"
+                        }}>
+                            {items.filter(ele => ele.id < 3).map(element =>
+                                <MCreatorInfo
+                                    img={element.img}
+                                    name={element.name}
+                                    FundingNum={element.FundingNum}
+                                    percent={element.percent}
+                                    Deadline={element.Deadline}
+                                />
+                            )}
+                        </div>
+                        <div style={{
+                            width: "90vw",
+                            minWidth: 300,
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-evenly"
+                        }}>
+                            {items.filter(ele => ele.id > 2).map(element =>
+                                <MCreatorInfo
+                                    img={element.img}
+                                    name={element.name}
+                                    FundingNum={element.FundingNum}
+                                    percent={element.percent}
+                                    Deadline={element.Deadline}
+                                />
+                            )}
+                        </div>
                     </div>
                     <MBottomTag />
                 </div>

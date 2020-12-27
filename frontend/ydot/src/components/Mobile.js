@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect, useReducer } from "react"
 import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 
@@ -15,6 +15,8 @@ import { ProgressBar } from "./Style"
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"
 import topbanner from "./icon/topbanner.png"
+import rocketup from "./icon/rocketup.png"
+import rocketdown from "./icon/rocketdown.png"
 
 export default function MLoginHeader() {
     return (
@@ -214,9 +216,9 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline }) {
     return (
         <>
             <div onClick={move} style={{
-                width: 235,
-                height: 302,
-                borderRadius: 20,
+                width: 150,
+                height: 200,
+                borderRadius: 10,
                 border: "1px solid #D2D3D3",
                 backgroundColor: "#ffffff",
                 display: "flex",
@@ -225,52 +227,52 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline }) {
                 marginTop: 20,
             }}>
                 <img src={img} style={{
-                    width: 235,
-                    height: 120,
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20
+                    width: 150,
+                    height: 80,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10
                 }} />
                 <div style={{
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight: "bold",
                     color: "#161513",
-                    marginTop: 20,
-                    width: 195,
+                    marginTop: 10,
+                    width: 120,
                 }}>{name}</div>
                 <div style={{
-                    fontSize: 16,
+                    fontSize: 12,
                     color: "#161513",
-                    marginTop: 10,
-                    width: 195,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{FundingNum}</div> 원 펀딩</div>
+                    marginTop: 5,
+                    width: 120,
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 14 }}>{FundingNum}</div> 원 펀딩</div>
                 <div style={{
-                    fontSize: 16,
+                    fontSize: 12,
                     color: "#202426",
-                    marginTop: 10,
-                    marginBottom: 10,
-                    width: 195,
+                    marginTop: 5,
+                    marginBottom: 5,
+                    width: 120,
                     fontWeight: "bold",
                 }}>{percent.toFixed(0)}% | D-{Deadline}</div>
-                <ProgressBar completed={percent} />
+                <MProgressBar completed={percent} />
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: 10,
-                    fontSize: 12,
+                    marginTop: 5,
+                    fontSize: 10,
                     fontWeight: "normal",
                     color: "#161513",
-                    width: 195,
+                    width: 120,
                 }}>
                     <div style={{
                         border: "1px solid #202426",
-                        padding: "4px 8px",
+                        padding: "2px 4px",
                         borderRadius: 20,
                         marginRight: 4,
                     }}># 먹방</div>
                     <div style={{
                         border: "1px solid #202426",
-                        padding: "4px 8px",
+                        padding: "2px 4px",
                         borderRadius: 20,
                     }}># 고속 성장</div>
                 </div>
@@ -278,6 +280,39 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline }) {
         </>
     )
 }
+
+export function MProgressBar({ completed }) {
+
+    const containerStyles = {
+        height: 10,
+        width: 120,
+        backgroundColor: "#efefef",
+        borderRadius: 10,
+    }
+
+    const fillerStyles = {
+        height: '100%',
+        width: completed.toFixed(1) < 5 ? "5%" : `${completed}%`,
+        backgroundColor: "#e78276",
+        borderRadius: 'inherit',
+        textAlign: "center",
+        borderRadius: 10,
+    }
+
+    const labelStyles = {
+        fontSize: 10,
+        color: '#ffffff',
+        fontWeight: 'bold'
+    }
+
+    return (
+        <div style={containerStyles}>
+            <div style={fillerStyles}>
+                {/* <span style={labelStyles}>{`${completed.toFixed(1)}%`}</span> */}
+            </div>
+        </div>
+    );
+};
 
 //HomeMain.js랑 Creator.js에서 많이 사용
 export function MCloseBeta({ img, title, content }) {
@@ -474,5 +509,699 @@ export function MBottomTag() {
                 <div style={{ width: "90vw", textAlign: "center", fontSize: 14, color: "#ffffff", opacity: 0.9, fontWeight: "bold" }}>© Jorangmals Co., Ltd.</div>
             </div>
         </>
+    )
+}
+
+export function MHashTag({content}) {
+    return (
+        <div style={{
+            border: "1px solid #939596",
+            borderRadius: 10,
+            opacity: 0.8,
+            fontSize: 10,
+            color: "#161513",
+            padding: "2px 4px",
+            marginLeft: 2,
+        }}># {content}</div>
+    )
+}
+
+export function MQAList({ title, content }) {
+    return (
+        <div style={{
+            width: 300,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start"
+        }}>
+            <div style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#161513",
+                letterSpacing: 0.22,
+                marginBottom: 20
+            }}>{title}</div>
+            <div style={{
+                fontSize: 14,
+                opacity: 0.8,
+                color: "#202426",
+                lineHeight: 1.88,
+                marginBottom: 20
+            }}>{content}</div>
+        </div>
+    )
+}
+
+export function MChannelAnalysisBox({title, content, img, growth}) {
+    return (
+        <>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: 90,
+                height: 85,
+                border: "2px solid #e78276",
+                borderRadius: 20,
+                paddingTop: 10
+            }}>
+                <div style={{
+                    width: 70,
+                    fontSize: 10,
+                    opacity: 0.6,
+                    fontWeight: "normal",
+                    color: "#202426",
+                    marginBottom: 5,
+                    textAlign: "center"
+                }}>{title}</div>
+                <div style={{
+                    width: 80,
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 5,
+                    textAlign: "center"
+                }}>{content}</div>
+                {img ?
+                    growth ?
+                        <img src={rocketup} style={{ width: 25, height: 25 }} />
+                        :
+                        <img src={rocketdown} style={{ width: 25, height: 25 }} />
+
+                    :
+                    <></>}
+            </div>
+        </>
+    )
+}
+
+export function MChannelAnalysisBoxTwo({title, content, img, growth}) {
+    return (
+        <>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: 150,
+                height: 85,
+                border: "2px solid #e78276",
+                borderRadius: 20,
+                paddingTop: 10
+            }}>
+                <div style={{
+                    width: 100,
+                    fontSize: 10,
+                    opacity: 0.6,
+                    fontWeight: "normal",
+                    color: "#202426",
+                    marginBottom: 5,
+                    textAlign: "center"
+                }}>{title}</div>
+                <div style={{
+                    width: 140,
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 5,
+                    textAlign: "center"
+                }}>{content}</div>
+                {img ?
+                    growth ?
+                        <img src={rocketup} style={{ width: 25, height: 25 }} />
+                        :
+                        <img src={rocketdown} style={{ width: 25, height: 25 }} />
+
+                    :
+                    <></>}
+            </div>
+        </>
+    )
+}
+
+export function MCreatorIntro({ title, content, other }) {
+    return (
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            width: 100
+        }}>
+            <div style={{
+                opacity: 0.6,
+                color: "#202426",
+                fontSize: 10,
+                marginBottom: 5
+            }}>{title}</div>
+            {other ?
+                content
+                :
+                <div style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: "#202426",
+                }}>{content}</div>
+            }
+        </div>
+    )
+}
+
+//Popup 디자인
+export function MPopupOne({ setVisible, setNextVisible }) {
+    const [use, setUse] = useState(false)
+    const [one, setOne] = useState(false)
+    const [two, setTwo] = useState(false)
+    const [three, setThree] = useState(false)
+    const [four, setFour] = useState(false)
+    const [invest, setInvest] = useState(false)
+    const UserIcon = use ? <BsCheck color="#161513" size={16} /> : <></>
+    const UseClick = () => {
+        setUse(!use)
+        setOne(true)
+        setTwo(true)
+        setThree(true)
+    }
+    const OneIcon = one ? <BsCheck color="#161513" size={16} /> : <></>
+    const TwoIcon = two ? <BsCheck color="#161513" size={16} /> : <></>
+    const ThreeIcon = three ? <BsCheck color="#161513" size={16} /> : <></>
+    const FourIcon = four ? <BsCheck color="#161513" size={16} /> : <></>
+    const InvestIcon = invest ? <BsCheck color="#161513" size={16} /> : <></>
+
+    const onNext = () => {
+        setVisible(false)
+        setNextVisible(true)
+    }
+
+    return (
+        <div style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+            height: "100vh",
+        }}>
+            <div onClick={() => setVisible(false)} style={{
+                position: "absolute",
+                top: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#000000",
+                opacity: 0.4,
+                zIndex: 1,
+            }} />
+            <div style={{
+                zIndex: 2,
+                width: 270,
+                height: 300,
+                paddingTop: 20,
+                paddingBottom: 20,
+                paddingRight: 30,
+                paddingLeft: 30,
+                backgroundColor: "#ffffff",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <div style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 20,
+                }}>이용 약관 동의</div>
+                <div style={{
+                    width: 250,
+                    height: 48,
+                    paddingLeft: 10,
+                    paddingRight: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    backgroundColor: "#efefef",
+                    marginBottom: 20,
+                    borderRadius: 10,
+                }}>
+                    <div style={{
+                        fontSize: 12,
+                        color: "#161513",
+                        fontWeight: "bold"
+                    }}>이용약관 전체 동의</div>
+                    <button onClick={UseClick} style={{
+                        cursor: "pointer",
+                        outline: 0,
+                        width: 14,
+                        height: 14,
+                        border: "1px solid #202426",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>{UserIcon}</button>
+                </div>
+                <div style={{
+                    width: 250,
+                    height: 20,
+                    paddingLeft: 10,
+                    paddingRight: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                }}>
+                    <div style={{
+                        opacity: 0.6,
+                        fontSize: 12,
+                        color: "#161513",
+                    }}>개인정보 처리 약관(필수)</div>
+                    <button onClick={() => setOne(!one)} style={{
+                        cursor: "pointer",
+                        outline: 0,
+                        width: 14,
+                        height: 14,
+                        border: "1px solid #202426",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>{OneIcon}</button>
+                </div>
+                <div style={{
+                    width: 250,
+                    height: 20,
+                    paddingLeft: 10,
+                    paddingRight: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                }}>
+                    <div style={{
+                        opacity: 0.6,
+                        fontSize: 12,
+                        color: "#161513",
+                    }}>이용약관 동의(필수)</div>
+                    <button onClick={() => setTwo(!two)} style={{
+                        cursor: "pointer",
+                        outline: 0,
+                        width: 14,
+                        height: 14,
+                        border: "1px solid #202426",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>{TwoIcon}</button>
+                </div>
+                <div style={{
+                    width: 250,
+                    height: 20,
+                    paddingLeft: 10,
+                    paddingRight: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                }}>
+                    <div style={{
+                        opacity: 0.6,
+                        fontSize: 12,
+                        color: "#161513",
+                    }}>자산손실의 위험을 인지했습니다(필수)</div>
+                    <button onClick={() => setThree(!three)} style={{
+                        cursor: "pointer",
+                        outline: 0,
+                        width: 14,
+                        height: 14,
+                        border: "1px solid #202426",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>{ThreeIcon}</button>
+                </div>
+                <div style={{
+                    width: 250,
+                    height: 20,
+                    paddingLeft: 10,
+                    paddingRight: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                }}>
+                    <div style={{
+                        opacity: 0.6,
+                        fontSize: 12,
+                        color: "#161513",
+                    }}>펀딩완료시 SNS, Email 알람 수신(선택)</div>
+                    <button onClick={() => setFour(!four)} style={{
+                        cursor: "pointer",
+                        outline: 0,
+                        width: 14,
+                        height: 14,
+                        border: "1px solid #202426",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>{FourIcon}</button>
+                </div>
+                <div style={{
+                    width: 250,
+                    height: 48,
+                    paddingLeft: 10,
+                    paddingRight: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    backgroundColor: "#efefef",
+                    marginBottom: 36,
+                    borderRadius: 10,
+                }}>
+                    <div style={{
+                        fontSize: 12,
+                        color: "#161513",
+                        fontWeight: "bold"
+                    }}>투자조건을 확인했습니다.</div>
+                    <button onClick={() => setInvest(!invest)} style={{
+                        cursor: "pointer",
+                        outline: 0,
+                        width: 14,
+                        height: 14,
+                        border: "1px solid #202426",
+                        backgroundColor: "#ffffff",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>{InvestIcon}</button>
+                </div>
+                <input onClick={onNext} type="button" style={{
+                    cursor: "pointer",
+                    width: 270,
+                    height: 48,
+                    border: 0,
+                    outline: 0,
+                    borderRadius: 10,
+                    backgroundColor: "#e78276",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#ffffff",
+                    alignSelf: "center",
+                }} value="다음" />
+            </div>
+        </div>
+    )
+}
+
+function MPopupReducer(state, action) {
+    switch (action.type) {
+        case "25":
+            return 25
+        case "50":
+            return 50
+        case "75":
+            return 75
+        case "max":
+            return 100
+        default:
+            return 0
+    }
+}
+
+export function MPopupTwo({ setVisible, setNextVisible }) {
+    const [money, setMoney] = useState("")
+    const [number, dispatch] = useReducer(MPopupReducer, 0)
+    const onTwentyfive = () => {
+        dispatch({ type: "25" })
+    }
+    const onFifty = () => {
+        dispatch({ type: "50" })
+    }
+    const onSeventyFive = () => {
+        dispatch({ type: "75" })
+    }
+    const onMax = () => {
+        dispatch({ type: "max" })
+    }
+    const onNext = () => {
+        setVisible(false)
+        setNextVisible(true)
+    }
+
+    return (
+        <div style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+            height: "100vh",
+        }}>
+            <div onClick={() => setVisible(false)} style={{
+                position: "absolute",
+                top: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#000000",
+                opacity: 0.4,
+                zIndex: 1,
+            }} />
+            <div style={{
+                zIndex: 2,
+                width: 270,
+                height: 300,
+                paddingTop: 20,
+                paddingBottom: 20,
+                paddingRight: 30,
+                paddingLeft: 30,
+                backgroundColor: "#ffffff",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <div style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 20,
+                }}>펀딩 금액 입력</div>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: 28,
+                    maxWidth: 240,
+                }}>
+                    <input type="text" style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        maxWidth: 200,
+                        marginRight: 4,
+                        outline: 0,
+                        border: 0,
+                        textAlign: "right"
+                    }} value={money} onChange={({text}) => setMoney(text)} />
+                    <div style={{
+                        fontSize: 16,
+                        fontWeight: "normal",
+                        color: "#202426"
+                    }}>원</div>
+                </div>
+                <div style={{
+                    width: 240,
+                    border: "1px solid #202426",
+                    marginBottom: 5,
+                    marginTop: 5
+                }} />
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                    width: 242,
+                    marginBottom: 5
+                }}>
+                    <input onClick={onTwentyfive} type="button" style={{
+                        width: 40,
+                        height: 26,
+                        outline: 0,
+                        cursor: "pointer",
+                        fontSize: 12,
+                        color: number === 25 ? "#ffffff" : "#202426",
+                        fontWeight: "bold",
+                        border: number === 25 ? 0 : "1px solid #35363b",
+                        backgroundColor: number === 25 ? "#202426" : "#ffffff",
+                        borderRadius: 5,
+                    }} value="25%" />
+                    <input onClick={onFifty} type="button" style={{
+                        width: 40,
+                        height: 26,
+                        outline: 0,
+                        cursor: "pointer",
+                        fontSize: 12,
+                        color: number === 50 ? "#ffffff" : "#202426",
+                        fontWeight: "bold",
+                        border: number === 50 ? 0 : "1px solid #35363b",
+                        backgroundColor: number === 50 ? "#202426" : "#ffffff",
+                        borderRadius: 5,
+                        marginLeft: 10,
+                    }} value="50%" />
+                    <input onClick={onSeventyFive} type="button" style={{
+                        width: 40,
+                        height: 26,
+                        outline: 0,
+                        cursor: "pointer",
+                        fontSize: 12,
+                        color: number === 75 ? "#ffffff" : "#202426",
+                        fontWeight: "bold",
+                        border: number === 75 ? 0 : "1px solid #35363b",
+                        backgroundColor: number === 75 ? "#202426" : "#ffffff",
+                        borderRadius: 5,
+                        marginLeft: 10,
+                    }} value="75%" />
+                    <input onClick={onMax} type="button" style={{
+                        width: 40,
+                        height: 26,
+                        outline: 0,
+                        cursor: "pointer",
+                        fontSize: 12,
+                        color: number === 100 ? "#ffffff" : "#202426",
+                        fontWeight: "bold",
+                        border: number === 100 ? 0 : "1px solid #35363b",
+                        backgroundColor: number === 100 ? "#202426" : "#ffffff",
+                        borderRadius: 5,
+                        marginLeft: 10,
+                    }} value="MAX" />
+                </div>
+                <div style={{
+                    fontSize: 14,
+                    opacity: 0.8,
+                    color: "#e61800",
+                    width: 150,
+                    textAlign: "right",
+                    marginBottom: 20,
+                }}>최대 100000 ₩</div>
+                <FaArrowDown size={25} color="#000000" style={{ marginBottom: 10, height: 30, width: 28 }} />
+                <div style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#161513",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 20,
+                }}>100 JSC</div>
+                <input onClick={onNext} type="button" style={{
+                    cursor: "pointer",
+                    width: 270,
+                    height: 48,
+                    border: 0,
+                    outline: 0,
+                    borderRadius: 10,
+                    backgroundColor: "#e78276",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#ffffff",
+                    alignSelf: "center",
+                }} value="펀딩하기" />
+            </div>
+        </div>
+    )
+}
+
+export function MPopupThree({ setVisible }) {
+    return (
+        <div style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+            height: "100vh",
+        }}>
+            <div onClick={() => setVisible(false)} style={{
+                position: "absolute",
+                top: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#000000",
+                opacity: 0.4,
+                zIndex: 1,
+            }} />
+            <div style={{
+                zIndex: 2,
+                width: 270,
+                height: 300,
+                paddingTop: 20,
+                paddingBottom: 20,
+                paddingRight: 30,
+                paddingLeft: 30,
+                backgroundColor: "#ffffff",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <div style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 20,
+                }}>펀딩 완료</div>
+                <BiCheckCircle color="#202426" size={120} style={{ width: 120, height: 120, marginBottom: 40 }} />
+                <div style={{
+                    fontSize: 12,
+                    fontWeight: "bold",
+                    color: "#161513",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 10,
+                }}>Tx hash</div>
+                <div style={{
+                    fontSize: 10,
+                    color: "#202426",
+                    lineHeight: 1.33,
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column"
+                }}>
+                    <div style={{ textAlign: "center", marginBottom: 10 }}>해시값</div>
+                    <input type="button" style={{ fontSize: 10, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20 }} value="View in LINK Scope" />
+                </div>
+                <input onClick={() => setVisible(false)} type="button" style={{
+                    cursor: "pointer",
+                    width: 270,
+                    height: 48,
+                    border: 0,
+                    outline: 0,
+                    borderRadius: 10,
+                    backgroundColor: "#e78276",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#ffffff",
+                    alignSelf: "center",
+                }} value="완료" />
+            </div>
+        </div>
     )
 }

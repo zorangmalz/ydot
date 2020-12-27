@@ -10,8 +10,12 @@ import { useHistory } from "react-router-dom"
 import callAPI from "../line"
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
+
+//이미지
 import kakaotalk from "./icon/kakaotalk.png"
 import topbanner from "./icon/topbanner.png"
+import rocketup from "./icon/rocketup.png"
+import rocketdown from "./icon/rocketdown.png"
 
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
@@ -593,10 +597,48 @@ export function CreatorIntro({ title, content, other }) {
                     fontSize: 21,
                     fontWeight: "bold",
                     color: "#202426",
-                    marginBottom: 20,
                 }}>{content}</div>
             }
         </div>
+    )
+}
+
+export function ChannelAnalysisBox({title, content, img, growth}) {
+    return (
+        <>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: 180,
+                height: 158,
+                border: "2px solid #e78276",
+                borderRadius: 20,
+                paddingTop: 20
+            }}>
+                <div style={{
+                    fontSize: 18,
+                    opacity: 0.6,
+                    fontWeight: "normal",
+                    color: "#202426",
+                    marginBottom: 10,
+                }}>{title}</div>
+                <div style={{
+                    fontSize: 21,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 10,
+                }}>{content}</div>
+                {img ?
+                    growth ?
+                        <img src={rocketup} style={{ width: 60, height: 60 }} />
+                        :
+                        <img src={rocketdown} style={{ width: 60, height: 60 }} />
+
+                    :
+                    <></>}
+            </div>
+        </>
     )
 }
 
@@ -657,7 +699,7 @@ export function Line({ width }) {
 export function QAList({ title, content }) {
     return (
         <div style={{
-            width: 1060,
+            width: 840,
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start"
@@ -1526,6 +1568,7 @@ export function PopupThree({ setVisible }) {
     )
 }
 
+//기타 디자인 요소
 export function BottomTag() {
     return (
         <>
@@ -1635,5 +1678,19 @@ export function BottomTag() {
                 <div style={{ fontSize: 14, color: "#ffffff", opacity: 0.9, fontWeight: "bold" }}>© Jorangmals Co., Ltd.</div>
             </div>
         </>
+    )
+}
+
+export function HashTag({content}) {
+    return (
+        <div style={{
+            border: "1px solid #939596",
+            borderRadius: 20,
+            opacity: 0.8,
+            fontSize: 12,
+            color: "#161513",
+            padding: "4px 8px",
+            marginLeft: 4,
+        }}># {content}</div>
     )
 }
