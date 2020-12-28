@@ -146,7 +146,7 @@ export default function LoginScreen() {
                                 alignSelf: "flex-end",
                                 marginBottom: 10
                             }} value="비밀번호를 잊으셨나요?" />
-                            <input onClick={() => alert(document.getElementById("DID").value)} type="button" style={{
+                            <input onClick={() => alert(`${document.getElementById("DID").value} ${document.getElementById("DPASS").value}`)} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,
