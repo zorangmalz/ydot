@@ -392,7 +392,7 @@ export default function Asset() {
                                                             marginBottom: 8,
                                                         }}>{element.name}</div>
                                                         <div style={{
-                                                            opacity: 0.6,
+                                                            opacity: 0.4,
                                                             fontWeight: "bold",
                                                             fontSize: 14,
                                                             color: "#202426"
@@ -412,7 +412,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.amount}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.per}</div>
@@ -430,7 +430,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.price}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -448,7 +448,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.total}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -478,7 +478,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.actual}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -496,7 +496,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.accumulate}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -537,7 +537,7 @@ export default function Asset() {
                                                             marginBottom: 8,
                                                         }}>{element.name}</div>
                                                         <div style={{
-                                                            opacity: 0.6,
+                                                            opacity: 0.4,
                                                             fontWeight: "bold",
                                                             fontSize: 14,
                                                             color: "#202426"
@@ -557,7 +557,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.amount}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.per}</div>
@@ -575,7 +575,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.price}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -593,7 +593,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.total}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -623,7 +623,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.actual}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -641,7 +641,7 @@ export default function Asset() {
                                                         marginBottom: 8,
                                                     }}>{element.accumulate}</div>
                                                     <div style={{
-                                                        opacity: 0.6,
+                                                        opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>{element.chain}</div>
@@ -899,6 +899,7 @@ export default function Asset() {
                                 height: "90vh",
                             }}>
                                 <div style={{
+                                    width: "100%",
                                     display: "flex",
                                     flexDirection: "column",
                                     alignItems: "flex-start",
@@ -916,87 +917,105 @@ export default function Asset() {
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "flex-start",
-                                            minWidth: 120,
+                                            width: 90,
+                                            marginRight: 5,
                                         }}>
                                             <div style={{
-                                                opacity: 0.6,
+                                                width: "100%",
+                                                textAlign: "center",
+                                                opacity: 0.4,
                                                 color: "#202426",
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 paddingBottom: 5,
                                                 marginTop: 10
-                                            }} >총 펀딩 금액</div>
-                                            <div className="startColumn">
+                                            }} >총 펀딩 금액(원)</div>
+                                            <div style={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                alignItems: "flex-end",
+                                                justifyContent: "flex-end",
+                                                width: "100%" 
+                                            }}>
                                                 <div style={{
-                                                    fontSize: 18,
+                                                    width: "100%",
+                                                    textAlign: "center",
+                                                    fontSize: 14,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginRight: 8,
+                                                    marginRight: 4,
                                                 }}>300000</div>
-                                                <div style={{
-                                                    fontSize: 16,
-                                                    fontWeight: "normal",
-                                                    color: "#202426",
-                                                }}>원</div>
                                             </div>
                                         </div>
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "flex-start",
-                                            minWidth: 120,
+                                            width: 80,
+                                            marginRight: 5,
                                         }}>
                                             <div style={{
-                                                opacity: 0.6,
+                                                width: "100%",
+                                                textAlign: "center",
+                                                opacity: 0.4,
                                                 color: "#202426",
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 paddingBottom: 5,
                                                 marginTop: 10
-                                            }} >누적 배당</div>
-                                            <div className="startColumn">
+                                            }} >누적 배당(원)</div>
+                                            <div style={{
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                alignItems: "flex-end",
+                                                justifyContent: "flex-end",
+                                                width: "100%" 
+                                            }}>
                                                 <div style={{
-                                                    fontSize: 18,
+                                                    width: "100%",
+                                                    textAlign: "center",
+                                                    fontSize: 14,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginRight: 8,
+                                                    marginRight: 4,
                                                 }}>300000</div>
-                                                <div style={{
-                                                    fontSize: 16,
-                                                    fontWeight: "normal",
-                                                    color: "#202426",
-                                                }}>원</div>
                                             </div>
                                         </div>
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "flex-start",
-                                            minWidth: 120,
+                                            justifyContent: "flex-end",
+                                            width: 90,
+                                            marginRight: 10,
                                         }}>
                                             <div style={{
                                                 display: "flex",
                                                 flexDirection: "column",
                                                 alignItems: "flex-start",
-                                                minWidth: 120,
                                             }}>
                                                 <div style={{
-                                                    opacity: 0.6,
+                                                    width: "100%",
+                                                    textAlign: "center",
+                                                    opacity: 0.4,
                                                     color: "#202426",
-                                                    fontSize: 14,
+                                                    fontSize: 12,
                                                     paddingBottom: 5,
                                                     marginTop: 10
-                                                }} >이번달 배당</div>
-                                                <div className="startColumn">
+                                                }} >이번달 배당(원)</div>
+                                                <div style={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    alignItems: "flex-end",
+                                                    justifyContent: "flex-end",
+                                                    width: "100%"
+                                                }}>
                                                     <div style={{
-                                                        fontSize: 18,
+                                                        width: "100%",
+                                                        textAlign: "center",
+                                                        fontSize: 14,
                                                         fontWeight: "bold",
                                                         color: "#e78276",
-                                                        marginRight: 8,
+                                                        marginRight: 4,
                                                     }}>45400</div>
-                                                    <div style={{
-                                                        fontSize: 16,
-                                                        fontWeight: "normal",
-                                                        color: "#e78276",
-                                                    }}>원</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1007,9 +1026,9 @@ export default function Asset() {
                                         alignItems: "flex-start",
                                     }}>
                                         <div style={{
-                                            opacity: 0.6,
+                                            opacity: 0.4,
                                             color: "#202426",
-                                            fontSize: 14,
+                                            fontSize: 12,
                                             paddingBottom: 5,
                                             marginTop: 20
                                         }}>월별 배당 그래프</div>
@@ -1097,164 +1116,202 @@ export default function Asset() {
                                         <>
                                             <div style={{
                                                 display: "flex",
-                                                flexDirection: "column",
+                                                flexDirection: "row",
                                                 alignItems: "flex-start",
                                                 justifyContent: "space-between",
-                                                width: "100%",
-                                                paddingBottom: 20,
-                                                paddingTop: 20,
+                                                width: "90vw",
+                                                paddingBottom: 10,
+                                                paddingTop: 10,
                                                 borderBottom: "1px solid #D2D3D3"
                                             }}>
                                                 <div style={{
                                                     display: "flex",
-                                                    flexDirection: "row",
+                                                    flexDirection: "column",
                                                     alignItems: "center",
+                                                    justifyContent: "space-between",
+                                                    minWidth: 60,
+                                                    width: "20%",
+                                                    height: 110,
+                                                }}>
+                                                    <div style={{ width: "90%", minWidth: 60, maxWidth: 65, height: 70, borderRadius: 10, backgroundColor: element.img, marginBottom: 10 }} />
+                                                    <div style={{
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        alignItems: "center",
+                                                        justifyContent: "flex-start"
+                                                    }}>
+                                                        <div style={{
+                                                            height: 30,
+                                                            width: "100%",
+                                                            fontWeight: "bold",
+                                                            fontSize: 12,
+                                                            color: "#202426",
+                                                            marginBottom: 8,
+                                                            textAlign: "center"
+                                                        }}>{element.name}</div>
+                                                    </div>
+                                                </div>
+                                                <div style={{
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    alignItems: "flex-end",
+                                                    minWidth: 200,
+                                                    width: "70%",
+                                                    height: 110,
                                                 }}>
                                                     <div style={{
                                                         display: "flex",
                                                         flexDirection: "row",
                                                         alignItems: "center",
+                                                        justifyContent: "space-between",
+                                                        marginBottom: 20,
                                                     }}>
-                                                        <div style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: element.img, marginRight: 5 }} />
                                                         <div style={{
                                                             display: "flex",
                                                             flexDirection: "column",
                                                             alignItems: "flex-start",
-                                                            justifyContent: "flex-start"
+                                                            width: "30%",
+                                                            minWidth: 60,
+                                                            marginLeft: 3,
                                                         }}>
                                                             <div style={{
-                                                                fontWeight: "bold",
-                                                                fontSize: 14,
+                                                                width: "100%",
+                                                                opacity: 0.4,
+                                                                fontSize: 6,
                                                                 color: "#202426",
                                                                 marginBottom: 8,
-                                                                width: 90
-                                                            }}>{element.name}</div>
+                                                                textAlign: "right",
+                                                            }}>보유 수량 {element.per}</div>
                                                             <div style={{
-                                                                opacity: 0.6,
-                                                                fontWeight: "bold",
-                                                                fontSize: 10,
+                                                                width: "100%",
+                                                                fontSize: 14,
                                                                 color: "#202426",
-                                                                width: 90
-                                                            }}>{element.unit}</div>
+                                                                textAlign: "right",
+                                                            }}>{element.amount}</div>
+                                                        </div>
+                                                        <div style={{
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            alignItems: "flex-start",
+                                                            minWidth: 90,
+                                                            width: "35%",
+                                                            marginLeft: 3,
+                                                        }}>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                opacity: 0.4,
+                                                                fontSize: 6,
+                                                                color: "#202426",
+                                                                marginBottom: 8,
+                                                                textAlign: "right",
+                                                            }}>개당 가격 ({element.chain})</div>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                fontSize: 14,
+                                                                color: "#202426",
+                                                                textAlign: "right",
+                                                            }}>{element.price}</div>
+                                                        </div>
+                                                        <div style={{
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            alignItems: "flex-start",
+                                                            minWidth: 90,
+                                                            width: "35%",
+                                                            marginLeft: 3,
+                                                        }}>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                opacity: 0.4,
+                                                                fontSize: 6,
+                                                                color: "#202426",
+                                                                marginBottom: 8
+                                                            }}>펀딩 금액 ({element.chain})</div>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                fontSize: 14,
+                                                                color: "#202426"
+                                                            }}>{element.total}</div>
                                                         </div>
                                                     </div>
                                                     <div style={{
                                                         display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "flex-start",
+                                                        flexDirection: "row",
+                                                        alignItems: "center",
+                                                        justifyContent: "flex-end"
                                                     }}>
                                                         <div style={{
-                                                            opacity: 0.6,
-                                                            fontSize: 6,
-                                                            color: "#202426",
-                                                            marginBottom: 8,
-                                                        }}>보유 수량 {element.per}</div>
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            alignItems: "flex-start",
+                                                            width: "30%",
+                                                            minWidth: 60,
+                                                            marginLeft: 3,
+                                                        }}>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                opacity: 0.4,
+                                                                fontSize: 6,
+                                                                color: "#202426",
+                                                                marginBottom: 8,
+                                                            }}>배당 횟수</div>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                fontSize: 14,
+                                                                color: "#202426"
+                                                            }}>{element.number}</div>
+                                                        </div>
                                                         <div style={{
-                                                            fontSize: 14,
-                                                            color: "#202426",
-                                                        }}>{element.amount}</div>
-                                                    </div>
-                                                    <div style={{
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "flex-start",
-                                                    }}>
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            alignItems: "flex-start",
+                                                            minWidth: 90,
+                                                            width: "35%",
+                                                            marginLeft: 3,
+                                                        }}>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                opacity: 0.4,
+                                                                fontSize: 6,
+                                                                color: "#202426",
+                                                                marginBottom: 8,
+                                                            }}>다음 배당일</div>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                fontSize: 14,
+                                                                color: "#202426"
+                                                            }}>{element.next}</div>
+                                                        </div>
                                                         <div style={{
-                                                            opacity: 0.6,
-                                                            fontSize: 6,
-                                                            color: "#202426",
-                                                            marginBottom: 8
-                                                        }}>개당 가격 ({element.chain})</div>
-                                                        <div style={{
-                                                            fontSize: 14,
-                                                            color: "#202426"
-                                                        }}>{element.price}</div>
-                                                    </div>
-                                                    <div style={{
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "flex-start",
-                                                    }}>
-                                                        <div style={{
-                                                            opacity: 0.6,
-                                                            fontSize: 6,
-                                                            color: "#202426",
-                                                            marginBottom: 8
-                                                        }}>펀딩 금액 ({element.chain})</div>
-                                                        <div style={{
-                                                            fontSize: 14,
-                                                            color: "#202426"
-                                                        }}>{element.total}</div>
-                                                    </div>
-                                                </div>
-                                                <div style={{
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    alignItems: "center",
-                                                }}>
-                                                    <div style={{
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "flex-start",
-                                                    }}>
-                                                        <div style={{
-                                                            opacity: 0.6,
-                                                            fontSize: 6,
-                                                            color: "#202426",
-                                                            marginBottom: 8,
-                                                        }}>배당 횟수</div>
-                                                        <div style={{
-                                                            fontSize: 14,
-                                                            color: "#202426"
-                                                        }}>{element.number}</div>
-                                                    </div>
-                                                    <div style={{
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "flex-start",
-                                                    }}>
-                                                        <div style={{
-                                                            opacity: 0.6,
-                                                            fontSize: 6,
-                                                            color: "#202426",
-                                                            marginBottom: 8,
-                                                        }}>다음 배당일</div>
-                                                        <div style={{
-                                                            fontSize: 14,
-                                                            color: "#202426"
-                                                        }}>{element.next}</div>
-                                                    </div>
-                                                    <div style={{
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "flex-start",
-                                                    }}>
-                                                        <div style={{
-                                                            opacity: 0.6,
-                                                            fontSize: 6,
-                                                            color: "#202426",
-                                                            marginBottom: 8,
-                                                        }}>실제 배당 ({element.chain})</div>
-                                                        <div style={{
-                                                            fontSize: 14,
-                                                            color: "#e78276"
-                                                        }}>{element.actual}</div>
-                                                    </div>
-                                                    <div style={{
-                                                        display: "flex",
-                                                        flexDirection: "column",
-                                                        alignItems: "flex-start",
-                                                    }}>
-                                                        <div style={{
-                                                            opacity: 0.6,
-                                                            fontSize: 6,
-                                                            color: "#202426",
-                                                            marginBottom: 8,
-                                                        }}>누적배당 ({element.chain})</div>
-                                                        <div style={{
-                                                            fontSize: 14,
-                                                            color: "#202426"
-                                                        }}>{element.accumulate}</div>
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            alignItems: "flex-start",
+                                                            minWidth: 90,
+                                                            width: "35%",
+                                                            marginLeft: 3,
+                                                        }}>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                opacity: 0.4,
+                                                                fontSize: 6,
+                                                                color: "#202426",
+                                                                marginBottom: 8,
+                                                            }}>실제 배당 ({element.chain})</div>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                textAlign: "right",
+                                                                fontSize: 14,
+                                                                color: "#e78276",
+                                                                fontWeight: "bold",
+                                                            }}>{element.actual}</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1263,7 +1320,7 @@ export default function Asset() {
                                 </div>
                                 <div style={{
                                     opacity: 0.6,
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     color: "#202426",
                                     maxWidth: "20%",
                                     minWidth: 180,

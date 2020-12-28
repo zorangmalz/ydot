@@ -176,6 +176,7 @@ export function MTopBanner() {
                     }}>
                         <div style={{
                             width: 20,
+                            textAlign: "center",
                             color: "#ffffff",
                             cursor: "pointer",
                             fontSize: 16,
@@ -184,6 +185,8 @@ export function MTopBanner() {
                             opacity: 0.6,
                         }}>{"<"}</div>
                         <div style={{
+                            width: 20,
+                            textAlign: "center",
                             color: "#ffffff",
                             fontSize: 14,
                             marginRight: 4,
@@ -191,6 +194,7 @@ export function MTopBanner() {
                         }}>5/6</div>
                         <div style={{
                             width: 20,
+                            textAlign: "center",
                             color: "#ffffff",
                             cursor: "pointer",
                             fontSize: 16,
