@@ -7,7 +7,7 @@ import { BsCheck } from 'react-icons/bs'
 import { FiArrowRightCircle } from 'react-icons/fi';
 import { BiCheckCircle } from 'react-icons/bi'
 import { useHistory } from "react-router-dom"
-import callAPI from "../line"
+
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 
@@ -176,30 +176,7 @@ export function MyInfo() {
     const [amount, setAmount] = useState("")
     const [wallet, setWallet] = useState("")
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-    async function CoinAmount() {
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-
-        let path = `/v1/wallets/${UserAddress}/base-coin`
-
-        let txid = await callAPI("GET", path)
-        console.log(txid.amount)
-        var a = Number(txid.amount) / 1000000
-        setAmount(a)
-        TokenNumber()
-    }
-    //유저의 토큰 개수. 내자산 및 팝업에서 토큰 개수 및 토큰 양 보여주는데 사용
-    async function TokenNumber() {
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-        let path = `/v1/wallets/${UserAddress}/service-tokens`
-        let txid = await callAPI("GET", path)
-        //내자산 팝업에서 보유토큰에 쓰일 변수
-        console.log(txid.length)
-        setLeng(txid.length)
-
-        //유저의 코인 총량. 내 자산에서 원 대신에 보여주면 됨
-    }
+  
 
     function getInfo() {
         firestore.collection("User").doc(uid).get().then(doc => {
@@ -208,7 +185,7 @@ export function MyInfo() {
         })
     }
     useEffect(() => {
-        CoinAmount()
+        
         getInfo()
     }, [])
     const data = [
@@ -1170,25 +1147,13 @@ export function PopupTwo({ setVisible, setNextVisible }) {
     const [amount, setAmount] = useState("")
     const [tok, setTok] = useState("")
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-    async function CoinAmount() {
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-
-        let path = `/v1/wallets/${UserAddress}/base-coin`
-
-        let txid = await callAPI("GET", path)
-        console.log(txid.amount)
-        var a = Number(txid.amount) / 1000000
-        setAmount(a)
-    }
+   
     const onChange = (e) => {
         console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
         console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
         setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
     }
-    useEffect(() => {
-        CoinAmount()
-    }, [])
+
     useEffect(() => {
         setTok((Number(money) / 1.636).toFixed(6))
     }, [money])
@@ -1206,80 +1171,16 @@ export function PopupTwo({ setVisible, setNextVisible }) {
         dispatch({ type: "max" })
     }
     const onNext = () => {
-        transaction()
+        
         setVisible(false)
         setNextVisible(true)
     }
 
 
-    async function transaction() {
-
-        //여기에 나중에 얼마 코인 보내고 얼마 받고 설정, 팝업에서
-        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
-        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-
-        let path = `/v1/wallets/${UserAddress}/base-coin/transfer`
-        let coinAmount = String(money * 1000000)
-        let txid = await callAPI("POST", path, {
-            "walletSecret": UserSecret,
-            "toAddress": AdminAddress,
-            "amount": coinAmount
-        })
-        //amount 부분을 조정하면됨. 그거에 비례해서 토큰 트랜잭션 띄워주기
-        //callapi 는 line.js에 만들어둠
-        console.log(txid)
-        //txid=transaction hash. 이걸 파베에 저장~
-        transactionToken(coinAmount)
-    }
-    async function transactionToken(coinAmount) {
-        //요건 코인의 양에 따라 다시 토큰을 재분배해주는것
-        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
-        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let UserSecret = "t0YlRhABg6G+faYzL4BB8afAIiEe94qjtYjmBoCy9uU="
-        let ContractID = "138bd530"
-        let path = `/v1/wallets/${AdminAddress}/service-tokens/${ContractID}/transfer`
-
-        console.log(tok)
-        let token = String(tok * 1000000)
-        console.log(token)
-        let txid = await callAPI("POST", path, {
-            "walletSecret": AdminSecret,
-            "toAddress": UserAddress,
-            "amount": token
-        })
-        console.log(txid)
-        firestoreUpload(coinAmount, tok, txid)
-    }
-
-    async function mint() {
-        const today = new Date()
-        const year = today.getFullYear();
-        const month = today.getMonth() + 1
-        const day = today.getDate()
-        let AdminAddress = "tlink1uvv95a2rgw24px7xz92wk8qnuxz9parkz5aw3a"
-        let AdminSecret = "msboBN80fozDAvWOiyqsaOd7Fy6NNMxGc3VLHt3hcM8="
-        let UserAddress = "tlink1hmnzxlcmu75mk5a5j62e5ksvswwhs866d57e42"
-        let contractId = "7d8a9402"
-        let tokenType = "10000002"
-        let tokenIdName = "Pood"
-        let info = "user1@ydot.xyz 님께서 Pood님께 " + year + "/" + month + "/" + day + "에 편딩하셨습니다"
-        let path = `/v1/item-tokens/${contractId}/non-fungibles/${tokenType}/mint`;
-        let a = await callAPI('POST', path, {
-            "ownerAddress": AdminAddress,
-            "ownerSecret": AdminSecret,
-            "name": tokenIdName,
-            "toAddress": UserAddress,
-            "meta": info
-        });
-        console.log(a)
-        return a
-    }
+   
 
     async function firestoreUpload(coinAmount, tok, txid) {
-        let nTxid = await mint()
+        
         const names = "지순’s 일상"
         const len = coinAmount.length
         const today = new Date()
@@ -1291,7 +1192,7 @@ export function PopupTwo({ setVisible, setNextVisible }) {
             DayTime: year + "/" + month + "/" + day,
             Money: Number(coinAmount),
             TransactionHash: txid,
-            NftTx: nTxid,
+            NftTx: "ntxid",
             Number: Number(tok),
             ongoing: 0,
             per: 1.636,
