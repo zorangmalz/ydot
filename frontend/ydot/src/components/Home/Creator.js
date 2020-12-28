@@ -9,7 +9,7 @@ import { BiHeart } from 'react-icons/bi'
 import { IoMdShare, IoIosCalculator } from 'react-icons/io'
 
 import { useHistory } from 'react-router-dom'
-import callAPI from "../../line"
+
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
