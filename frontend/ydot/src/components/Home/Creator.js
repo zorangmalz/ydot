@@ -1518,7 +1518,7 @@ export default function Creator() {
                                             alignItems: "center",
                                             justifyContent: "space-between"
                                         }}>
-                                            <img src={jisun} style={{ width: 100, height: 80, borderRadius: 20 }} />
+                                            <img src={jisun} style={{ width: 80, height: 80, borderRadius: 20, marginRight: 10 }} />
                                             <div style={{
                                                 display: "flex",
                                                 flexDirection: "column",
@@ -1564,7 +1564,7 @@ export default function Creator() {
                                                     fontSize: 14,
                                                     marginBottom: 5
                                                 }}>인기 동영상</div>
-                                                <img src={campusone} style={{ objectFit: "cover", width: "90vw", maxWidth: 375, minWidth: 300, height: 90 }} />
+                                                <img src={campusone} style={{ objectFit: "cover", width: "85vw" }} />
                                             </div>
                                         </div>
                                     </div>
@@ -1573,10 +1573,11 @@ export default function Creator() {
                                         flexDirection: "column",
                                         alignItems: "center",
                                         width: "100%",
-                                        marginTop: 20,
+                                        marginTop: 40,
                                     }}>
                                         <div style={{
-                                            width: 320,
+                                            width: "90vw",
+                                            minWidth: 300,
                                             display: "flex",
                                             flexDirection: "row",
                                             alignItems: "center",
@@ -1588,7 +1589,8 @@ export default function Creator() {
                                             <MChannelAnalysisBox title="월 평균 조회수 성장률" content="5%" img={true} growth={true} />
                                         </div>
                                         <div style={{
-                                            width: 320,
+                                            width: "90vw",
+                                            minWidth: 300,
                                             display: "flex",
                                             flexDirection: "row",
                                             alignItems: "center",

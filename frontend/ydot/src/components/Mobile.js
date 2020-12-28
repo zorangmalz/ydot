@@ -559,7 +559,7 @@ export function MChannelAnalysisBox({title, content, img, growth}) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                width: 90,
+                width: 85,
                 height: 85,
                 border: "2px solid #e78276",
                 borderRadius: 20,
@@ -576,7 +576,7 @@ export function MChannelAnalysisBox({title, content, img, growth}) {
                 }}>{title}</div>
                 <div style={{
                     width: 80,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: "bold",
                     color: "#202426",
                     marginBottom: 5,
@@ -602,7 +602,7 @@ export function MChannelAnalysisBoxTwo({title, content, img, growth}) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                width: 150,
+                width: 140,
                 height: 85,
                 border: "2px solid #e78276",
                 borderRadius: 20,
