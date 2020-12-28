@@ -175,14 +175,22 @@ export function MyInfo() {
     const [email, setEmail] = useState("")
     const [amount, setAmount] = useState("")
     const [wallet, setWallet] = useState("")
+    const history = useHistory()
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
   
 
     function getInfo() {
-        firestore.collection("User").doc(uid).get().then(doc => {
-            setEmail(doc.data().email)
-            setWallet(doc.data().wallet)
-        })
+        if(uid){
+            console.log(uid)
+            firestore.collection("User").doc(uid).get().then(doc => {
+                setEmail(doc.data().email)
+                setWallet(doc.data().wallet)
+            })
+        }else{
+            console.log("없음")
+            history.push("/login")
+        }
+        
     }
     useEffect(() => {
         
