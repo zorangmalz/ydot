@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa"
 //모바일 대응
@@ -16,28 +16,16 @@ export default function LoginScreen() {
         return isNotMobile ? children : null
     }
 
-    const [id, setID] = useState("")
-    const [pass, setPass] = useState("")
-    const [differ, setDiffer] = useState(true)
-    
+    //비밀번호 같은지 다른지 확인
+    const [differ, setDiffer] = useState(false)
 
+    // Default ID, PASSWORD 값
+    // document.getElementById("DID").value
+    // document.getElementById("DPASS").value
 
-
-    const [inputs, setInputs] = useState({
-        name: '',
-        nickname: ''
-      });
-    
-      const { name, nickname } = inputs; // 비구조화 할당을 통해 값 추출
-    
-      const onChange = (e) => {
-        const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
-        setInputs({
-          ...inputs, // 기존의 input 객체를 복사한 뒤
-          [name]: value // name 키를 가진 값을 value 로 설정
-        });
-      };
-
+    // Mobile ID, PASSWORD 값
+    // document.getElementById("MID").value
+    // document.getElementById("MPASS").value
 
     return (
         <div>
@@ -114,7 +102,7 @@ export default function LoginScreen() {
                                 color: "#202426",
                                 marginBottom: 40
                             }}>로그인</div>
-                            <input style={{
+                            <input id="DID" type="text" style={{
                                 borderTop: 0,
                                 borderLeft: 0,
                                 borderRight: 0,
@@ -128,8 +116,8 @@ export default function LoginScreen() {
                                 outlineColor: "#e78276",
                                 paddingBottom: 4,
                                 marginBottom: 20
-                            }} placeholder="아이디" name="name" placeholder="이름" onChange={onChange} value={name}/>
-                            <input type="password" style={{
+                            }} placeholder="아이디"/>
+                            <input id="DPASS" type="password" style={{
                                 borderTop: 0,
                                 borderLeft: 0,
                                 borderRight: 0,
@@ -143,10 +131,7 @@ export default function LoginScreen() {
                                 outlineColor: "#e78276",
                                 paddingBottom: 4,
                                 marginBottom: 10,
-                            }} placeholder="비밀번호"  name="nickname" placeholder="닉네임" onChange={onChange} value={nickname}/>
-                            <div>
-                                {name+nickname}
-                            </div>
+                            }} placeholder="비밀번호" />
                             <input type="button" style={{
                                 border: 0,
                                 width: 300,
@@ -161,7 +146,7 @@ export default function LoginScreen() {
                                 alignSelf: "flex-end",
                                 marginBottom: 10
                             }} value="비밀번호를 잊으셨나요?" />
-                            <input type="button" style={{
+                            <input onClick={() => alert(document.getElementById("DID").value)} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,
@@ -256,7 +241,7 @@ export default function LoginScreen() {
                                 color: "#202426",
                                 marginBottom: 40
                             }}>로그인</div>
-                            <input style={{
+                            <input id="MID" style={{
                                 borderTop: 0,
                                 borderLeft: 0,
                                 borderRight: 0,
@@ -270,8 +255,8 @@ export default function LoginScreen() {
                                 outlineColor: "#e78276",
                                 paddingBottom: 4,
                                 marginBottom: 20
-                            }} placeholder="아이디" value={id} onChange={({ text }) => setID(text)} />
-                            <input type="password" style={{
+                            }} placeholder="아이디" />
+                            <input id="MPASS" type="password" style={{
                                 borderTop: 0,
                                 borderLeft: 0,
                                 borderRight: 0,
@@ -285,7 +270,7 @@ export default function LoginScreen() {
                                 outlineColor: "#e78276",
                                 paddingBottom: 4,
                                 marginBottom: 10,
-                            }} placeholder="비밀번호" value={pass} onChange={({ text }) => setPass(text)} />
+                            }} placeholder="비밀번호" />
                             <input type="button" style={{
                                 border: 0,
                                 width: 300,
