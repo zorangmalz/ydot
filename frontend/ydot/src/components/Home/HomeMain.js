@@ -12,7 +12,7 @@ import Creatortwo from '../icon/Creatortwo.png'
 import Creatorthree from '../icon/Creatorthree.png'
 import Creatorfour from '../icon/Creatorfour.png'
 
-import CaverExtKAS from "caver-js-ext-kas"
+// import CaverExtKAS from "caver-js-ext-kas"
 
 
 
@@ -24,30 +24,30 @@ export default function HomeMain() {
     const { uid } = useSelector((state) => state.firebase.auth);
     const [items, setItems] = useState([]);
 
-    const chainId = 1001
-    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
-    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
+    // const chainId = 1001
+    // const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
+    // const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
 
-    async function kasTest() {
-        var wallet
-        await firestore.collection("User").doc(uid).get().then(doc => {
-            wallet = doc.data().wallet
-        })
-        if (wallet) {
-            console.log("Not new")
-        } else {
-            const caver = new CaverExtKAS()
-            caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+    // async function kasTest() {
+    //     var wallet
+    //     await firestore.collection("User").doc(uid).get().then(doc => {
+    //         wallet = doc.data().wallet
+    //     })
+    //     if (wallet) {
+    //         console.log("Not new")
+    //     } else {
+    //         const caver = new CaverExtKAS()
+    //         caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
 
-            const account = await caver.kas.wallet.createAccount()
-            console.log(account)
-            firestore.collection("User").doc(uid).update({
-                wallet: account.address
-            }
+    //         const account = await caver.kas.wallet.createAccount()
+    //         console.log(account)
+    //         firestore.collection("User").doc(uid).update({
+    //             wallet: account.address
+    //         }
 
-            )
-        }
-    }
+    //         )
+    //     }
+    // }
     useEffect(() => {
         load()
     }, [])

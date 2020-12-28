@@ -19,8 +19,39 @@ import Exampletwo from '../icon/exampletwo.png'
 import Examplethree from '../icon/examplethree.png'
 import Examplefour from '../icon/examplefour.png'
 import { MBottomTag, MCloseBeta, MCreatorInfo, MFAQ, MHeader, MTopBanner } from '../Mobile'
+import CaverExtKAS from "caver-js-ext-kas"
+
 
 export default function SplashScreen() {
+
+
+    const chainId = 1001
+    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
+    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
+
+    async function kasTest() {
+            const caver = new CaverExtKAS()
+            caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+            const account = await caver.kas.wallet.createAccount()
+            console.log(account)
+            
+            const deployer = caver.wallet.add(
+                caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
+            )
+            const kip7 = await caver.kct.kip7.deploy(
+                { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
+                deployer.address
+            )
+            console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
+
+console.log(`Token name: ${await kip7.name()}`)
+console.log(`Token symbol: ${await kip7.symbol()}`)
+console.log(`Token decimals: ${await kip7.decimals()}`)
+console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
+        }
+    useEffect(()=>{
+        // kasTest()
+    },[])
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })
         return isMobile ? children : null
