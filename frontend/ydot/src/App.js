@@ -22,7 +22,7 @@ function App() {
           {/* 로그인 이후에는 그냥 route말고 미리 설정한 privateroute로 감싸기 */}
           <Route path="/fund/:id"><Creator /></Route>
           <Route path="/fund" component={FundMain} />
-          <Route path="/asset"><Asset /></Route>
+          <PrivateRoute path="/asset"><Asset /></PrivateRoute>
         </Switch>
       </Router>
     </>

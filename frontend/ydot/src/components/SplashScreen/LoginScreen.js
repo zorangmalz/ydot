@@ -4,8 +4,15 @@ import { FaUserCircle } from "react-icons/fa"
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
 import MLoginHeader from "../Mobile";
+import { useFirebase, useFirestore, firestoreConnect } from "react-redux-firebase"
+import { useHistory } from "react-router-dom"
+import CaverExtKAS from "caver-js-ext-kas"
 
 export default function LoginScreen() {
+    const chainId = 1001
+    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
+    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
+
     //모바일 대응
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })
@@ -26,7 +33,47 @@ export default function LoginScreen() {
     // Mobile ID, PASSWORD 값
     // document.getElementById("MID").value
     // document.getElementById("MPASS").value
-
+    const firebase = useFirebase()
+    const history = useHistory()
+    const firestore = useFirestore()
+async function login(){
+   
+    await firebase.login({
+        email: document.getElementById("DID").value,
+        password: document.getElementById("DPASS").value
+    }).then(() => {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+            firebase.auth().onAuthStateChanged((user) => {
+                getWallet(user)
+                history.push("/home")
+            })
+        })
+    })
+}
+async function getWallet(user){
+    var wallet
+    await firestore.collection("User").doc(user.uid).get().then(doc=>{
+        if(doc.data().wallet){
+            wallet=false
+        }else{
+            wallet=true
+        }
+    })  
+    
+    if(wallet){
+        var account = await kas()
+        firestore.collection("User").doc(user.uid).update({
+            wallet:account.address
+        })
+    }
+            
+}
+async function kas(){
+    const caver = new CaverExtKAS()
+    caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+    const account = await caver.kas.wallet.createAccount()
+    return account
+}
     return (
         <div>
             <Default>
@@ -146,7 +193,7 @@ export default function LoginScreen() {
                                 alignSelf: "flex-end",
                                 marginBottom: 10
                             }} value="비밀번호를 잊으셨나요?" />
-                            <input onClick={() => alert(`${document.getElementById("DID").value} ${document.getElementById("DPASS").value}`)} type="button" style={{
+                            <input onClick={login} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,

@@ -23,6 +23,23 @@ export const DesktopMinWidthNotPadding = 1224 * 58 / 68 + 7.4 * vw
 
 export default function Header({ bold }) {
     const [mine, setMine] = useState(false)
+    const firestore = useFirestore()
+    const history =useHistory()
+    const { uid } = useSelector((state) => state.firebase.auth);
+    useEffect(()=>{
+        console.log("hi")
+        console.log(mine)
+    })
+    function getInfo() {
+        if(uid){
+            console.log(uid)
+            history.push("/asset")
+        }else{
+            console.log("없음")
+            history.push("/login")
+        }
+        
+    }
     return (
         <header style={{
             zIndex: 3,
@@ -77,13 +94,14 @@ export default function Header({ bold }) {
                             marginRight: 40,
                             textDecorationLine: "none",
                         }}>펀딩하기</Link>
-                        <Link to={'/asset'} style={{
+                        <div onClick={getInfo} style={{
+                            cursor:"pointer",
                             fontSize: 21,
                             color: "#202426",
                             fontWeight: bold === "Asset" ? "bold" : "normal",
                             marginRight: 40,
                             textDecorationLine: "none",
-                        }}>내 자산</Link>
+                        }}>내 자산</div>
                     </>
                 </div>
                 <button style={{
@@ -178,8 +196,11 @@ export function MyInfo() {
     const history = useHistory()
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
   
-
+    useEffect(()=>{
+        console.log("here")
+    })
     function getInfo() {
+        
         if(uid){
             console.log(uid)
             firestore.collection("User").doc(uid).get().then(doc => {

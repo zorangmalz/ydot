@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useReducer } from "react"
 import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
-
+import { useSelector } from "react-redux";
 //icon
 import { FaUserCircle, FaArrowRight, FaArrowDown, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
 import { FiArrowRightCircle } from 'react-icons/fi';
 import { BiCheckCircle } from 'react-icons/bi'
+import { useFirebase, useFirestore } from "react-redux-firebase"
+
+
 
 //Style.js에서 가져옴
 import { ProgressBar } from "./Style"
@@ -66,6 +69,19 @@ export default function MLoginHeader() {
 }
 
 export function MHeader({ bold }) {
+    const [mine, setMine] = useState(false)
+    const firestore = useFirestore()
+    const history =useHistory()
+    const { uid } = useSelector((state) => state.firebase.auth);
+    function getInfo() {
+        if(uid){
+            console.log(uid)
+            history.push("/asset")
+        }else{
+            console.log("없음")
+            history.push("/login")
+        }
+    }
     return (
         <header style={{
             zIndex: 3,
@@ -115,12 +131,14 @@ export function MHeader({ bold }) {
                             marginRight: 10,
                             textDecorationLine: "none",
                         }}>펀딩하기</Link>
-                        <Link to={'/asset'} style={{
-                            fontSize: 18,
+                        <div onClick={getInfo} style={{
+                            cursor:"pointer",
+                            fontSize: 21,
                             color: "#202426",
                             fontWeight: bold === "Asset" ? "bold" : "normal",
+                            marginRight: 40,
                             textDecorationLine: "none",
-                        }}>내 자산</Link>
+                        }}>내 자산</div>
                     </>
                 </div>
                 <button style={{

@@ -79,14 +79,32 @@ export default function Creator() {
     }
 
     //팝업부분을 여기다 구현해놓음. 나중에 input값을 coinAmount변수로 넣어서 주면 됨
+    const firestore = useFirestore()
+    const history =useHistory()
+    const { uid } = useSelector((state) => state.firebase.auth);
+  
     function modal() {
-        setModalOne(true)
+        if(uid){
+            setModalOne(true)
+            
+        }else{
+            console.log("없음")
+            history.push("/login")
+        }
+        
     }
     function Mmodal() {
-        setMModalOne(true)
+        if(uid){
+            setMModalOne(true)
+            
+        }else{
+            console.log("없음")
+            history.push("/login")
+        }
+        
     }
 
-    const firestore = useFirestore()
+    
     const names = "지순’s 일상"
     const QA = [
         {
@@ -152,7 +170,7 @@ export default function Creator() {
     }
     useEffect(() => {
         getInfo()
-
+        
     }, [])
     useEffect(() => {
         setPercentage((fund / 16360 * 100).toFixed(2))
