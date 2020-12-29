@@ -440,7 +440,7 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline }) {
     const auctiondirect = "/auction/" + String(name)
     //link 쓰려다가 화면이 이상해져서 history 로 대체. 뭔차인지는 모르겠음ㅇ
     function move() {
-        history.push("/fund/" + String(name))
+        history.push("/fund/" + String(name),{creatorName:String(name)})
     }
     return (
         <>
@@ -1168,7 +1168,7 @@ function PopupReducer(state, action) {
     }
 }
 
-export function PopupTwo({ setVisible, setNextVisible }) {
+export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
 
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
@@ -1184,29 +1184,53 @@ export function PopupTwo({ setVisible, setNextVisible }) {
     }
 
     useEffect(() => {
-        setTok((Number(money) / 1.636).toFixed(6))
-    }, [money])
+        getInfo()
+        getCreatorInfo()
+    }, [])
     const [number, dispatch] = useReducer(PopupReducer, 0)
     const onTwentyfive = () => {
         dispatch({ type: "25" })
+        setMoney(totalMoney/4)
     }
     const onFifty = () => {
         dispatch({ type: "50" })
+        setMoney(totalMoney/2)
     }
     const onSeventyFive = () => {
         dispatch({ type: "75" })
+        setMoney(totalMoney/4*3)
     }
     const onMax = () => {
         dispatch({ type: "max" })
+        setMoney(totalMoney)
     }
+    const[warn,setWarn]=useState("")
     const onNext = () => {
+        if(totalMoney<money ||fundingMax<money){
+            if(totalMoney>fundingMax){
+                setWarn("최대"+fundingMax+"₩")
+            }else{
+                setWarn("최대"+totalMoney+"₩")
+            }
+        }else{
+            setVisible(false)
+            setNextVisible(true)
+        }
         
-        setVisible(false)
-        setNextVisible(true)
     }
-
-
-   
+    const [totalMoney,setTotalMoney]=useState(0)
+    function getInfo(){
+        firestore.collection("User").doc(uid).get().then(doc=>{
+            setTotalMoney(doc.data().totalMoney)
+        })
+        
+    }
+    const [fundingMax,setFundingMax]=useState(0)
+    function getCreatorInfo() {
+        firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
+            setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
+        })
+    }
 
     async function firestoreUpload(coinAmount, tok, txid) {
         
@@ -1378,16 +1402,8 @@ export function PopupTwo({ setVisible, setNextVisible }) {
                     width: 222,
                     textAlign: "right",
                     marginBottom: 20,
-                }}>최대 {amount} ₩</div>
-                <FaArrowDown size={32} color="#000000" style={{ marginBottom: 20, height: 40, width: 32 }} />
-                <div style={{
-                    fontSize: 20,
-                    fontWeight: "bold",
-                    color: "#161513",
-                    width: "100%",
-                    textAlign: "center",
-                    marginBottom: 40,
-                }}>{tok} JSC</div>
+                }}>{warn}</div>
+
                 <input onClick={onNext} type="button" style={{
                     cursor: "pointer",
                     width: 300,

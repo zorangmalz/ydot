@@ -8,7 +8,7 @@ import { MHeader, MHashTag, MCloseBeta, MQAList, MChannelAnalysisBox, MChannelAn
 import { BiHeart } from 'react-icons/bi'
 import { IoMdShare, IoIosCalculator } from 'react-icons/io'
 
-import { useHistory } from 'react-router-dom'
+import { useHistory,useLocation } from 'react-router-dom'
 
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
@@ -35,6 +35,7 @@ import noojeok from '../icon/noojeok.png'
 import noojeockview from '../icon/noojeockview.png'
 import thumbnailone from '../icon/thumbnailone.png'
 
+
 function reducer(state, action) {
     switch (action.type) {
         case "fund":
@@ -56,7 +57,7 @@ export default function Creator() {
         const isNotMobile = useMediaQuery({ minWidth: 451 })
         return isNotMobile ? children : null
     }
-
+    
     //Default
     const [modalOne, setModalOne] = useState(false)
     const [modalTwo, setModalTwo] = useState(false)
@@ -81,6 +82,8 @@ export default function Creator() {
     //팝업부분을 여기다 구현해놓음. 나중에 input값을 coinAmount변수로 넣어서 주면 됨
     const firestore = useFirestore()
     const history =useHistory()
+    const location=useLocation()
+    const myparam=location.state.creatorName
     const { uid } = useSelector((state) => state.firebase.auth);
   
     function modal() {
@@ -155,37 +158,31 @@ export default function Creator() {
     const [roi, setRoi] = useState("")
     const [percentage, setPercentage] = useState(0)
     //input
-    const [inputs, setInputs] = useState({
-        name: '',
-        nickname: '',
-    })
-    const { name, nickname } = inputs
-    const onChange = (e) => {
-        const { name, value } = e.target
-        const nextInputs = {
-            ...inputs,
-            [name]: value,
-        }
-        setInputs(nextInputs)
-    }
+
     useEffect(() => {
         getInfo()
-        
+        console.log(myparam)
     }, [])
-    useEffect(() => {
-        setPercentage((fund / 16360 * 100).toFixed(2))
-    }, [fund])
+
+    const [fundingAim,setFundingAim]=useState(0)
+    const [fundingTotal,setFundingTotal]=useState(0)
+    const [fundingDead,setFundingDead]=useState(0)
+
     function getInfo() {
-        firestore.collection("Creator").doc("[Vlog] 지순's 일상").onSnapshot(doc => {
-            setFund(doc.data().FundingTotal)
+        firestore.collection("Creator").doc(myparam).onSnapshot(doc => {
+            setFundingAim(doc.data().FundingAim)
+            setFundingTotal(doc.data().FundingTotal)
+            setFundingDead(doc.data().Deadline)
+            setPercentage((doc.data().FundingTotal/doc.data().FundingAim*100).toFixed(2))
         })
     }
+
     function calculate() {
-        console.log(nickname, "this")
-        var a = ((Math.pow(1 + Number(nickname) / 100, 12) - 1) * 10296940.94 - 16362236) / 16362236
+        
+        var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * 10296940.94 - 16362236) / 16362236
         console.log(a)
         setRoi((a * 100).toFixed(2))
-        var b = Number(name) * a + Number(name)
+        var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
     }
     return (
@@ -195,7 +192,7 @@ export default function Creator() {
                     <PopupOne setVisible={setModalOne} setNextVisible={setModalTwo} />
                     :
                     modalTwo ?
-                        <PopupTwo setVisible={setModalTwo} setNextVisible={setModalThree} />
+                        <PopupTwo setVisible={setModalTwo} setNextVisible={setModalThree} creatorName={myparam} />
                         :
                         modalThree ?
                             <PopupThree setVisible={setModalThree} />
@@ -324,7 +321,7 @@ export default function Creator() {
                                         fontSize: 24,
                                         fontWeight: "bold",
                                         color: "#e78276",
-                                    }}>900000 <div style={{
+                                    }}>{fundingTotal} <div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         color: "#202426",
@@ -352,7 +349,7 @@ export default function Creator() {
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>1000000 <div style={{
+                                    }}>{fundingAim} <div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal"
@@ -571,7 +568,7 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     marginBottom: 20
                                                 }}>
-                                                    <input type="text" name="name" placeholder="100" onChange={onChange} value={name} style={{
+                                                    <input type="text"  placeholder="100" id="PRICE" style={{
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         border: 0,
@@ -606,7 +603,7 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     marginBottom: 20
                                                 }}>
-                                                    <input type="text" name="nickname" placeholder="5" onChange={onChange} value={nickname} style={{
+                                                    <input type="text"placeholder="5" id="RATE" style={{
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         border: 0,
@@ -1125,7 +1122,7 @@ export default function Creator() {
                                                     fontWeight: "bold",
                                                     color: "#e78276",
                                                     textAlign: "right",
-                                                }}>900000 <div style={{
+                                                }}>{fundingTotal} <div style={{
                                                     display: "inline-block",
                                                     fontSize: 12,
                                                     color: "#202426",
@@ -1168,7 +1165,7 @@ export default function Creator() {
                                                     fontWeight: "bold",
                                                     color: "#202426",
                                                     textAlign: "right",
-                                                }}>1000000 <div style={{
+                                                }}>{fundingAim} <div style={{
                                                     display: "inline-block",
                                                     fontSize: 12,
                                                     fontWeight: "normal"
@@ -1346,7 +1343,7 @@ export default function Creator() {
                                                 backgroundColor: "#F2F2F2",
                                                 marginBottom: 20
                                             }}>
-                                                <input type="text" name="name" placeholder="100" onChange={onChange} value={name} style={{
+                                                <input type="text" placeholder="100" id="PRICE" style={{
                                                     fontSize: 18,
                                                     color: "#202426",
                                                     border: 0,
@@ -1382,7 +1379,7 @@ export default function Creator() {
                                                 backgroundColor: "#F2F2F2",
                                                 marginBottom: 20
                                             }}>
-                                                <input type="text" name="nickname" placeholder="5" onChange={onChange} value={nickname} style={{
+                                                <input type="text" placeholder="5" id="RATE" style={{
                                                     fontSize: 18,
                                                     color: "#202426",
                                                     border: 0,

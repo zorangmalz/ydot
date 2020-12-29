@@ -37,7 +37,7 @@ export default function FundMain() {
                 list.push({
                     id: count,
                     img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
-                    name: doc.id === "[Vlog] 지순's 일상" ? "Pood" : doc.id,
+                    name: doc.id,
                     FundingNum: doc.data().FundingNum,
                     FundingTotal: doc.data().FundingAim,
                     percent: doc.data().FundingTotal / doc.data().FundingAim * 100,

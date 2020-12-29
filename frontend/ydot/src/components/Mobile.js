@@ -233,7 +233,7 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline }) {
     const history = useHistory()
 
     function move() {
-        history.push("/fund/" + String(name))
+        history.push("/fund/" + String(name),{creatorName:String(name)})
     }
     return (
         <>
