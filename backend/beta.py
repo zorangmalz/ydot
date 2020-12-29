@@ -18,10 +18,11 @@ for i in creator:
         data_reader = csv.DictReader(csvfile)
         data = {}
         for row in data_reader:
-            a = row['date'].strip()
-            data.update({row['date']: {"subs": row['subs'], "views": row['views']},})
+            data.update({row['date']: {"subs": int(row['subs']), "views": int(row['views'])}})
+
         jsondata = json.dumps(data)
+        final = json.loads(jsondata)
     BetaData.objects.create(
         channelTitle=i,
-        logData=jsondata
+        logData=final
     )
