@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import my_settings
 import os
 import creator
 import ydotdata
@@ -85,7 +84,20 @@ WSGI_APPLICATION = 'ydot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = my_settings.DATABASES
+DATABASES = {
+    'default' : {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ydot0', 
+        'USER': 'admin', 
+        'PASSWORD': 'wlstjd!ydot',  
+        'HOST': 'ydot0.cqdi4wsbxqm8.ap-northeast-2.rds.amazonaws.com', 
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"',
+            'charset': 'utf8mb4',
+        },
+    }
+}
 
 
 # Password validation
