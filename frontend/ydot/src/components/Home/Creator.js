@@ -1,7 +1,7 @@
 import React, { Suspense, useState, useEffect, useReducer } from 'react'
 
 //디자인
-import Header, { CreatorIntro, Information, Line, vh, vw, QAList, CloseBeta, BottomTag, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree } from '../Style'
+import Header, { CreatorIntro, Information, Line, vh, vw, QAList, CloseBeta, BottomTag, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo } from '../Style'
 import { MHeader, MHashTag, MCloseBeta, MQAList, MChannelAnalysisBox, MChannelAnalysisBoxTwo, MCreatorIntro, MPopupOne, MPopupTwo, MPopupThree } from '../Mobile'
 
 //아이콘
@@ -929,7 +929,7 @@ export default function Creator() {
                     <MPopupOne setVisible={setMModalOne} setNextVisible={setMModalTwo} />
                     :
                     MmodalTwo ?
-                        <MPopupTwo setVisible={setMModalTwo} setNextVisible={setMModalThree} />
+                        <MPopupTwo setVisible={setMModalTwo} setNextVisible={setMModalThree} creatorName={myparam} />
                         :
                         MmodalThree ?
                             <MPopupThree setVisible={setMModalThree} />

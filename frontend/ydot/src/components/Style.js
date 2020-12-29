@@ -193,6 +193,7 @@ export function MyInfo() {
     const [email, setEmail] = useState("")
     const [amount, setAmount] = useState("")
     const [wallet, setWallet] = useState("")
+    const [money,setMoney]=useState(0)
     const history = useHistory()
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
   
@@ -206,6 +207,7 @@ export function MyInfo() {
             firestore.collection("User").doc(uid).get().then(doc => {
                 setEmail(doc.data().email)
                 setWallet(doc.data().wallet)
+                setMoney(doc.data().totalMoney)
             })
         }else{
             console.log("없음")
@@ -214,7 +216,7 @@ export function MyInfo() {
         
     }
     useEffect(() => {
-        
+
         getInfo()
     }, [])
     const data = [
@@ -298,7 +300,7 @@ export function MyInfo() {
                     fontWeight: "bold",
                     color: "#202426",
                     marginBottom: 20
-                }}>{amount}LINK</div>
+                }}>{money}KRW</div>
 
                 <div style={{
                     fontSize: 12,
@@ -1213,56 +1215,50 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 setWarn("최대"+totalMoney+"₩")
             }
         }else{
+            firestoreUpload()
             setVisible(false)
             setNextVisible(true)
         }
         
     }
     const [totalMoney,setTotalMoney]=useState(0)
+    const [wallet,setWallet]=useState("")
     function getInfo(){
         firestore.collection("User").doc(uid).get().then(doc=>{
             setTotalMoney(doc.data().totalMoney)
+            setWallet(doc.data().wallet)
         })
         
     }
     const [fundingMax,setFundingMax]=useState(0)
+    const [fundingTotal,setFundingTotal]=useState(0)
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
+            setFundingTotal(doc.data().FundingTotal)
         })
     }
 
-    async function firestoreUpload(coinAmount, tok, txid) {
-        
-        const names = "지순’s 일상"
-        const len = coinAmount.length
+    async function firestoreUpload() {
         const today = new Date()
         const year = today.getFullYear();
         const month = today.getMonth() + 1
         const day = today.getDate()
-
-        firestore.collection("User").doc(uid).collection("Fund").doc(names).set({
+        firestore.collection("User").doc(uid).collection("Fund").doc(creatorName).set({
             DayTime: year + "/" + month + "/" + day,
-            Money: Number(coinAmount),
-            TransactionHash: txid,
-            NftTx: "ntxid",
-            Number: Number(tok),
+            Money: money,
             ongoing: 0,
-            per: 1.636,
-            channel: "Pood"
-
+            channel: creatorName
         })
-        var now
-        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").get().then(doc => {
-            now = doc.data().FundingTotal
+        firestore.collection("User").doc(uid).update({
+            totalMoney:Number(totalMoney)-Number(money)
         })
-        console.log(now)
-
-
-
-        await firestore.collection("Creator").doc("[Vlog] 지순's 일상").update({
-            FundingTotal: Number(now) + Number(coinAmount) / 1000000
-
+        await firestore.collection("Creator").doc(creatorName).update({
+            FundingTotal: Number(fundingTotal)+Number(money)
+        })
+        await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
+            wallet:wallet,
+            money:money
         })
     }
     return (
@@ -1423,19 +1419,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
 }
 
 export function PopupThree({ setVisible }) {
-    const address = "0x649640518e043295c86e674b4904…e6989215db2"
-    const firestore = useFirestore()
-    const { uid } = useSelector((state) => state.firebase.auth);
-    const [hash, setHash] = useState("")
-    function getInfo() {
-        firestore.collection("User").doc(uid).collection("Fund").doc("지순’s 일상").onSnapshot(doc => {
-            setHash(doc.data().TransactionHash.txHash)
-        })
-        console.log("g")
-    }
-    useEffect(() => {
-        getInfo()
-    }, [])
+    
     return (
         <div style={{
             position: "absolute",
@@ -1479,12 +1463,12 @@ export function PopupThree({ setVisible }) {
                 <BiCheckCircle color="#202426" size={120} style={{ width: 120, height: 120, marginBottom: 40 }} />
                 <div style={{
                     fontSize: 14,
-                    fontWeight: "bold",
+                    
                     color: "#161513",
                     width: "100%",
                     textAlign: "center",
                     marginBottom: 20,
-                }}>Tx hash</div>
+                }}>내 자산에서 투자내역을 확인하실 수 있습니다</div>
                 <div style={{
                     fontSize: 12,
                     color: "#202426",
@@ -1493,8 +1477,8 @@ export function PopupThree({ setVisible }) {
                     display: "flex",
                     flexDirection: "column"
                 }}>
-                    <div style={{ textAlign: "center", marginBottom: 10 }}>{hash}</div>
-                    <input type="button" style={{ marginRight: 18, fontSize: 12, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20 }} value="View in LINK Scope" />
+                    <div style={{ textAlign: "center", marginBottom: 10 }}></div>
+                  
                 </div>
                 <input onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",

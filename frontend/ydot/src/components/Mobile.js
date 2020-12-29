@@ -964,24 +964,105 @@ function MPopupReducer(state, action) {
     }
 }
 
-export function MPopupTwo({ setVisible, setNextVisible }) {
+function PopupReducer(state, action) {
+    switch (action.type) {
+        case "25":
+            return 25
+        case "50":
+            return 50
+        case "75":
+            return 75
+        case "max":
+            return 100
+        default:
+            return 0
+    }
+}
+export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [money, setMoney] = useState("")
-    const [number, dispatch] = useReducer(MPopupReducer, 0)
+    const [number, dispatch] = useReducer(PopupReducer, 0)
+    const firestore = useFirestore()
+    const { uid } = useSelector((state) => state.firebase.auth);
     const onTwentyfive = () => {
         dispatch({ type: "25" })
+        setMoney(totalMoney/4)
     }
     const onFifty = () => {
         dispatch({ type: "50" })
+        setMoney(totalMoney/2)
     }
     const onSeventyFive = () => {
         dispatch({ type: "75" })
+        setMoney(totalMoney/4*3)
     }
     const onMax = () => {
         dispatch({ type: "max" })
+        setMoney(totalMoney)
     }
+
+    useEffect(() => {
+        getInfo()
+        getCreatorInfo()
+    }, [])
+    const onChange = (e) => {
+        console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
+        console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
+        setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
+    }
+    const[warn,setWarn]=useState("")
     const onNext = () => {
-        setVisible(false)
-        setNextVisible(true)
+        if(totalMoney<money ||fundingMax<money){
+            if(totalMoney>fundingMax){
+                setWarn("최대"+fundingMax+"₩")
+            }else{
+                setWarn("최대"+totalMoney+"₩")
+            }
+        }else{
+            firestoreUpload()
+            setVisible(false)
+            setNextVisible(true)
+        }
+        
+    }
+    const [totalMoney,setTotalMoney]=useState(0)
+    const [wallet,setWallet]=useState("")
+    function getInfo(){
+        firestore.collection("User").doc(uid).get().then(doc=>{
+            setTotalMoney(doc.data().totalMoney)
+            setWallet(doc.data().wallet)
+        })
+        
+    }
+    const [fundingMax,setFundingMax]=useState(0)
+    const [fundingTotal,setFundingTotal]=useState(0)
+    function getCreatorInfo() {
+        firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
+            setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
+            setFundingTotal(doc.data().FundingTotal)
+        })
+    }
+
+    async function firestoreUpload() {
+        const today = new Date()
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1
+        const day = today.getDate()
+        firestore.collection("User").doc(uid).collection("Fund").doc(creatorName).set({
+            DayTime: year + "/" + month + "/" + day,
+            Money: money,
+            ongoing: 0,
+            channel: creatorName
+        })
+        firestore.collection("User").doc(uid).update({
+            totalMoney:Number(totalMoney)-Number(money)
+        })
+        await firestore.collection("Creator").doc(creatorName).update({
+            FundingTotal: Number(fundingTotal)+Number(money)
+        })
+        await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
+            wallet:wallet,
+            money:money
+        })
     }
 
     return (
@@ -1041,7 +1122,7 @@ export function MPopupTwo({ setVisible, setNextVisible }) {
                         outline: 0,
                         border: 0,
                         textAlign: "right"
-                    }} value={money} onChange={({text}) => setMoney(text)} />
+                    }}value={money} onChange={onChange} />
                     <div style={{
                         fontSize: 16,
                         fontWeight: "normal",
@@ -1115,22 +1196,14 @@ export function MPopupTwo({ setVisible, setNextVisible }) {
                     }} value="MAX" />
                 </div>
                 <div style={{
-                    fontSize: 14,
+                    fontSize: 16,
                     opacity: 0.8,
                     color: "#e61800",
-                    width: 150,
+                    width: 222,
                     textAlign: "right",
                     marginBottom: 20,
-                }}>최대 100000 ₩</div>
-                <FaArrowDown size={25} color="#000000" style={{ marginBottom: 10, height: 30, width: 28 }} />
-                <div style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "#161513",
-                    width: "100%",
-                    textAlign: "center",
-                    marginBottom: 20,
-                }}>100 JSC</div>
+                }}>{warn}</div>
+
                 <input onClick={onNext} type="button" style={{
                     cursor: "pointer",
                     width: 270,
@@ -1193,12 +1266,12 @@ export function MPopupThree({ setVisible }) {
                 <BiCheckCircle color="#202426" size={120} style={{ width: 120, height: 120, marginBottom: 40 }} />
                 <div style={{
                     fontSize: 12,
-                    fontWeight: "bold",
+                    
                     color: "#161513",
                     width: "100%",
                     textAlign: "center",
                     marginBottom: 10,
-                }}>Tx hash</div>
+                }}>내 자산에서 투자내역을 확인하실 수 있습니다</div>
                 <div style={{
                     fontSize: 10,
                     color: "#202426",
@@ -1207,8 +1280,7 @@ export function MPopupThree({ setVisible }) {
                     display: "flex",
                     flexDirection: "column"
                 }}>
-                    <div style={{ textAlign: "center", marginBottom: 10 }}>해시값</div>
-                    <input type="button" style={{ fontSize: 10, color: "#202426", alignSelf: "flex-end", textDecorationLine: "underline", border: 0, outline: 0, cursor: "pointer", backgroundColor: "#ffffff", marginBottom: 20 }} value="View in LINK Scope" />
+                    
                 </div>
                 <input onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",
