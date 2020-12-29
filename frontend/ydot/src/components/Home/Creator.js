@@ -167,13 +167,14 @@ export default function Creator() {
     const [fundingAim,setFundingAim]=useState(0)
     const [fundingTotal,setFundingTotal]=useState(0)
     const [fundingDead,setFundingDead]=useState(0)
-
+    const [ongoing,setOngoing]=useState(false)
     function getInfo() {
         firestore.collection("Creator").doc(myparam).onSnapshot(doc => {
             setFundingAim(doc.data().FundingAim)
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
             setPercentage((doc.data().FundingTotal/doc.data().FundingAim*100).toFixed(2))
+            setOngoing(doc.data().ongoing)
         })
     }
 
@@ -229,7 +230,8 @@ export default function Creator() {
                         minWidth: 1280,
                         zIndex: 0,
                     }}>
-                        <div onClick={modal} style={{
+                        {ongoing ?
+                         <div onClick={modal} style={{
                             outline: 0,
                             cursor: "pointer",
                             position: "fixed",
@@ -249,6 +251,28 @@ export default function Creator() {
                             alignItems: "center",
                             justifyContent: "center",
                         }}>펀딩하기</div>
+                        :
+                        <div  style={{
+                            outline: 0,
+                            position: "fixed",
+                            zIndex: 5,
+                            bottom: 0,
+                            height: 80,
+                            width: "56vw",
+                            minWidth: 1060,
+                            paddingLeft: 110,
+                            paddingRight: 110,
+                            backgroundColor: "#929594",
+                            fontSize: 24,
+                            color: "#ffffff",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}>펀딩이 종료되었습니다</div>
+                        }
+                       
                         <div style={{
                             display: "flex",
                             alignItems: "center",

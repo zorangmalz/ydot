@@ -54,6 +54,7 @@ export default function FundMain() {
         })
     }
     //종료된 펀딩
+    
     async function loadEnd() {
         var date = new Date()
         firestore.collection("Creator").onSnapshot(querySnapshot => {
