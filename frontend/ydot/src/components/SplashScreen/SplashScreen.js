@@ -111,10 +111,12 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
 
     async function load() {
         var date = new Date()
+        console.log(date)
         firestore.collection("Creator").onSnapshot(querySnapshot => {
             const list = []
             var count = 1
             querySnapshot.forEach(doc => {
+                if(doc.data().Deadline>date.getTime()){
                 list.push({
                     id: count,
                     img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
@@ -125,6 +127,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                     Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
                 })
                 count = count + 1
+            }
             })
             setItems(list)
         })

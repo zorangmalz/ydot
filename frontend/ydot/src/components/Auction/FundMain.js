@@ -22,10 +22,12 @@ export default function FundMain() {
     }
     //진행중인 펀딩
     const [items, setItems] = useState([]);
+    const [itemss, setItemss] = useState([]);
     const firestore = useFirestore()
 
     useEffect(() => {
         load()
+        loadEnd()
     }, [])
 
     async function load() {
@@ -34,18 +36,46 @@ export default function FundMain() {
             const list = []
             var count = 1
             querySnapshot.forEach(doc => {
-                list.push({
-                    id: count,
-                    img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
-                    name: doc.id,
-                    FundingNum: doc.data().FundingNum,
-                    FundingTotal: doc.data().FundingAim,
-                    percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
-                    Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
-                })
-                count = count + 1
+                if(doc.data().Deadline>date.getTime()){
+                    list.push({
+                        id: count,
+                        img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
+                        name: doc.id,
+                        FundingNum: doc.data().FundingNum,
+                        FundingTotal: doc.data().FundingAim,
+                        percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
+                        Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
+                    })
+                    count = count + 1
+                }
+               
             })
             setItems(list)
+        })
+    }
+    //종료된 펀딩
+    async function loadEnd() {
+        var date = new Date()
+        firestore.collection("Creator").onSnapshot(querySnapshot => {
+            const list = []
+            var count = 1
+            querySnapshot.forEach(doc => {
+                if(doc.data().Deadline<date.getTime())
+                {
+                    list.push({
+                        id: count,
+                        img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
+                        name: doc.id,
+                        FundingNum: doc.data().FundingNum,
+                        FundingTotal: doc.data().FundingAim,
+                        percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
+                        Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
+                    })
+                    count = count + 1
+                }
+                
+            })
+            setItemss(list)
         })
     }
     const contents = 2
@@ -116,7 +146,7 @@ export default function FundMain() {
                         justifyContent: "space-between",
                         marginBottom: 40,
                     }}>
-                        {items.map(element =>
+                        {itemss.map(element =>
                             <CreatorInfo
                                 img={element.img}
                                 name={element.name}

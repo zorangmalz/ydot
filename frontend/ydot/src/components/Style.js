@@ -26,10 +26,7 @@ export default function Header({ bold }) {
     const firestore = useFirestore()
     const history =useHistory()
     const { uid } = useSelector((state) => state.firebase.auth);
-    useEffect(()=>{
-        console.log("hi")
-        console.log(mine)
-    })
+  
     function getInfo() {
         if(uid){
             console.log(uid)
@@ -1192,19 +1189,19 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [number, dispatch] = useReducer(PopupReducer, 0)
     const onTwentyfive = () => {
         dispatch({ type: "25" })
-        setMoney(totalMoney/4)
+        setMoney((totalMoney/4).toFixed(0))
     }
     const onFifty = () => {
         dispatch({ type: "50" })
-        setMoney(totalMoney/2)
+        setMoney((totalMoney/2).toFixed(0))
     }
     const onSeventyFive = () => {
         dispatch({ type: "75" })
-        setMoney(totalMoney/4*3)
+        setMoney((totalMoney/4*3).toFixed(0))
     }
     const onMax = () => {
         dispatch({ type: "max" })
-        setMoney(totalMoney)
+        setMoney((totalMoney).toFixed(0))
     }
     const[warn,setWarn]=useState("")
     const onNext = () => {
@@ -1244,7 +1241,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const year = today.getFullYear();
         const month = today.getMonth() + 1
         const day = today.getDate()
-        firestore.collection("User").doc(uid).collection("Fund").doc(creatorName).set({
+        firestore.collection("User").doc(uid).collection("Fund").add({
             DayTime: year + "/" + month + "/" + day,
             Money: money,
             ongoing: 0,
@@ -1256,7 +1253,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         await firestore.collection("Creator").doc(creatorName).update({
             FundingTotal: Number(fundingTotal)+Number(money)
         })
-        await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
+        await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
             wallet:wallet,
             money:money
         })
