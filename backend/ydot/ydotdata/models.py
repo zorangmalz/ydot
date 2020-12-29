@@ -29,3 +29,15 @@ class ChannelTotalData(Model):
     def created_at_korean_time(self):
         korean_timezone = timezone(settings.TIME_ZONE)
         return self.createdDate.astimezone(korean_timezone)
+
+class BetaData(Model): 
+    #크리에이터 채널의 고유 아이디-youtube에서 제공함
+    channelId = models.CharField(max_length=30, blank=True, null=True)
+    #크리에이터 채널 제목
+    channelTitle = models.CharField(max_length=100)
+    
+    logData = JSONField()
+
+    def __str__(self):
+        return self.channelTitle
+    

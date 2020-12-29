@@ -31,8 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    '172.31.43.149',
-    ".ap-northeast-2.compute.amazonaws.com"
+    '15.165.240.32',
 ]
 
 

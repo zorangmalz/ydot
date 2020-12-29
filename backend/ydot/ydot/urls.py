@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from creator.views import CreatorViewSet
-from ydotdata.views import DataViewSet
+from ydotdata.views import DataViewSet, BetaViewSet
 
 router = routers.SimpleRouter()
 router.register(r'creators', CreatorViewSet)
 router.register(r'ydotdata', DataViewSet)
+router.register(r'v0/beta', BetaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
