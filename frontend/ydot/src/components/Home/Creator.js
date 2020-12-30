@@ -46,19 +46,6 @@ function reducer(state, action) {
     }
 }
 
-// async function getUsers() {
-//     const response = await axios.get(
-//         'http://15.165.240.32:8000/v0/beta/',
-//     );
-//     const data = response.data
-//     const eo = data[0]
-//     for (var key in eo) {
-//         if (key === "logData") {
-//             eo[key].map()
-//         }
-//     }
-// }
-
 export default function Creator() {
     //모바일 대응
     const Mobile = ({ children }) => {
@@ -172,13 +159,13 @@ export default function Creator() {
     useEffect(() => {
         getInfo()
         console.log(myparam)
-        fetch('http://15.165.240.32:8000/v0/beta/')
-            .then(res => res.json())
-            .then(element => element.map(ele => {
-                ele.json().map(a => {
-                    console.log(a)
-                })
-            }))
+        // fetch('http://15.165.240.32:8000/v0/beta/')
+        //     .then(res => res.json())
+        //     .then(element => element.map(ele => {
+        //         ele.json().map(a => {
+        //             console.log(a)
+        //         })
+        //     }))
     }, [])
 
     const [fundingAim,setFundingAim]=useState(0)
@@ -203,8 +190,6 @@ export default function Creator() {
         setReward(b.toFixed(2))
     }
 
-    //그래프 데이터 통신
-    // const [dataeo, setDataeo] = useState(getUsers)
     return (
         <div>
             <Default>
