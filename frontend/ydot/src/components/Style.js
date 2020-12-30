@@ -1286,8 +1286,9 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const hours= today.getHours()
         const minutes=today.getMinutes()
         const seconds=today.getSeconds()
-        firestore.collection("User").doc(uid).collection("Fund").doc(year + "/" + month + "/" + day+"-"+hours+":"+minutes+":"+seconds).set({
-            DayTime: year + "/" + month + "/" + day+"-"+hours+":"+minutes+":"+seconds,
+        const docName=year + "/" + month + "/" + day+"-"+hours+":"+minutes+":"+seconds
+        firestore.collection("User").doc(uid).collection("Fund").doc(docName).set({
+            DayTime: docName,
             Money: money,
             ongoing: 0,
             channel: creatorName,

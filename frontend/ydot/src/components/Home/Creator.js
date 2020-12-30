@@ -173,12 +173,19 @@ export default function Creator() {
     const [fundingDead,setFundingDead]=useState(0)
     const [ongoing,setOngoing]=useState(false)
     function getInfo() {
+        const today=new Date()
+
         firestore.collection("Creator").doc(myparam).onSnapshot(doc => {
             setFundingAim(doc.data().FundingAim)
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
             setPercentage((doc.data().FundingTotal/doc.data().FundingAim*100).toFixed(2))
-            setOngoing(doc.data().ongoing)
+            
+            if(doc.data().Deadline<today.getTime()){
+                setOngoing(false)
+            }else{
+                setOngoing(true)
+            }
         })
     }
 
@@ -234,9 +241,9 @@ export default function Creator() {
                         minWidth: 1280,
                         zIndex: 0,
                     }}>
+                         {ongoing ?
                         <div onClick={modal} style={{
                             outline: 0,
-                            cursor: "pointer",
                             position: "fixed",
                             zIndex: 5,
                             bottom: 0,
@@ -253,7 +260,30 @@ export default function Creator() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                        }}>{ongoing ? "펀딩하기" : "펀딩이 종료되었습니다"}</div>
+                            cursor:"pointer"
+                        }}>펀딩하기</div>
+                        :
+                        <div  style={{
+                            outline: 0,
+                            position: "fixed",
+                            zIndex: 5,
+                            bottom: 0,
+                            height: 80,
+                            width: "56vw",
+                            minWidth: 1060,
+                            paddingLeft: 110,
+                            paddingRight: 110,
+                            backgroundColor: "#929594",
+                            fontSize: 24,
+                            color: "#ffffff",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}>펀딩이 종료되었습니다</div>
+                        }
+                       
                         {/* 계산기 디자인 */}
                         {modalOne || modalThree ? <></> : <div style={{
                             display: "flex",

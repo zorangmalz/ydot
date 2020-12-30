@@ -19,7 +19,9 @@ export default function FundMain() {
 
 
     const [success,setSuccess]=useState(false)
+   
     useEffect(()=>{
+        
         getInfo()
         getInvestorInfo()
     },[])
@@ -41,7 +43,7 @@ export default function FundMain() {
                 setComplete(true)
             }
             setSymbol(doc.data().symbol)
-            setFundingAim(doc.data().fundingAim)
+            setFundingAim(doc.data().FundingAim)
         })
     }
 
@@ -50,27 +52,28 @@ export default function FundMain() {
         firestore.collection("Creator").doc(myparam).collection("Investor").orderBy('fullTime','desc').onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
+
                     list.push({
                        email:doc.data().email,
                        money:doc.data().money,
-                       wallet:doc.data().wallet,
+                       wallets:doc.data().wallet,
                        fullTime:doc.data().fullTime,
-                       dayTime:doc.data().DayTime
+                       dayTime:doc.data().DayTime,
+                       uid:doc.data().uid
+
                     })
             })
             setItems(list)
         })
     }
-
+    
     async function shareToken(){
         const caver = new CaverExtKAS()
         caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-        const deployer = caver.wallet.add(
-            caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
-        )
+
         const kip7 = await caver.kct.kip7.deploy(
-            { name: myparam, symbol: symbol, decimals: 3, initialSupply: '100000'},
-            deployer.address
+            { name: myparam, symbol: symbol, decimals: 2, initialSupply: '1000000'},
+            "0x064523b1C945d2eAEA22549F089A92BB193Cd25A"
         )
         console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
         console.log(`Token name: ${await kip7.name()}`)
@@ -81,17 +84,27 @@ export default function FundMain() {
         const kip17 = await caver.kct.kip17.deploy({
             name: myparam,
             symbol: symbol,
-        }, deployer.address)
+        }, "0x064523b1C945d2eAEA22549F089A92BB193Cd25A")
 
         var i
-        
-        for(i=0;i<items.length;i++){
-            const receiptFT= await kip7.transfer(items[i].wallet, (Number(items[i].money)/Number(fundingAim)*100).toFixed(3), { from: deployer.address })
-            await kip17.mintWithTokenURI(deployer.address, i, items[i].email+"님께서"+items[i].money+"만큼 후원하셨습니다", { from: deployer.address })
-            const receiptNFT= await kip17.transferFrom(deployer.address, items[i].wallet, i, { from: deployer.address })
-            console.log(receiptFT,receiptNFT)
-        }
-        
+        // for(i=0;i<items.length;i++){
+           
+        //     await kip17.mintWithTokenURI("0x064523b1C945d2eAEA22549F089A92BB193Cd25A", i, items[i].email+"님께서"+items[i].money+"만큼 후원하셨습니다", { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
+        //     const receiptNFT= await kip17.transferFrom("0x064523b1C945d2eAEA22549F089A92BB193Cd25A", items[i].wallet, i, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
+        //     // console.log(receiptFT,receiptNFT)
+        // }
+
+        items.forEach(async i=>{
+            console.log(i.wallets,i.dayTime,i)
+            var id
+            const receiptFT= await kip7.transfer(i.wallets, (Number(i.money)/Number(fundingAim)).toFixed(6)*1000000, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
+           
+            console.log(receiptFT.transactionHash)
+            await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
+                ongoing:1,
+                ftHash:receiptFT.transactionHash
+            })
+        })
     }
     async function shareMoney(){
 
@@ -161,7 +174,7 @@ export default function FundMain() {
                                         marginBottom: 20,
                                     }}>
                                         <div style={{ width: 50, textAlign: "center" }}>{element.dayTime}</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.wallet}</div>
+                                        <div style={{ width: 70, textAlign: "center" }}>{element.wallets}</div>
                                         <div style={{ width: 50, textAlign: "center" }}>{element.email}</div>
                                         <div style={{ width: 70, textAlign: "center" }}>{element.money} </div>
                                         
