@@ -34,14 +34,13 @@ export default function Asset() {
     const [itemsss, setItemsss] = useState([])
     //nft card
     useEffect(() => {
-        firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
+        firestore.collection("User").doc(uid).collection("NFT").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
-                if(doc.data().ongoing==1){
                     list.push({
-                        hash: "https://explorer.blockchain.line.me/cashew/transaction/",
+                        hash: "https://baobab.scope.klaytn.com/tx"+doc.data().NftHash
                     })
-                }
+                
             })
             setItemss(list)
         })
