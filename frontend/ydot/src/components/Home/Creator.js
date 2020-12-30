@@ -230,8 +230,7 @@ export default function Creator() {
                         minWidth: 1280,
                         zIndex: 0,
                     }}>
-                        {ongoing ?
-                         <div onClick={modal} style={{
+                        <div onClick={modal} style={{
                             outline: 0,
                             cursor: "pointer",
                             position: "fixed",
@@ -250,29 +249,8 @@ export default function Creator() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                        }}>펀딩하기</div>
-                        :
-                        <div  style={{
-                            outline: 0,
-                            position: "fixed",
-                            zIndex: 5,
-                            bottom: 0,
-                            height: 80,
-                            width: "56vw",
-                            minWidth: 1060,
-                            paddingLeft: 110,
-                            paddingRight: 110,
-                            backgroundColor: "#929594",
-                            fontSize: 24,
-                            color: "#ffffff",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}>펀딩이 종료되었습니다</div>
-                        }
-                       
+                        }}>{ongoing ? "펀딩하기" : "펀딩이 종료되었습니다"}</div>
+                        {/* 계산기 디자인 */}
                         <div style={{
                             display: "flex",
                             alignItems: "center",

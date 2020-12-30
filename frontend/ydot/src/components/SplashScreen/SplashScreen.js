@@ -155,7 +155,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        justifyContent: "space-between",
+                        justifyContent: "center",
                         minWidth: 1060,
                         width: "56vw",
                     }}>
@@ -227,6 +227,24 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                             />
                         </div>
                     </div>
+                    <div style={{
+                        cursor: "pointer",
+                        background: "#ffffff",
+                        width: 300,
+                        height: 48,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 16,
+                        fontWeight: "bold",
+                        color: "#E78276",
+                        textAlign: "center",
+                        verticalAlign: "center",
+                        marginTop: 44,
+                        border: "2px solid #E78276",
+                        borderRadius: 10,
+                    }}>자세한 정보를 확인해보세요!</div>
                     <div style={{
                         width: "100vw",
                         backgroundColor: "#ffffff",
@@ -382,6 +400,24 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                     언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
                         />
                     </div>
+                    <div style={{
+                        cursor: "pointer",
+                        background: "#ffffff",
+                        width: 300,
+                        height: 48,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 16,
+                        fontWeight: "bold",
+                        color: "#E78276",
+                        textAlign: "center",
+                        verticalAlign: "center",
+                        marginTop: 44,
+                        border: "2px solid #E78276",
+                        borderRadius: 10,
+                    }}>자세한 정보를 확인해보세요!</div>
                     <div style={{
                         width: "100vw",
                         backgroundColor: "#ffffff",

@@ -452,6 +452,8 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                marginLeft: 20,
+                marginRight: 20
             }}>
                 <img src={img} style={{
                     width: 235,

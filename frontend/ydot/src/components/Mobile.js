@@ -110,7 +110,7 @@ export function MHeader({ bold }) {
                         fontSize: 35,
                         fontWeight: "bold",
                         color: "#202426",
-                        marginRight: 30,
+                        marginRight: 20,
                         textDecorationLine: "none",
                     }}>Y<div style={{
                         display: "inline-block",
@@ -118,14 +118,14 @@ export function MHeader({ bold }) {
                     }}>.</div></Link>
                     <>
                         <Link to={'/home'} style={{
-                            fontSize: 18,
+                            fontSize: 16,
                             color: "#202426",
                             fontWeight: bold === "Home" ? "bold" : "normal",
                             marginRight: 10,
                             textDecorationLine: "none",
                         }}>Home</Link>
                         <Link to={'/fund'} style={{
-                            fontSize: 18,
+                            fontSize: 16,
                             color: "#202426",
                             fontWeight: bold === "Fund" ? "bold" : "normal",
                             marginRight: 10,
@@ -133,10 +133,9 @@ export function MHeader({ bold }) {
                         }}>펀딩하기</Link>
                         <div onClick={getInfo} style={{
                             cursor:"pointer",
-                            fontSize: 21,
+                            fontSize: 16,
                             color: "#202426",
                             fontWeight: bold === "Asset" ? "bold" : "normal",
-                            marginRight: 40,
                             textDecorationLine: "none",
                         }}>내 자산</div>
                     </>
