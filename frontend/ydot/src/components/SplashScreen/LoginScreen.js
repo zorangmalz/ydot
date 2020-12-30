@@ -131,7 +131,7 @@ async function kas(){
                     </header>
                     <div style={{
                         width: "100%",
-                        height: "95%",
+                        height: "90%",
                         backgroundColor: "#ffffff",
                         borderTop: "1px solid #D2D3D3",
                         display: "flex",
@@ -215,7 +215,7 @@ async function kas(){
                                 marginBottom: 20,
                                 textAlign: "center",
                             }}>비밀번호를 확인해주세요</div> : <></>}
-                            <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
+                            {/* <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
                             <input type="button" style={{
                                 border: 0,
                                 width: 300,
@@ -254,7 +254,7 @@ async function kas(){
                                 backgroundColor: "#cd5642",
                                 marginBottom: 20,
                                 fontWeight: "bold"
-                            }} value="Google" />
+                            }} value="Google" /> */}
                         </div>
                     </div>
                 </div>
@@ -270,7 +270,7 @@ async function kas(){
                     <MLoginHeader />
                     <div style={{
                         width: "100%",
-                        height: "95%",
+                        height: "90%",
                         backgroundColor: "#ffffff",
                         borderTop: "1px solid #D2D3D3",
                         display: "flex",
@@ -354,7 +354,7 @@ async function kas(){
                                 marginBottom: 20,
                                 textAlign: "center",
                             }}>비밀번호를 확인해주세요</div> : <></>}
-                            <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
+                            {/* <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
                             <input type="button" style={{
                                 border: 0,
                                 width: 300,
@@ -393,7 +393,7 @@ async function kas(){
                                 backgroundColor: "#cd5642",
                                 marginBottom: 20,
                                 fontWeight: "bold"
-                            }} value="Google" />
+                            }} value="Google" /> */}
                         </div>
                     </div>
                 </div>

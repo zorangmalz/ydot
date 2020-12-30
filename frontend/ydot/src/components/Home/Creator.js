@@ -18,14 +18,17 @@ import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-pro
 import { useMediaQuery } from 'react-responsive'
 
 //image
+//펀딩 핵심 포인트
+import analytics from '../icon/analytics.png'
+import risk from '../icon/risk.png'
 import vlog from '../icon/vlog.png'
 import barchart from '../icon/bar-chart.png'
+
+//나머지
 import thumbup from '../icon/thumb-up.png'
 import solitude from '../icon/solitude.png'
-import analytics from '../icon/analytics.png'
 import awesomeCoins from '../icon/awesome-coins.png'
 import gift from '../icon/gift.png'
-import fan from '../icon/fan.png'
 import jisun from '../icon/jisun.png'
 import campusone from '../icon/campusone.png'
 import campustwo from '../icon/campustwo.png'
@@ -512,7 +515,7 @@ export default function Creator() {
                                             content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
                                         <CloseBeta
-                                            img={fan}
+                                            img={risk}
                                             title="리워드는 유동적입니다."
                                             content="크리에이터 채널에 대한 투자는 원금손실 가능성이 있습니다.
                                 투자 위험 안내를 꼼꼼히 읽어보세요."
@@ -1265,7 +1268,7 @@ export default function Creator() {
                                             content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
                                         <MCloseBeta
-                                            img={fan}
+                                            img={risk}
                                             title="리워드는 유동적입니다."
                                             content="크리에이터 채널에 대한 투자는 원금손실 가능성이 있습니다.
                                 투자 위험 안내를 꼼꼼히 읽어보세요."

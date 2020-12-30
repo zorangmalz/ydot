@@ -524,7 +524,7 @@ export function CloseBeta({ img, title, content }) {
                 flexDirection: "row",
                 alignItems: "flex-start",
             }}>
-                <img src={img} style={{ width: 80, height: 80, marginTop: 7, marginRight: 40 }} />
+                <img src={img} style={{ width: 80, height: 80, marginTop: 7, marginRight: 40, objectFit: "contain" }} />
                 <div style={{
                     display: "flex",
                     flexDirection: "column",

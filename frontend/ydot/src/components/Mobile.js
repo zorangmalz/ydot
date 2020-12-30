@@ -351,7 +351,7 @@ export function MCloseBeta({ img, title, content }) {
                 justifyContent: "flex-start",
                 marginBottom: 20,
             }}>
-                <img src={img} style={{ width: 80, height: 80, marginBottom: 20 }} />
+                <img src={img} style={{ width: 80, height: 80, marginBottom: 20, objectFit: "contain" }} />
                 <div style={{
                     fontSize: 18,
                     fontWeight: "bold",

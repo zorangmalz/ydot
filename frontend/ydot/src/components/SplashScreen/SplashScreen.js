@@ -8,10 +8,10 @@ import { useHistory } from "react-router-dom"
 import { useMediaQuery } from 'react-responsive'
 
 //클로즈 베타 이미지
-import fan from '../icon/fan.png'
-import auction from '../icon/auction.jpg'
-import moneyBag from '../icon/money-bag.jpg'
-import personalInfo from '../icon/personal-information.jpg'
+import feedback from '../icon/feedback.png'
+import auction from '../icon/auction.png'
+import moneyBag from '../icon/money-bag.png'
+import personalInfo from '../icon/personal-information.png'
 
 //임시 이미지
 import Exampleone from '../icon/exampleone.png'
@@ -220,7 +220,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                                 content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
                             />
                             <CloseBeta
-                                img={fan}
+                                img={feedback}
                                 title="피드백은 언제나 환영입니다!"
                                 content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
                     언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
@@ -346,7 +346,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                             content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
                         />
                         <MCloseBeta
-                            img={fan}
+                            img={feedback}
                             title="피드백은 언제나 환영입니다!"
                             content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
                     언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
