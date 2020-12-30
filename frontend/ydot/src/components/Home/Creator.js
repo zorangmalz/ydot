@@ -998,23 +998,46 @@ export default function Creator() {
                             alignItems: "center",
                             width: "100vw",
                         }}>
-                            <div onClick={Mmodal} style={{
-                                outline: 0,
-                                cursor: "pointer",
-                                position: "fixed",
-                                zIndex: 5,
-                                bottom: 0,
-                                height: 80,
-                                width: "100vw",
-                                backgroundColor: "#e78276",
-                                fontSize: 24,
-                                color: "#ffffff",
-                                fontWeight: "bold",
-                                textAlign: "center",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}>펀딩하기</div>
+                        
+                             <div onClick={modal} style={{
+                            outline: 0,
+                            position: "fixed",
+                            zIndex: 5,
+                            bottom: 0,
+                            height: 80,
+                            width: "100vw",
+                            
+                           
+                            backgroundColor: "#e78276",
+                            fontSize: 24,
+                            color: "#ffffff",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            cursor:"pointer"
+                        }}>펀딩하기</div>
+                        :
+                        <div  style={{
+                            outline: 0,
+                            position: "fixed",
+                            zIndex: 5,
+                            bottom: 0,
+                            height: 80,
+                            width: "100vw",
+                            
+                           
+                            backgroundColor: "#929594",
+                            fontSize: 24,
+                            color: "#ffffff",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}>펀딩이 종료되었습니다</div>
+                        }
                             {MmodalOne || MmodalThree ? <></> : <div style={{
                                 display: "flex",
                                 alignItems: "center",
