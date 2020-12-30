@@ -1,15 +1,20 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom"
+import { useFirebase, useFirestore } from "react-redux-firebase"
+import { useSelector } from "react-redux";
+
+//css
+import "./component.css"
+
+//아이콘
+import { IoIosCalculator } from 'react-icons/io'
 import { FaUserCircle, FaArrowRight, FaArrowDown, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
 import { FiArrowRightCircle } from 'react-icons/fi';
 import { BiCheckCircle } from 'react-icons/bi'
-import { useHistory } from "react-router-dom"
-
-import { useFirebase, useFirestore } from "react-redux-firebase"
-import { useSelector } from "react-redux";
 
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"
@@ -928,6 +933,22 @@ export function PopupOne({ setVisible, setNextVisible }) {
             width: "100vw",
             height: "100vh",
         }}>
+            <div className="empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 100,
+                height: 100,
+                border: "2px solid #e78276",
+                borderRadius: 50,
+                backgroundColor: "#ffffff",
+                position: "fixed",
+                zIndex: 7,
+                cursor: "pointer",
+                bottom: 132,
+                right: 180,
+            }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
@@ -1279,6 +1300,22 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             width: "100vw",
             height: "100vh",
         }}>
+            <div className="empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 100,
+                height: 100,
+                border: "2px solid #e78276",
+                borderRadius: 50,
+                backgroundColor: "#ffffff",
+                position: "fixed",
+                zIndex: 7,
+                cursor: "pointer",
+                bottom: 132,
+                right: 180,
+            }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
@@ -1286,10 +1323,10 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 0,
+                zIndex: 1,
             }} />
             <div style={{
-                zIndex: 1,
+                zIndex: 2,
                 width: 340,
                 height: 376,
                 paddingTop: 30,
@@ -1445,10 +1482,26 @@ export function PopupThree({ setVisible }) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 0,
-            }} />
-            <div style={{
                 zIndex: 1,
+            }} />
+            <div className="empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 100,
+                height: 100,
+                border: "2px solid #e78276",
+                borderRadius: 50,
+                backgroundColor: "#ffffff",
+                position: "fixed",
+                zIndex: 7,
+                cursor: "pointer",
+                bottom: 132,
+                right: 180,
+            }}><IoIosCalculator size={60} color="#e78276" /></div>
+            <div style={{
+                zIndex: 2,
                 width: 340,
                 height: 376,
                 paddingTop: 30,

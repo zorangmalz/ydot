@@ -251,7 +251,7 @@ export default function Creator() {
                             justifyContent: "center",
                         }}>{ongoing ? "펀딩하기" : "펀딩이 종료되었습니다"}</div>
                         {/* 계산기 디자인 */}
-                        <div style={{
+                        {modalOne || modalThree ? <></> : <div style={{
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -261,11 +261,11 @@ export default function Creator() {
                             borderRadius: 50,
                             backgroundColor: "#ffffff",
                             position: "fixed",
-                            zIndex: 5,
+                            zIndex: 7,
                             cursor: "pointer",
                             bottom: 132,
                             right: 180,
-                        }}><IoIosCalculator size={60} color="#e78276" /></div>
+                        }}><IoIosCalculator size={60} color="#e78276" /></div>}
                         <div style={{
                             width: "56vw",
                             minWidth: 1060,
@@ -980,7 +980,7 @@ export default function Creator() {
                                 alignItems: "center",
                                 justifyContent: "center",
                             }}>펀딩하기</div>
-                            <div style={{
+                            {MmodalOne || MmodalThree ? <></> : <div style={{
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -994,7 +994,7 @@ export default function Creator() {
                                 cursor: "pointer",
                                 bottom: 132,
                                 right: 30,
-                            }}><IoIosCalculator size={30} color="#e78276" /></div>
+                            }}><IoIosCalculator size={30} color="#e78276" /></div>}
                             <div style={{
                                 width: "90vw",
                                 display: "flex",

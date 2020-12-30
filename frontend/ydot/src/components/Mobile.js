@@ -2,7 +2,12 @@ import React, { useState, useEffect, useReducer } from "react"
 import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux";
+
+//css
+import "./component.css"
+
 //icon
+import { IoIosCalculator } from 'react-icons/io'
 import { FaUserCircle, FaArrowRight, FaArrowDown, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
@@ -731,6 +736,22 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                 opacity: 0.4,
                 zIndex: 1,
             }} />
+            <div className="mobile-empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 60,
+                height: 60,
+                border: "2px solid #e78276",
+                borderRadius: 30,
+                backgroundColor: "#ffffff",
+                position: "fixed",
+                zIndex: 5,
+                cursor: "pointer",
+                bottom: 132,
+                right: 30,
+            }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
@@ -1012,9 +1033,9 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const onNext = () => {
         if(totalMoney<money ||fundingMax<money){
             if(totalMoney>fundingMax){
-                setWarn("최대"+fundingMax+"₩")
+                setWarn("최대 "+fundingMax+" ₩")
             }else{
-                setWarn("최대"+totalMoney+"₩")
+                setWarn("최대 "+totalMoney+" ₩")
             }
         }else{
             firestoreUpload()
@@ -1083,10 +1104,26 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 opacity: 0.4,
                 zIndex: 1,
             }} />
+            <div className="mobile-empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 60,
+                height: 60,
+                border: "2px solid #e78276",
+                borderRadius: 30,
+                backgroundColor: "#ffffff",
+                position: "fixed",
+                zIndex: 5,
+                cursor: "pointer",
+                bottom: 132,
+                right: 30,
+            }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
-                height: 300,
+                height: 230,
                 paddingTop: 20,
                 paddingBottom: 20,
                 paddingRight: 30,
@@ -1195,14 +1232,14 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                     }} value="MAX" />
                 </div>
                 <div style={{
-                    fontSize: 16,
+                    fontSize: 14,
                     opacity: 0.8,
                     color: "#e61800",
-                    width: 222,
+                    marginTop: 10,
+                    width: "90%",
                     textAlign: "right",
                     marginBottom: 20,
                 }}>{warn}</div>
-
                 <input onClick={onNext} type="button" style={{
                     cursor: "pointer",
                     width: 270,
@@ -1241,6 +1278,22 @@ export function MPopupThree({ setVisible }) {
                 opacity: 0.4,
                 zIndex: 1,
             }} />
+            <div className="mobile-empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 60,
+                height: 60,
+                border: "2px solid #e78276",
+                borderRadius: 30,
+                backgroundColor: "#ffffff",
+                position: "fixed",
+                zIndex: 5,
+                cursor: "pointer",
+                bottom: 132,
+                right: 30,
+            }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
