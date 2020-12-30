@@ -1,18 +1,18 @@
 import React, { Suspense, useState, useEffect, useReducer } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { useFirestore } from "react-redux-firebase"
+import { useSelector } from "react-redux";
+import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import { VictoryLine, VictoryChart, VictoryScatter } from "victory"
+import axios from "axios"
 
 //디자인
-import Header, { CreatorIntro, Information, Line, vh, vw, QAList, CloseBeta, BottomTag, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo } from '../Style'
+import Header, { CreatorIntro, QAList, CloseBeta, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo } from '../Style'
 import { MHeader, MHashTag, MCloseBeta, MQAList, MChannelAnalysisBox, MChannelAnalysisBoxTwo, MCreatorIntro, MPopupOne, MPopupTwo, MPopupThree } from '../Mobile'
 
 //아이콘
 import { BiHeart } from 'react-icons/bi'
 import { IoMdShare, IoIosCalculator } from 'react-icons/io'
-
-import { useHistory,useLocation } from 'react-router-dom'
-
-import { useFirebase, useFirestore } from "react-redux-firebase"
-import { useSelector } from "react-redux";
-import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
@@ -27,17 +27,13 @@ import barchart from '../icon/bar-chart.png'
 //나머지
 import thumbup from '../icon/thumb-up.png'
 import solitude from '../icon/solitude.png'
-import awesomeCoins from '../icon/awesome-coins.png'
-import gift from '../icon/gift.png'
 import jisun from '../icon/jisun.png'
 import campusone from '../icon/campusone.png'
-import campustwo from '../icon/campustwo.png'
 import month from '../icon/month.png'
 import monthsub from '../icon/monthsub.png'
 import noojeok from '../icon/noojeok.png'
 import noojeockview from '../icon/noojeockview.png'
 import thumbnailone from '../icon/thumbnailone.png'
-
 
 function reducer(state, action) {
     switch (action.type) {
@@ -49,6 +45,19 @@ function reducer(state, action) {
             return 0
     }
 }
+
+// async function getUsers() {
+//     const response = await axios.get(
+//         'http://15.165.240.32:8000/v0/beta/',
+//     );
+//     const data = response.data
+//     const eo = data[0]
+//     for (var key in eo) {
+//         if (key === "logData") {
+//             eo[key].map()
+//         }
+//     }
+// }
 
 export default function Creator() {
     //모바일 대응
@@ -109,9 +118,7 @@ export default function Creator() {
         }
         
     }
-
     
-    const names = "지순’s 일상"
     const QA = [
         {
             title: 'Q1. 자기 소개 부탁드립니다!',
@@ -165,6 +172,13 @@ export default function Creator() {
     useEffect(() => {
         getInfo()
         console.log(myparam)
+        fetch('http://15.165.240.32:8000/v0/beta/')
+            .then(res => res.json())
+            .then(element => element.map(ele => {
+                ele.json().map(a => {
+                    console.log(a)
+                })
+            }))
     }, [])
 
     const [fundingAim,setFundingAim]=useState(0)
@@ -182,13 +196,15 @@ export default function Creator() {
     }
 
     function calculate() {
-        
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * 10296940.94 - 16362236) / 16362236
         console.log(a)
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
     }
+
+    //그래프 데이터 통신
+    // const [dataeo, setDataeo] = useState(getUsers)
     return (
         <div>
             <Default>
@@ -875,6 +891,7 @@ export default function Creator() {
                                         color: "#202426",
                                         marginBottom: 40,
                                     }}>채널 상세 데이터</div>
+                                    
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
