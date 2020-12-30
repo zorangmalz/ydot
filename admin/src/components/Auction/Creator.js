@@ -70,7 +70,9 @@ export default function FundMain() {
             const list = []
             querySnapshot.forEach(doc => {
                     list.push({
-                        wallet:doc.data().wallet
+                        wallet:doc.data().wallet,
+                        dayTime:doc.data().dayTime,
+                        uid:doc.data().uid
                     })
             })
             setItemss(list)
@@ -96,33 +98,26 @@ export default function FundMain() {
             symbol: symbol,
         }, "0x064523b1C945d2eAEA22549F089A92BB193Cd25A")
 
-        var i
-        // for(i=0;i<items.length;i++){
-           
-            await kip17.mintWithTokenURI("0x064523b1C945d2eAEA22549F089A92BB193Cd25A", i, items[i].email+"님께서"+items[i].money+"만큼 후원하셨습니다", { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
-            const receiptNFT= await kip17.transferFrom("0x064523b1C945d2eAEA22549F089A92BB193Cd25A", items[i].wallet, i, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
-            // console.log(receiptFT,receiptNFT)
-        // }
+        
 
         for(const i of items){
-            console.log(i.wallets,i.dayTime,i)
             const receiptFT= await kip7.transfer(i.wallets, (Number(i.money)/Number(fundingAim)).toFixed(6)*1000000, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
             console.log(receiptFT.transactionHash)
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 ongoing:1,
                 ftHash:receiptFT.transactionHash
             })
+            
         }
         var idx=0
-        for(const i of items){
+        for(const i of itemss){
             
             await kip17.mintWithTokenURI("0x064523b1C945d2eAEA22549F089A92BB193Cd25A", idx, "test", { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
             const receiptNFT= await kip17.transferFrom("0x064523b1C945d2eAEA22549F089A92BB193Cd25A", i.wallet, idx, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
-            // console.log(receiptFT,receiptNFT)
+            console.log(receiptNFT)
             idx=idx+1
-            await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
-                ongoing:1,
-                ftHash:receiptFT.transactionHash
+            await firestore.collection("User").doc(i.uid).collection("NFT").doc(i.dayTime).set({
+                NftHash:receiptNFT.transactionHash
             })
         }
   
