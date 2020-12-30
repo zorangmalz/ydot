@@ -998,7 +998,7 @@ export default function Creator() {
                             alignItems: "center",
                             width: "100vw",
                         }}>
-                        
+                        {ongoing ?
                              <div onClick={modal} style={{
                             outline: 0,
                             position: "fixed",
