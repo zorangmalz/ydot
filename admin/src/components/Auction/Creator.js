@@ -3,7 +3,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useMediaQuery } from 'react-responsive'
 import Header, { BottomTag, CreatorInfo, vw } from '../Style'
 import { useHistory,useLocation } from 'react-router-dom'
-
+import CaverExtKAS from 'caver-js-ext-kas'
 //임시 이미지
 
 export default function FundMain() {
@@ -12,28 +12,39 @@ export default function FundMain() {
 
     const myparam=location.state.creatorName
 
+
+    const chainId = 1001
+    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
+    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
+
+
     const [success,setSuccess]=useState(false)
     useEffect(()=>{
         getInfo()
         getInvestorInfo()
     },[])
     const [complete,setComplete]=useState(false)
+    const [symbol,setSymbol]=useState("")
+    const [fundingAim,setFundingAim]=useState(0)
     async function getInfo(){
         const today=new Date()
+        console.log(today.getTime())
         firestore.collection("Creator").doc(myparam).get().then(doc=>{
             if(doc.data().FundingTotal/doc.data().FundingAim*100>=80){
                 setSuccess(true)
             }else{
                 setSuccess(false)
             }
-            if(doc.data().Deadline<today.getTime()){
+            if(doc.data().Deadline>today.getTime()){
                 setComplete(false)
             }else{
                 setComplete(true)
             }
+            setSymbol(doc.data().symbol)
+            setFundingAim(doc.data().fundingAim)
         })
-        
     }
+
     const [items,setItems]=useState([])
     async function getInvestorInfo(){
         firestore.collection("Creator").doc(myparam).collection("Investor").orderBy('fullTime','desc').onSnapshot(querySnapshot => {
@@ -50,6 +61,42 @@ export default function FundMain() {
             setItems(list)
         })
     }
+
+    async function shareToken(){
+        const caver = new CaverExtKAS()
+        caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+        const deployer = caver.wallet.add(
+            caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
+        )
+        const kip7 = await caver.kct.kip7.deploy(
+            { name: myparam, symbol: symbol, decimals: 3, initialSupply: '100'},
+            deployer.address
+        )
+        console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
+        console.log(`Token name: ${await kip7.name()}`)
+        console.log(`Token symbol: ${await kip7.symbol()}`)
+        console.log(`Token decimals: ${await kip7.decimals()}`)
+        console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
+        
+        const kip17 = await caver.kct.kip17.deploy({
+            name: myparam,
+            symbol: symbol,
+        }, deployer.address)
+
+        var i
+        
+        for(i=0;i<items.length;i++){
+            const receiptFT= await kip7.transfer(items[i].wallet, (Number(items[i].money)/Number(fundingAim)*100).toFixed(3), { from: deployer.address })
+            await kip17.mintWithTokenURI(deployer.address, i, items[i].email+"님께서"+items[i].money+"만큼 후원하셨습니다", { from: deployer.address })
+            const receiptNFT= await kip17.transferFrom(deployer.address, items[i].wallet, i, { from: deployer.address })
+            console.log(receiptFT,receiptNFT)
+        }
+        
+    }
+    async function shareMoney(){
+
+    }
+
     return (
         <div>
            
@@ -68,7 +115,7 @@ export default function FundMain() {
                     {complete ? 
                     <>
                     {success ?
-                        <input type="button" style={{
+                        <input onClick={shareToken} type="button" style={{
                             cursor: "pointer",
                             width: 300,
                             height: 48,
