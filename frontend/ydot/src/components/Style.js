@@ -1306,6 +1306,10 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             DayTime:year + "/" + month + "/" + day+"-"+hours+":"+minutes+":"+seconds,
             fullTime:today.getTime()
         })
+        await firestore.collection("Creator").doc(creatorName).collection("NFT").doc(wallet).set({
+            wallet:wallet,
+            email:email
+        })
     }
     return (
         <div style={{
