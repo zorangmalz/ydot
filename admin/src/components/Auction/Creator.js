@@ -28,6 +28,7 @@ export default function FundMain() {
     const [complete,setComplete]=useState(false)
     const [symbol,setSymbol]=useState("")
     const [fundingAim,setFundingAim]=useState(0)
+    const [ongoing,setOngoing]=useState(false)
     async function getInfo(){
         const today=new Date()
         console.log(today.getTime())
@@ -44,6 +45,7 @@ export default function FundMain() {
             }
             setSymbol(doc.data().symbol)
             setFundingAim(doc.data().FundingAim)
+            setOngoing(doc.data().ongoing)
         })
     }
 
@@ -79,6 +81,7 @@ export default function FundMain() {
         })
     }
     
+    
     async function shareToken(){
         const caver = new CaverExtKAS()
         caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
@@ -101,6 +104,7 @@ export default function FundMain() {
         
 
         for(const i of items){
+            
             const receiptFT= await kip7.transfer(i.wallets, (Number(i.money)/Number(fundingAim)).toFixed(6)*1000000, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
             console.log(receiptFT.transactionHash)
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
@@ -120,11 +124,30 @@ export default function FundMain() {
                 NftHash:receiptNFT.transactionHash
             })
         }
-  
-        
+        setOngoing(false)
+        await firestore.collection("Creator").doc(myparam).update({
+            ongoing:false
+        })
     }
+    
     async function shareMoney(){
-
+        for(const i of items){
+            var money
+            await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
+                ongoing:2
+            })
+            await firestore.collection("Creator").doc(myparam).update({
+                ongoing:false
+            })
+            await firestore.collection("User").doc(i.uid).get().then(doc=>{
+                money=doc.data().totalMoney
+            })
+            await firestore.collection("User").doc(i.uid).update({
+                totalMoney:Number(money)+Number(i.money)
+            })
+        }
+        setOngoing(false)
+        
     }
 
     return (
@@ -145,6 +168,8 @@ export default function FundMain() {
                     {complete ? 
                     <>
                     {success ?
+                      <> 
+                       {ongoing?
                         <input onClick={shareToken} type="button" style={{
                             cursor: "pointer",
                             width: 300,
@@ -160,6 +185,24 @@ export default function FundMain() {
                         }} value="토큰 분배하기" />
                          :
                          <input type="button" style={{
+                            
+                            width: 300,
+                            height: 48,
+                            border: 0,
+                            outline: 0,
+                            borderRadius: 10,
+                            backgroundColor: "#787470",
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            color: "#ffffff",
+                            alignSelf: "center",
+                        }} value="분배완료" />
+                       }
+</>
+                       :
+                       <>
+                       {ongoing  ?
+                        <input onClick={shareMoney} type="button" style={{
                             cursor: "pointer",
                             width: 300,
                             height: 48,
@@ -172,7 +215,23 @@ export default function FundMain() {
                             color: "#ffffff",
                             alignSelf: "center",
                         }} value="돈 돌려주기" />
-                        }
+                        :
+                        <input type="button" style={{
+                            cursor: "pointer",
+                            width: 300,
+                            height: 48,
+                            border: 0,
+                            outline: 0,
+                            borderRadius: 10,
+                            backgroundColor: "#787470",
+                            fontSize: 16,
+                            fontWeight: "bold",
+                            color: "#ffffff",
+                            alignSelf: "center",
+                        }} value="돈 돌려주기 완료" />
+                    }
+                      </>
+                       }
                         </>
                     :   
                      <div>펀딩 진행중입니다</div>
