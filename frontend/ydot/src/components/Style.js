@@ -1271,10 +1271,12 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     }
     const [fundingMax,setFundingMax]=useState(0)
     const [fundingTotal,setFundingTotal]=useState(0)
+    const [symbol,setSymbol]=useState("")
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
             setFundingTotal(doc.data().FundingTotal)
+            setSymbol(doc.data().symbol)
         })
     }
 

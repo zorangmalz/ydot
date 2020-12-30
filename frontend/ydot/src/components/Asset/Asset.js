@@ -38,7 +38,7 @@ export default function Asset() {
             const list = []
             querySnapshot.forEach(doc => {
                     list.push({
-                        hash: "https://baobab.scope.klaytn.com/tx"+doc.data().NftHash
+                        hash: "https://baobab.scope.klaytn.com/tx/"+doc.data().NftHash
                     })
                 
             })
@@ -51,17 +51,36 @@ export default function Asset() {
         firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
+                if(doc.data().ftHash){
+
+                
                 list.push({
                     date: doc.data().DayTime,
                     name: doc.data().channel,
                     
                     state: doc.data().ongoing,
-                    hash: "https://explorer.blockchain.line.me/cashew/transaction/" ,
+                    
+                    hash: "https://baobab.scope.klaytn.com/tx/" +doc.data().ftHash,
                     
                     total: Number(doc.data().Money),
                     
 
                 })
+            }else{
+
+                list.push({
+                    date: doc.data().DayTime,
+                    name: doc.data().channel,
+                    
+                    state: doc.data().ongoing,
+                    
+                    hash: "",
+                    
+                    total: Number(doc.data().Money),
+                    
+
+                })
+            }
                 console.log(doc.data().channel)
             })
             setItems(list)
@@ -811,9 +830,14 @@ export default function Asset() {
                                         <div style={{ width: 70 }}>{element.amount}</div>
                                         <div style={{ width: 100 }}>{element.price} 원</div>
                                         <div style={{ width: 100 }}>{element.total} 원</div>
+                                        {element.hash ? 
                                         <a href={element.hash} target="_blank">
-                                            <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
-                                        </a>
+                                        <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
+                                    </a>
+                                        :
+                                        <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
+                                        }
+                                        
                                     </div>
                                 )}
                                 <div style={{
@@ -1682,9 +1706,14 @@ export default function Asset() {
                                         <div style={{ width: 50, textAlign: "center" }}>{element.amount}</div>
                                         <div style={{ width: 70, textAlign: "center" }}>{element.price} 원</div>
                                         <div style={{ width: 70, textAlign: "center" }}>{element.total} 원</div>
-                                        <a href={element.hash} target="_blank">
-                                            <div style={{ width: 40, textAlign: "center" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
-                                        </a>
+                                        {element.hash ?
+                                         <a href={element.hash} target="_blank">
+                                         <div style={{ width: 40, textAlign: "center" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                     </a>
+                                        :
+                                        <div style={{ width: 40, textAlign: "center" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                     }
+                                       
                                     </div>
                                 )}
                                 <div style={{
