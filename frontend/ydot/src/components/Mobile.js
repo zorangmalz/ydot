@@ -22,6 +22,7 @@ import { ProgressBar } from "./Style"
 
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"
+import bannericon from "./icon/bannericon.png"
 import topbanner from "./icon/topbanner.png"
 import rocketup from "./icon/rocketup.png"
 import rocketdown from "./icon/rocketdown.png"
@@ -166,9 +167,27 @@ export function MTopBanner() {
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",
+                backgroundColor: "#202426"
             }}>
-                <img src={topbanner} height="250" style={{ objectFit: "cover", minWidth: 300 }} />
-                <div style={{ position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 300, height: 250, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))" }} />
+                {/* <img src={topbanner} height="250" style={{ objectFit: "cover", minWidth: 300 }} />
+                <div style={{ position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 300, height: 250, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))" }} /> */}
+                <div style={{
+                    position: "absolute",
+                    zIndex: 1,
+                    top: 0,
+                    width: "95vw",
+                    height: 230,
+                    paddingBottom: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-end",
+                    justifyContent: "flex-end",
+                }}>
+                    <img src={bannericon} style={{
+                        height: 180,
+                        objectFit: "contain",
+                    }} />
+                </div>
                 <div style={{
                     position: "absolute",
                     zIndex: 2,
@@ -184,13 +203,15 @@ export function MTopBanner() {
                         fontSize: 14,
                         color: "#ffffff",
                         marginBottom: 10,
-                    }}>이달의 크리에이터</div>
+                        maxWidth: 200,
+                    }}>크리에이터 크라우드 펀딩 플랫폼</div>
                     <div style={{
-                        fontSize: 26,
+                        fontSize: 24,
                         fontWeight: "bold",
                         color: "#ffffff",
                         marginBottom: 10,
-                    }}>브이로거 리영자</div>
+                        maxWidth: 200,
+                    }}>Y.은 무슨 서비스인지 알아볼까요?</div>
                     <div style={{
                         display: "flex",
                         flexDirection: "row",
