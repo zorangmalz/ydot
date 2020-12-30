@@ -49,11 +49,7 @@ export default function Header({ bold }) {
             alignItems: "center",
             justifyContent: "space-between"
         }}>
-            {mine ?
-                <MyInfo />
-                :
-                <></>
-            }
+           
             <div style={{
                 width: "100%",
                 display: "flex",
@@ -66,7 +62,7 @@ export default function Header({ bold }) {
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <Link to={'/home'} style={{
+                    <Link to={'/fund'} style={{
                         fontSize: 40,
                         fontWeight: "bold",
                         color: "#202426",
@@ -77,28 +73,14 @@ export default function Header({ bold }) {
                         color: "#da877a"
                     }}>.</div></Link>
                     <>
-                        <Link to={'/home'} style={{
-                            fontSize: 21,
-                            color: "#202426",
-                            fontWeight: bold === "Home" ? "bold" : "normal",
-                            marginRight: 40,
-                            textDecorationLine: "none",
-                        }}>Home</Link>
+                       
                         <Link to={'/fund'} style={{
                             fontSize: 21,
                             color: "#202426",
                             fontWeight: bold === "Fund" ? "bold" : "normal",
                             marginRight: 40,
                             textDecorationLine: "none",
-                        }}>펀딩하기</Link>
-                        <div onClick={getInfo} style={{
-                            cursor:"pointer",
-                            fontSize: 21,
-                            color: "#202426",
-                            fontWeight: bold === "Asset" ? "bold" : "normal",
-                            marginRight: 40,
-                            textDecorationLine: "none",
-                        }}>내 자산</div>
+                        }}>Admin</Link>
                     </>
                 </div>
                 <button style={{

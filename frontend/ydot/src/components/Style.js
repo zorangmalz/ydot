@@ -1220,10 +1220,12 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     }
     const [totalMoney,setTotalMoney]=useState(0)
     const [wallet,setWallet]=useState("")
+    const [email,setEmail]=useState("")
     function getInfo(){
         firestore.collection("User").doc(uid).get().then(doc=>{
             setTotalMoney(doc.data().totalMoney)
             setWallet(doc.data().wallet)
+            setEmail(doc.data().email)
         })
         
     }
@@ -1241,11 +1243,15 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const year = today.getFullYear();
         const month = today.getMonth() + 1
         const day = today.getDate()
+        const hours= today.getHours()
+        const minutes=today.getMinutes()
+        const seconds=today.getSeconds()
         firestore.collection("User").doc(uid).collection("Fund").add({
-            DayTime: year + "/" + month + "/" + day,
+            DayTime: year + "/" + month + "/" + day+"-"+hours+":"+minutes+":"+seconds,
             Money: money,
             ongoing: 0,
-            channel: creatorName
+            channel: creatorName,
+            fullTime:today.getTime()
         })
         firestore.collection("User").doc(uid).update({
             totalMoney:Number(totalMoney)-Number(money)
@@ -1255,7 +1261,10 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         })
         await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
             wallet:wallet,
-            money:money
+            money:money,
+            email:email,
+            DayTime:year + "/" + month + "/" + day+"-"+hours+":"+minutes+":"+seconds,
+            fullTime:today.getTime()
         })
     }
     return (
