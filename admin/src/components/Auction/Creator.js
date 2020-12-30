@@ -69,7 +69,7 @@ export default function FundMain() {
             caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
         )
         const kip7 = await caver.kct.kip7.deploy(
-            { name: myparam, symbol: symbol, decimals: 3, initialSupply: '100'},
+            { name: myparam, symbol: symbol, decimals: 3, initialSupply: '100000'},
             deployer.address
         )
         console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
