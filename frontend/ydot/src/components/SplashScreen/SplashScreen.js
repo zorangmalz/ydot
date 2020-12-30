@@ -242,58 +242,10 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         textAlign: "center",
                         verticalAlign: "center",
                         marginTop: 44,
+                        marginBottom: 40,
                         border: "2px solid #E78276",
                         borderRadius: 10,
                     }}>자세한 정보를 확인해보세요!</div>
-                    <div style={{
-                        width: "100vw",
-                        backgroundColor: "#ffffff",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center"
-                    }}>
-                        <p style={{
-                            fontSize: 24,
-                            fontWeight: "bold",
-                            color: "#202426",
-                            marginTop: 40,
-                            marginBottom: 40,
-                        }}>FAQ</p>
-                        <FAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setOne(!one)}
-                        />
-                        <FAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setTwo(!two)}
-                        />
-                        <FAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setThree(!three)}
-                        />
-                        <FAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setFour(!four)}
-                        />
-                        <FAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", <br />,
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setFive(!five)}
-                        />
-                        <input type="button" style={{
-                            textAlign: "right",
-                            fontSize: 16,
-                            minWidth: 1060,
-                            width: "56vw",
-                            color: "#202426",
-                            textDecorationLine: "underline",
-                            marginTop: 20,
-                            marginBottom: 40,
-                            outline: 0,
-                            cursor: "pointer",
-                            backgroundColor: "#ffffff",
-                            border: 0,
-                        }} value="더 궁금한 질문이 있으신가요?" />
-                    </div>
                     <BottomTag />
                 </div>
             </Default>
@@ -415,58 +367,10 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         textAlign: "center",
                         verticalAlign: "center",
                         marginTop: 44,
+                        marginBottom: 40,
                         border: "2px solid #E78276",
                         borderRadius: 10,
                     }}>자세한 정보를 확인해보세요!</div>
-                    <div style={{
-                        width: "100vw",
-                        backgroundColor: "#ffffff",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center"
-                    }}>
-                        <p style={{
-                            fontSize: 24,
-                            fontWeight: "bold",
-                            color: "#202426",
-                            marginTop: 40,
-                            marginBottom: 40,
-                        }}>FAQ</p>
-                        <MFAQ value={one} title="Q1. 어떤 크리에이터가 참여하나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸",
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setOne(!one)}
-                        />
-                        <MFAQ value={two} title="Q2. 참여 혜택은 무엇인가요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setTwo(!two)}
-                        />
-                        <MFAQ value={three} title="Q3. 배당권 가격은 어떻게 책정되나요?(CPM=2)" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setThree(!three)}
-                        />
-                        <MFAQ value={four} title="Q4. 투자 손실은 언제 일어나나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setFour(!four)}
-                        />
-                        <MFAQ value={five} title="Q5. 경매에서 배당권을 낙찰받지 못하면 어떻게 되나요?" content={["투자 대상 크리에이터는 유튜브에서 활동하고 있는 다양한 크리에이터 데이터를 기반으로 만들어낸", 
-                            "가상의 크리에이터 입니다. 음식, 여행/Vlog, 애견 분야의 크리에이터 3명을 대상으로 투자를 진행하게 됩니다."]}
-                            onClick={() => setFive(!five)}
-                        />
-                        <input type="button" style={{
-                            textAlign: "right",
-                            fontSize: 16,
-                            minWidth: 300,
-                            width: "90vw",
-                            color: "#202426",
-                            textDecorationLine: "underline",
-                            marginTop: 20,
-                            marginBottom: 40,
-                            outline: 0,
-                            cursor: "pointer",
-                            backgroundColor: "#ffffff",
-                            border: 0,
-                        }} value="더 궁금한 질문이 있으신가요?" />
-                    </div>
                     <MBottomTag />
                 </div>
             </Mobile>
