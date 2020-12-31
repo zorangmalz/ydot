@@ -159,7 +159,7 @@ export default function FundMain() {
             totalIncome=doc.data().income
         })
         console.log(totalIncome,"total")
-        var i
+        
         const today = new Date()
         const year = today.getFullYear();
         const month = today.getMonth() + 1
@@ -170,16 +170,26 @@ export default function FundMain() {
         const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
 
         
-        for(i=0;i<items.length;i++){
+        for(const i of items){
             
-            console.log((Number(items[i].money)))
+            console.log((Number(i.money)))
             console.log(Number(fundingAim))
-            console.log((Number(items[i].money)/Number(fundingAim)*totalIncome).toFixed(0),"output")
-            firestore.collection("User").doc(items[i].uid).collection("Fund").doc(items[i].dayTime).collection("Allocate").doc(time).set({
+            console.log((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0),"output")
+            await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).collection("Allocate").doc(time).set({
                 dayTime:docName,
-                allocate:(Number(items[i].money)/Number(fundingAim)*totalIncome).toFixed(0)
+                allocate:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
+            })
+            var total
+                await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).get().then(doc=>{
+                    total=doc.data().total
+            })
+            await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
+                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                month:time
             })
         }
+
     }
     return (
         <div>

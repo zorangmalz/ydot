@@ -1294,7 +1294,11 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             Money: money,
             ongoing: 0,
             channel: creatorName,
-            fullTime:today.getTime()
+            fullTime:today.getTime(),
+            total:0,
+            monthly:0,
+            month:0,
+            symbol:symbol
         })
         firestore.collection("User").doc(uid).update({
             totalMoney:Number(totalMoney)-Number(money)
