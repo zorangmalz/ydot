@@ -90,7 +90,8 @@ export default function Asset() {
                     number: doc.data().month+"/12",
                     next: "1/20",
                     actual: doc.data().monthly,
-                    accumulate: doc.data().total
+                    accumulate: doc.data().total,
+                    dayTime:doc.data().DayTime
                 })
             }
                 console.log(doc.data().channel)
@@ -111,12 +112,15 @@ export default function Asset() {
     async function getPrice(){
         var total=0
         var accu=0
+        var mon=0
         for(const i of itemsss){
             total= Number(i.total)+total
             accu=Number(i.accumulate)+accu
+            mon=Number(i.actual)+mon
         }
         setTotalFundingPrice(total)
         setAccumulatedAllocation(accu)
+        setMonthlyAllocation(mon)
     }
     const [section, setSection] = useState(true)
     // const data = [
@@ -160,33 +164,33 @@ export default function Asset() {
     //         accumulate: 10000,
     //     }
     // ]
-    const baedang = [
-        {
-            date: "10/20",
-            unit: "JST",
-            getmoney: 2000,
-        },
-        {
-            date: "9/20",
-            unit: "JST",
-            getmoney: 2000,
-        },
-        {
-            date: "8/20",
-            unit: "JST",
-            getmoney: 2000,
-        },
-        {
-            date: "7/20",
-            unit: "JST",
-            getmoney: 2000,
-        },
-        {
-            date: "6/20",
-            unit: "JST",
-            getmoney: 2000,
-        },
-    ]
+    // const baedang = [
+    //     {
+    //         date: "10/20",
+    //         unit: "JST",
+    //         getmoney: 2000,
+    //     },
+    //     {
+    //         date: "9/20",
+    //         unit: "JST",
+    //         getmoney: 2000,
+    //     },
+    //     {
+    //         date: "8/20",
+    //         unit: "JST",
+    //         getmoney: 2000,
+    //     },
+    //     {
+    //         date: "7/20",
+    //         unit: "JST",
+    //         getmoney: 2000,
+    //     },
+    //     {
+    //         date: "6/20",
+    //         unit: "JST",
+    //         getmoney: 2000,
+    //     },
+    // ]
     const baedangposition = 1
     const fundingposition = 1
     return (
@@ -592,7 +596,7 @@ export default function Asset() {
                                 borderTop: "1px solid #D2D3D3",
                                 paddingTop: 20,
                             }}>
-                                {baedang.map(element =>
+                                {itemsss.map(element =>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -603,9 +607,9 @@ export default function Asset() {
                                         color: "#161513",
                                         marginBottom: 10,
                                     }}>
-                                        <div style={{ width: 70 }}>{element.date}</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.unit}</div>
-                                        <div style={{ width: 70, fontWeight: "bold" }}>{element.getmoney}</div>
+                                        <div style={{ width: 70 }}>{element.dayTime}</div>
+                                        <div style={{ width: 70, textAlign: "center" }}>{element.name}</div>
+                                        <div style={{ width: 70, fontWeight: "bold" }}>{element.actual}</div>
                                     </div>
                                 )}
                                 <div style={{
@@ -1239,7 +1243,7 @@ export default function Asset() {
                                 backgroundColor: "#ffffff",
                                 paddingTop: 20,
                             }}>
-                                {baedang.map(element =>
+                                {itemsss.map(element =>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -1250,9 +1254,9 @@ export default function Asset() {
                                         color: "#161513",
                                         marginBottom: 5,
                                     }}>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.date}</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.unit}</div>
-                                        <div style={{ width: 70, fontWeight: "bold", textAlign: "center" }}>{element.getmoney}</div>
+                                        <div style={{ width: 70, textAlign: "center" }}>{element.dayTime}</div>
+                                        <div style={{ width: 70, textAlign: "center" }}>{element.name}</div>
+                                        <div style={{ width: 70, fontWeight: "bold", textAlign: "center" }}>{element.actual}</div>
                                     </div>
                                 )}
                                 <div style={{
