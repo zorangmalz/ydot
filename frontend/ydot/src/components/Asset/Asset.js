@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header, { DesktopMinWidthNotPadding, vh, vw } from '../Style'
+import Header, { AssetGraph, DesktopMinWidthNotPadding, vh, vw } from '../Style'
 import "../component.css"
 import { useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase"
@@ -14,7 +14,7 @@ import { useMediaQuery } from 'react-responsive'
 //이미지
 import assetgraph from '../icon/assetgraph.png'
 import jisuncard from '../icon/jisuncard.png'
-import { MHeader } from '../Mobile';
+import { MAssetGraph, MHeader } from '../Mobile';
 
 export default function Asset() {
     //모바일 대응
@@ -32,6 +32,7 @@ export default function Asset() {
     const [items, setItems] = useState([])
     const [itemss, setItemss] = useState([])
     const [itemsss, setItemsss] = useState([])
+
     //nft card
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("NFT").onSnapshot(querySnapshot => {
@@ -103,6 +104,7 @@ export default function Asset() {
     //보유자산 위쪽. 이번달
     const [totalFundingPrice,setTotalFundingPrice]=useState(0)
     const [accumulatedAllocation,setAccumulatedAllocation]=useState(0)
+
     //이건 그래프용
     const [monthlyAllocation,setMonthlyAllocation]=useState(0)
     useEffect(()=>{
@@ -122,77 +124,26 @@ export default function Asset() {
         setAccumulatedAllocation(accu)
         setMonthlyAllocation(mon)
     }
+
     const [section, setSection] = useState(true)
-    // const data = [
-    //     {
-    //         img: "#E78276",
-    //         name: "지순’s 일상",
-    //         unit: "JSC",
-    //         chain: "KRW",
-    //         amount: 1000,
-    //         price: 1,
-    //         total: 1000,
-    //         number: "6/6",
-    //         next: "10/20",
-    //         actual: "+ 5400",
-    //         accumulate: 1000000,
-    //     },
-    //     {
-    //         img: "#9DDADB",
-    //         name: "청춘 댕댕",
-    //         unit: "CDD",
-    //         chain: "KRW",
-    //         amount: 200,
-    //         price: 24,
-    //         total: 4800,
-    //         number: "3/20",
-    //         next: "12/20",
-    //         actual: "+ 20000",
-    //         accumulate: 24000,
-    //     },
-    //     {
-    //         img: "#78E185",
-    //         name: "타이어 아저씨",
-    //         unit: "TAT",
-    //         chain: "KRW",
-    //         amount: 400,
-    //         price: 10,
-    //         total: 4000,
-    //         number: "6/20",
-    //         next: "1/20",
-    //         actual: "+ 20000",
-    //         accumulate: 10000,
-    //     }
-    // ]
-    // const baedang = [
-    //     {
-    //         date: "10/20",
-    //         unit: "JST",
-    //         getmoney: 2000,
-    //     },
-    //     {
-    //         date: "9/20",
-    //         unit: "JST",
-    //         getmoney: 2000,
-    //     },
-    //     {
-    //         date: "8/20",
-    //         unit: "JST",
-    //         getmoney: 2000,
-    //     },
-    //     {
-    //         date: "7/20",
-    //         unit: "JST",
-    //         getmoney: 2000,
-    //     },
-    //     {
-    //         date: "6/20",
-    //         unit: "JST",
-    //         getmoney: 2000,
-    //     },
-    // ]
     const baedangposition = 1
     const fundingposition = 1
+
+    //그래프
+    const data = [
+        { x: "2020-01", y: 43 },
+        { x: "2020-02", y: 44 },
+        { x: "2020-03", y: 47 },
+        { x: "2020-04", y: 51 },
+        { x: "2020-05", y: 57 },
+        { x: "2020-06", y: 62 },
+        { x: "2020-07", y: 67 },
+        { x: "2020-08", y: 68 },
+        { x: "2020-09", y: 63 },
+        { x: "2020-10", y: 54 },
+        { x: "2020-11", y: 47 },
+        { x: "2020-12", y: 42 }
+    ];
     return (
         <div>
             <Default>
@@ -290,7 +241,6 @@ export default function Asset() {
                                                 color: "#202426",
                                             }}>원</div>
                                         </div>
-                                        
                                         <div className="assetTitle">누적 배당</div>
                                         <div className="startColumn">
                                             <div style={{
@@ -311,11 +261,14 @@ export default function Asset() {
                                         flexDirection: "column",
                                         alignItems: "flex-start",
                                     }}>
-                                        <div className="assetTitle">월별 배당 그래프</div>
-                                        <img src={assetgraph} style={{
-                                            width: 566,
-                                            height: 212,
-                                        }} />
+                                        <div style={{
+                                            opacity: 0.6,
+                                            color: "#202426",
+                                            fontSize: 18,
+                                            fontWeight: "normal",
+                                            marginTop: 20
+                                        }}>월별 배당 그래프</div>
+                                        <AssetGraph data={data} />
                                     </div>
                                 </div>
                                 <div className="spaceRow">
@@ -323,57 +276,43 @@ export default function Asset() {
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        maxWidth: "20%",
-                                        minWidth: 180,
+                                        width: 185,
                                     }}>크리에이터</div>
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        maxWidth: "10%",
-                                        minWidth: 70,
+                                        width: 100,
                                     }}>보유수량</div>
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        maxWidth: "9%",
-                                        minWidth: 70,
+                                        width: 100,
                                     }}>개당 가격</div>
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        maxWidth: "13%",
-                                        minWidth: 110,
+                                        width: 110,
                                     }}>펀딩 금액</div>
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        maxWidth: "10%",
-                                        minWidth: 70,
+                                        width: 70,
                                     }}>배당 횟수</div>
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        maxWidth: "11%",
-                                        minWidth: 90,
+                                        width: 90,
                                     }}>다음 배당일</div>
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        maxWidth: "12%",
-                                        minWidth: 110,
-                                    }}>실제 배당</div>
-                                    <div style={{
-                                        opacity: 0.6,
-                                        fontSize: 18,
-                                        color: "#202426",
-                                        maxWidth: "14%",
-                                        minWidth: 110,
+                                        width: 110,
                                     }}>누적 배당</div>
                                 </div>
                                 <div style={{
@@ -398,8 +337,7 @@ export default function Asset() {
                                                     display: "flex",
                                                     flexDirection: "row",
                                                     alignItems: "center",
-                                                    maxWidth: "20%",
-                                                    minWidth: 180
+                                                    width: 185
                                                 }}>
                                                     <div style={{ width: 54, height: 54, borderRadius: 27, backgroundColor: element.img, marginRight: 10 }} />
                                                     <div style={{
@@ -426,8 +364,7 @@ export default function Asset() {
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     alignItems: "flex-start",
-                                                    maxWidth: "10%",
-                                                    minWidth: 70,
+                                                    width: 100,
                                                 }}>
                                                     <div style={{
                                                         fontSize: 18,
@@ -444,8 +381,7 @@ export default function Asset() {
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     alignItems: "flex-start",
-                                                    maxWidth: "9%",
-                                                    minWidth: 70,
+                                                    width: 100,
                                                 }}>
                                                     <div style={{
                                                         fontSize: 18,
@@ -462,8 +398,7 @@ export default function Asset() {
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     alignItems: "flex-start",
-                                                    maxWidth: "13%",
-                                                    minWidth: 110,
+                                                    width: 110,
                                                 }}>
                                                     <div style={{
                                                         fontSize: 18,
@@ -479,43 +414,23 @@ export default function Asset() {
                                                 <div style={{
                                                     fontSize: 18,
                                                     color: "#202426",
-                                                    maxWidth: "10%",
-                                                    minWidth: 70
+                                                    width: 70
                                                 }}>{element.number}</div>
                                                 <div style={{
                                                     fontSize: 18,
                                                     color: "#202426",
-                                                    maxWidth: "11%",
-                                                    minWidth: 90
+                                                    width: 90
                                                 }}>{element.next}</div>
                                                 <div style={{
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     alignItems: "flex-start",
-                                                    maxWidth: "12%",
-                                                    minWidth: 110,
+                                                    width: 110,
                                                 }}>
                                                     <div style={{
                                                         fontSize: 18,
                                                         color: "#e78276",
-                                                        marginBottom: 8,
-                                                    }}>{element.actual}</div>
-                                                    <div style={{
-                                                        opacity: 0.4,
-                                                        fontSize: 14,
-                                                        color: "#202426"
-                                                    }}>{element.chain}</div>
-                                                </div>
-                                                <div style={{
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    alignItems: "flex-start",
-                                                    maxWidth: "14%",
-                                                    minWidth: 110,
-                                                }}>
-                                                    <div style={{
-                                                        fontSize: 18,
-                                                        color: "#202426",
+                                                        fontWeight: "bold",
                                                         marginBottom: 8,
                                                     }}>{element.accumulate}</div>
                                                     <div style={{
@@ -543,11 +458,11 @@ export default function Asset() {
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "center",
-                                    justifyContent: "space-between"
+                                    overflowX: "scroll",
                                 }}>
                                     {itemss.map(element =>
                                         <a href={element.hash} target="_blank">
-                                            <img src={jisuncard} style={{ width: 120, height: 120, borderRadius: 20 }} />
+                                            <img src={jisuncard} style={{ width: 235, height: 120, borderRadius: 20, marginRight: 20, }} />
                                         </a>
                                     )}
                                 </div>
@@ -582,9 +497,9 @@ export default function Asset() {
                                     marginTop: 20,
                                     marginBottom: 20,
                                 }}>
-                                    <div style={{ width: 70 }}>날짜</div>
-                                    <div style={{ width: 70, textAlign: "center" }}>이름</div>
-                                    <div style={{ width: 70 }}>배당</div>
+                                    <div style={{ width: 300 }}>날짜</div>
+                                    <div style={{ width: 300, textAlign: "center" }}>이름</div>
+                                    <div style={{ width: 100, marginLeft: 200 }}>배당</div>
                                 </div>
                             </div>
                             <div style={{
@@ -607,9 +522,9 @@ export default function Asset() {
                                         color: "#161513",
                                         marginBottom: 10,
                                     }}>
-                                        <div style={{ width: 70 }}>{element.dayTime}</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.name}</div>
-                                        <div style={{ width: 70, fontWeight: "bold" }}>{element.actual}</div>
+                                        <div style={{ width: 300 }}>{element.dayTime}</div>
+                                        <div style={{ width: 300, textAlign: "center" }}>{element.name}</div>
+                                        <div style={{ width: 100, fontWeight: "bold", marginLeft: 200 }}>{element.actual}</div>
                                     </div>
                                 )}
                                 <div style={{
@@ -651,12 +566,12 @@ export default function Asset() {
                                     marginTop: 20,
                                     marginBottom: 20,
                                 }}>
-                                    <div style={{ width: 70 }}>날짜</div>
-                                    <div style={{ width: 100 }}>이름</div>
-                                    <div style={{ width: 70 }}>수량</div>
-                                    <div style={{ width: 100 }}>개당 가격</div>
-                                    <div style={{ width: 100 }}>펀딩 금액</div>
-                                    <div style={{ width: 60 }}>상태</div>
+                                    <div style={{ width: 200 }}>날짜</div>
+                                    <div style={{ width: 200 }}>이름</div>
+                                    <div style={{ width: 150 }}>수량</div>
+                                    <div style={{ width: 150 }}>개당 가격</div>
+                                    <div style={{ width: 200 }}>펀딩 금액</div>
+                                    <div style={{ width: 100 }}>상태</div>
                                 </div>
                             </div>
                             <div style={{
@@ -681,17 +596,17 @@ export default function Asset() {
                                         marginTop: 20,
                                         marginBottom: 20,
                                     }}>
-                                        <div style={{ width: 70 }}>{element.date}</div>
-                                        <div style={{ width: 100 }}>{element.name}</div>
-                                        <div style={{ width: 70 }}>{element.amount}</div>
-                                        <div style={{ width: 100 }}>{element.price} 원</div>
-                                        <div style={{ width: 100 }}>{element.total} 원</div>
+                                        <div style={{ width: 200 }}>{element.date}</div>
+                                        <div style={{ width: 200 }}>{element.name}</div>
+                                        <div style={{ width: 150 }}>{element.amount}</div>
+                                        <div style={{ width: 150 }}>{element.price} 원</div>
+                                        <div style={{ width: 200 }}>{element.total} 원</div>
                                         {element.hash ? 
                                         <a href={element.hash} target="_blank">
-                                        <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
+                                        <div style={{ width: 100}}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                     </a>
                                         :
-                                        <div style={{ width: 60 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
+                                        <div style={{ width: 100 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                         }
                                         
                                     </div>
@@ -794,15 +709,15 @@ export default function Asset() {
                                         display: "flex",
                                         flexDirection: "row",
                                         alignItems: "center",
-                                        justifyContent: "space-between",
+                                        justifyContent: "center",
                                         width: "100%",
+                                        marginRight: 20,
                                     }}>
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "flex-start",
-                                            width: 90,
-                                            marginRight: 5,
+                                            width: 100,
                                         }}>
                                             <div style={{
                                                 width: "100%",
@@ -826,7 +741,6 @@ export default function Asset() {
                                                     fontSize: 14,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginRight: 4,
                                                 }}>{totalFundingPrice}</div>
                                             </div>
                                         </div>
@@ -834,18 +748,9 @@ export default function Asset() {
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "flex-start",
-                                            width: 80,
-                                            marginRight: 5,
-                                        }}>
-                                            
-                                        </div>
-                                        <div style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignItems: "flex-start",
                                             justifyContent: "flex-end",
                                             width: 90,
-                                            marginRight: 10,
+                                            marginLeft: 20,
                                         }}>
                                             <div style={{
                                                 display: "flex",
@@ -874,7 +779,6 @@ export default function Asset() {
                                                         fontSize: 14,
                                                         fontWeight: "bold",
                                                         color: "#e78276",
-                                                        marginRight: 4,
                                                     }}>{accumulatedAllocation}</div>
                                                 </div>
                                             </div>
@@ -883,19 +787,17 @@ export default function Asset() {
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "column",
-                                        alignItems: "flex-start",
+                                        alignItems: "center",
                                     }}>
                                         <div style={{
+                                            alignSelf: "flex-start",
                                             opacity: 0.4,
                                             color: "#202426",
                                             fontSize: 12,
                                             paddingBottom: 5,
                                             marginTop: 20
                                         }}>월별 배당 그래프</div>
-                                        <img src={assetgraph} style={{
-                                            width: "90vw",
-                                            minWidth: 300,
-                                        }} />
+                                        <MAssetGraph data={data} />
                                     </div>
                                 </div>
                                 {/* <div style={{
@@ -1193,11 +1095,11 @@ export default function Asset() {
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "center",
-                                    justifyContent: "space-between"
+                                    overflowX: "scroll",
                                 }}>
                                     {itemss.map(element =>
                                         <a href={element.hash} target="_blank">
-                                            <img src={jisuncard} style={{ width: 120, height: 120, borderRadius: 20 }} />
+                                            <img src={jisuncard} style={{ width: 100, height: 60, borderRadius: 10, marginRight: 10, }} />
                                         </a>
                                     )}
                                 </div>
@@ -1218,7 +1120,7 @@ export default function Asset() {
                                     fontWeight: "bold",
                                     color: "#202426",
                                     textAlign: "center",
-                                    marginTop: 40,
+                                    marginTop: 20,
                                     width: "100%"
                                 }}>배당 내역</div>
                                 <div style={{
@@ -1228,20 +1130,20 @@ export default function Asset() {
                                     justifyContent: "space-between",
                                     width: "90%",
                                     opacity: 0.6,
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     color: "#161513",
                                     marginTop: 20,
-                                    marginBottom: 20,
+                                    marginBottom: 10,
                                 }}>
-                                    <div style={{ width: 70, textAlign: "center" }}>날짜</div>
-                                    <div style={{ width: 70, textAlign: "center" }}>이름</div>
-                                    <div style={{ width: 70, textAlign: "center" }}>배당</div>
+                                    <div style={{ width: 100, textAlign: "center" }}>날짜</div>
+                                    <div style={{ width: 100, textAlign: "center" }}>이름</div>
+                                    <div style={{ width: 100, textAlign: "center" }}>배당</div>
                                 </div>
                             </div>
                             <div style={{
                                 width: "90vw",
                                 backgroundColor: "#ffffff",
-                                paddingTop: 20,
+                                paddingTop: 10,
                             }}>
                                 {itemsss.map(element =>
                                     <div style={{
@@ -1250,13 +1152,13 @@ export default function Asset() {
                                         alignItems: "center",
                                         justifyContent: "space-between",
                                         width: "100%",
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         color: "#161513",
                                         marginBottom: 5,
                                     }}>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.dayTime}</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.name}</div>
-                                        <div style={{ width: 70, fontWeight: "bold", textAlign: "center" }}>{element.actual}</div>
+                                        <div style={{ width: 100, textAlign: "center" }}>{element.dayTime}</div>
+                                        <div style={{ width: 100, textAlign: "center" }}>{element.name}</div>
+                                        <div style={{ width: 100, fontWeight: "bold", textAlign: "center" }}>{element.actual}</div>
                                     </div>
                                 )}
                                 <div style={{
@@ -1283,7 +1185,7 @@ export default function Asset() {
                                     fontWeight: "bold",
                                     color: "#202426",
                                     textAlign: "center",
-                                    marginTop: 40,
+                                    marginTop: 20,
                                     width: "100%"
                                 }}>참여한 펀딩</div>
                                 <div style={{
@@ -1293,16 +1195,16 @@ export default function Asset() {
                                     justifyContent: "space-between",
                                     width: "100%",
                                     opacity: 0.6,
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     color: "#161513",
                                     marginTop: 20,
-                                    marginBottom: 20,
+                                    marginBottom: 10,
                                 }}>
                                     <div style={{ width: 50, textAlign: "center" }}>날짜</div>
-                                    <div style={{ width: 70, textAlign: "center" }}>이름</div>
+                                    <div style={{ width: 60, textAlign: "center" }}>이름</div>
                                     <div style={{ width: 50, textAlign: "center" }}>수량</div>
-                                    <div style={{ width: 70, textAlign: "center" }}>개당 가격</div>
-                                    <div style={{ width: 70, textAlign: "center" }}>펀딩 금액</div>
+                                    <div style={{ width: 50, textAlign: "center" }}>개당 가격</div>
+                                    <div style={{ width: 60, textAlign: "center" }}>펀딩 금액</div>
                                     <div style={{ width: 40, textAlign: "center" }}>상태</div>
                                 </div>
                             </div>
@@ -1315,7 +1217,7 @@ export default function Asset() {
                                 width: "90vw",
                                 backgroundColor: "#ffffff",
                                 minHeight: "50vh",
-                                paddingTop: 20,
+                                marginTop: 10
                             }}>
                                 {items.map(element =>
                                     <div style={{
@@ -1323,17 +1225,16 @@ export default function Asset() {
                                         flexDirection: "row",
                                         alignItems: "center",
                                         justifyContent: "space-between",
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         width: "100%",
                                         color: "#161513",
-                                        marginTop: 20,
                                         marginBottom: 20,
                                     }}>
                                         <div style={{ width: 50, textAlign: "center" }}>{element.date}</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.name}</div>
+                                        <div style={{ width: 60, textAlign: "center" }}>{element.name}</div>
                                         <div style={{ width: 50, textAlign: "center" }}>{element.amount}</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.price} 원</div>
-                                        <div style={{ width: 70, textAlign: "center" }}>{element.total} 원</div>
+                                        <div style={{ width: 50, textAlign: "center" }}>{element.price} 원</div>
+                                        <div style={{ width: 60, textAlign: "center" }}>{element.total} 원</div>
                                         {element.hash ?
                                          <a href={element.hash} target="_blank">
                                          <div style={{ width: 40, textAlign: "center" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>

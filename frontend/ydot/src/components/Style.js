@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
+import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBar, VictoryBrushLine } from "victory"
 
 //css
 import "./component.css"
@@ -1718,5 +1719,216 @@ export function HashTag({content}) {
             padding: "4px 8px",
             marginLeft: 4,
         }}># {content}</div>
+    )
+}
+
+export function Graph({data}) {
+    return (
+        <div style={{
+            width: "100%",
+            height: 273,
+            marginBottom: 40,
+        }}>
+            <VictoryChart
+                style={{
+                    parent: {
+                        border: "2px solid #202426",
+                        borderRadius: 20,
+                    }
+                }}
+                width={1060}
+                height={273}
+                containerComponent={<VictoryVoronoiContainer />}
+            >
+                <VictoryAxis scale="time"
+                    style={{
+                        axis: {
+                            stroke: "#202426",
+                            strokeOpacity: 0.4,
+                        },
+                        tickLabels: {
+                            fontSize: 14,
+                            fill: "#202426",
+                            fillOpacity: 0.4,
+                            fontWeight: "bold"
+                        }
+                    }}
+                    tickFormat={
+                        (x) => {
+                            const date = new Date(x)
+                            if (date.getMonth() === 1) {
+                                return "Jan"
+                            } else if (date.getMonth() === 2) {
+                                return "Feb"
+                            } else if (date.getMonth() === 3) {
+                                return "Mar"
+                            } else if (date.getMonth() === 4) {
+                                return "Apr"
+                            } else if (date.getMonth() === 5) {
+                                return "May"
+                            } else if (date.getMonth() === 6) {
+                                return "Jun"
+                            } else if (date.getMonth() === 7) {
+                                return "Jul"
+                            } else if (date.getMonth() === 8) {
+                                return "Aug"
+                            } else if (date.getMonth() === 9) {
+                                return "Sep"
+                            } else if (date.getMonth() === 10) {
+                                return "Oct"
+                            } else if (date.getMonth() === 11) {
+                                return "Nov"
+                            } else if (date.getMonth() === 12) {
+                                return "Dec"
+                            }
+                        }
+                    }
+                />
+                <VictoryAxis dependentAxis={true} style={{
+                    axis: {
+                        stroke: "#202426",
+                        strokeOpacity: 0.4,
+                    },
+                    tickLabels: {
+                        fontSize: 14,
+                        fill: "#202426",
+                        fillOpacity: 0.4,
+                        fontWeight: "bold"
+                    }
+                }} />
+                <VictoryLine style={{
+                    data: {
+                        stroke: "#C84429",
+                        strokeWidth: 3,
+                    },
+                }} data={data} />
+                <VictoryScatter
+                    style={{ data: { fill: "#C84429" } }}
+                    size={5}
+                    data={data}
+                    labels={({ datum }) =>
+                        `${datum.x} \n 크리에이터 누적 조회수 ${datum.y}`}
+                    labelComponent={
+                        <VictoryTooltip constrainToVisibleArea
+                            flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
+                            flyoutWidth={200}
+                        />
+                    }
+                />
+            </VictoryChart>
+        </div>
+    )
+}
+
+export function AssetGraph({data}) {
+    return (
+        <div style={{
+            width: 566,
+            height: 212,
+        }}>
+            <VictoryChart
+                width={566}
+                height={212}
+                padding={{ top: 20, bottom: 30, right: 30, left: 50}}
+                containerComponent={<VictoryVoronoiContainer />}
+            >
+                <VictoryAxis scale="time"
+                    gridComponent={
+                        <VictoryBrushLine 
+                            width={35}
+                            allowDrag={false}
+                            allowDraw={false}
+                            handleStyle={{
+                                pointerEvents: "none",
+                            }}
+                            brushAreaStyle={{
+                                fill: "#E78276"
+                            }}
+                            brushStyle={{
+                                fill: "linear-gradient(#F2BFB9, #9198e5);"
+                            }}
+                        />
+                    }
+                    style={{
+                        axis: {
+                            stroke: "#202426",
+                            strokeOpacity: 0.4,
+                            strokeWidth: 0
+                        },
+                        tickLabels: {
+                            fontSize: 14,
+                            fill: "#202426",
+                            fillOpacity: 0.4,
+                            fontWeight: "bold"
+                        }
+                    }}
+                    tickFormat={
+                        (x) => {
+                            const date = new Date(x)
+                            if (date.getMonth() === 1) {
+                                return "Jan"
+                            } else if (date.getMonth() === 2) {
+                                return "Feb"
+                            } else if (date.getMonth() === 3) {
+                                return "Mar"
+                            } else if (date.getMonth() === 4) {
+                                return "Apr"
+                            } else if (date.getMonth() === 5) {
+                                return "May"
+                            } else if (date.getMonth() === 6) {
+                                return "Jun"
+                            } else if (date.getMonth() === 7) {
+                                return "Jul"
+                            } else if (date.getMonth() === 8) {
+                                return "Aug"
+                            } else if (date.getMonth() === 9) {
+                                return "Sep"
+                            } else if (date.getMonth() === 10) {
+                                return "Oct"
+                            } else if (date.getMonth() === 11) {
+                                return "Nov"
+                            } else if (date.getMonth() === 12) {
+                                return "Dec"
+                            }
+                        }
+                    }
+                />
+                <VictoryAxis dependentAxis={true}
+                    offsetX={30}
+                    style={{
+                        axis: {
+                            stroke: "#202426",
+                            strokeOpacity: 0.4,
+                            strokeWidth: 0
+                        },
+                        tickLabels: {
+                            fontSize: 14,
+                            fill: "#202426",
+                            fillOpacity: 0.4,
+                            fontWeight: "bold"
+                        }
+                    }} 
+                />
+                <VictoryLine style={{
+                    data: {
+                        stroke: "#C84429",
+                        strokeWidth: 3,
+                    },
+                }} data={data} />
+                <VictoryScatter
+                    style={{ data: { fill: "#C84429" } }}
+                    size={5}
+                    data={data}
+                    labels={({ datum }) =>
+                        `${datum.x} 원`}
+                    labelComponent={
+                        <VictoryTooltip constrainToVisibleArea
+                            flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
+                            flyoutWidth={200}
+                        />
+                    }
+                />
+            </VictoryChart>
+        </div>
     )
 }

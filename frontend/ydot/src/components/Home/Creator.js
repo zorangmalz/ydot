@@ -3,12 +3,11 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-import { VictoryLine, VictoryChart, VictoryScatter } from "victory"
 import axios from "axios"
 
 //디자인
-import Header, { CreatorIntro, QAList, CloseBeta, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo } from '../Style'
-import { MHeader, MHashTag, MCloseBeta, MQAList, MChannelAnalysisBox, MChannelAnalysisBoxTwo, MCreatorIntro, MPopupOne, MPopupTwo, MPopupThree } from '../Mobile'
+import Header, { CreatorIntro, QAList, CloseBeta, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo, Graph } from '../Style'
+import { MHeader, MHashTag, MCloseBeta, MQAList, MChannelAnalysisBox, MChannelAnalysisBoxTwo, MCreatorIntro, MPopupOne, MPopupTwo, MPopupThree, MGraph } from '../Mobile'
 
 //아이콘
 import { BiHeart } from 'react-icons/bi'
@@ -32,7 +31,6 @@ import campusone from '../icon/campusone.png'
 import month from '../icon/month.png'
 import monthsub from '../icon/monthsub.png'
 import noojeok from '../icon/noojeok.png'
-import noojeockview from '../icon/noojeockview.png'
 import thumbnailone from '../icon/thumbnailone.png'
 
 function reducer(state, action) {
@@ -56,7 +54,7 @@ export default function Creator() {
         const isNotMobile = useMediaQuery({ minWidth: 451 })
         return isNotMobile ? children : null
     }
-    
+
     //Default
     const [modalOne, setModalOne] = useState(false)
     const [modalTwo, setModalTwo] = useState(false)
@@ -80,32 +78,32 @@ export default function Creator() {
 
     //팝업부분을 여기다 구현해놓음. 나중에 input값을 coinAmount변수로 넣어서 주면 됨
     const firestore = useFirestore()
-    const history =useHistory()
-    const location=useLocation()
-    const myparam=location.state.creatorName
+    const history = useHistory()
+    const location = useLocation()
+    const myparam = location.state.creatorName
     const { uid } = useSelector((state) => state.firebase.auth);
-  
+
     function modal() {
-        if(uid){
+        if (uid) {
             setModalOne(true)
-            
-        }else{
+
+        } else {
             console.log("없음")
             history.push("/login")
         }
-        
+
     }
     function Mmodal() {
-        if(uid){
+        if (uid) {
             setMModalOne(true)
-            
-        }else{
+
+        } else {
             console.log("없음")
             history.push("/login")
         }
-        
+
     }
-    
+
     const QA = [
         {
             title: 'Q1. 자기 소개 부탁드립니다!',
@@ -133,28 +131,10 @@ export default function Creator() {
         },
     ]
 
-    const Invest = [
-        {
-            img: vlog,
-            title: "일상/Vlog",
-            content: ["해당 섹터의 평균 조회수 성장률은", <br />, <div style={{ fontWeight: "bold", display: "inline-block" }}>5%</div>, "이며, 구독자 성장률은", <div style={{ fontWeight: "bold", display: "inline-block" }}>3%</div>, "입니다."]
-        },
-        {
-            img: barchart,
-            title: "고속성장",
-            content: ["섹터 조회수 성장률 보다", <div style={{ fontWeight: "bold", display: "inline-block" }}>5%</div>, "높습니다!", <br />, "섹터 구독자 성장률보다", <div style={{ fontWeight: "bold", display: "inline-block" }}>5%</div>, "높습니다."]
-        },
-        {
-            img: thumbup,
-            title: "사랑받는 크리에이터",
-            content: ["좋아요/싫어요 비율, 댓글 수가", <br />, "섹터 평균보다 높습니다!"]
-        },
-    ]
-
     const [reward, setReward] = useState("")
     const [roi, setRoi] = useState("")
     const [percentage, setPercentage] = useState(0)
-    //input
+
 
     useEffect(() => {
         getInfo()
@@ -168,22 +148,22 @@ export default function Creator() {
         //     }))
     }, [])
 
-    const [fundingAim,setFundingAim]=useState(0)
-    const [fundingTotal,setFundingTotal]=useState(0)
-    const [fundingDead,setFundingDead]=useState(0)
-    const [ongoing,setOngoing]=useState(false)
+    const [fundingAim, setFundingAim] = useState(0)
+    const [fundingTotal, setFundingTotal] = useState(0)
+    const [fundingDead, setFundingDead] = useState(0)
+    const [ongoing, setOngoing] = useState(false)
     function getInfo() {
-        const today=new Date()
+        const today = new Date()
 
         firestore.collection("Creator").doc(myparam).onSnapshot(doc => {
             setFundingAim(doc.data().FundingAim)
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
-            setPercentage((doc.data().FundingTotal/doc.data().FundingAim*100).toFixed(2))
-            
-            if(doc.data().Deadline<today.getTime()){
+            setPercentage((doc.data().FundingTotal / doc.data().FundingAim * 100).toFixed(2))
+
+            if (doc.data().Deadline < today.getTime()) {
                 setOngoing(false)
-            }else{
+            } else {
                 setOngoing(true)
             }
         })
@@ -196,6 +176,23 @@ export default function Creator() {
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
     }
+
+
+    //그래프
+    const data = [
+        { x: "2020-01", y: 43 },
+        { x: "2020-02", y: 44 },
+        { x: "2020-03", y: 47 },
+        { x: "2020-04", y: 51 },
+        { x: "2020-05", y: 57 },
+        { x: "2020-06", y: 62 },
+        { x: "2020-07", y: 67 },
+        { x: "2020-08", y: 68 },
+        { x: "2020-09", y: 63 },
+        { x: "2020-10", y: 54 },
+        { x: "2020-11", y: 47 },
+        { x: "2020-12", y: 42 }
+    ];
 
     return (
         <div>
@@ -241,49 +238,49 @@ export default function Creator() {
                         minWidth: 1280,
                         zIndex: 0,
                     }}>
-                         {ongoing ?
-                        <div onClick={modal} style={{
-                            outline: 0,
-                            position: "fixed",
-                            zIndex: 5,
-                            bottom: 0,
-                            height: 80,
-                            width: "56vw",
-                            minWidth: 1060,
-                            paddingLeft: 110,
-                            paddingRight: 110,
-                            backgroundColor: "#e78276",
-                            fontSize: 24,
-                            color: "#ffffff",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            cursor:"pointer"
-                        }}>펀딩하기</div>
-                        :
-                        <div  style={{
-                            outline: 0,
-                            position: "fixed",
-                            zIndex: 5,
-                            bottom: 0,
-                            height: 80,
-                            width: "56vw",
-                            minWidth: 1060,
-                            paddingLeft: 110,
-                            paddingRight: 110,
-                            backgroundColor: "#929594",
-                            fontSize: 24,
-                            color: "#ffffff",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}>펀딩이 종료되었습니다</div>
+                        {ongoing ?
+                            <div onClick={modal} style={{
+                                outline: 0,
+                                position: "fixed",
+                                zIndex: 5,
+                                bottom: 0,
+                                height: 80,
+                                width: "56vw",
+                                minWidth: 1060,
+                                paddingLeft: 110,
+                                paddingRight: 110,
+                                backgroundColor: "#e78276",
+                                fontSize: 24,
+                                color: "#ffffff",
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer"
+                            }}>펀딩하기</div>
+                            :
+                            <div style={{
+                                outline: 0,
+                                position: "fixed",
+                                zIndex: 5,
+                                bottom: 0,
+                                height: 80,
+                                width: "56vw",
+                                minWidth: 1060,
+                                paddingLeft: 110,
+                                paddingRight: 110,
+                                backgroundColor: "#929594",
+                                fontSize: 24,
+                                color: "#ffffff",
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}>펀딩이 종료되었습니다</div>
                         }
-                       
+
                         {/* 계산기 디자인 */}
                         {modalOne || modalThree ? <></> : <div style={{
                             display: "flex",
@@ -443,50 +440,46 @@ export default function Creator() {
                         </div>
                         {/* 상단 바 */}
                         <div style={{
+                            width: "56vw",
+                            minWidth: 1060,
+                            paddingRight: 110,
+                            paddingLeft: 110,
+                            paddingTop: 20,
                             backgroundColor: "#ffffff",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            borderBottom: "1px solid #d2d3d3"
                         }}>
-                            <div style={{
-                                width: "56vw",
-                                minWidth: 1060,
-                                paddingRight: 110,
-                                paddingLeft: 110,
-                                paddingTop: 20,
+                            <input onClick={onFund} style={{
+                                cursor: "pointer",
+                                outline: 0,
                                 backgroundColor: "#ffffff",
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                borderBottom: "1px solid #d2d3d3"
-                            }}>
-                                <input onClick={onFund} style={{
-                                    cursor: "pointer",
-                                    outline: 0,
-                                    backgroundColor: "#ffffff",
-                                    width: 200,
-                                    height: 24,
-                                    paddingBottom: 10,
-                                    fontSize: 18,
-                                    opacity: infor === 0 ? 1 : 0.6,
-                                    fontWeight: infor === 0 ? "bold" : "normal",
-                                    color: infor === 0 ? "#e78276" : "#797B7C",
-                                    border: 0,
-                                    borderBottom: infor === 0 ? "2px solid #e78276" : 0,
-                                }} type="button" value="펀딩 정보" />
-                                <input onClick={onChannel} style={{
-                                    cursor: "pointer",
-                                    outline: 0,
-                                    backgroundColor: "#ffffff",
-                                    width: 200,
-                                    height: 24,
-                                    paddingBottom: 10,
-                                    fontSize: 18,
-                                    opacity: infor === 1 ? 1 : 0.6,
-                                    fontWeight: infor === 1 ? "bold" : "normal",
-                                    color: infor === 1 ? "#e78276" : "#797B7C",
-                                    border: 0,
-                                    borderBottom: infor === 1 ? "2px solid #e78276" : 0
-                                }} type="button" value="채널 분석" />
-                            </div>
+                                width: 200,
+                                height: 24,
+                                paddingBottom: 10,
+                                fontSize: 18,
+                                opacity: infor === 0 ? 1 : 0.6,
+                                fontWeight: infor === 0 ? "bold" : "normal",
+                                color: infor === 0 ? "#e78276" : "#797B7C",
+                                border: 0,
+                                borderBottom: infor === 0 ? "2px solid #e78276" : 0,
+                            }} type="button" value="펀딩 정보" />
+                            <input onClick={onChannel} style={{
+                                cursor: "pointer",
+                                outline: 0,
+                                backgroundColor: "#ffffff",
+                                width: 200,
+                                height: 24,
+                                paddingBottom: 10,
+                                fontSize: 18,
+                                opacity: infor === 1 ? 1 : 0.6,
+                                fontWeight: infor === 1 ? "bold" : "normal",
+                                color: infor === 1 ? "#e78276" : "#797B7C",
+                                border: 0,
+                                borderBottom: infor === 1 ? "2px solid #e78276" : 0
+                            }} type="button" value="채널 분석" />
                         </div>
                         {infor === 0 ?
                             <>
@@ -604,7 +597,7 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     marginBottom: 20
                                                 }}>
-                                                    <input type="text"  placeholder="100" id="PRICE" style={{
+                                                    <input type="text" placeholder="100" id="PRICE" style={{
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         border: 0,
@@ -639,7 +632,7 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     marginBottom: 20
                                                 }}>
-                                                    <input type="text"placeholder="5" id="RATE" style={{
+                                                    <input type="text" placeholder="5" id="RATE" style={{
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         border: 0,
@@ -906,55 +899,34 @@ export default function Creator() {
                                         color: "#202426",
                                         marginBottom: 40,
                                     }}>채널 상세 데이터</div>
-                                    
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>누적 조회수</div>
-                                    <img src={noojeockview} style={{
-                                        width: "100%",
-                                        height: 273,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <Graph data={data} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>누적 구독자</div>
-                                    <img src={noojeok} style={{
-                                        width: "100%",
-                                        height: 273,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <Graph data={data} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>월별 조회수 획득</div>
-                                    <img src={month} style={{
-                                        width: "100%",
-                                        height: 273,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <Graph data={data} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>월별 구독자 획득</div>
-                                    <img src={monthsub} style={{
-                                        width: "100%",
-                                        height: 273,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <Graph data={data} />
                                 </div>
                             </>
                         }
@@ -998,46 +970,46 @@ export default function Creator() {
                             alignItems: "center",
                             width: "100vw",
                         }}>
-                        {ongoing ?
-                             <div onClick={modal} style={{
-                            outline: 0,
-                            position: "fixed",
-                            zIndex: 5,
-                            bottom: 0,
-                            height: 80,
-                            width: "100vw",
-                            
-                           
-                            backgroundColor: "#e78276",
-                            fontSize: 24,
-                            color: "#ffffff",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            cursor:"pointer"
-                        }}>펀딩하기</div>
-                        :
-                        <div  style={{
-                            outline: 0,
-                            position: "fixed",
-                            zIndex: 5,
-                            bottom: 0,
-                            height: 80,
-                            width: "100vw",
-                            
-                           
-                            backgroundColor: "#929594",
-                            fontSize: 24,
-                            color: "#ffffff",
-                            fontWeight: "bold",
-                            textAlign: "center",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}>펀딩이 종료되었습니다</div>
-                        }
+                            {ongoing ?
+                                <div onClick={modal} style={{
+                                    outline: 0,
+                                    position: "fixed",
+                                    zIndex: 5,
+                                    bottom: 0,
+                                    height: 80,
+                                    width: "100vw",
+
+
+                                    backgroundColor: "#e78276",
+                                    fontSize: 24,
+                                    color: "#ffffff",
+                                    fontWeight: "bold",
+                                    textAlign: "center",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    cursor: "pointer"
+                                }}>펀딩하기</div>
+                                :
+                                <div style={{
+                                    outline: 0,
+                                    position: "fixed",
+                                    zIndex: 5,
+                                    bottom: 0,
+                                    height: 80,
+                                    width: "100vw",
+
+
+                                    backgroundColor: "#929594",
+                                    fontSize: 24,
+                                    color: "#ffffff",
+                                    fontWeight: "bold",
+                                    textAlign: "center",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}>펀딩이 종료되었습니다</div>
+                            }
                             {MmodalOne || MmodalThree ? <></> : <div style={{
                                 display: "flex",
                                 alignItems: "center",
@@ -1696,53 +1668,33 @@ export default function Creator() {
                                         alignSelf: "flex-start",
                                         color: "#202426",
                                         fontWeight: "bold",
-                                        marginBottom: 20,
+                                        marginBottom: 10,
                                     }}>누적 조회수</div>
-                                    <img src={noojeockview} style={{
-                                        width: "100%",
-                                        height: 120,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <MGraph data={data} />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
                                         color: "#202426",
                                         fontWeight: "bold",
-                                        marginBottom: 20,
+                                        marginBottom: 10,
                                     }}>누적 구독자</div>
-                                    <img src={noojeok} style={{
-                                        width: "100%",
-                                        height: 120,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <MGraph data={data} />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
                                         color: "#202426",
                                         fontWeight: "bold",
-                                        marginBottom: 20,
+                                        marginBottom: 10,
                                     }}>월별 조회수 획득</div>
-                                    <img src={month} style={{
-                                        width: "100%",
-                                        height: 120,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <MGraph data={data} />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
                                         color: "#202426",
                                         fontWeight: "bold",
-                                        marginBottom: 20,
+                                        marginBottom: 10,
                                     }}>월별 구독자 획득</div>
-                                    <img src={monthsub} style={{
-                                        width: "100%",
-                                        height: 120,
-                                        borderRadius: 30,
-                                        marginBottom: 40
-                                    }} />
+                                    <MGraph data={data} />
                                 </div>
                             </>
                         }
