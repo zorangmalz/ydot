@@ -52,6 +52,7 @@ export default function FundMain() {
     const [items,setItems]=useState([])
     const [itemss,setItemss]=useState([])
     async function getInvestorInfo(){
+        //투자자 정보 받아오기
         firestore.collection("Creator").doc(myparam).collection("Investor").orderBy('fullTime','desc').onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
@@ -68,6 +69,8 @@ export default function FundMain() {
             })
             setItems(list)
         })
+
+        //nft줄애들 받아오기
         firestore.collection("Creator").doc(myparam).collection("NFT").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
@@ -131,6 +134,7 @@ export default function FundMain() {
     }
     
     async function shareMoney(){
+       
         for(const i of items){
             var money
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
@@ -149,7 +153,34 @@ export default function FundMain() {
         setOngoing(false)
         
     }
+    async function allocation(time){
+        var totalIncome
+        await firestore.collection("Creator").doc(myparam).collection("Income").doc(time).get().then(doc=>{
+            totalIncome=doc.data().income
+        })
+        console.log(totalIncome,"total")
+        var i
+        const today = new Date()
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1
+        const day = today.getDate()
+        const hours= today.getHours()
+        const minutes=today.getMinutes()
+        const seconds=today.getSeconds()
+        const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
 
+        
+        for(i=0;i<items.length;i++){
+            
+            console.log((Number(items[i].money)))
+            console.log(Number(fundingAim))
+            console.log((Number(items[i].money)/Number(fundingAim)*totalIncome).toFixed(0),"output")
+            firestore.collection("User").doc(items[i].uid).collection("Fund").doc(items[i].dayTime).collection("Allocate").doc(time).set({
+                dayTime:docName,
+                allocate:(Number(items[i].money)/Number(fundingAim)*totalIncome).toFixed(0)
+            })
+        }
+    }
     return (
         <div>
            
@@ -257,7 +288,34 @@ export default function FundMain() {
                                        
                                     </div>
                                 )}
-                    
+                                {ongoing? 
+                                <></>
+                                :
+                                <>
+                                <input type="text" placeholder="1" id="time" style={{
+                                    fontSize: 18,
+                                    color: "#202426",
+                                    border: 0,
+                                    backgroundColor: "#F2F2F2",
+                                    textAlign: "right",
+                                    outline: 0,
+                                }} />
+                                <input onClick={()=>allocation(document.getElementById("time").value)} type="button" style={{
+                                    cursor: "pointer",
+                                    width: 300,
+                                    height: 48,
+                                    border: 0,
+                                    outline: 0,
+                                    borderRadius: 10,
+                                    backgroundColor: "#e78276",
+                                    fontSize: 16,
+                                    fontWeight: "bold",
+                                    color: "#ffffff",
+                                    alignSelf: "center",
+                                }} value="배당" />
+                                </>
+                                }
+                 
                     {/* <BottomTag /> */}
                 </div>
             

@@ -52,33 +52,21 @@ export default function Asset() {
             const list = []
             querySnapshot.forEach(doc => {
                 if(doc.data().ftHash){
-
-                
                 list.push({
                     date: doc.data().DayTime,
                     name: doc.data().channel,
-                    
                     state: doc.data().ongoing,
-                    
                     hash: "https://baobab.scope.klaytn.com/tx/" +doc.data().ftHash,
-                    
                     total: Number(doc.data().Money),
-                    
-
                 })
             }else{
 
                 list.push({
                     date: doc.data().DayTime,
                     name: doc.data().channel,
-                    
                     state: doc.data().ongoing,
-                    
                     hash: "",
-                    
                     total: Number(doc.data().Money),
-                    
-
                 })
             }
                 console.log(doc.data().channel)
