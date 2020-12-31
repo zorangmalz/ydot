@@ -207,6 +207,7 @@ export function TopBanner() {
 
 export function MyInfo() {
     const firestore = useFirestore()
+    const firebase = useFirebase()
     const { uid } = useSelector((state) => state.firebase.auth);
     const [leng, setLeng] = useState("")
     const [email, setEmail] = useState("")
@@ -233,6 +234,9 @@ export function MyInfo() {
             history.push("/login")
         }
         
+    }
+    function logout(){
+        firebase.logout()
     }
     useEffect(() => {
 
@@ -280,7 +284,7 @@ export function MyInfo() {
                         opacity: 0.6,
                         color: "#202426",
                     }}>내 계정</div>
-                    <input type="button" style={{
+                    <input onClick={logout} type="button" style={{
                         outline: 0,
                         cursor: "pointer",
                         border: 0,
