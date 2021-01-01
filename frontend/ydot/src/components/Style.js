@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
-import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBar, VictoryBrushLine } from "victory"
+import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie, VictorySharedEvents, VictoryLabel } from "victory"
 
 //css
 import "./component.css"
@@ -1930,5 +1930,51 @@ export function AssetGraph({data}) {
                 />
             </VictoryChart>
         </div>
+    )
+}
+
+export function AssetPie({ data }) {
+    return (
+        <VictoryPie
+            events={[{
+                target: "data",
+                eventHandlers: {
+                    onMouseOver: () => {
+                        return [
+                            {
+                                target: "labels",
+                                mutation: ({ text, datum }) => {
+                                    return text === `${datum.x}` ? { text: `${datum.y}%` } : { text: `${datum.x}` }
+                                }
+                            }
+                        ];
+                    },
+                    onMouseOut: () => {
+                        return [
+                            {
+                                target: "labels",
+                                mutation: ({text, datum}) => {
+                                    return {text: `${datum.y}%`}
+                                }
+                            },
+                        ];
+                    }
+                }
+            }]}
+            padding={{ top: 0, left: 20, right: 20, }}
+            width={350}
+            height={350}
+            data={data}
+            labels={({ datum }) => `${datum.y}%`}
+            labelPosition="centroid"
+            labelRadius={({ innerRadius }) => innerRadius + 100}
+            style={{
+                labels: {
+                    fill: "#ffffff",
+                    fontSize: 14,
+                    fontWeight: "bold",
+                }
+            }}
+        />
     )
 }

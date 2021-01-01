@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from "react"
 import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux";
-import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine } from "victory"
+import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie } from "victory"
 
 //css
 import "./component.css"
@@ -1580,6 +1580,58 @@ export function MAssetGraph({data}) {
                     }
                 />
             </VictoryChart>
+        </div>
+    )
+}
+
+export function MAssetPie({ data }) {
+    return (
+        <div style={{
+            width: 200,
+            height: 200,
+            alignSelf: "center",
+        }}>
+            <VictoryPie
+                events={[{
+                    target: "data",
+                    eventHandlers: {
+                        onMouseOver: () => {
+                            return [
+                                {
+                                    target: "labels",
+                                    mutation: ({ text, datum }) => {
+                                        return text === `${datum.x}` ? { text: `${datum.y}%` } : { text: `${datum.x}` }
+                                    }
+                                }
+                            ];
+                        },
+                        onMouseOut: () => {
+                            return [
+                                {
+                                    target: "labels",
+                                    mutation: ({ text, datum }) => {
+                                        return { text: `${datum.y}%` }
+                                    }
+                                },
+                            ];
+                        }
+                    }
+                }]}
+                width={200}
+                height={200}
+                padding={{ top: 0, left: 0, right: 0, bottom: 0 }}
+                data={data}
+                labels={({ datum }) => `${datum.y}%`}
+                labelPosition="centroid"
+                labelRadius={({ innerRadius }) => innerRadius + 70}
+                style={{
+                    labels: {
+                        fill: "#ffffff",
+                        fontSize: 10,
+                        fontWeight: "bold",
+                    }
+                }}
+            />
         </div>
     )
 }

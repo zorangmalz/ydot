@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header, { AssetGraph, DesktopMinWidthNotPadding, vh, vw } from '../Style'
+import Header, { AssetGraph, AssetPie, DesktopMinWidthNotPadding, vh, vw } from '../Style'
 import "../component.css"
 import { useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase"
@@ -14,7 +14,7 @@ import { useMediaQuery } from 'react-responsive'
 //이미지
 import assetgraph from '../icon/assetgraph.png'
 import jisuncard from '../icon/jisuncard.png'
-import { MAssetGraph, MHeader } from '../Mobile';
+import { MAssetGraph, MAssetPie, MHeader } from '../Mobile';
 
 export default function Asset() {
     //모바일 대응
@@ -217,6 +217,7 @@ export default function Asset() {
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "flex-start",
+                                    justifyContent: "space-between",
                                     marginTop: 20,
                                     marginBottom: 40,
                                 }}>
@@ -224,8 +225,8 @@ export default function Asset() {
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "flex-start",
-                                        minWidth: 180,
-                                        marginRight: 40,
+                                        width: 180,
+                                        marginRight: 10,
                                     }}>
                                         <div className="assetTitle">총 펀딩 금액</div>
                                         <div className="startColumn">
@@ -260,15 +261,32 @@ export default function Asset() {
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "flex-start",
+                                        marginRight: 20
                                     }}>
                                         <div style={{
                                             opacity: 0.6,
                                             color: "#202426",
                                             fontSize: 18,
                                             fontWeight: "normal",
-                                            marginTop: 20
+                                            marginTop: 20,
                                         }}>월별 배당 그래프</div>
                                         <AssetGraph data={data} />
+                                    </div>
+                                    <div style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "flex-start",
+                                        width: 200,
+                                    }}>
+                                        <div style={{
+                                            opacity: 0.6,
+                                            color: "#202426",
+                                            fontSize: 18,
+                                            fontWeight: "normal",
+                                            marginTop: 20,
+                                            marginBottom: 10,
+                                        }}>보유자산 포트폴리오</div>
+                                        <AssetPie data={data} />
                                     </div>
                                 </div>
                                 <div className="spaceRow">
@@ -703,87 +721,7 @@ export default function Asset() {
                                     flexDirection: "column",
                                     alignItems: "flex-start",
                                     marginTop: 20,
-                                    marginBottom: 40,
                                 }}>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        width: "100%",
-                                        marginRight: 20,
-                                    }}>
-                                        <div style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignItems: "flex-start",
-                                            width: 100,
-                                        }}>
-                                            <div style={{
-                                                width: "100%",
-                                                textAlign: "center",
-                                                opacity: 0.4,
-                                                color: "#202426",
-                                                fontSize: 12,
-                                                paddingBottom: 5,
-                                                marginTop: 10
-                                            }} >총 펀딩 금액(원)</div>
-                                            <div style={{
-                                                display: "flex",
-                                                flexDirection: "row",
-                                                alignItems: "flex-end",
-                                                justifyContent: "flex-end",
-                                                width: "100%" 
-                                            }}>
-                                                <div style={{
-                                                    width: "100%",
-                                                    textAlign: "center",
-                                                    fontSize: 14,
-                                                    fontWeight: "bold",
-                                                    color: "#202426",
-                                                }}>{totalFundingPrice}</div>
-                                            </div>
-                                        </div>
-                                        <div style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignItems: "flex-start",
-                                            justifyContent: "flex-end",
-                                            width: 90,
-                                            marginLeft: 20,
-                                        }}>
-                                            <div style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                alignItems: "flex-start",
-                                            }}>
-                                                <div style={{
-                                                    width: "100%",
-                                                    textAlign: "center",
-                                                    opacity: 0.4,
-                                                    color: "#202426",
-                                                    fontSize: 12,
-                                                    paddingBottom: 5,
-                                                    marginTop: 10
-                                                }} >누적배당(원)</div>
-                                                <div style={{
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    alignItems: "flex-end",
-                                                    justifyContent: "flex-end",
-                                                    width: "100%"
-                                                }}>
-                                                    <div style={{
-                                                        width: "100%",
-                                                        textAlign: "center",
-                                                        fontSize: 14,
-                                                        fontWeight: "bold",
-                                                        color: "#e78276",
-                                                    }}>{accumulatedAllocation}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "column",
@@ -799,80 +737,83 @@ export default function Asset() {
                                         }}>월별 배당 그래프</div>
                                         <MAssetGraph data={data} />
                                     </div>
+                                    <div style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                    }}>
+                                        <div style={{
+                                            alignSelf: "flex-start",
+                                            opacity: 0.4,
+                                            color: "#202426",
+                                            fontSize: 12,
+                                            paddingBottom: 20,
+                                            marginTop: 20,
+                                        }}>보유자산 포트폴리오</div>
+                                        <div style={{
+                                            width: "100%",
+                                            alignSelf: "center",
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            justifyContent: "center",
+                                            alignItems: "flex-start",
+                                            marginBottom: 20,
+                                        }}>
+                                            <MAssetPie data={data} />
+                                            <div style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                alignItems: "center",
+                                                justifyContent: "flex-start",
+                                                marginLeft: 10,
+                                            }}>
+                                                <div style={{
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    alignItems: "flex-start",
+                                                    width: 90,
+                                                    marginBottom: 20,
+                                                }}>
+                                                    <div style={{
+                                                        opacity: 0.4,
+                                                        color: "#202426",
+                                                        fontSize: 12,
+                                                        paddingBottom: 5,
+                                                        marginTop: 10
+                                                    }} >총 펀딩 금액(원)</div>
+                                                    <div style={{
+                                                        fontSize: 12,
+                                                        fontWeight: "bold",
+                                                        color: "#202426",
+                                                    }}>{totalFundingPrice}</div>
+                                                </div>
+                                                <div style={{
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    alignItems: "flex-start",
+                                                    width: 90,
+                                                }}>
+                                                    <div style={{
+                                                        opacity: 0.4,
+                                                        color: "#202426",
+                                                        fontSize: 12,
+                                                        paddingBottom: 5,
+                                                        marginTop: 10
+                                                    }} >누적배당(원)</div>
+                                                    <div style={{
+                                                        fontSize: 12,
+                                                        fontWeight: "bold",
+                                                        color: "#e78276",
+                                                    }}>{accumulatedAllocation}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                {/* <div style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                }}>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between"
-                                    }}>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 130,
-                                        }}>크리에이터</div>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 60,
-                                        }}>보유수량</div>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 60,
-                                        }}>개당 가격</div>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 90,
-                                        }}>펀딩 금액</div>
-                                    </div>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between"
-                                    }}>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 50,
-                                        }}>배당 횟수</div>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 70,
-                                        }}>다음 배당일</div>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 90,
-                                        }}>실제 배당</div>
-                                        <div style={{
-                                            opacity: 0.6,
-                                            fontSize: 14,
-                                            color: "#202426",
-                                            width: 90,
-                                        }}>누적 배당</div>
-                                    </div>
-                                </div> */}
                                 <div style={{
                                     width: "100%",
                                     display: "flex",
                                     flexDirection: "column",
-                                    marginTop: 10
                                 }}>
                                     {itemsss.map(element =>
                                         <>
