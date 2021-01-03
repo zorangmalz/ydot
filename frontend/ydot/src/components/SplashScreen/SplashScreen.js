@@ -77,15 +77,6 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
         setInputs(nextInputs)
     }
 
-    const [one, setOne] = useState(true)
-    const [two, setTwo] = useState(false)
-    const [three, setThree] = useState(false)
-    const [four, setFour] = useState(false)
-    const [five, setFive] = useState(false)
-
-    useEffect(() => {
-        console.log(nickname)
-    }, [nickname])
     const login = () => {
         firebase.login({
             email: name,
@@ -151,14 +142,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         marginBottom: 40,
                         marginTop: 40,
                     }}>진행중인 펀드</div>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        minWidth: 1060,
-                        width: "56vw",
-                    }}>
+                    <div className="grid-container">
                         {items.map(element =>
                             <CreatorInfo
                                 img={element.img}
@@ -174,7 +158,6 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         fontWeight: "bold",
                         color: "#202426",
                         marginBottom: 40,
-                        marginTop: 40,
                     }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
                     <div style={{
                         width: "56vw",
@@ -272,33 +255,8 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         minWidth: 300,
                         width: "100vw",
                     }}>
-                        <div style={{
-                            width: "90vw",
-                            minWidth: 300,
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-evenly"
-                        }}>
-                            {items.filter(ele => ele.id < 3).map(element =>
-                                <MCreatorInfo
-                                    img={element.img}
-                                    name={element.name}
-                                    FundingNum={element.FundingNum}
-                                    percent={element.percent}
-                                    Deadline={element.Deadline}
-                                />
-                            )}
-                        </div>
-                        <div style={{
-                            width: "90vw",
-                            minWidth: 300,
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-evenly"
-                        }}>
-                            {items.filter(ele => ele.id > 2).map(element =>
+                        <div className="mobile-grid-container">
+                            {items.map(element =>
                                 <MCreatorInfo
                                     img={element.img}
                                     name={element.name}

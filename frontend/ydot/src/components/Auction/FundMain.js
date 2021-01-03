@@ -22,6 +22,7 @@ export default function FundMain() {
     }
     //진행중인 펀딩
     const [items, setItems] = useState([]);
+    const [length, setLength] = useState(0)
     const [itemss, setItemss] = useState([]);
     const firestore = useFirestore()
 
@@ -54,10 +55,25 @@ export default function FundMain() {
                
             })
             setItems(list)
+            setLength(items.length)
         })
     }
+
+    async function rendering() {
+        let render
+        let leng;
+        if (items.length % 4 === 0) {
+            leng = items.length / 4;
+        } else if (items.length % 4 !== 0) {
+            leng = items.length / 4 + 1;
+        }
+        for (var i = 0; i < leng; i++) {
+            
+        }
+        return render;
+    }
     //종료된 펀딩
-    
+
     async function loadEnd() {
         var date = new Date()
         firestore.collection("Creator").onSnapshot(querySnapshot => {
@@ -85,7 +101,6 @@ export default function FundMain() {
             setItemss(list)
         })
     }
-    const contents = 2
     return (
         <div>
             <Default>
@@ -116,14 +131,7 @@ export default function FundMain() {
                             color: "#202426",
                             marginBottom: 40
                         }}>진행중인 펀딩</div>
-                        <div style={{
-                            width: "56vw",
-                            minWidth: 1060,
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                        }}>
+                        <div className="grid-container">
                             {items.map(element =>
                                 <CreatorInfo
                                     img={element.img}
@@ -144,18 +152,9 @@ export default function FundMain() {
                         fontSize: 21,
                         fontWeight: "bold",
                         color: "#202426",
-                        marginTop: 40,
                         marginBottom: 40
                     }}>종료된 펀딩</div>
-                    <div style={{
-                        width: "56vw",
-                        minWidth: 1060,
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: 40,
-                    }}>
+                    <div className="grid-container">
                         {itemss.map(element =>
                             <CreatorInfo
                                 img={element.img}
