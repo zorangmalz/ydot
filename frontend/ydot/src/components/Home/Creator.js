@@ -170,7 +170,7 @@ export default function Creator() {
     }
 
     function calculate() {
-        var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * 10296940.94 - 16362236) / 16362236
+        var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * 15824400 - 22510500) / 22510500
         console.log(a)
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
