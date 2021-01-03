@@ -459,7 +459,7 @@ export function FAQ({ title, content, value, onClick }) {
 }
 
 //HomeMain.js와 AuctionMain.js 요소
-export function CreatorInfo({ img, name, FundingNum, percent, Deadline }) {
+export function CreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sector,fundingAim }) {
     const history = useHistory()
 
     const direct = "/home/" + String(name)
@@ -500,7 +500,7 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline }) {
                     color: "#161513",
                     marginTop: 10,
                     width: 195,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{FundingNum}</div> 원 펀딩</div>
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{fundingAim}</div> 원 펀딩</div>
                 <div style={{
                     fontSize: 16,
                     color: "#202426",
@@ -525,12 +525,12 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline }) {
                         padding: "4px 8px",
                         borderRadius: 20,
                         marginRight: 4,
-                    }}># 먹방</div>
+                    }}># {sector}</div>
                     <div style={{
                         border: "1px solid #202426",
                         padding: "4px 8px",
                         borderRadius: 20,
-                    }}># 고속 성장</div>
+                    }}># {sort}</div>
                 </div>
             </div>
         </>

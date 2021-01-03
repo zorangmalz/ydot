@@ -160,6 +160,8 @@ export default function Creator() {
     const [sort,setSort]=useState("")
     const [name,setName]=useState("")
     const [sector,setSector]=useState("")
+    const [popular,setPopular]=useState("")
+    const [main,setMain]=useState("")
     function getInfo() {
         const today = new Date()
 
@@ -176,6 +178,8 @@ export default function Creator() {
             setChannelTitle(doc.data().channelTitle)
             setName(doc.data().name)
             setSector(doc.data().sector)
+            setMain(doc.data().mainVideo)
+            setPopular(doc.data().popularVideo)
             if (doc.data().Deadline < today.getTime()) {
                 setOngoing(false)
             } else {
@@ -354,10 +358,11 @@ export default function Creator() {
                                 marginTop: 20,
                             }}>
                                 {/* 썸네일 */}
+                                <a href={main} target="_blank">
                                 <img src={thumbnailone} style={{
                                     width: 620,
                                     height: 320,
-                                }} />
+                                }} /></a>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -875,7 +880,9 @@ export default function Creator() {
                                                 height: 26,
                                                 marginBottom: 10
                                             }}>인기 동영상</div>
+                                            <a href ={popular} target="_blank">
                                             <img src={campusone} style={{ width: 290, height: 108 }} />
+                                            </a>
                                         </div>
                                     </div>
                                     <div style={{
@@ -1077,12 +1084,13 @@ export default function Creator() {
                                     marginTop: 20,
                                 }}>
                                     {/* 썸네일 */}
+                                    <a href={main} target="_blank">
                                     <img src={thumbnailone} style={{
                                         width: "90vw",
                                         minWidth: 300,
                                         height: 180,
                                         objectFit: "cover"
-                                    }} />
+                                    }} /></a>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -1622,7 +1630,9 @@ export default function Creator() {
                                                     fontSize: 14,
                                                     marginBottom: 5
                                                 }}>인기 동영상</div>
+                                                <a href={popular} target="_blank">
                                                 <img src={campusone} style={{ objectFit: "cover", width: "85vw" }} />
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

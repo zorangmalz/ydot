@@ -44,7 +44,10 @@ export default function FundMain() {
                         FundingNum: doc.data().FundingNum,
                         FundingTotal: doc.data().FundingAim,
                         percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
-                        Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
+                        Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000),
+                        fundingAim:doc.data().FundingAim,
+                        sector:doc.data().sector,
+                        sort:doc.data().sort
                     })
                     count = count + 1
                 }
@@ -70,7 +73,10 @@ export default function FundMain() {
                         FundingNum: doc.data().FundingNum,
                         FundingTotal: doc.data().FundingAim,
                         percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
-                        Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
+                        Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000),
+                        fundingAim:doc.data().FundingAim,
+                        sector:doc.data().sector,
+                        sort:doc.data().sort
                     })
                     count = count + 1
                 }
@@ -125,6 +131,9 @@ export default function FundMain() {
                                     FundingNum={element.FundingNum}
                                     percent={element.percent}
                                     Deadline={element.Deadline}
+                                    sort={element.sort}
+                                    sector={element.sector}
+                                    fundingAim={element.fundingAim}
                                 />
                             )}
                         </div>
@@ -154,6 +163,9 @@ export default function FundMain() {
                                 FundingNum={element.FundingNum}
                                 percent={element.percent}
                                 Deadline={element.Deadline}
+                                sort={element.sort}
+                                sector={element.sector}
+                                fundingAim={element.fundingAim}
                             />
                         )}
                     </div>
