@@ -9,11 +9,11 @@ django.setup()
 from ydotdata.models import BetaData
 
 
-creator = ['eo', 'gwang', 'heebab', 'hotdog', 'itsub', 'iuofficial', 'milanonna', 'mouse', 'nongjalal',
-           'onescience', 'paka', 'real', 'sdad', 'sinsaimdang', 'suka', 'sunbaaking', 'thechtvn', 'woowakgood']
+creator = ['cooking', 'eo', 'gsh', 'gwang', 'hatsal', 'hotdog', 'itsub', 'iu', 'meungdi', 'nong',
+            'piano', 'pood', 'science', 'sin', 'sjwoo', 'suka', 'woo']
 
 for i in creator:
-    CSV_PATH = "/Users/kimjinsung/Desktop/youtube/data/{0}.csv".format(i)
+    CSV_PATH = "/Users/kimjinsung/Desktop/realdata/{0}.csv".format(i)
     with open(CSV_PATH, newline='') as csvfile:
         data_reader = csv.DictReader(csvfile)
         data = {}

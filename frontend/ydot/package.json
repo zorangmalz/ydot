@@ -56,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "http-proxy-middleware": "^1.0.6",
     "json-loader": "^0.5.7"
-  }
+  },
+  "proxy": "http://15.165.240.32:8000/"
 }

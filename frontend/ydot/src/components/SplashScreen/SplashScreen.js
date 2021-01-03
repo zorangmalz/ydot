@@ -126,8 +126,8 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                     percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
                     Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000)
                 })
-                count = count + 1
-            }
+                    count = count + 1
+                }
             })
             setItems(list)
         })
