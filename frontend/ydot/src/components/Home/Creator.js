@@ -152,6 +152,14 @@ export default function Creator() {
     const [fundingTotal, setFundingTotal] = useState(0)
     const [fundingDead, setFundingDead] = useState(0)
     const [ongoing, setOngoing] = useState(false)
+    const [pv,setPv]=useState(0)
+    const [view,setView]=useState(0)
+    const [grow,setGrow]=useState(0)
+    const [share,setShare]=useState(0)
+    const [channelTitle,setChannelTitle]=useState("")
+    const [sort,setSort]=useState("")
+    const [name,setName]=useState("")
+    const [sector,setSector]=useState("")
     function getInfo() {
         const today = new Date()
 
@@ -160,7 +168,14 @@ export default function Creator() {
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
             setPercentage((doc.data().FundingTotal / doc.data().FundingAim * 100).toFixed(2))
-
+            setPv(doc.data().PV)
+            setView(doc.data().view)
+            setGrow(doc.data().growth)
+            setShare(doc.data().share)
+            setSort(doc.data().sort)
+            setChannelTitle(doc.data().channelTitle)
+            setName(doc.data().name)
+            setSector(doc.data().sector)
             if (doc.data().Deadline < today.getTime()) {
                 setOngoing(false)
             } else {
@@ -170,7 +185,7 @@ export default function Creator() {
     }
 
     function calculate() {
-        var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * 15824400 - 22510500) / 22510500
+        var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view)*2 - Number(pv)) / Number(pv)
         console.log(a)
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
@@ -320,14 +335,14 @@ export default function Creator() {
                                     fontSize: 24,
                                     fontWeight: "bold",
                                     color: "#202426"
-                                }}>[Vlog] 공부의 달인 두번째 펀딩을 모집합니다.</div>
+                                }}>{name}</div>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "flex-start",
                                 }}>
-                                    <HashTag content="마이크로" />
-                                    <HashTag content="고속 성장" />
+                                    <HashTag content={sort} />
+                                    <HashTag content={sector} />
                                 </div>
                             </div>
                             <div style={{
@@ -368,7 +383,7 @@ export default function Creator() {
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal"
-                                    }}>2020/12/31 종료</div></div>
+                                    }}>2021/1/9 종료</div></div>
                                     <div style={{
                                         fontSize: 21,
                                         fontWeight: "bold",
@@ -515,15 +530,13 @@ export default function Creator() {
                                     }}>
                                         <CloseBeta
                                             img={analytics}
-                                            title="채널 수익의 20% 분배"
-                                            content="6개월간 채널수익의 20%를 리워드로 수령하는 조건으로 
-                                진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"
+                                            title={"채널 수익의 "+share+"% 분배"}
+                                            content={"6개월간 채널수익의 "+share+"%를 리워드로 수령하는 조건으로 진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"}
                                         />
                                         <CloseBeta
                                             img={barchart}
-                                            title="월 3%의 평균 성장률"
-                                            content="해당 펀딩 금액은 월 3%의 성장을 가정해 산정되었습니다. 
-                                성장률에 따른 예상 리워드를 확인해 보세요"
+                                            title={"월 "+grow+"%의 평균 성장률"}
+                                            content={"해당 펀딩 금액은 월 "+grow+"%의 성장을 가정해 산정되었습니다. 성장률에 따른 예상 리워드를 확인해 보세요"}
                                         />
                                     </div>
                                     <div style={{
@@ -535,7 +548,7 @@ export default function Creator() {
                                     }}>
                                         <CloseBeta
                                             img={vlog}
-                                            title="일상/Vlog"
+                                            title={sector}
                                             content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
                                         <CloseBeta
@@ -834,7 +847,7 @@ export default function Creator() {
                                             marginRight: 40,
                                         }}>
                                             <CreatorIntro title="채널 이름" content="지순's 일상" other={false} />
-                                            <CreatorIntro title="섹터 구분" content="일상/Vlog" other={false} />
+                                            <CreatorIntro title="섹터 구분" content={sector} other={false} />
                                         </div>
                                         <div style={{
                                             display: "flex",
@@ -1190,7 +1203,7 @@ export default function Creator() {
                                                     display: "inline-block",
                                                     fontSize: 12,
                                                     fontWeight: "normal"
-                                                }}>2020/12/31 종료</div></div>
+                                                }}>2021/1/9 종료</div></div>
                                                 <div style={{
                                                     width: "35%",
                                                     fontSize: 16,
@@ -1279,19 +1292,17 @@ export default function Creator() {
                                     }}>
                                         <MCloseBeta
                                             img={analytics}
-                                            title="채널 수익의 20% 분배"
-                                            content="6개월간 채널수익의 20%를 리워드로 수령하는 조건으로 
-                                진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"
+                                            title={"채널 수익의 "+share+"% 분배"}
+                                            content={"6개월간 채널수익의 "+share+"%를 리워드로 수령하는 조건으로 진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"}
                                         />
                                         <MCloseBeta
                                             img={barchart}
-                                            title="월 3%의 평균 성장률"
-                                            content="해당 펀딩 금액은 월 3%의 성장을 가정해 산정되었습니다. 
-                                성장률에 따른 예상 리워드를 확인해 보세요"
+                                            title={"월 "+grow+"%의 평균 성장률"}
+                                            content={"해당 펀딩 금액은 월 "+grow+"%의 성장을 가정해 산정되었습니다. 성장률에 따른 예상 리워드를 확인해 보세요"}
                                         />
                                         <MCloseBeta
                                             img={vlog}
-                                            title="일상/Vlog"
+                                            title={sector}
                                             content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
                                         <MCloseBeta
@@ -1575,7 +1586,7 @@ export default function Creator() {
                                                 height: 80,
                                             }}>
                                                 <MCreatorIntro title="채널 이름" content="지순's 일상" other={false} />
-                                                <MCreatorIntro title="섹터 구분" content="일상/Vlog" other={false} />
+                                                <MCreatorIntro title="섹터 구분" content={sector} other={false} />
                                             </div>
                                             <div style={{
                                                 display: "flex",
