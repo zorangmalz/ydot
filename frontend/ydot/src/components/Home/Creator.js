@@ -199,7 +199,7 @@ export default function Creator() {
 
         await axios.get(url, {
             headers: {
-                "Access-Control-Allow-Origin": "http://15.165.240.32:8000/",
+                "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Credentials": true,
                 "Content-type": "application/json"
             }
