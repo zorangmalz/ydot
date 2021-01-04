@@ -47,9 +47,15 @@ export default function Asset() {
         })
     }, [])
 
-    //펀딩,배당내역쪽
+    //5개씩 끊어야하기 때문에 position과 위치를 잘 봐야함
+    const [Bstart, setBstart] = useState(0)
+    const [Bend, setBend] = useState(5)
+    const [Fstart, setFstart] = useState(0)
+    const [Fend, setFend] = useState(5)
+
+    //참여한 펀딩
     useEffect(() => {
-        firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
+        firestore.collection("User").doc(uid).collection("Fund").orderBy("fullTime", "desc").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
                 if(doc.data().ftHash){
@@ -72,11 +78,13 @@ export default function Asset() {
             }
                 console.log(doc.data().channel)
             })
-            setItems(list)
+            setFend(list.length)
+            setItems(list.slice(Fstart, Fstart + 5))
+            console.log(list)
         })
     }, [])
     
-    //보유자산
+    //보유자산과 보유자산
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
             const list = []
@@ -125,10 +133,8 @@ export default function Asset() {
         setMonthlyAllocation(mon)
     }
 
+    //보유자산과 펀딩, 배당내역을 나누는 곳
     const [section, setSection] = useState(true)
-    const baedangposition = 1
-    const fundingposition = 1
-    // const [data,setData]=useState([])
 
     //그래프
     const data = [
@@ -558,11 +564,11 @@ export default function Asset() {
                                     marginTop: 20,
                                 }}>
                                     <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{baedangposition}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{baedangposition + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{baedangposition + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{baedangposition + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{baedangposition + 4}</div>
+                                    <div style={{ opacity: 1, marginRight: 20 }}>{Bstart + 1}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 2}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 3}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 4}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Bstart + 5}</div>
                                     <MdKeyboardArrowRight size={20} color="#161513" />
                                 </div>
                                 <div style={{
@@ -642,11 +648,11 @@ export default function Asset() {
                                     marginTop: 20,
                                 }}>
                                     <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{fundingposition}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{fundingposition + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{fundingposition + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{fundingposition + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{fundingposition + 4}</div>
+                                    <div style={{ opacity: 1, marginRight: 20 }}>{Fstart + 1}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 2}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 3}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 4}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Fstart + 5}</div>
                                     <MdKeyboardArrowRight size={20} color="#161513" />
                                 </div>
                             </div>
@@ -1115,11 +1121,11 @@ export default function Asset() {
                                     marginTop: 20,
                                 }}>
                                     <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{baedangposition}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{baedangposition + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{baedangposition + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{baedangposition + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{baedangposition + 4}</div>
+                                    <div style={{ opacity: 1, marginRight: 20 }}>{Bstart + 1}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 2}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 3}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 4}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Bstart + 5}</div>
                                     <MdKeyboardArrowRight size={20} color="#161513" />
                                 </div>
                                 <div style={{
@@ -1199,11 +1205,11 @@ export default function Asset() {
                                     marginTop: 10,
                                 }}>
                                     <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{fundingposition}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{fundingposition + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{fundingposition + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{fundingposition + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{fundingposition + 4}</div>
+                                    <div style={{ opacity: 1, marginRight: 20 }}>{Fstart + 1}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 2}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 3}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 4}</div>
+                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Fstart + 5}</div>
                                     <MdKeyboardArrowRight size={20} color="#161513" />
                                 </div>
                             </div>
