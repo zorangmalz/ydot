@@ -44,37 +44,49 @@ async function login(){
     }).then(() => {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
             firebase.auth().onAuthStateChanged((user) => {
-
                 getWallet(user)
                 history.push("/")
             })
         })
     })
 }
-async function getWallet(user){
-    var wallet
-    await firestore.collection("User").doc(user.uid).get().then(doc=>{
-        if(doc.data().wallet){
-            wallet=false
-        }else{
-            wallet=true
-        }
-    })  
+// async function getWallet(user){
+//     var wallet
+   
+   
+//     await firestore.collection("User").doc(user.uid).get().then(doc=>{
+//         if(doc.data().wallet){
+//             wallet=false
+//         }else{
+//             wallet=true
+//         }
+//     }).catch(
+//         wallet=true
+//     )  
     
-    if(wallet){
-        var account = await kas()
-        firestore.collection("User").doc(user.uid).update({
-            wallet:account.address
-        })
-    }
+//     if(wallet){
+//         console.log("no wallet , make wallet")
+//         var account = await kas()
+        
+//         firestore.collection("User").doc(user.uid).set({
+//             wallet:account.address,
+//             email:document.getElementById("DID").value,
+//         uid:user.uid,
+//         totalMoney:1000000
+//         })
+//         }else{
+//             console.log("?")
+//         }
+//     }
             
-}
-async function kas(){
-    const caver = new CaverExtKAS()
-    caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-    const account = await caver.kas.wallet.createAccount()
-    return account
-}
+
+// async function kas(){
+//     const caver = new CaverExtKAS()
+//     caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+//     const account = await caver.kas.wallet.createAccount()
+//     console.log(account)
+//     return account
+// }
     return (
         <div>
             <Default>

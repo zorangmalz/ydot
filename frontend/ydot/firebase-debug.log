@@ -1,0 +1,27 @@
+[debug] [2021-01-04T09:10:01.013Z] ----------------------------------------------------------------------
+[debug] [2021-01-04T09:10:01.015Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2021-01-04T09:10:01.015Z] CLI Version:   9.1.0
+[debug] [2021-01-04T09:10:01.015Z] Platform:      darwin
+[debug] [2021-01-04T09:10:01.015Z] Node Version:  v14.5.0
+[debug] [2021-01-04T09:10:01.016Z] Time:          Mon Jan 04 2021 18:10:01 GMT+0900 (대한민국 표준시)
+[debug] [2021-01-04T09:10:01.016Z] ----------------------------------------------------------------------
+[debug] [2021-01-04T09:10:01.016Z] 
+[debug] [2021-01-04T09:10:01.023Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-04T09:10:01.023Z] > authorizing via signed-in user
+[debug] [2021-01-04T09:10:01.024Z] [iam] checking project ydot-23a93 for permissions ["firebase.projects.get"]
+[debug] [2021-01-04T09:10:01.026Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ydot-23a93:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-01-04T09:10:02.424Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 04 Jan 2021 09:10:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=573","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-04T09:10:02.425Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ydot-23a93  
+ 
+[debug] [2021-01-04T09:10:03.115Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 04 Jan 2021 09:10:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from '/Users/jung-sunwoong/Documents/GitHub/ydot/frontend/ydot'...
+[info] 
+[debug] [2021-01-04T09:10:03.117Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ydot-23a93/webApps/-/config  
+ 
+[debug] [2021-01-04T09:10:04.857Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 04 Jan 2021 09:10:04 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [04/Jan/2021:09:10:46 +0000] "GET /static/media/thumbnailone.fca3f1df.png HTTP/1.1" 200 279832 "http://localhost:5000/fund/%EC%8B%A0%EC%82%AC%EC%9E%84%EB%8B%B9" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [04/Jan/2021:09:10:46 +0000] \"GET /static/media/thumbnailone.fca3f1df.png HTTP/1.1\" 200 279832 \"http://localhost:5000/fund/%EC%8B%A0%EC%82%AC%EC%9E%84%EB%8B%B9\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [04/Jan/2021:09:10:46 +0000] "GET /static/media/solitude.d4d0bddb.png HTTP/1.1" 200 292666 "http://localhost:5000/fund/%EC%8B%A0%EC%82%AC%EC%9E%84%EB%8B%B9" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [04/Jan/2021:09:10:46 +0000] \"GET /static/media/solitude.d4d0bddb.png HTTP/1.1\" 200 292666 \"http://localhost:5000/fund/%EC%8B%A0%EC%82%AC%EC%9E%84%EB%8B%B9\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36\""}}
