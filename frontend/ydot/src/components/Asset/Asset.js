@@ -178,7 +178,7 @@ export default function Asset() {
                         borderBottom: "1px solid #d2d3d3",
                         display: "flex",
                         flexDirection: "row",
-                        alignItems: "center",
+                        alignItems: "flex-end",
                         justifyContent: "center",
                     }}>
                         <input type="button" onClick={() => setSection(true)} style={{
