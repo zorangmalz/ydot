@@ -188,7 +188,7 @@ export default function Creator() {
     }
 
     function calculate() {
-        var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view)*2 - Number(pv)) / Number(pv)
+        var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
         console.log(a)
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
@@ -203,7 +203,7 @@ export default function Creator() {
     const [monSubs, setMonSubs] = useState([])
     const [index, setIndex] = useState()
     async function CreatorData() {
-        await axios.get('http://15.165.240.32:8000/v0/beta', { headers: { "Access-Control-Allow-Origin": "*" } }).then(res => {
+        await axios.get('http://15.165.240.32:8000/v0/beta', { headers: { "Access-Control-Allow-Origin": "http://*" } }).then(res => {
             setIndex(res.data)
         })
         console.log(index)
@@ -383,7 +383,12 @@ export default function Creator() {
                         }
 
                         {/* 계산기 디자인 */}
-                        {modalOne || modalThree ? <></> : <div style={{
+                        {modalOne || modalThree ? <></> : <div onClick={() => {
+                            onFund()
+                            setTimeout(() => {
+                                document.getElementById('calculator').scrollIntoView()
+                            }, 500)
+                        }} style={{
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -645,7 +650,7 @@ export default function Creator() {
                                 투자 위험 안내를 꼼꼼히 읽어보세요."
                                         />
                                     </div>
-                                    <div style={{
+                                    <div id="calculator" style={{
                                         marginTop: 40,
                                         marginBottom: 20,
                                         fontSize: 24,
@@ -1112,7 +1117,12 @@ export default function Creator() {
                                     justifyContent: "center",
                                 }}>펀딩이 종료되었습니다</div>
                             }
-                            {MmodalOne || MmodalThree ? <></> : <div style={{
+                            {MmodalOne || MmodalThree ? <></> : <div onClick={() => {
+                                onFund()
+                                setTimeout(() => {
+                                    document.getElementById('Mcalculator').scrollIntoView()
+                                }, 500)
+                            }} style={{
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -1402,7 +1412,7 @@ export default function Creator() {
                                 투자 위험 안내를 꼼꼼히 읽어보세요."
                                         />
                                     </div>
-                                    <div style={{
+                                    <div id="Mcalculator" style={{
                                         marginTop: 20,
                                         marginBottom: 20,
                                         fontSize: 21,
