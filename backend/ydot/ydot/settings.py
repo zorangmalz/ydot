@@ -64,7 +64,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://ydot-23a93.firebaseapp.com/",
+    "https://ydot-23a93.firebaseapp.com",
     "http://localhost:3000",
 ]
 
