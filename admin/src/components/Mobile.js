@@ -47,7 +47,7 @@ export default function MLoginHeader() {
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <Link to={'/home'} style={{
+                    <Link to={"/"} style={{
                         fontSize: 35,
                         fontWeight: "bold",
                         color: "#202426",
@@ -106,7 +106,7 @@ export function MHeader({ bold }) {
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <Link to={'/home'} style={{
+                    <Link to={"/"} style={{
                         fontSize: 35,
                         fontWeight: "bold",
                         color: "#202426",
@@ -117,7 +117,7 @@ export function MHeader({ bold }) {
                         color: "#da877a"
                     }}>.</div></Link>
                     <>
-                        <Link to={'/home'} style={{
+                        <Link to={"/"} style={{
                             fontSize: 18,
                             color: "#202426",
                             fontWeight: bold === "Home" ? "bold" : "normal",

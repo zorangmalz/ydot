@@ -84,7 +84,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
         }).then(() => {
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
                 firebase.auth().onAuthStateChanged((user) => {
-                    history.push("/home")
+                    history.push("/")
                 })
             })
         })
