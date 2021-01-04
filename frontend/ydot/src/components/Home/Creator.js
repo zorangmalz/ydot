@@ -67,7 +67,6 @@ export default function Creator() {
 
     //펀딩정보, 채널 정보, 리워드 계산기
     const [infor, dispatch] = useReducer(reducer, 0)
-    const [fund, setFund] = useState(0)
 
     const onFund = () => {
         dispatch({ type: "fund" })
@@ -139,13 +138,6 @@ export default function Creator() {
     useEffect(() => {
         getInfo()
         console.log(myparam)
-        // fetch('http://15.165.240.32:8000/v0/beta/')
-        //     .then(res => res.json())
-        //     .then(element => element.map(ele => {
-        //         ele.json().map(a => {
-        //             console.log(a)
-        //         })
-        //     }))
     }, [])
 
     const [fundingAim, setFundingAim] = useState(0)
@@ -207,10 +199,10 @@ export default function Creator() {
 
         await axios.get(url, {
             headers: {
-                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Origin": "http://15.165.240.32:8000/",
+                "Access-Control-Allow-Credentials": true,
                 "Content-type": "application/json"
-            },
-            withCredentials: true
+            }
         }).then(res => {
             setIndex(res.data)
         })
@@ -701,6 +693,7 @@ export default function Creator() {
                                                     display: "flex",
                                                     flexDirection: "row",
                                                     alignItems: "center",
+                                                    justifyContent: "flex-end",
                                                     width: 230,
                                                     paddingLeft: 30,
                                                     paddingRight: 30,
@@ -717,6 +710,7 @@ export default function Creator() {
                                                         backgroundColor: "#F2F2F2",
                                                         textAlign: "right",
                                                         outline: 0,
+                                                        width: 200,
                                                     }} />
                                                     <div style={{
                                                         fontSize: 18,
@@ -736,6 +730,7 @@ export default function Creator() {
                                                     display: "flex",
                                                     flexDirection: "row",
                                                     alignItems: "center",
+                                                    justifyContent: "flex-end",
                                                     width: 230,
                                                     paddingLeft: 30,
                                                     paddingRight: 30,
@@ -752,6 +747,7 @@ export default function Creator() {
                                                         backgroundColor: "#F2F2F2",
                                                         textAlign: "right",
                                                         outline: 0,
+                                                        width: 200,
                                                     }} />
                                                     <div style={{
                                                         fontSize: 18,
@@ -781,8 +777,8 @@ export default function Creator() {
                                                     width: 228,
                                                     paddingLeft: 30,
                                                     paddingRight: 30,
-                                                    paddingTop: 15,
-                                                    paddingBottom: 15,
+                                                    paddingTop: 17,
+                                                    paddingBottom: 17,
                                                     borderRadius: 50,
                                                     backgroundColor: "#ffffff",
                                                     marginBottom: 20,
@@ -790,12 +786,21 @@ export default function Creator() {
                                                 }}>
                                                     <div style={{
                                                         fontSize: 18,
+                                                        color: "#202426",
+                                                        fontWeight: "bold",
+                                                        textAlign: "right",
+                                                        width: 200,
+                                                        height: 24,
+                                                    }}>{reward}</div>
+                                                    <div style={{
+                                                        fontSize: 18,
                                                         fontWeight: "bold",
                                                         color: "#202426",
                                                         textAlign: "end",
                                                         height: 24,
+                                                        marginLeft: 10,
                                                         textAlign: "right"
-                                                    }}>{reward} 원</div>
+                                                    }}>원</div>
                                                 </div>
                                                 <div style={{
                                                     opacity: 0.6,
@@ -820,11 +825,19 @@ export default function Creator() {
                                                 }}>
                                                     <div style={{
                                                         fontSize: 18,
+                                                        color: "#202426",
+                                                        fontWeight: "bold",
+                                                        textAlign: "right",
+                                                        height: 24,
+                                                        width: 200,
+                                                    }}>{roi}</div>
+                                                    <div style={{
+                                                        fontSize: 18,
                                                         fontWeight: "bold",
                                                         color: "#202426",
                                                         marginLeft: 10,
                                                         textAlign: "right"
-                                                    }}>{roi}%</div>
+                                                    }}>%</div>
                                                 </div>
                                             </div>
                                             <div style={{
@@ -1086,17 +1099,17 @@ export default function Creator() {
                             width: "100vw",
                         }}>
                             {ongoing ?
-                                <div onClick={modal} style={{
+                                <div onClick={Mmodal} style={{
                                     outline: 0,
                                     position: "fixed",
                                     zIndex: 5,
                                     bottom: 0,
-                                    height: 80,
+                                    height: 60,
                                     width: "100vw",
 
 
                                     backgroundColor: "#e78276",
-                                    fontSize: 24,
+                                    fontSize: 20,
                                     color: "#ffffff",
                                     fontWeight: "bold",
                                     textAlign: "center",
@@ -1111,12 +1124,12 @@ export default function Creator() {
                                     position: "fixed",
                                     zIndex: 5,
                                     bottom: 0,
-                                    height: 80,
+                                    height: 60,
                                     width: "100vw",
 
 
                                     backgroundColor: "#929594",
-                                    fontSize: 24,
+                                    fontSize: 20,
                                     color: "#ffffff",
                                     fontWeight: "bold",
                                     textAlign: "center",
@@ -1142,7 +1155,7 @@ export default function Creator() {
                                 position: "fixed",
                                 zIndex: 5,
                                 cursor: "pointer",
-                                bottom: 132,
+                                bottom: 112,
                                 right: 30,
                             }}><IoIosCalculator size={30} color="#e78276" /></div>}
                             <div style={{
@@ -1433,6 +1446,7 @@ export default function Creator() {
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
+                                        paddingBottom: 100,
                                     }}>
                                         <div style={{
                                             width: 290,
@@ -1485,6 +1499,7 @@ export default function Creator() {
                                                 display: "flex",
                                                 flexDirection: "row",
                                                 alignItems: "center",
+                                                justifyContent: "flex-end",
                                                 width: 230,
                                                 paddingLeft: 30,
                                                 paddingRight: 30,
@@ -1501,12 +1516,15 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     textAlign: "right",
                                                     outline: 0,
+                                                    width: 200,
+                                                    height: 24,
                                                 }} />
                                                 <div style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginLeft: 10
+                                                    marginLeft: 10,
+                                                    height: 24
                                                 }}>원</div>
                                             </div>
                                             <div style={{
@@ -1521,6 +1539,7 @@ export default function Creator() {
                                                 display: "flex",
                                                 flexDirection: "row",
                                                 alignItems: "center",
+                                                justifyContent: "flex-end",
                                                 width: 230,
                                                 paddingLeft: 30,
                                                 paddingRight: 30,
@@ -1537,12 +1556,15 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     textAlign: "right",
                                                     outline: 0,
+                                                    width: 200,
+                                                    height: 24,
                                                 }} />
                                                 <div style={{
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginLeft: 10
+                                                    marginLeft: 10,
+                                                    height: 24,
                                                 }}>%</div>
                                             </div>
                                             <input onClick={calculate} style={{
@@ -1596,10 +1618,18 @@ export default function Creator() {
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    textAlign: "end",
+                                                    textAlign: "right",
+                                                    width: 200,
                                                     height: 24,
                                                     textAlign: "right"
-                                                }}>{reward} 원</div>
+                                                }}>{reward}</div>
+                                                <div style={{
+                                                    fontSize: 18,
+                                                    fontWeight: "bold",
+                                                    color: "#202426",
+                                                    height: 24,
+                                                    textAlign: "right"
+                                                }}>원</div>
                                             </div>
                                             <div style={{
                                                 opacity: 0.6,
@@ -1627,15 +1657,25 @@ export default function Creator() {
                                                     fontSize: 18,
                                                     fontWeight: "bold",
                                                     color: "#202426",
-                                                    marginLeft: 10,
+                                                    textAlign: "right",
+                                                    width: 200,
+                                                    height: 24,
                                                     textAlign: "right"
-                                                }}>{roi}%</div>
+                                                }}>{roi}</div>
+                                                <div style={{
+                                                    fontSize: 18,
+                                                    fontWeight: "bold",
+                                                    color: "#202426",
+                                                    marginLeft: 10,
+                                                    height: 24,
+                                                    textAlign: "right"
+                                                }}>%</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 {/* QA 질문 */}
-                                <div style={{
+                                {/* <div style={{
                                     width: "90vw",
                                     minWidth: 300,
                                     display: "flex",
@@ -1653,7 +1693,7 @@ export default function Creator() {
                                     }}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</div>
                                     <img src={solitude} alt="나중에" style={{ width: "100%", minWidth: "100vw", height: 80, marginTop: 20, marginBottom: 20 }} />
                                     {QA.map(element => <MQAList title={element.title} content={element.content} />)}
-                                </div>
+                                </div> */}
                             </>
                             :
                             <>

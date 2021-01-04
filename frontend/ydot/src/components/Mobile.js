@@ -774,6 +774,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
         setOne(true)
         setTwo(true)
         setThree(true)
+        setFour(true)
     }
     const OneIcon = one ? <BsCheck color="#161513" size={16} /> : <></>
     const TwoIcon = two ? <BsCheck color="#161513" size={16} /> : <></>
@@ -818,13 +819,13 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                 position: "fixed",
                 zIndex: 5,
                 cursor: "pointer",
-                bottom: 132,
+                bottom: 112,
                 right: 30,
             }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
-                height: 300,
+                height: 340,
                 paddingTop: 20,
                 paddingBottom: 20,
                 paddingRight: 30,
@@ -999,8 +1000,8 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     backgroundColor: "#efefef",
-                    marginBottom: 36,
                     borderRadius: 10,
+                    marginBottom: 10,
                 }}>
                     <div style={{
                         fontSize: 12,
@@ -1020,15 +1021,15 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         justifyContent: "center"
                     }}>{InvestIcon}</button>
                 </div>
-                <input onClick={onNext} type="button" style={{
+                <input onClick={one&&two&&three&&invest ? onNext : console.log("동의해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 270,
-                    height: 48,
+                    height: 40,
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: "#e78276",
-                    fontSize: 16,
+                    backgroundColor: one&&two&&three&&invest ? "#e78276" : "#d2d2d2",
+                    fontSize: 14,
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
@@ -1053,23 +1054,9 @@ function MPopupReducer(state, action) {
     }
 }
 
-function PopupReducer(state, action) {
-    switch (action.type) {
-        case "25":
-            return 25
-        case "50":
-            return 50
-        case "75":
-            return 75
-        case "max":
-            return 100
-        default:
-            return 0
-    }
-}
 export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [money, setMoney] = useState("")
-    const [number, dispatch] = useReducer(PopupReducer, 0)
+    const [number, dispatch] = useReducer(MPopupReducer, 0)
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
     const onTwentyfive = () => {
@@ -1209,13 +1196,13 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 position: "fixed",
                 zIndex: 5,
                 cursor: "pointer",
-                bottom: 132,
+                bottom: 112,
                 right: 30,
             }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
-                height: 230,
+                height: 200,
                 paddingTop: 20,
                 paddingBottom: 20,
                 paddingRight: 30,
@@ -1332,15 +1319,15 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                     textAlign: "right",
                     marginBottom: 20,
                 }}>{warn}</div>
-                <input onClick={onNext} type="button" style={{
+                <input onClick={money.length > 0 ? onNext : console.log("입력해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 270,
-                    height: 48,
+                    height: 40,
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: "#e78276",
-                    fontSize: 16,
+                    backgroundColor: money.length > 0 ? "#e78276" : "#d2d2d2",
+                    fontSize: 14,
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
@@ -1383,13 +1370,13 @@ export function MPopupThree({ setVisible }) {
                 position: "fixed",
                 zIndex: 5,
                 cursor: "pointer",
-                bottom: 132,
+                bottom: 112,
                 right: 30,
             }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
-                height: 300,
+                height: 270,
                 paddingTop: 20,
                 paddingBottom: 20,
                 paddingRight: 30,
@@ -1429,12 +1416,12 @@ export function MPopupThree({ setVisible }) {
                 <input onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",
                     width: 270,
-                    height: 48,
+                    height: 40,
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
                     backgroundColor: "#e78276",
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",

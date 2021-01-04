@@ -925,6 +925,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
         setOne(true)
         setTwo(true)
         setThree(true)
+        setFour(true)
     }
     const OneIcon = one ? <BsCheck color="#161513" size={16} /> : <></>
     const TwoIcon = two ? <BsCheck color="#161513" size={16} /> : <></>
@@ -1171,14 +1172,14 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         justifyContent: "center"
                     }}>{InvestIcon}</button>
                 </div>
-                <input onClick={onNext} type="button" style={{
+                <input onClick={one&&two&&three&&invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: "#e78276",
+                    backgroundColor: one&&two&&three&&invest ? "#e78276" : "#d2d2d2",
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#ffffff",
@@ -1357,7 +1358,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             <div style={{
                 zIndex: 2,
                 width: 340,
-                height: 376,
+                height: 250,
                 paddingTop: 30,
                 paddingBottom: 40,
                 paddingRight: 30,
@@ -1474,14 +1475,14 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                     marginBottom: 20,
                 }}>{warn}</div>
 
-                <input onClick={onNext} type="button" style={{
+                <input onClick={money.length > 0 ? onNext : console.log("입력해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: "#e78276",
+                    backgroundColor: money.length > 0 ? "#e78276" : "#d2d2d2",
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#ffffff",
@@ -1532,7 +1533,7 @@ export function PopupThree({ setVisible }) {
             <div style={{
                 zIndex: 2,
                 width: 340,
-                height: 376,
+                height: 300,
                 paddingTop: 30,
                 paddingBottom: 40,
                 paddingRight: 30,
