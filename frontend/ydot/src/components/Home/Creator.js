@@ -203,7 +203,15 @@ export default function Creator() {
     const [monSubs, setMonSubs] = useState([])
     const [index, setIndex] = useState()
     async function CreatorData() {
-        await axios.get('http://15.165.240.32:8000/v0/beta', { headers: { "Access-Control-Allow-Origin": "http://*" } }).then(res => {
+        const url = 'http://15.165.240.32:8000/v0/beta';
+
+        await axios.get(url, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-type": "application/json"
+            },
+            withCredentials: true
+        }).then(res => {
             setIndex(res.data)
         })
         console.log(index)

@@ -12,6 +12,7 @@
     "caver-js": "1.5.5",
     "caver-js-ext-kas": "1.0.2",
     "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
     "crypto": "1.0.1",
     "dotenv": "8.2.0",
     "express": "4.17.1",
@@ -37,6 +38,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "server": "nodemon ./server/server.js",
+    "front" : "npm start",
+    "dev" : "concurrently \"npm run server\" \"npm run front\"",
     "deploy": "aws s3 sync build/ s3://ydot"
   },
   "eslintConfig": {
