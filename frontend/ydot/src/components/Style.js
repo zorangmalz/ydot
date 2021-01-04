@@ -1258,6 +1258,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [totalMoney,setTotalMoney]=useState(0)
     const [wallet,setWallet]=useState("")
     const [email,setEmail]=useState("")
+    
     function getInfo(){
         firestore.collection("User").doc(uid).get().then(doc=>{
             setTotalMoney(doc.data().totalMoney)
@@ -1303,7 +1304,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         await firestore.collection("Creator").doc(creatorName).update({
             FundingTotal: Number(fundingTotal)+Number(money)
         })
-        await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
+        await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
             wallet:wallet,
             money:money,
             email:email,
