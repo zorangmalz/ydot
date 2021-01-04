@@ -1115,19 +1115,23 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
     }
     const [totalMoney,setTotalMoney]=useState(0)
     const [wallet,setWallet]=useState("")
+    const [email,setEmail]=useState("")
     function getInfo(){
         firestore.collection("User").doc(uid).get().then(doc=>{
             setTotalMoney(doc.data().totalMoney)
             setWallet(doc.data().wallet)
+            setEmail(doc.data().email)
         })
         
     }
     const [fundingMax,setFundingMax]=useState(0)
     const [fundingTotal,setFundingTotal]=useState(0)
+    const [symbol,setSymbol]=useState("")
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
             setFundingTotal(doc.data().FundingTotal)
+            setSymbol(doc.data().symbol)
         })
     }
 
@@ -1136,11 +1140,20 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const year = today.getFullYear();
         const month = today.getMonth() + 1
         const day = today.getDate()
-        firestore.collection("User").doc(uid).collection("Fund").add({
-            DayTime: year + "/" + month + "/" + day,
+        const hours= today.getHours()
+        const minutes=today.getMinutes()
+        const seconds=today.getSeconds()
+        const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
+        firestore.collection("User").doc(uid).collection("Fund").doc(docName).set({
+            DayTime: docName,
             Money: money,
             ongoing: 0,
-            channel: creatorName
+            channel: creatorName,
+            fullTime:today.getTime(),
+            total:0,
+            monthly:0,
+            month:0,
+            symbol:symbol
         })
         firestore.collection("User").doc(uid).update({
             totalMoney:Number(totalMoney)-Number(money)
@@ -1148,9 +1161,19 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
         await firestore.collection("Creator").doc(creatorName).update({
             FundingTotal: Number(fundingTotal)+Number(money)
         })
-        await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
+        await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
             wallet:wallet,
-            money:money
+            money:money,
+            email:email,
+            DayTime:docName,
+            fullTime:today.getTime(),
+            uid:uid
+        })
+        await firestore.collection("Creator").doc(creatorName).collection("NFT").doc(wallet).set({
+            wallet:wallet,
+            email:email,
+            uid:uid,
+            dayTime:docName,
         })
     }
 
