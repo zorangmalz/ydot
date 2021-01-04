@@ -209,6 +209,9 @@ export default function FundMain() {
                                     FundingNum={element.FundingNum}
                                     percent={element.percent}
                                     Deadline={element.Deadline}
+                                    sort={element.sort}
+                                    sector={element.sector}
+                                    fundingAim={element.fundingAim}
                                 />
                             )}
                         </div>
@@ -239,6 +242,9 @@ export default function FundMain() {
                                     FundingNum={element.FundingNum}
                                     percent={element.percent}
                                     Deadline={element.Deadline}
+                                    sort={element.sort}
+                                    sector={element.sector}
+                                    fundingAim={element.fundingAim}
                                 />
                             )}
                         </div>

@@ -255,7 +255,7 @@ export function MTopBanner() {
 
 
 //HomeMain.js와 AuctionMain.js 요소
-export function MCreatorInfo({ img, name, FundingNum, percent, Deadline }) {
+export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sector,fundingAim }) {
     const history = useHistory()
 
     function move() {
@@ -292,7 +292,7 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline }) {
                     color: "#161513",
                     marginTop: 5,
                     width: 120,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 14 }}>{FundingNum}</div> 원 펀딩</div>
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 14 }}>{fundingAim}</div> 원 펀딩</div>
                 <div style={{
                     fontSize: 12,
                     color: "#202426",
@@ -317,12 +317,12 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline }) {
                         padding: "2px 4px",
                         borderRadius: 20,
                         marginRight: 4,
-                    }}># 먹방</div>
+                    }}># {sector}</div>
                     <div style={{
                         border: "1px solid #202426",
                         padding: "2px 4px",
                         borderRadius: 20,
-                    }}># 고속 성장</div>
+                    }}># {sort}</div>
                 </div>
             </div>
         </>
