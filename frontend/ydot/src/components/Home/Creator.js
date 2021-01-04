@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-import axios from "axios"
 
 //디자인
 import Header, { CreatorIntro, QAList, CloseBeta, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo, Graph } from '../Style'
@@ -195,17 +194,14 @@ export default function Creator() {
     const [monSubs, setMonSubs] = useState([])
     const [index, setIndex] = useState()
     async function CreatorData() {
-        const url = 'http://15.165.240.32:8000/v0/beta';
+        const url = 'http://15.165.240.32:8000/v0/beta/';
 
-        await axios.get(url, {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": true,
-                "Content-type": "application/json"
-            }
-        }).then(res => {
-            setIndex(res.data)
+        await fetch(url).then(res => {
+            return res.json()
+        }).then(data => {
+            setIndex(data)
         })
+        console.log(channelTitle)
         console.log(index)
         var count = 0;
         var objtype;
@@ -252,7 +248,7 @@ export default function Creator() {
         }
 
         var now = new Date().getDate()
-        console.log(now)
+        console.log("날짜는" + now)
         if (now === 9) {
             setViews(VIEWS.slice(0, -12))
             setMonViews(monthView.slice(0, -12))
