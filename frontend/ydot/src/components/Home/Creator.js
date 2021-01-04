@@ -152,19 +152,20 @@ export default function Creator() {
     const [fundingTotal, setFundingTotal] = useState(0)
     const [fundingDead, setFundingDead] = useState(0)
     const [ongoing, setOngoing] = useState(false)
-    const [pv, setPv] = useState(0)
-    const [view, setView] = useState(0)
-    const [grow, setGrow] = useState(0)
-    const [share, setShare] = useState(0)
-    const [channelTitle, setChannelTitle] = useState("")
-    const [sort, setSort] = useState("")
-    const [name, setName] = useState("")
-    const [sector, setSector] = useState("")
-    const [popular, setPopular] = useState("")
-    const [main, setMain] = useState("")
+    const [pv,setPv]=useState(0)
+    const [view,setView]=useState(0)
+    const [grow,setGrow]=useState(0)
+    const [share,setShare]=useState(0)
+    const [channelTitle,setChannelTitle]=useState("")
+    const [sort,setSort]=useState("")
+    const [name,setName]=useState("")
+    const [sector,setSector]=useState("")
+    const [popular,setPopular]=useState("")
+    const [main,setMain]=useState("")
     function getInfo() {
         const today = new Date()
-        firestore.collection("Creator").doc(myparam).get().then(doc => {
+
+        firestore.collection("Creator").doc(myparam).onSnapshot(doc => {
             setFundingAim(doc.data().FundingAim)
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
@@ -201,24 +202,17 @@ export default function Creator() {
     const [subs, setSubs] = useState([])
     const [monViews, setMonViews] = useState([])
     const [monSubs, setMonSubs] = useState([])
-    const [index, setIndex] = useState()
+    const [index, setIndex] = useState(0)
     async function CreatorData() {
-        await axios.get('http://15.165.240.32:8000/v0/beta', { headers: { "Access-Control-Allow-Origin": "*" } }).then(res => {
-            setIndex(res.data)
-        })
-        console.log(index)
-        var count = 0;
-        var objtype;
-        for (var k in index) {
-            console.log(k)
-            if (index[k]["channelTitle"] === channelTitle) {
-                console.log(count)
-                console.log(index[k]["channelTitle"])
-                objtype = index[count]["logData"]
-                break;
+        let res = await axios.get('http://15.165.240.32:8000/v0/beta', { headers: { "Access-Control-Allow-Origin": "*" } });
+        for (var k in res.data) {
+            console.log()
+            if (res.data[k]["channelTitle"] === channelTitle) {
+                setIndex(k)
             }
-            count = count + 1;
         }
+        let stringtype = JSON.stringify(res.data[index]["logData"])
+        let objtype = JSON.parse(stringtype)
         let VIEWS = new Array()
         let viewsDiff = new Array()
         let monthView = new Array()
@@ -293,7 +287,7 @@ export default function Creator() {
 
     useEffect(() => {
         CreatorData()
-    }, [channelTitle])
+    }, [])
 
     return (
         <div>
