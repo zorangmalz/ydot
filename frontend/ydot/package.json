@@ -40,8 +40,8 @@
     "eject": "react-scripts eject",
     "server": "nodemon ./server/server.js",
     "front" : "npm start",
-    "dev" : "concurrently \"npm run server\" \"npm run front\"",
-    "deploy": "aws s3 sync build/ s3://ydot"
+    "dev" : "concurrently \"npm run server\" \"npm run front\""
+  
   },
   "eslintConfig": {
     "extends": [

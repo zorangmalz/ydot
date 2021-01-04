@@ -1289,7 +1289,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
         firestore.collection("User").doc(uid).collection("Fund").doc(docName).set({
             DayTime: docName,
-            Money: money,
+            Money: Number(money),
             ongoing: 0,
             channel: creatorName,
             fullTime:today.getTime(),
@@ -1306,7 +1306,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         })
         await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
             wallet:wallet,
-            money:money,
+            money:Number(money),
             email:email,
             DayTime:docName,
             fullTime:today.getTime(),
