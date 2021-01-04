@@ -62,6 +62,15 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://ydot-23a93.firebaseapp.com/",
+    "http://localhost:3000",
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://\w+\.firebaseapp\.com$",
+]
+
 ROOT_URLCONF = 'ydot.urls'
 
 TEMPLATES = [

@@ -962,7 +962,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                 zIndex: 7,
                 cursor: "pointer",
                 bottom: 132,
-                right: 180,
+                right: 300,
             }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
@@ -1344,7 +1344,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 zIndex: 7,
                 cursor: "pointer",
                 bottom: 132,
-                right: 180,
+                right: 300,
             }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
@@ -1528,7 +1528,7 @@ export function PopupThree({ setVisible }) {
                 zIndex: 7,
                 cursor: "pointer",
                 bottom: 132,
-                right: 180,
+                right: 300,
             }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
@@ -1792,12 +1792,12 @@ export function Graph({data}) {
                 }} />
                 <VictoryLine style={{
                     data: {
-                        stroke: "#C84429",
+                        stroke: "#e78276",
                         strokeWidth: 3,
                     },
                 }} data={data} />
                 <VictoryScatter
-                    style={{ data: { fill: "#C84429" } }}
+                    style={{ data: { fill: "#e78276" } }}
                     size={5}
                     data={data}
                     labels={({ datum }) =>
@@ -1905,12 +1905,12 @@ export function AssetGraph({data}) {
                 />
                 <VictoryLine style={{
                     data: {
-                        stroke: "#C84429",
+                        stroke: "#e78276",
                         strokeWidth: 3,
                     },
                 }} data={data} />
                 <VictoryScatter
-                    style={{ data: { fill: "#C84429" } }}
+                    style={{ data: { fill: "#e78276" } }}
                     size={5}
                     data={data}
                     labels={({ datum }) =>

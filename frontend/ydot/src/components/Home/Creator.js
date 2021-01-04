@@ -401,7 +401,7 @@ export default function Creator() {
                             zIndex: 7,
                             cursor: "pointer",
                             bottom: 132,
-                            right: 180,
+                            right: 300,
                         }}><IoIosCalculator size={60} color="#e78276" /></div>}
                         <div style={{
                             width: "56vw",

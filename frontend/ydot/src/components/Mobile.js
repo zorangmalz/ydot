@@ -1507,12 +1507,12 @@ export function MGraph({data}) {
                 }} />
                 <VictoryLine style={{
                     data: {
-                        stroke: "#C84429",
+                        stroke: "#e78276",
                         strokeWidth: 3,
                     },
                 }} data={data} />
                 <VictoryScatter
-                    style={{ data: { fill: "#C84429" } }}
+                    style={{ data: { fill: "#e78276" } }}
                     size={3}
                     data={data}
                     labels={({ datum }) =>
@@ -1619,12 +1619,12 @@ export function MAssetGraph({data}) {
                 />
                 <VictoryLine style={{
                     data: {
-                        stroke: "#C84429",
+                        stroke: "#e78276",
                         strokeWidth: 3,
                     },
                 }} data={data} />
                 <VictoryScatter
-                    style={{ data: { fill: "#C84429" } }}
+                    style={{ data: { fill: "#e78276" } }}
                     size={5}
                     data={data}
                     labels={({ datum }) =>
