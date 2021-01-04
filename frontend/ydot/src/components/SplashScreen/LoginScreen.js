@@ -46,7 +46,7 @@ async function login(){
             firebase.auth().onAuthStateChanged((user) => {
 
                 getWallet(user)
-                history.push("/home")
+                history.push("/")
             })
         })
     })
@@ -110,7 +110,7 @@ async function kas(){
                                 flexDirection: "row",
                                 alignItems: "center"
                             }}>
-                                <Link to={'/home'} style={{
+                                <Link to={"/"} style={{
                                     fontSize: 40,
                                     fontWeight: "bold",
                                     color: "#202426",

@@ -14,7 +14,7 @@ const PrivateRoute = ({ children, ...remainingProps }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/home",
+              pathname: "/",
               state: { from: location },
             }}
           />

@@ -73,7 +73,7 @@ export default function Header({ bold }) {
                     flexDirection: "row",
                     alignItems: "center"
                 }}>
-                    <Link to={'/home'} style={{
+                    <Link to={"/"} style={{
                         fontSize: 40,
                         fontWeight: "bold",
                         color: "#202426",
@@ -84,7 +84,7 @@ export default function Header({ bold }) {
                         color: "#da877a"
                     }}>.</div></Link>
                     <>
-                        <Link to={'/home'} style={{
+                        <Link to={"/"} style={{
                             fontSize: 21,
                             color: "#202426",
                             fontWeight: bold === "Home" ? "bold" : "normal",
