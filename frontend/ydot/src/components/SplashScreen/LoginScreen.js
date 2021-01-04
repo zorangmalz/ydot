@@ -44,7 +44,7 @@ async function login(){
     }).then(() => {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
             firebase.auth().onAuthStateChanged((user) => {
-                getWallet(user)
+                
                 history.push("/")
             })
         })
