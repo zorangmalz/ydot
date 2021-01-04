@@ -363,29 +363,72 @@ export function MProgressBar({ completed }) {
 };
 
 //HomeMain.js랑 Creator.js에서 많이 사용
+export function MFunding({ img, title, content }) {
+    return (
+        <>
+            <div style={{
+                width: "90vw",
+                minWidth: 300,
+                display: 'flex',
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 40,
+            }}>
+                <img src={img} style={{ width: 80, height: 80, objectFit: "contain" }} />
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                }}>
+                    <div style={{
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        marginBottom: 5,
+                        width: "60vw",
+                        minWidth: 200
+                    }}>{title}</div>
+                    <div style={{
+                        opacity: 0.8,
+                        fontSize: 12,
+                        color: "#202426",
+                        lineHeight: 1.88,
+                        letterSpacing: 0.19,
+                        width: "60vw",
+                        minWidth: 200
+                    }}>{content}</div>
+                </div>
+            </div>
+        </>
+    )
+}
+
 export function MCloseBeta({ img, title, content }) {
     return (
         <>
             <div style={{
-                display: "flex",
+                width: "90vw",
+                minWidth: 300,
+                display: 'flex',
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "flex-start",
-                marginBottom: 20,
+                justifyContent: "space-between",
+                marginBottom: 40,
             }}>
-                <img src={img} style={{ width: 80, height: 80, marginBottom: 20, objectFit: "contain" }} />
+                <img src={img} style={{ width: 80, height: 80, objectFit: "contain", marginBottom: 20, }} />
                 <div style={{
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: "bold",
                     color: "#202426",
-                    marginBottom: 10,
+                    marginBottom: 5,
                     width: "90vw",
-                    textAlign: "center",
                     minWidth: 300
                 }}>{title}</div>
                 <div style={{
                     opacity: 0.8,
-                    fontSize: 16,
+                    fontSize: 14,
                     color: "#202426",
                     lineHeight: 1.88,
                     letterSpacing: 0.19,
@@ -607,8 +650,10 @@ export function MChannelAnalysisBox({title, content, img, growth}) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                width: 85,
-                height: 85,
+                width: "28vw",
+                minWidth: 85,
+                minHeight: 85,
+                height: "28vw",
                 border: "2px solid #e78276",
                 borderRadius: 20,
                 paddingTop: 10
@@ -650,8 +695,10 @@ export function MChannelAnalysisBoxTwo({title, content, img, growth}) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                width: 140,
-                height: 85,
+                width: "43vw",
+                minWidth: 140,
+                minHeight: 85,
+                height: "28vw",
                 border: "2px solid #e78276",
                 borderRadius: 20,
                 paddingTop: 10
@@ -1399,7 +1446,7 @@ export function MGraph({data}) {
                             strokeOpacity: 0.4,
                         },
                         tickLabels: {
-                            fontSize: 10,
+                            fontSize: 8,
                             fill: "#202426",
                             fillOpacity: 0.4,
                             fontWeight: "bold"
@@ -1411,27 +1458,27 @@ export function MGraph({data}) {
                             if (date.getMonth() === 1) {
                                 return "Jan"
                             } else if (date.getMonth() === 2) {
-                                return "Feb"
+                                return null
                             } else if (date.getMonth() === 3) {
                                 return "Mar"
                             } else if (date.getMonth() === 4) {
-                                return "Apr"
+                                return null
                             } else if (date.getMonth() === 5) {
                                 return "May"
                             } else if (date.getMonth() === 6) {
-                                return "Jun"
+                                return null
                             } else if (date.getMonth() === 7) {
                                 return "Jul"
                             } else if (date.getMonth() === 8) {
-                                return "Aug"
+                                return null
                             } else if (date.getMonth() === 9) {
                                 return "Sep"
                             } else if (date.getMonth() === 10) {
-                                return "Oct"
+                                return null
                             } else if (date.getMonth() === 11) {
                                 return "Nov"
                             } else if (date.getMonth() === 12) {
-                                return "Dec"
+                                return null
                             }
                         }
                     }

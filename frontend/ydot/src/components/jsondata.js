@@ -8,7 +8,7 @@ export default function Data() {
         console.log(res.data[0]["logData"])
         let stringtype = JSON.stringify(res.data[0]["logData"])
         let objtype = JSON.parse(stringtype)
-        let SUBS = new Array([])
+        let SUBS = new Array()
         
         for (var k in objtype) {
             SUBS.push({x: k, y: objtype[k].subs})

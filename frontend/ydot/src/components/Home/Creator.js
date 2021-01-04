@@ -7,7 +7,7 @@ import axios from "axios"
 
 //디자인
 import Header, { CreatorIntro, QAList, CloseBeta, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo, Graph } from '../Style'
-import { MHeader, MHashTag, MCloseBeta, MQAList, MChannelAnalysisBox, MChannelAnalysisBoxTwo, MCreatorIntro, MPopupOne, MPopupTwo, MPopupThree, MGraph } from '../Mobile'
+import { MHeader, MHashTag, MFunding, MQAList, MChannelAnalysisBox, MChannelAnalysisBoxTwo, MCreatorIntro, MPopupOne, MPopupTwo, MPopupThree, MGraph } from '../Mobile'
 
 //아이콘
 import { BiHeart } from 'react-icons/bi'
@@ -198,20 +198,96 @@ export default function Creator() {
 
 
     //그래프
-    const data = [
-        { x: "2020-01", y: 43 },
-        { x: "2020-02", y: 44 },
-        { x: "2020-03", y: 47 },
-        { x: "2020-04", y: 51 },
-        { x: "2020-05", y: 57 },
-        { x: "2020-06", y: 62 },
-        { x: "2020-07", y: 67 },
-        { x: "2020-08", y: 68 },
-        { x: "2020-09", y: 63 },
-        { x: "2020-10", y: 54 },
-        { x: "2020-11", y: 47 },
-        { x: "2020-12", y: 42 }
-    ];
+    const [views, setViews] = useState([])
+    const [subs, setSubs] = useState([])
+    const [monViews, setMonViews] = useState([])
+    const [monSubs, setMonSubs] = useState([])
+    const [index, setIndex] = useState(0)
+    async function CreatorData() {
+        let res = await axios.get('http://15.165.240.32:8000/v0/beta', { headers: { "Access-Control-Allow-Origin": "*" } });
+        for (var k in res.data) {
+            console.log()
+            if (res.data[k]["channelTitle"] === channelTitle) {
+                setIndex(k)
+            }
+        }
+        let stringtype = JSON.stringify(res.data[index]["logData"])
+        let objtype = JSON.parse(stringtype)
+        let VIEWS = new Array()
+        let viewsDiff = new Array()
+        let monthView = new Array()
+        let SUBS = new Array()
+        let subsDiff = new Array()
+        let monthSubs = new Array()
+        
+        for (var k in objtype) {
+            VIEWS.push({x: k, y: objtype[k].views})
+            viewsDiff.push(objtype[k].views)
+            SUBS.push({x: k, y: objtype[k].subs})
+            subsDiff.push(objtype[k].subs)
+        }
+
+        function diff(arr) {
+            var month = new Array()
+            month.push(0)
+            arr.forEach(function (item, index, arr2) {
+                month.push(arr2[index+1] - item)
+            });
+            return month
+        }
+
+        var a = diff(viewsDiff)
+        var b = diff(subsDiff)
+        var count = 0
+        for (var k in objtype) {
+            monthView.push({x: k, y: a[count]})
+            monthSubs.push({x: k, y: b[count]})
+            count = count + 1
+        }
+
+        var now = new Date().getDate()
+        console.log(now)
+        if (now === 9) {
+            setViews(VIEWS.slice(0, -12))
+            setMonViews(monthView.slice(0, -12))
+            setSubs(SUBS.slice(0, -12))
+            setMonSubs(monthSubs.slice(0, -12))
+        } else if (now === 10) {
+            setViews(VIEWS.slice(0, -10))
+            setMonViews(monthView.slice(0, -10))
+            setSubs(SUBS.slice(0, -10))
+            setMonSubs(monthSubs.slice(0, -10))
+        } else if (now === 11) {
+            setViews(VIEWS.slice(0, -8))
+            setMonViews(monthView.slice(0, -8))
+            setSubs(SUBS.slice(0, -8))
+            setMonSubs(monthSubs.slice(0, -8))
+        } else if (now === 12) {
+            setViews(VIEWS.slice(0, -6))
+            setMonViews(monthView.slice(0, -6))
+            setSubs(SUBS.slice(0, -6))
+            setMonSubs(monthSubs.slice(0, -6))
+        } else if (now === 13) {
+            setViews(VIEWS.slice(0, -4))
+            setMonViews(monthView.slice(0, -4))
+            setSubs(SUBS.slice(0, -4))
+            setMonSubs(monthSubs.slice(0, -4))
+        } else if (now === 14) {
+            setViews(VIEWS.slice(0, -2))
+            setMonViews(monthView.slice(0, -2))
+            setSubs(SUBS.slice(0, -2))
+            setMonSubs(monthSubs.slice(0, -2))
+        } else {
+            setViews(VIEWS)
+            setMonViews(monthView)
+            setSubs(SUBS)
+            setMonSubs(monthSubs)
+        }
+    }
+
+    useEffect(() => {
+        CreatorData()
+    }, [])
 
     return (
         <div>
@@ -910,7 +986,7 @@ export default function Creator() {
                                     flexDirection: "column",
                                     alignItems: "center",
                                     paddingTop: 40,
-                                    paddingBottom: 80
+                                    paddingBottom: 200
                                 }}>
                                     <div style={{
                                         fontSize: 24,
@@ -925,28 +1001,28 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>누적 조회수</div>
-                                    <Graph data={data} />
+                                    <Graph data={views} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>누적 구독자</div>
-                                    <Graph data={data} />
+                                    <Graph data={subs} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>월별 조회수 획득</div>
-                                    <Graph data={data} />
+                                    <Graph data={monViews} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>월별 구독자 획득</div>
-                                    <Graph data={data} />
+                                    <Graph data={monSubs} />
                                 </div>
                             </>
                         }
@@ -1298,22 +1374,22 @@ export default function Creator() {
                                         flexDirection: "column",
                                         alignItems: "center",
                                     }}>
-                                        <MCloseBeta
+                                        <MFunding
                                             img={analytics}
                                             title={"채널 수익의 "+share+"% 분배"}
                                             content={"6개월간 채널수익의 "+share+"%를 리워드로 수령하는 조건으로 진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"}
                                         />
-                                        <MCloseBeta
+                                        <MFunding
                                             img={barchart}
                                             title={"월 "+grow+"%의 평균 성장률"}
                                             content={"해당 펀딩 금액은 월 "+grow+"%의 성장을 가정해 산정되었습니다. 성장률에 따른 예상 리워드를 확인해 보세요"}
                                         />
-                                        <MCloseBeta
+                                        <MFunding
                                             img={vlog}
                                             title={sector}
                                             content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
-                                        <MCloseBeta
+                                        <MFunding
                                             img={risk}
                                             title="리워드는 유동적입니다."
                                             content="크리에이터 채널에 대한 투자는 원금손실 가능성이 있습니다.
@@ -1650,6 +1726,7 @@ export default function Creator() {
                                             flexDirection: "row",
                                             alignItems: "center",
                                             justifyContent: "space-between",
+                                            marginTop: 10,
                                             marginBottom: 10,
                                         }}>
                                             <MChannelAnalysisBox title="일일 조회수  획득" content="123,123,123" img={true} growth={true} />
@@ -1691,7 +1768,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>누적 조회수</div>
-                                    <MGraph data={data} />
+                                    <MGraph data={views} />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
@@ -1699,7 +1776,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>누적 구독자</div>
-                                    <MGraph data={data} />
+                                    <MGraph data={subs} />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
@@ -1707,7 +1784,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>월별 조회수 획득</div>
-                                    <MGraph data={data} />
+                                    <MGraph data={monViews} />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
@@ -1715,7 +1792,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>월별 구독자 획득</div>
-                                    <MGraph data={data} />
+                                    <MGraph data={monSubs} />
                                 </div>
                             </>
                         }

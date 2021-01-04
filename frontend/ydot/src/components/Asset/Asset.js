@@ -517,7 +517,7 @@ export default function Asset() {
                                     marginBottom: 20,
                                 }}>
                                     <div style={{ width: 300 }}>날짜</div>
-                                    <div style={{ width: 300, textAlign: "center" }}>이름</div>
+                                    <div style={{ width: 300,  textAlign: "center" }}>이름</div>
                                     <div style={{ width: 100, marginLeft: 200 }}>배당</div>
                                 </div>
                             </div>
@@ -542,8 +542,8 @@ export default function Asset() {
                                         marginBottom: 10,
                                     }}>
                                         <div style={{ width: 300 }}>{element.dayTime}</div>
-                                        <div style={{ width: 300, textAlign: "center" }}>{element.name}</div>
-                                        <div style={{ width: 100, fontWeight: "bold", marginLeft: 200 }}>{element.actual}</div>
+                                        <div style={{ width: 300, marginLeft: 100 }}>{element.name}</div>
+                                        <div style={{ width: 130, fontWeight: "bold", marginRight: 70, textAlign: "right" }}>{element.actual}</div>
                                     </div>
                                 )}
                                 <div style={{
@@ -588,8 +588,8 @@ export default function Asset() {
                                     <div style={{ width: 200 }}>날짜</div>
                                     <div style={{ width: 200 }}>이름</div>
                                     <div style={{ width: 150 }}>수량</div>
-                                    <div style={{ width: 150 }}>개당 가격</div>
-                                    <div style={{ width: 200 }}>펀딩 금액</div>
+                                    <div style={{ width: 100, marginRight: 50 }}>개당 가격</div>
+                                    <div style={{ width: 150, marginRight: 50 }}>펀딩 금액</div>
                                     <div style={{ width: 100 }}>상태</div>
                                 </div>
                             </div>
@@ -618,8 +618,8 @@ export default function Asset() {
                                         <div style={{ width: 200 }}>{element.date}</div>
                                         <div style={{ width: 200 }}>{element.name}</div>
                                         <div style={{ width: 150 }}>{element.amount}</div>
-                                        <div style={{ width: 150 }}>{element.price} 원</div>
-                                        <div style={{ width: 200 }}>{element.total} 원</div>
+                                        <div style={{ width: 100, marginRight: 50, textAlign: "right" }}>{element.price} 원</div>
+                                        <div style={{ width: 150, marginRight: 50, textAlign: "right" }}>{element.total} 원</div>
                                         {element.hash ? 
                                         <a href={element.hash} target="_blank">
                                         <div style={{ width: 100}}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
@@ -1077,9 +1077,9 @@ export default function Asset() {
                                     marginTop: 20,
                                     marginBottom: 10,
                                 }}>
-                                    <div style={{ width: 100, textAlign: "center" }}>날짜</div>
+                                    <div style={{ width: 100, textAlign: "left" }}>날짜</div>
                                     <div style={{ width: 100, textAlign: "center" }}>이름</div>
-                                    <div style={{ width: 100, textAlign: "center" }}>배당</div>
+                                    <div style={{ width: 100, textAlign: "right" }}>배당</div>
                                 </div>
                             </div>
                             <div style={{
@@ -1098,9 +1098,9 @@ export default function Asset() {
                                         color: "#161513",
                                         marginBottom: 5,
                                     }}>
-                                        <div style={{ width: 100, textAlign: "center" }}>{element.dayTime}</div>
+                                        <div style={{ width: 100, textAlign: "left" }}>{element.dayTime}</div>
                                         <div style={{ width: 100, textAlign: "center" }}>{element.name}</div>
-                                        <div style={{ width: 100, fontWeight: "bold", textAlign: "center" }}>{element.actual}</div>
+                                        <div style={{ width: 100, fontWeight: "bold", textAlign: "right" }}>{element.actual}</div>
                                     </div>
                                 )}
                                 <div style={{
@@ -1142,12 +1142,12 @@ export default function Asset() {
                                     marginTop: 20,
                                     marginBottom: 10,
                                 }}>
-                                    <div style={{ width: 50, textAlign: "center" }}>날짜</div>
+                                    <div style={{ width: 50, textAlign: "left" }}>날짜</div>
                                     <div style={{ width: 60, textAlign: "center" }}>이름</div>
                                     <div style={{ width: 50, textAlign: "center" }}>수량</div>
                                     <div style={{ width: 50, textAlign: "center" }}>개당 가격</div>
                                     <div style={{ width: 60, textAlign: "center" }}>펀딩 금액</div>
-                                    <div style={{ width: 40, textAlign: "center" }}>상태</div>
+                                    <div style={{ width: 40, textAlign: "right" }}>상태</div>
                                 </div>
                             </div>
                             <div style={{
@@ -1172,17 +1172,17 @@ export default function Asset() {
                                         color: "#161513",
                                         marginBottom: 20,
                                     }}>
-                                        <div style={{ width: 50, textAlign: "center" }}>{element.date}</div>
+                                        <div style={{ width: 50, textAlign: "left" }}>{element.date}</div>
                                         <div style={{ width: 60, textAlign: "center" }}>{element.name}</div>
                                         <div style={{ width: 50, textAlign: "center" }}>{element.amount}</div>
-                                        <div style={{ width: 50, textAlign: "center" }}>{element.price} 원</div>
-                                        <div style={{ width: 60, textAlign: "center" }}>{element.total} 원</div>
+                                        <div style={{ width: 50, textAlign: "right" }}>{element.price} 원</div>
+                                        <div style={{ width: 60, textAlign: "right" }}>{element.total} 원</div>
                                         {element.hash ?
                                          <a href={element.hash} target="_blank">
-                                         <div style={{ width: 40, textAlign: "center" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                         <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
                                      </a>
                                         :
-                                        <div style={{ width: 40, textAlign: "center" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                        <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
                                      }
                                        
                                     </div>

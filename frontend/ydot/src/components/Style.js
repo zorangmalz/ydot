@@ -89,6 +89,7 @@ export default function Header({ bold }) {
                             color: "#202426",
                             fontWeight: bold === "Home" ? "bold" : "normal",
                             marginRight: 40,
+                            opacity: bold === "Home" ? 1 : 0.6,
                             textDecorationLine: "none",
                         }}>Home</Link>
                         <Link to={'/fund'} style={{
@@ -96,6 +97,7 @@ export default function Header({ bold }) {
                             color: "#202426",
                             fontWeight: bold === "Fund" ? "bold" : "normal",
                             marginRight: 40,
+                            opacity: bold === "Fund" ? 1 : 0.6,
                             textDecorationLine: "none",
                         }}>펀딩하기</Link>
                         <div onClick={getInfo} style={{
@@ -104,6 +106,7 @@ export default function Header({ bold }) {
                             color: "#202426",
                             fontWeight: bold === "Asset" ? "bold" : "normal",
                             marginRight: 40,
+                            opacity: bold === "Asset" ? 1 : 0.6,
                             textDecorationLine: "none",
                         }}>내 자산</div>
                     </>
@@ -470,16 +473,7 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sect
     }
     return (
         <>
-            <div onClick={move} style={{
-                width: 235,
-                height: 302,
-                borderRadius: 20,
-                border: "1px solid #D2D3D3",
-                backgroundColor: "#ffffff",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-            }}>
+            <div onClick={move} className="creator-info">
                 <img src={img} style={{
                     width: 235,
                     height: 120,
@@ -1757,27 +1751,27 @@ export function Graph({data}) {
                             if (date.getMonth() === 1) {
                                 return "Jan"
                             } else if (date.getMonth() === 2) {
-                                return "Feb"
+                                return null
                             } else if (date.getMonth() === 3) {
                                 return "Mar"
                             } else if (date.getMonth() === 4) {
-                                return "Apr"
+                                return null
                             } else if (date.getMonth() === 5) {
                                 return "May"
                             } else if (date.getMonth() === 6) {
-                                return "Jun"
+                                return null
                             } else if (date.getMonth() === 7) {
                                 return "Jul"
                             } else if (date.getMonth() === 8) {
-                                return "Aug"
+                                return null
                             } else if (date.getMonth() === 9) {
                                 return "Sep"
                             } else if (date.getMonth() === 10) {
-                                return "Oct"
+                                return null
                             } else if (date.getMonth() === 11) {
                                 return "Nov"
                             } else if (date.getMonth() === 12) {
-                                return "Dec"
+                                return null
                             }
                         }
                     }
@@ -1788,7 +1782,7 @@ export function Graph({data}) {
                         strokeOpacity: 0.4,
                     },
                     tickLabels: {
-                        fontSize: 14,
+                        fontSize: 10,
                         fill: "#202426",
                         fillOpacity: 0.4,
                         fontWeight: "bold"
