@@ -289,7 +289,7 @@ async function kas(){
                                 color: "#202426",
                                 marginBottom: 40
                             }}>로그인</div>
-                            <input id="MID" style={{
+                            <input id="DID" style={{
                                 borderTop: 0,
                                 borderLeft: 0,
                                 borderRight: 0,
@@ -304,7 +304,7 @@ async function kas(){
                                 paddingBottom: 4,
                                 marginBottom: 20
                             }} placeholder="아이디" />
-                            <input id="MPASS" type="password" style={{
+                            <input id="DPASS" type="password" style={{
                                 borderTop: 0,
                                 borderLeft: 0,
                                 borderRight: 0,
@@ -333,7 +333,7 @@ async function kas(){
                                 alignSelf: "flex-end",
                                 marginBottom: 10
                             }} value="비밀번호를 잊으셨나요?" />
-                            <input type="button" style={{
+                            <input onClick={login} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,
