@@ -122,7 +122,7 @@ export default function Header({ bold }) {
     )
 }
 
-export function TopBanner() {
+export function TopBanner({img, title, content, num, backgroundColor}) {
     return (
         <>
             <div style={{
@@ -133,7 +133,7 @@ export function TopBanner() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                backgroundColor: "#202426"
+                backgroundColor: backgroundColor
             }}>
                 {/* vlog 리영자 디자인 */}
                 {/* <img src={topbanner} height="418" style={{objectFit: "cover", minWidth: 1060}} />
@@ -147,7 +147,7 @@ export function TopBanner() {
                     alignItems: "flex-end",
                     justifyContent: "flex-end",
                 }}>
-                    <img src={bannericon} style={{
+                    <img src={img} style={{
                         width: 400,
                         objectFit: "contain",
                     }} />
@@ -155,7 +155,7 @@ export function TopBanner() {
                 <div style={{
                    position: "absolute",
                    zIndex: 2,
-                   top: 224,
+                   top: 144,
                    width: "56vw",
                    minWidth: 1060,
                    display: "flex",
@@ -163,46 +163,52 @@ export function TopBanner() {
                    alignItems: "flex-start",
                 }}>
                     <div style={{
+                        width: 445,
+                        fontWeight: "bold",
                         fontSize: 24,
                         color: "#ffffff",
                         marginBottom: 20,
-                    }}>크리에이터 크라우드 펀딩 플랫폼</div>
+                    }}>{title}</div>
                     <div style={{
+                        width: 510,
                         fontSize: 36,
                         fontWeight: "bold",
                         color: "#ffffff",
-                        marginBottom: 20,
-                    }}>Y.은 무슨 서비스인지 알아볼까요?</div>
+                    }}>{content}</div>
+                </div>
+                <div style={{
+                    position: "absolute",
+                    zIndex: 2,
+                    bottom: 27,
+                    width: "56vw",
+                    minWidth: 1060,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                }}>
                     <div style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                    }}>
-                        <div style={{
-                            width: 20,
-                            color: "#ffffff",
-                            cursor: "pointer",
-                            fontSize: 26,
-                            marginRight: 4,
-                            fontWeight: "bold",
-                            opacity: 0.6,
-                        }}>{"<"}</div>
-                        <div style={{
-                            color: "#ffffff",
-                            fontSize: 24,
-                            marginRight: 4,
-                            opacity: 0.6,
-                        }}>5/6</div>
-                        <div style={{
-                            width: 20,
-                            color: "#ffffff",
-                            cursor: "pointer",
-                            fontSize: 26,
-                            marginRight: 4,
-                            fontWeight: "bold",
-                            opacity: 0.6,
-                        }}>{">"}</div>
-                    </div>
+                        width: 20,
+                        color: "#ffffff",
+                        cursor: "pointer",
+                        fontSize: 26,
+                        fontWeight: "bold",
+                        opacity: 0.6,
+                    }}>{"<"}</div>
+                    <div style={{
+                        color: "#ffffff",
+                        fontSize: 24,
+                        marginRight: 10,
+                        marginLeft: 10,
+                        opacity: 0.6,
+                    }}>{num}/6</div>
+                    <div style={{
+                        width: 20,
+                        color: "#ffffff",
+                        cursor: "pointer",
+                        fontSize: 26,
+                        fontWeight: "bold",
+                        opacity: 0.6,
+                    }}>{">"}</div>
                 </div>
             </div>
         </>

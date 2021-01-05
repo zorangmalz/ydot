@@ -158,7 +158,7 @@ export function MHeader({ bold }) {
     )
 }
 
-export function MTopBanner() {
+export function MTopBanner({img, title, content, num, backgroundColor}) {
     return (
         <>
             <div style={{
@@ -168,7 +168,7 @@ export function MTopBanner() {
                 position: "relative",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "#202426"
+                backgroundColor: backgroundColor
             }}>
                 {/* <img src={topbanner} height="250" style={{ objectFit: "cover", minWidth: 300 }} />
                 <div style={{ position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 300, height: 250, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))" }} /> */}
@@ -184,7 +184,7 @@ export function MTopBanner() {
                     alignItems: "flex-end",
                     justifyContent: "flex-end",
                 }}>
-                    <img src={bannericon} style={{
+                    <img src={img} style={{
                         height: 180,
                         objectFit: "contain",
                     }} />
@@ -205,14 +205,14 @@ export function MTopBanner() {
                         color: "#ffffff",
                         marginBottom: 10,
                         maxWidth: 200,
-                    }}>크리에이터 크라우드 펀딩 플랫폼</div>
+                    }}>{title}</div>
                     <div style={{
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: "bold",
                         color: "#ffffff",
                         marginBottom: 10,
-                        maxWidth: 200,
-                    }}>Y.은 무슨 서비스인지 알아볼까요?</div>
+                        width: "60vw",
+                    }}>{content}</div>
                     <div style={{
                         display: "flex",
                         flexDirection: "row",
@@ -235,7 +235,7 @@ export function MTopBanner() {
                             fontSize: 14,
                             marginRight: 4,
                             opacity: 0.6,
-                        }}>5/6</div>
+                        }}>{num}/6</div>
                         <div style={{
                             width: 20,
                             textAlign: "center",
@@ -281,23 +281,23 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
                     borderTopRightRadius: 10
                 }} />
                 <div style={{
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight: "bold",
                     color: "#161513",
                     marginTop: 10,
                     width: 120,
                 }}>{name}</div>
                 <div style={{
-                    fontSize: 12,
+                    fontSize: 10,
                     color: "#161513",
-                    marginTop: 5,
+                    marginTop: 7,
                     width: 120,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 14 }}>{fundingAim}</div> 원 펀딩</div>
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 12 }}>{fundingAim}</div> 원 펀딩</div>
                 <div style={{
-                    fontSize: 12,
+                    fontSize: 10,
                     color: "#202426",
-                    marginTop: 5,
-                    marginBottom: 5,
+                    marginTop: 7,
+                    marginBottom: 7,
                     width: 120,
                     fontWeight: "bold",
                 }}>{percent.toFixed(0)}% | D-{Deadline}</div>
@@ -306,21 +306,23 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: 5,
-                    fontSize: 10,
+                    marginTop: 7,
+                    fontSize: 8,
                     fontWeight: "normal",
                     color: "#161513",
-                    width: 120,
+                    width: 130,
                 }}>
                     <div style={{
                         border: "1px solid #202426",
-                        padding: "2px 4px",
+                        padding: "1.5px 3px",
+                        fontSize: 8,
                         borderRadius: 20,
                         marginRight: 4,
                     }}># {sector}</div>
                     <div style={{
+                        fontSize: 8,
                         border: "1px solid #202426",
-                        padding: "2px 4px",
+                        padding: "1.5px 3px",
                         borderRadius: 20,
                     }}># {sort}</div>
                 </div>

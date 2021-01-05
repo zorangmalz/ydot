@@ -1113,22 +1113,29 @@ export default function Asset() {
                                 backgroundColor: "#ffffff",
                                 paddingTop: 10,
                             }}>
-                                {itemsss.map(element =>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        width: "100%",
-                                        fontSize: 12,
-                                        color: "#161513",
-                                        marginBottom: 5,
-                                    }}>
-                                        <div style={{ width: 100, textAlign: "left" }}>{element.dayTime}</div>
-                                        <div style={{ width: 100, textAlign: "center" }}>{element.name}</div>
-                                        <div style={{ width: 100, fontWeight: "bold", textAlign: "right" }}>{element.actual}</div>
-                                    </div>
-                                )}
+                                <div style={{
+                                    width: "100%",
+                                    minHeight: "24vh",
+                                    display: "flex",
+                                    flexDirection: "column"
+                                }}>
+                                    {itemsss.map(element =>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            width: "100%",
+                                            fontSize: 12,
+                                            color: "#161513",
+                                            marginBottom: 5,
+                                        }}>
+                                            <div style={{ width: 100, textAlign: "left" }}>{element.dayTime}</div>
+                                            <div style={{ width: 100, textAlign: "center" }}>{element.name}</div>
+                                            <div style={{ width: 100, fontWeight: "bold", textAlign: "right" }}>{element.actual}</div>
+                                        </div>
+                                    )}
+                                </div>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",
@@ -1184,35 +1191,41 @@ export default function Asset() {
                             <div style={{
                                 width: "90vw",
                                 backgroundColor: "#ffffff",
-                                minHeight: "50vh",
                                 marginTop: 10
                             }}>
-                                {items.map(element =>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        fontSize: 12,
-                                        width: "100%",
-                                        color: "#161513",
-                                        marginBottom: 20,
-                                    }}>
-                                        <div style={{ width: 50, textAlign: "left" }}>{element.date}</div>
-                                        <div style={{ width: 60, textAlign: "center" }}>{element.name}</div>
-                                        <div style={{ width: 50, textAlign: "center" }}>{element.amount}</div>
-                                        <div style={{ width: 50, textAlign: "right" }}>{element.price} 원</div>
-                                        <div style={{ width: 60, textAlign: "right" }}>{element.total} 원</div>
-                                        {element.hash ?
-                                         <a href={element.hash} target="_blank">
-                                         <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
-                                     </a>
-                                        :
-                                        <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
-                                     }
-                                       
-                                    </div>
-                                )}
+                                <div style={{
+                                    width: "100%",
+                                    minHeight: "24vh",
+                                    display: "flex",
+                                    flexDirection: "column"
+                                }}>
+                                    {items.map(element =>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            fontSize: 12,
+                                            width: "100%",
+                                            color: "#161513",
+                                            marginBottom: 20,
+                                        }}>
+                                            <div style={{ width: 50, textAlign: "left" }}>{element.date}</div>
+                                            <div style={{ width: 60, textAlign: "center" }}>{element.name}</div>
+                                            <div style={{ width: 50, textAlign: "center" }}>{element.amount}</div>
+                                            <div style={{ width: 50, textAlign: "right" }}>{element.price} 원</div>
+                                            <div style={{ width: 60, textAlign: "right" }}>{element.total} 원</div>
+                                            {element.hash ?
+                                                <a href={element.hash} target="_blank">
+                                                    <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                                </a>
+                                                :
+                                                <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                            }
+
+                                        </div>
+                                    )}
+                                </div>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",
