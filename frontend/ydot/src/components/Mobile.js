@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux";
 import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie } from "victory"
+import HSBar from "react-horizontal-stacked-bar-chart";
 
 //css
 import "./component.css"
@@ -460,7 +461,7 @@ export function MBottomTag() {
     return (
         <>
             <div style={{
-                width: "100vw",
+                maxWidth: "100vw",
                 minWidth: 300,
                 backgroundColor: "#ffffff",
                 paddingTop: 20,
@@ -1611,6 +1612,118 @@ export function MAssetPie({ data }) {
                     }
                 }}
             />
+        </div>
+    )
+}
+
+
+export function MInvestDashboard({ rank, name, total, accumulate }) {
+    const [detail, setDetail] = useState(false)
+    const data = [
+        {
+            name: "iu",
+            value: 80,
+            color: "#205072"
+        },
+        {
+            name: "Paid",
+            value: 200,
+            color: "#F8C78D"
+        }
+    ]
+    useEffect(() => {
+        if (rank === 1) {
+            setDetail(true)
+        }
+    }, [])
+    return (
+        <div style={{
+            borderBottom: "1px solid #D2D3D3",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingTop: 10,
+            paddingBottom: 10,
+        }}>
+            <div style={{
+                width: 300,
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                height: 20,
+                fontSize: 10,
+            }}>
+                <div style={{
+                    width: 30,
+                    marginLeft: 5,
+                    fontWeight: rank < 5 ? "bold" : "normal",
+                    color: rank < 5 ? "#e78276" : "#202426",
+                }}>{rank}</div>
+                <div style={{
+                    width: 60,
+                    marginLeft: 5,
+                    fontWeight: "bold",
+                    color: "#202426"
+                }}>{name}</div>
+                <div style={{
+                    width: 60,
+                    marginLeft: 5,
+                    color: "#202426"
+                }}>{total}</div>
+                <div style={{
+                    width: 50,
+                    marginLeft: 5,
+                    fontWeight: "bold",
+                    color: "#e78276"
+                }}>{accumulate}</div>
+                <div onClick={() => setDetail(!detail)} style={{
+                    width: 50,
+                    marginLeft: 5,
+                    textDecorationLine: "underline",
+                    cursor: "pointer"
+                }}>{detail ? "접기" : "자세히"}</div>
+            </div>
+            {detail ?
+                <>
+                    <div style={{
+                        width: 260,
+                        height: 15,
+                        borderRadius: 14,
+                        marginTop: 10,
+                        marginBottom: 5,
+                    }}>
+                        <HSBar 
+                            height={15}
+                            data={data}
+                        />
+                    </div>
+                    <div className="mobile-ranking-grid-container">
+                            {data.map(ele => 
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}>
+                                    <div style={{
+                                        width: 8,
+                                        height: 8,
+                                        borderRadius: 4,
+                                        marginRight: 8,
+                                        backgroundColor: ele.color,
+                                    }} />
+                                    <div style={{
+                                        fontSize: 10,
+                                        color: "#161513"
+                                    }}>{ele.name} {ele.value}</div>
+                                </div>
+                            )}
+                    </div>
+                </>
+                :
+                <></>
+            }
         </div>
     )
 }

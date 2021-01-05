@@ -6,6 +6,8 @@ import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie, VictorySharedEvents, VictoryLabel } from "victory"
 import firebase from "firebase"
+import HSBar from "react-horizontal-stacked-bar-chart";
+
 //css
 import "./component.css"
 
@@ -1625,7 +1627,6 @@ export function BottomTag() {
                     <input type="button" style={{
                         fontSize: 18,
                         color: "#202426",
-                        cursor: "pointer",
                         outline: 0,
                         backgroundColor: "#ffffff",
                         border: 0,
@@ -1634,7 +1635,6 @@ export function BottomTag() {
                     <input type="button" style={{
                         fontSize: 18,
                         color: "#202426",
-                        cursor: "pointer",
                         outline: 0,
                         backgroundColor: "#ffffff",
                         border: 0,
@@ -1643,7 +1643,6 @@ export function BottomTag() {
                     <input type="button" style={{
                         fontSize: 18,
                         color: "#202426",
-                        cursor: "pointer",
                         outline: 0,
                         backgroundColor: "#ffffff",
                         border: 0,
@@ -1653,7 +1652,6 @@ export function BottomTag() {
                         fontSize: 18,
                         fontWeight: "bold",
                         color: "#202426",
-                        cursor: "pointer",
                         outline: 0,
                         backgroundColor: "#ffffff",
                         border: 0,
@@ -2089,3 +2087,4 @@ export function InvestDashboard({ rank, name, total, accumulate }) {
         </>
     )
 }
+

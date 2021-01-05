@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Header, { FAQ, CreatorInfo, GuideBox, vh, vw, CloseBeta, BottomTag, TopBanner, InvestDashboard } from '../Style'
-import { MBottomTag, MCloseBeta, MCreatorInfo, MFAQ, MHeader, MTopBanner } from '../Mobile'
+import { MBottomTag, MCloseBeta, MCreatorInfo, MFAQ, MHeader, MTopBanner, MInvestDashboard } from '../Mobile'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
@@ -208,7 +208,8 @@ export default function SplashScreen() {
                                 width: 840,
                                 display: "flex",
                                 flexDirection: "column",
-                                alignItems: "center"
+                                alignItems: "center",
+                                marginBottom: 100,
                             }}>
                                 <div style={{
                                     width: 840,
@@ -227,7 +228,12 @@ export default function SplashScreen() {
                                     <div style={{width: 140, marginLeft: 20}}>누적 리워드</div>
                                     <div style={{width: 160, marginLeft: 20}}>포트폴리오</div>
                                 </div>
-                                <InvestDashboard />
+                                <InvestDashboard 
+                                    rank={1}
+                                    name="지순's 일상"
+                                    total={300000}
+                                    accumulate={600000}
+                                />
                             </div>
                         </>
                         :
@@ -391,99 +397,146 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    <div style={{
-                        fontSize: 21,
-                        fontWeight: "bold",
-                        color: "#202426",
-                        marginBottom: 20,
-                        marginTop: 40,
-                    }}>진행중인 펀드</div>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        minWidth: 300,
-                        width: "100vw",
-                    }}>
-                        <div className="mobile-grid-container">
-                            {items.map(element =>
-                                <MCreatorInfo
-                                    img={element.img}
-                                    name={element.name}
-                                    FundingNum={element.FundingNum}
-                                    percent={element.percent}
-                                    Deadline={element.Deadline}
-                                    sort={element.sort}
-                                    sector={element.sector}
-                                    fundingAim={element.fundingAim}
+                    {now >= 5 ?
+                        <>
+                            <div style={{
+                                fontSize: 18,
+                                fontWeight: "bold",
+                                color: "#202426",
+                                marginBottom: 20,
+                                marginTop: 40,
+                            }}>리워드 Top 10</div>
+                            <div style={{
+                                width: 300,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginBottom: 50,
+                            }}>
+                                <div style={{
+                                    width: 300,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+
+                                    fontSize: 10,
+                                    opacity: 0.6,
+                                    color: "#202426",
+                                    textAlign: "left"
+                                }}>
+                                    <div style={{ width: 30, marginLeft: 5 }}>순위</div>
+                                    <div style={{ width: 60, marginLeft: 5 }}>이름</div>
+                                    <div style={{ width: 60, marginLeft: 5 }}>총 펀딩금액</div>
+                                    <div style={{ width: 50, marginLeft: 5 }}>누적 리워드</div>
+                                    <div style={{ width: 50, marginLeft: 5 }}>포트폴리오</div>
+                                </div>
+                                <MInvestDashboard
+                                    rank={1}
+                                    name="지순's 일상"
+                                    total={300000}
+                                    accumulate={600000}
                                 />
-                            )}
-                        </div>
-                    </div>
-                    <div style={{
-                        fontSize: 21,
-                        fontWeight: "bold",
-                        color: "#202426",
-                        marginBottom: 40,
-                        marginTop: 40,
-                        width: "90vw",
-                        textAlign: "center"
-                    }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
-                    <div style={{
-                        width: "100vw",
-                        minWidth: 300,
-                        backgroundColor: "#ffffff",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}>
-                        <MCloseBeta
-                            img={personalInfo}
-                            title="크리에이터 정보 확인"
-                            content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
+                            </div>
+                        </>
+                        :
+                        <>
+                            <div style={{
+                                fontSize: 21,
+                                fontWeight: "bold",
+                                color: "#202426",
+                                marginBottom: 20,
+                                marginTop: 40,
+                            }}>진행중인 펀드</div>
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                minWidth: 300,
+                                width: "100vw",
+                            }}>
+                                <div className="mobile-grid-container">
+                                    {items.map(element =>
+                                        <MCreatorInfo
+                                            img={element.img}
+                                            name={element.name}
+                                            FundingNum={element.FundingNum}
+                                            percent={element.percent}
+                                            Deadline={element.Deadline}
+                                            sort={element.sort}
+                                            sector={element.sector}
+                                            fundingAim={element.fundingAim}
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                            <div style={{
+                                fontSize: 21,
+                                fontWeight: "bold",
+                                color: "#202426",
+                                marginBottom: 40,
+                                marginTop: 40,
+                                width: "90vw",
+                                textAlign: "center"
+                            }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
+                            <div style={{
+                                width: "100vw",
+                                minWidth: 300,
+                                backgroundColor: "#ffffff",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                            }}>
+                                <MCloseBeta
+                                    img={personalInfo}
+                                    title="크리에이터 정보 확인"
+                                    content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
                     읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
                     가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
-                        />
-                        <MCloseBeta
-                            img={auction}
-                            title="크라우드 펀딩 참여"
-                            content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
+                                />
+                                <MCloseBeta
+                                    img={auction}
+                                    title="크라우드 펀딩 참여"
+                                    content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
                     각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
                     빠르게 마음에 드는 크리에이터를 선점하세요!"
-                        />
-                        <MCloseBeta
-                            img={moneyBag}
-                            title="토큰 및 리워드 수령"
-                            content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
-                        />
-                        <MCloseBeta
-                            img={feedback}
-                            title="피드백은 언제나 환영입니다!"
-                            content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
+                                />
+                                <MCloseBeta
+                                    img={moneyBag}
+                                    title="토큰 및 리워드 수령"
+                                    content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
+                                />
+                                <MCloseBeta
+                                    img={feedback}
+                                    title="피드백은 언제나 환영입니다!"
+                                    content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
                     언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
-                        />
-                    </div>
-                    <div style={{
-                        cursor: "pointer",
-                        background: "#ffffff",
-                        width: 300,
-                        height: 48,
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 16,
-                        fontWeight: "bold",
-                        textAlign: "center",
-                        verticalAlign: "center",
-                        marginTop: 44,
-                        marginBottom: 40,
-                        border: "2px solid #E78276",
-                        borderRadius: 10,
-                    }}><a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" style={{
-                        textDecorationLine: "none",
-                        color: "#E78276",
-                    }}>자세한 정보를 확인해보세요!</a></div>
+                                />
+                            </div>
+                            <div style={{
+                                cursor: "pointer",
+                                background: "#ffffff",
+                                width: 300,
+                                height: 48,
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                verticalAlign: "center",
+                                marginTop: 44,
+                                marginBottom: 40,
+                                border: "2px solid #E78276",
+                                borderRadius: 10,
+                            }}><a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" style={{
+                                textDecorationLine: "none",
+                                color: "#E78276",
+                            }}>자세한 정보를 확인해보세요!</a></div>
+                        </>
+                    }
                     <MBottomTag />
                 </div>
             </Mobile>
