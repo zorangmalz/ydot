@@ -897,7 +897,7 @@ export default function Creator() {
                                     </div>
                                 </div>
                                 {/* QA 질문 */}
-                                <div style={{
+                                {/* <div style={{
                                     width: "56vw",
                                     minWidth: 1060,
                                     paddingLeft: 110,
@@ -917,7 +917,7 @@ export default function Creator() {
                                     }}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</div>
                                     <img src={solitude} alt="나중에" style={{ width: "100%", minWidth: 1280, height: 200, marginTop: 20, marginBottom: 20 }} />
                                     {QA.map(element => <QAList title={element.title} content={element.content} />)}
-                                </div>
+                                </div> */}
                             </>
                             :
                             <>
@@ -1347,7 +1347,7 @@ export default function Creator() {
                                     backgroundColor: "#ffffff",
                                     display: "flex",
                                     flexDirection: "row",
-                                    alignItems: "center",
+                                    alignItems: "flex-end",
                                     justifyContent: "center",
                                     borderBottom: "1px solid #d2d3d3"
                                 }}>

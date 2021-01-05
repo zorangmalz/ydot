@@ -184,7 +184,8 @@ export default function Asset() {
                         <input type="button" onClick={() => setSection(true)} style={{
                             width: 200,
                             fontSize: 18,
-                            color: "#161513",
+                            color: section ? "#e78276" : "#797B7C",
+                            fontWeight: section ? "bold" : "normal",
                             textAlign: "center",
                             opacity: section ? 1 : 0.6,
                             backgroundColor: "#ffffff",
@@ -199,6 +200,8 @@ export default function Asset() {
                             width: 200,
                             fontSize: 18,
                             color: "#161513",
+                            fontWeight: section ? "normal" : "bold",
+                            color: section ? "#797B7C" : "#e78276",
                             textAlign: "center",
                             opacity: section ? 0.6 : 1,
                             backgroundColor: "#ffffff",
@@ -344,7 +347,8 @@ export default function Asset() {
                                     width: "100%",
                                     display: "flex",
                                     flexDirection: "column",
-                                    marginTop: 10
+                                    marginTop: 10,
+                                    minHeight: 200,
                                 }}>
                                     {itemsss.map(element =>
                                         <>
@@ -536,22 +540,29 @@ export default function Asset() {
                                 borderTop: "1px solid #D2D3D3",
                                 paddingTop: 20,
                             }}>
-                                {itemsss.map(element =>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        width: "100%",
-                                        fontSize: 18,
-                                        color: "#161513",
-                                        marginBottom: 10,
-                                    }}>
-                                        <div style={{ width: 300 }}>{element.dayTime}</div>
-                                        <div style={{ width: 300, marginLeft: 100 }}>{element.name}</div>
-                                        <div style={{ width: 130, fontWeight: "bold", marginRight: 70, textAlign: "right" }}>{element.actual}</div>
-                                    </div>
-                                )}
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    width: "100%",
+                                    minHeight: "24vh"
+                                }}>
+                                    {itemsss.map(element =>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            width: "100%",
+                                            fontSize: 18,
+                                            color: "#161513",
+                                            marginBottom: 10,
+                                        }}>
+                                            <div style={{ width: 300 }}>{element.dayTime}</div>
+                                            <div style={{ width: 300, marginLeft: 100 }}>{element.name}</div>
+                                            <div style={{ width: 130, fontWeight: "bold", marginRight: 70, textAlign: "right" }}>{element.actual}</div>
+                                        </div>
+                                    )}
+                                </div>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",
@@ -605,37 +616,43 @@ export default function Asset() {
                                 paddingLeft: 110,
                                 paddingRight: 110,
                                 backgroundColor: "#ffffff",
-                                minHeight: "90vh",
                                 borderTop: "1px solid #D2D3D3",
                                 paddingTop: 20,
                             }}>
-                                {items.map(element =>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        fontSize: 18,
-                                        width: "100%",
-                                        color: "#161513",
-                                        marginTop: 20,
-                                        marginBottom: 20,
-                                    }}>
-                                        <div style={{ width: 200 }}>{element.date}</div>
-                                        <div style={{ width: 200 }}>{element.name}</div>
-                                        <div style={{ width: 150 }}>{element.amount}</div>
-                                        <div style={{ width: 100, marginRight: 50, textAlign: "right" }}>{element.price} 원</div>
-                                        <div style={{ width: 150, marginRight: 50, textAlign: "right" }}>{element.total} 원</div>
-                                        {element.hash ? 
-                                        <a href={element.hash} target="_blank">
-                                        <div style={{ width: 100}}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
-                                    </a>
-                                        :
-                                        <div style={{ width: 100 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
-                                        }
-                                        
-                                    </div>
-                                )}
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    width: "100%",
+                                    minHeight: "24vh"
+                                }}>
+                                    {items.map(element =>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            fontSize: 18,
+                                            width: "100%",
+                                            color: "#161513",
+                                            marginTop: 20,
+                                            marginBottom: 20,
+                                        }}>
+                                            <div style={{ width: 200 }}>{element.date}</div>
+                                            <div style={{ width: 200 }}>{element.name}</div>
+                                            <div style={{ width: 150 }}>{element.amount}</div>
+                                            <div style={{ width: 100, marginRight: 50, textAlign: "right" }}>{element.price} 원</div>
+                                            <div style={{ width: 150, marginRight: 50, textAlign: "right" }}>{element.total} 원</div>
+                                            {element.hash ?
+                                                <a href={element.hash} target="_blank">
+                                                    <div style={{ width: 100 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
+                                                </a>
+                                                :
+                                                <div style={{ width: 100 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
+                                            }
+
+                                        </div>
+                                    )}
+                                </div>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",
@@ -646,6 +663,7 @@ export default function Asset() {
                                     color: "#202426",
                                     cursor: "pointer",
                                     marginTop: 20,
+                                    marginBottom: 40,
                                 }}>
                                     <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
                                     <div style={{ opacity: 1, marginRight: 20 }}>{Fstart + 1}</div>
@@ -682,13 +700,14 @@ export default function Asset() {
                         borderBottom: "1px solid #d2d3d3",
                         display: "flex",
                         flexDirection: "row",
-                        alignItems: "center",
+                        alignItems: "flex-end",
                         justifyContent: "center",
                     }}>
                         <input type="button" onClick={() => setSection(true)} style={{
                             width: 150,
                             fontSize: 16,
-                            color: "#161513",
+                            fontWeight: section ? "bold" : "normal",
+                            color: section ? "#e78276" : "#797B7C",
                             textAlign: "center",
                             opacity: section ? 1 : 0.6,
                             backgroundColor: "#ffffff",
@@ -702,7 +721,8 @@ export default function Asset() {
                         <input type="button" onClick={() => setSection(false)} style={{
                             width: 150,
                             fontSize: 16,
-                            color: "#161513",
+                            fontWeight: section ? "normal" : "bold",
+                            color: section ? "#797B7C" : "#e78276",
                             textAlign: "center",
                             opacity: section ? 0.6 : 1,
                             backgroundColor: "#ffffff",
