@@ -703,7 +703,7 @@ export default function Asset() {
                         alignItems: "flex-end",
                         justifyContent: "center",
                     }}>
-                        <input type="button" onClick={() => setSection(true)} style={{
+                        <input className="safari-design" type="button" onClick={() => setSection(true)} style={{
                             width: 150,
                             fontSize: 16,
                             fontWeight: section ? "bold" : "normal",
@@ -718,7 +718,7 @@ export default function Asset() {
                             paddingBottom: 10,
                             height: section ? "100%" - 2 : "100%"
                         }} value="보유자산" />
-                        <input type="button" onClick={() => setSection(false)} style={{
+                        <input className="safari-design" type="button" onClick={() => setSection(false)} style={{
                             width: 150,
                             fontSize: 16,
                             fontWeight: section ? "normal" : "bold",

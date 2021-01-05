@@ -340,12 +340,13 @@ export function MyInfo() {
                     opacity: 0.6,
                     color: "#202426",
                 }}>보유 토큰</div>
-                <div style={{
+                <div onClick={() => history.push("/asset")} style={{
                     fontSize: 12,
                     fontWeight: "bold",
                     color: "#202426",
                     marginBottom: 20,
-                    textDecorationLine: "underline"
+                    textDecorationLine: "underline",
+                    cursor: "pointer",
                 }}>
                     {leng}<div style={{ display: "inline-block", fontWeight: "normal", textDecorationLine: "underline", fontSize: 12 }}>개</div>
                 </div>

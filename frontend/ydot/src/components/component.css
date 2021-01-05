@@ -114,3 +114,7 @@
 .creator-info:hover {
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.07);
 }
+
+.safari-design {
+    -webkit-appearance: none;
+}

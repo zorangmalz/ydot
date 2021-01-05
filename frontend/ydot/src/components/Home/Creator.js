@@ -1216,8 +1216,100 @@ export default function Creator() {
                                     }}>
                                         <div style={{
                                             display: "flex",
-                                            flexDirection: "column",
+                                            flexDirection: "row",
                                             alignItems: "center",
+                                            width: "80%",
+                                        }}>
+                                            {/* 펀딩정보 */}
+                                            <div style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                width: "50%",
+                                                marginTop: 10,
+                                            }}>
+                                                <div style={{
+                                                    width: "90%",
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    alignItems: "flex-start"
+                                                }}>
+                                                    <div style={{
+                                                        fontSize: 16,
+                                                        fontWeight: "bold",
+                                                        color: "#e78276",
+                                                    }}>{fundingTotal} </div>
+                                                    <div style={{
+                                                        fontSize: 12,
+                                                        color: "#202426",
+                                                        marginTop: 5
+                                                    }}>원 펀딩</div>
+                                                </div>
+                                                <div style={{
+                                                    width: "90%",
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    alignItems: "flex-start",
+                                                    marginTop: 10
+                                                }}>
+                                                    <div style={{
+                                                        fontSize: 16,
+                                                        fontWeight: "bold",
+                                                        color: "#202426",
+                                                    }}>D-9 </div>
+                                                    <div style={{
+                                                        fontSize: 12,
+                                                        color: "#202426",
+                                                        marginTop: 5
+                                                    }}>2021/1/9 종료</div>
+                                                </div>
+                                            </div>
+                                            <div style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                width: "50%",
+                                                marginTop: 10,
+                                            }}>
+                                                <div style={{
+                                                    width: "90%",
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    alignItems: "flex-start"
+                                                }}>
+                                                    <div style={{
+                                                        fontSize: 16,
+                                                        fontWeight: "bold",
+                                                        color: "#202426",
+                                                    }}>{percentage}% </div>
+                                                    <div style={{
+                                                        fontSize: 12,
+                                                        color: "#202426",
+                                                        marginTop: 5
+                                                    }}>달성</div>
+                                                </div>
+                                                <div style={{
+                                                    width: "90%",
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    alignItems: "flex-start",
+                                                    marginTop: 10
+                                                }}>
+                                                    <div style={{
+                                                        fontSize: 16,
+                                                        fontWeight: "bold",
+                                                        color: "#202426",
+                                                    }}>{fundingAim} </div>
+                                                    <div style={{
+                                                        fontSize: 12,
+                                                        color: "#202426",
+                                                        marginTop: 5
+                                                    }}>목표</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center"
                                         }}>
                                             {/* 원형 진행 바 */}
                                             <div style={{
@@ -1270,76 +1362,6 @@ export default function Creator() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            alignItems: "center",
-                                            width: "70%",
-                                        }}>
-                                            <div style={{
-                                                display: "flex",
-                                                flexDirection: "row",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                                width: "100%",
-                                                marginTop: 10,
-                                            }}>
-                                                <div style={{
-                                                    width: "60%",
-                                                    fontSize: 18,
-                                                    fontWeight: "bold",
-                                                    color: "#e78276",
-                                                    textAlign: "right",
-                                                }}>{fundingTotal} <div style={{
-                                                    display: "inline-block",
-                                                    fontSize: 12,
-                                                    color: "#202426",
-                                                    fontWeight: "normal"
-                                                }}>원 펀딩</div></div>
-                                                <div style={{
-                                                    width: "35%",
-                                                    fontSize: 16,
-                                                    fontWeight: "bold",
-                                                    color: "#202426",
-                                                    textAlign: "right",
-                                                }}>90% <div style={{
-                                                    display: "inline-block",
-                                                    fontSize: 12,
-                                                    fontWeight: "normal"
-                                                }}>달성</div></div>
-                                            </div>
-                                            <div style={{
-                                                display: "flex",
-                                                flexDirection: "row",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                                width: "100%",
-                                                marginTop: 10,
-                                            }}>
-                                                <div style={{
-                                                    width: "60%",
-                                                    fontSize: 16,
-                                                    fontWeight: "bold",
-                                                    color: "#202426",
-                                                    textAlign: "right",
-                                                }}>D-9 <div style={{
-                                                    display: "inline-block",
-                                                    fontSize: 12,
-                                                    fontWeight: "normal"
-                                                }}>2021/1/9 종료</div></div>
-                                                <div style={{
-                                                    width: "35%",
-                                                    fontSize: 16,
-                                                    fontWeight: "bold",
-                                                    color: "#202426",
-                                                    textAlign: "right",
-                                                }}>{fundingAim} <div style={{
-                                                    display: "inline-block",
-                                                    fontSize: 12,
-                                                    fontWeight: "normal"
-                                                }}>목표</div></div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1357,7 +1379,7 @@ export default function Creator() {
                                     justifyContent: "center",
                                     borderBottom: "1px solid #d2d3d3"
                                 }}>
-                                    <input onClick={onFund} style={{
+                                    <input className="safari-design" onClick={onFund} style={{
                                         cursor: "pointer",
                                         outline: 0,
                                         backgroundColor: "#ffffff",
@@ -1370,7 +1392,7 @@ export default function Creator() {
                                         border: 0,
                                         borderBottom: infor === 0 ? "2px solid #e78276" : 0,
                                     }} type="button" value="펀딩 정보" />
-                                    <input onClick={onChannel} style={{
+                                    <input className="safari-design" onClick={onChannel} style={{
                                         cursor: "pointer",
                                         outline: 0,
                                         backgroundColor: "#ffffff",
@@ -1511,7 +1533,7 @@ export default function Creator() {
                                                 backgroundColor: "#F2F2F2",
                                                 marginBottom: 20
                                             }}>
-                                                <input type="text" placeholder="100" id="PRICE" style={{
+                                                <input type="text" placeholder="금액을 입력해주세요" id="PRICE" style={{
                                                     fontSize: 18,
                                                     color: "#202426",
                                                     border: 0,

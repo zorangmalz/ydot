@@ -331,7 +331,7 @@ async function login(){
                                 paddingBottom: 4,
                                 marginBottom: 10,
                             }} placeholder="비밀번호" />
-                            <input type="button" style={{
+                            <input className="safari-design" type="button" style={{
                                 border: 0,
                                 width: 300,
                                 fontSize: 14,
@@ -345,7 +345,7 @@ async function login(){
                                 alignSelf: "flex-end",
                                 marginBottom: 10
                             }} value="비밀번호를 잊으셨나요?" />
-                            <input onClick={login} type="button" style={{
+                            <input className="safari-design" onClick={login} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,
