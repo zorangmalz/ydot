@@ -1215,6 +1215,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 setWarn("최대"+Number(totalMoney)+"₩")
             }
         }else{
+            
             firestoreUpload()
             setVisible(false)
             setNextVisible(true)
@@ -1245,6 +1246,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     }
 
     async function firestoreUpload() {
+        const realMoney=Number(money)
         const today = new Date()
         const year = today.getFullYear();
         const month = today.getMonth() + 1
@@ -1255,7 +1257,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
         firestore.collection("User").doc(uid).collection("Fund").doc(docName).set({
             DayTime: docName,
-            Money: Number(money),
+            Money: realMoney,
             ongoing: 0,
             channel: creatorName,
             fullTime:today.getTime(),
@@ -1265,14 +1267,14 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             symbol:symbol
         })
         firestore.collection("User").doc(uid).update({
-            totalMoney:Number(totalMoney)-Number(money)
+            totalMoney:Number(totalMoney)-realMoney
         })
         await firestore.collection("Creator").doc(creatorName).update({
-            FundingTotal: Number(fundingTotal)+Number(money)
+            FundingTotal: Number(fundingTotal)+realMoney
         })
         await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
             wallet:wallet,
-            money:Number(money),
+            money:realMoney,
             email:email,
             DayTime:docName,
             fullTime:today.getTime(),
