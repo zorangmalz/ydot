@@ -1907,7 +1907,7 @@ export function AssetGraph({data}) {
                     size={5}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.x} 원`}
+                        `${datum.y} 원`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}

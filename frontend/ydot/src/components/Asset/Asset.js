@@ -33,6 +33,7 @@ export default function Asset() {
     const [itemss, setItemss] = useState([])
     const [itemsss, setItemsss] = useState([])
     const [itemssss,setItemssss]=useState([])
+    const [itemsssss,setItemsssss]=useState([])
     //nft card
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("NFT").onSnapshot(querySnapshot => {
@@ -126,6 +127,26 @@ export default function Asset() {
                 
             })
             setItemssss(list)
+        })
+    }, [])
+    //그래프용
+    useEffect(() => {
+        firestore.collection("User").doc(uid).collection("Allocate").onSnapshot(querySnapshot => {
+            const list = new Array()
+            querySnapshot.forEach(doc => {
+                const sum=doc.data().total.reduce((stack,el)=>{
+                    return stack+el
+                },0)
+
+                list.push({
+                    x:"2020-0"+doc.id,
+                    y:sum
+                })
+                
+                
+            })
+            console.log(list,"list")
+            setItemsssss(list)
         })
     }, [])
     const [monthlyAllocation,setMonthlyAllocation]=useState(0)
@@ -302,7 +323,7 @@ export default function Asset() {
                                             fontWeight: "normal",
                                             marginTop: 20,
                                         }}>월별 배당 그래프</div>
-                                        <AssetGraph data={data} />
+                                        <AssetGraph data={itemsssss} />
                                     </div>
                                     <div style={{
                                         display: "flex",
