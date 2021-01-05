@@ -2034,16 +2034,37 @@ export function Login({ setVisible }) {
 
 export function InvestDashboard({ rank, name, total, accumulate }) {
     const [detail, setDetail] = useState(false)
+    const data = [
+        {
+            name: "iu",
+            value: 80,
+            color: "#205072"
+        },
+        {
+            name: "Paid",
+            value: 200,
+            color: "#F8C78D"
+        }
+    ]
+    useEffect(() => {
+        if (rank === 1) {
+            setDetail(true)
+        }
+    }, [])
     return (
-        <>
+        <div style={{
+            borderBottom: "1px solid #D2D3D3",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingTop: 20,
+            paddingBottom: 20,
+        }}>
             <div style={{
                 width: 840,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                paddingTop: 20,
-                paddingBottom: 20,
-                borderBottom: "1px solid #D2D3D3",
                 height: 30,
                 fontSize: 21,
             }}>
@@ -2070,21 +2091,53 @@ export function InvestDashboard({ rank, name, total, accumulate }) {
                     fontWeight: "bold",
                     color: "#e78276"
                 }}>{accumulate}</div>
-                <div style={{
+                <div onClick={() => setDetail(!detail)} style={{
                     width: 160,
                     marginLeft: 20,
                     textDecorationLine: "underline",
                     cursor: "pointer"
-                }}>{detail ? "자세히" : "접기"}</div>
+                }}>{detail ? "접기" : "자세히"}</div>
             </div>
-            {detail ? 
+            {detail ?
                 <>
-
+                    <div style={{
+                        width: 620,
+                        height: 27,
+                        borderRadius: 14,
+                        marginTop: 20,
+                        marginBottom: 10,
+                    }}>
+                        <HSBar 
+                            height={27}
+                            data={data}
+                        />
+                    </div>
+                    <div className="desktop-ranking-grid-container">
+                            {data.map(ele => 
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}>
+                                    <div style={{
+                                        width: 8,
+                                        height: 8,
+                                        borderRadius: 4,
+                                        marginRight: 8,
+                                        backgroundColor: ele.color,
+                                    }} />
+                                    <div style={{
+                                        fontSize: 14,
+                                        color: "#161513"
+                                    }}>{ele.name} {ele.value}</div>
+                                </div>
+                            )}
+                    </div>
                 </>
                 :
                 <></>
             }
-        </>
+        </div>
     )
 }
 
