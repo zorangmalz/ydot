@@ -140,7 +140,7 @@ export default function Creator() {
         getInfo()
         
     }, [])
- 
+
     const [fundingAim, setFundingAim] = useState(0)
     const [fundingTotal, setFundingTotal] = useState(0)
     const [fundingDead, setFundingDead] = useState(0)
@@ -168,7 +168,12 @@ export default function Creator() {
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
             setPercentage((doc.data().FundingTotal / doc.data().FundingAim * 100).toFixed(2))
-            
+           
+            if (doc.data().Deadline < today.getTime()) {
+                setOngoing(false)
+            } else {
+                setOngoing(true)
+            }
         })
         const today = new Date()
         firestore.collection("Creator").doc(myparam).get().then(doc=>{
@@ -182,13 +187,10 @@ export default function Creator() {
             setSector(doc.data().sector)
             setMain(doc.data().mainVideo)
             setPopular(doc.data().popularVideo)
-            if (doc.data().Deadline < today.getTime()) {
-                setOngoing(false)
-            } else {
-                setOngoing(true)
-            }
-        })
+        }
+        )
     }
+    
     function calculate() {
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
         console.log(a)
