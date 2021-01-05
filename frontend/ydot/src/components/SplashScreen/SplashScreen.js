@@ -160,7 +160,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         height: 418,
                         margin: 0,
                     }}>
-                        <Slider dots={false} autoplaySpeed={5000} autoplay={true} slidesToShow={1} slidesToScroll={1} adaptiveHeight={true}>
+                        <Slider dotsClass="desktop-slick-dots" dots={true} autoplaySpeed={5000} autoplay={true} slidesToShow={1} slidesToScroll={1} adaptiveHeight={true}>
                             <TopBanner
                                 img={bannericon}
                                 title="크리에이터 크라우드 펀딩 플랫폼"
@@ -319,47 +319,41 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         height: 250,
                         margin: 0,
                     }}>
-                        <Slider dots={false} autoplaySpeed={5000} autoplay={true} slidesToShow={1} slidesToScroll={1} adaptiveHeight={true}>
+                        <Slider dotsClass="mobile-slick-dots" dots={true} autoplaySpeed={5000} autoplay={true} slidesToShow={1} slidesToScroll={1} adaptiveHeight={true}>
                             <MTopBanner
                                 img={bannericon}
                                 title="크리에이터 크라우드 펀딩 플랫폼"
                                 content="Y.은 무슨 서비스인지 알아볼까요?"
-                                num={1}
                                 backgroundColor="#273d5a"
                             />
                             <MTopBanner
                                 img={bannericontwo}
                                 title="Day 1 크라우드 펀딩"
                                 content="크라우드 펀딩에 관한 모든것들을 정리해뒀어요."
-                                num={2}
                                 backgroundColor="#787ff6"
                             />
                             <MTopBanner
                                 img={bannericon}
                                 title="Day 2~7 리워드 수령기간"
                                 content="리워드는 어떻게 받는거죠?"
-                                num={3}
                                 backgroundColor="#329d9c"
                             />
                             <MTopBanner
                                 img={bannericonfour}
                                 title="내가 투자 좀 잘한다 하시는분?"
                                 content="조랑말배 수익률 대회 진행중!"
-                                num={4}
                                 backgroundColor="#98c773"
                             />
                             <MTopBanner
                                 img={bannericonfive}
                                 title="테스터님들의 목소리를 들려주세요!"
                                 content="질문과 피드백은 언제든 환영입니다."
-                                num={5}
                                 backgroundColor="#7097ab"
                             />
                             <MTopBanner
                                 img={bannericonsix}
                                 title="소개해주실 크리에이터가 있나요?"
                                 content="저희와 함께할 첫번째 크리에이터님을 찾습니다."
-                                num={6}
                                 backgroundColor="#93de8c"
                             />
                         </Slider>

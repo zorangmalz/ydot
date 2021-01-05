@@ -19,8 +19,6 @@ import { BiCheckCircle } from 'react-icons/bi'
 
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"
-import topbanner from "./icon/topbanner.png"
-import bannericon from "./icon/bannericon.png"
 import rocketup from "./icon/rocketup.png"
 import rocketdown from "./icon/rocketdown.png"
 
@@ -122,7 +120,7 @@ export default function Header({ bold }) {
     )
 }
 
-export function TopBanner({img, title, content, num, backgroundColor}) {
+export function TopBanner({img, title, content, backgroundColor}) {
     return (
         <>
             <div style={{
@@ -175,40 +173,6 @@ export function TopBanner({img, title, content, num, backgroundColor}) {
                         fontWeight: "bold",
                         color: "#ffffff",
                     }}>{content}</div>
-                </div>
-                <div style={{
-                    position: "absolute",
-                    zIndex: 2,
-                    bottom: 27,
-                    width: "56vw",
-                    minWidth: 1060,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                }}>
-                    <div style={{
-                        width: 20,
-                        color: "#ffffff",
-                        cursor: "pointer",
-                        fontSize: 26,
-                        fontWeight: "bold",
-                        opacity: 0.6,
-                    }}>{"<"}</div>
-                    <div style={{
-                        color: "#ffffff",
-                        fontSize: 24,
-                        marginRight: 10,
-                        marginLeft: 10,
-                        opacity: 0.6,
-                    }}>{num}/6</div>
-                    <div style={{
-                        width: 20,
-                        color: "#ffffff",
-                        cursor: "pointer",
-                        fontSize: 26,
-                        fontWeight: "bold",
-                        opacity: 0.6,
-                    }}>{">"}</div>
                 </div>
             </div>
         </>

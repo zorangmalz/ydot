@@ -23,8 +23,6 @@ import { ProgressBar } from "./Style"
 
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"
-import bannericon from "./icon/bannericon.png"
-import topbanner from "./icon/topbanner.png"
 import rocketup from "./icon/rocketup.png"
 import rocketdown from "./icon/rocketdown.png"
 
@@ -158,7 +156,7 @@ export function MHeader({ bold }) {
     )
 }
 
-export function MTopBanner({img, title, content, num, backgroundColor}) {
+export function MTopBanner({img, title, content, backgroundColor}) {
     return (
         <>
             <div style={{
@@ -213,40 +211,6 @@ export function MTopBanner({img, title, content, num, backgroundColor}) {
                         marginBottom: 10,
                         width: "60vw",
                     }}>{content}</div>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                    }}>
-                        <div style={{
-                            width: 20,
-                            textAlign: "center",
-                            color: "#ffffff",
-                            cursor: "pointer",
-                            fontSize: 16,
-                            marginRight: 4,
-                            fontWeight: "bold",
-                            opacity: 0.6,
-                        }}>{"<"}</div>
-                        <div style={{
-                            width: 20,
-                            textAlign: "center",
-                            color: "#ffffff",
-                            fontSize: 14,
-                            marginRight: 4,
-                            opacity: 0.6,
-                        }}>{num}/6</div>
-                        <div style={{
-                            width: 20,
-                            textAlign: "center",
-                            color: "#ffffff",
-                            cursor: "pointer",
-                            fontSize: 16,
-                            marginRight: 4,
-                            fontWeight: "bold",
-                            opacity: 0.6,
-                        }}>{">"}</div>
-                    </div>
                 </div>
             </div>
         </>
