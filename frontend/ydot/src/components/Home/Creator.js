@@ -1786,7 +1786,6 @@ export default function Creator() {
                                                 alignItems: "flex-start",
                                                 width: "85vw",
                                                 maxWidth: 375,
-                                                height: 120,
                                             }}>
                                                 <div style={{
                                                     opacity: 0.6,
@@ -1795,7 +1794,7 @@ export default function Creator() {
                                                     marginBottom: 5
                                                 }}>인기 동영상</div>
                                                 <a href={popular} target="_blank">
-                                                <img src={popularImg} style={{ objectFit: "cover", width: "85vw" }} />
+                                                <img src={popularImg} style={{ objectFit: "contain", width: "85vw" }} />
                                                 </a>
                                             </div>
                                         </div>
@@ -1805,7 +1804,7 @@ export default function Creator() {
                                         flexDirection: "column",
                                         alignItems: "center",
                                         width: "100%",
-                                        marginTop: 40,
+                                        marginTop: 20,
                                     }}>
                                         <div style={{
                                             width: "90vw",

@@ -278,7 +278,8 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
                     width: 150,
                     height: 80,
                     borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10
+                    borderTopRightRadius: 10,
+                    objectFit: "cover"
                 }} />
                 <div style={{
                     fontSize: 10,
