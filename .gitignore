@@ -2,3 +2,5 @@
 backend/ydot/my_settings.py
 frontend/ydot/.eslintcache
 frontend/ydot/.eslintcache
+admin/.eslintcache
+frontend/ydot/.eslintcache
