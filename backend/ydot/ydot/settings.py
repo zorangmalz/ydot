@@ -68,6 +68,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     "https://ydot-23a93.firebaseapp.com",
+    "http://ydot.s3-website.ap-northeast-2.amazonaws.com",
 ]
 
 # CSRF_TRUSTED_ORIGINS = [
