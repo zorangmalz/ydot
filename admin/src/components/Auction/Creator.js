@@ -55,9 +55,10 @@ export default function FundMain() {
 
     const [items,setItems]=useState([])
     const [itemss,setItemss]=useState([])
+    const [itemsss,setItemsss]=useState([])
     async function getInvestorInfo(){
         //투자자 정보 받아오기
-        firestore.collection("Creator").doc(myparam).collection("Investor").orderBy('fullTime','desc').onSnapshot(querySnapshot => {
+        firestore.collection("Creator").doc(myparam).collection("InvestorList").orderBy('fullTime','desc').onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
                     list.push({
@@ -84,6 +85,20 @@ export default function FundMain() {
             })
             setItemss(list)
         })
+        firestore.collection("Creator").doc(myparam).collection("Investor").orderBy('fullTime','desc').onSnapshot(querySnapshot => {
+            const list = []
+            querySnapshot.forEach(doc => {
+                    list.push({
+                       email:doc.data().email,
+                       money:doc.data().money,
+                       wallets:doc.data().wallet,
+                       fullTime:doc.data().fullTime,
+                       dayTime:doc.data().DayTime,
+                       uid:doc.data().uid
+                    })
+            })
+            setItemsss(list)
+        })
     }
     
     
@@ -108,7 +123,7 @@ export default function FundMain() {
 
         
 
-        for(const i of items){
+        for(const i of itemss){
             
             const receiptFT= await kip7.transfer(i.wallets, (Number(i.money)/Number(fundingAim)).toFixed(6)*1000000, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
             console.log(receiptFT.transactionHash)
@@ -142,7 +157,7 @@ export default function FundMain() {
     
     async function shareMoney(){
        
-        for(const i of items){
+        for(const i of itemss){
             var money
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 ongoing:2
@@ -182,12 +197,12 @@ export default function FundMain() {
             console.log((Number(i.money)))
             console.log(Number(fundingAim))
             console.log((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0),"output")
-            await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).collection("Allocate").doc(time).set({
+            await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).collection("Allocate").doc(time).set({
                 dayTime:docName,
                 allocate:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
             })
             var total
-                await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).get().then(doc=>{
+                await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).get().then(doc=>{
                     total=doc.data().total
             })
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({

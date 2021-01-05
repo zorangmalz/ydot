@@ -1229,12 +1229,14 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [fundingTotal,setFundingTotal]=useState(0)
     const [symbol,setSymbol]=useState("")
     const [fundingAim,setFundingAim]=useState(0)
+    const [investList,setInvestList]=useState([])
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
             setFundingTotal(doc.data().FundingTotal)
             setSymbol(doc.data().symbol)
             setFundingAim(doc.data().FundingAim)
+            setInvestList(doc.data().investList)
         })
     }
 
@@ -1299,6 +1301,35 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         await firestore.collection("Creator").doc(creatorName).update({
             FundingTotal: Number(fundingTotal)+realMoney
         })
+
+        if(investList.includes(uid)){
+            firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).get().then(doc=>{
+                console.log(doc.data().money,"herererererere")
+
+                firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).update({
+                    
+                    wallet:wallet,
+                    money:realMoney+doc.data().money,
+                    email:email,
+                    DayTime:docName,
+                    fullTime:today.getTime(),
+                    uid:uid
+                })
+            })
+        }else{
+            firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).set({
+                wallet:wallet,
+                money:realMoney,
+                email:email,
+                DayTime:docName,
+                fullTime:today.getTime(),
+                uid:uid
+        
+            })
+            firestore.collection("Creator").doc(creatorName).update({
+                investList:firebase.firestore.FieldValue.arrayUnion(uid)
+            })
+        }
         await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
             wallet:wallet,
             money:realMoney,
