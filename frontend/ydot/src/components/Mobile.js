@@ -100,6 +100,11 @@ export function MHeader({ bold }) {
             alignItems: "center",
             justifyContent: "space-between"
         }}>
+            {mine ? 
+                <MMyInfo />
+                :
+                <></>
+            }
             <div style={{
                 width: "100%",
                 display: "flex",
@@ -146,7 +151,7 @@ export function MHeader({ bold }) {
                         }}>내 자산</div>
                     </>
                 </div>
-                <button style={{
+                <button onClick={() => setMine(!mine)} style={{
                     backgroundColor: "#ffffff",
                     border: 0,
                     outline: 0,
@@ -154,6 +159,141 @@ export function MHeader({ bold }) {
                 }}><FaUserCircle color="#202426" size={35} /></button>
             </div>
         </header>
+    )
+}
+
+export function MMyInfo() {
+    const firestore = useFirestore()
+    const firebase = useFirebase()
+    const { uid } = useSelector((state) => state.firebase.auth);
+    const [leng, setLeng] = useState("")
+    const [email, setEmail] = useState("")
+    const [amount, setAmount] = useState("")
+    const [wallet, setWallet] = useState("")
+    const [money,setMoney]=useState(0)
+    const history = useHistory()
+    //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
+  
+    useEffect(()=>{
+        console.log("here")
+    })
+    function getInfo() {
+        if (uid) {
+            console.log(uid)
+            firestore.collection("User").doc(uid).get().then(doc => {
+                setEmail(doc.data().email)
+                setWallet(doc.data().wallet)
+                setMoney(doc.data().totalMoney)
+            })
+        } else {
+            console.log("없음")
+            history.push("/login")
+        }
+    }
+    function logout() {
+        firebase.logout()
+    }
+    useEffect(() => {
+        getInfo()
+        if (wallet.length === 0) {
+            setWallet("지갑을 등록해주세요")
+        }
+        if (leng.length === 0) {
+            setLeng("0")
+        }
+    }, [])
+
+    return (
+        <>
+            <div style={{
+                position: "absolute",
+                zIndex: 3,
+                top: 60,
+                right: "3vw",
+                width: 280,
+                height: 150,
+                paddingTop: 10,
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingBottom: 10,
+                backgroundColor: "#ffffff",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                border: "solid 2px rgba(33, 36, 38, 0.8)"
+            }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    marginBottom: 10,
+                }}>
+                    <div style={{
+                        fontSize: 8,
+                        opacity: 0.6,
+                        color: "#202426",
+                    }}>내 계정</div>
+                    <input onClick={logout} type="button" style={{
+                        outline: 0,
+                        cursor: "pointer",
+                        border: 0,
+                        backgroundColor: "#ffffff",
+                        fontSize: 8,
+                        opacity: 0.6,
+                        color: "#202426",
+                        textDecorationLine: "underline"
+                    }} value="로그아웃" />
+                </div>
+                <div style={{
+                    fontSize: 8,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 10
+                }}>{email}</div>
+
+                <div style={{
+                    fontSize: 8,
+                    opacity: 0.6,
+                    color: "#202426",
+                }}>지갑 주소</div>
+                <div style={{
+                    fontSize: 6,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 10,
+                    width: 250,
+                }}>{wallet}</div>
+                <div style={{
+                    fontSize: 8,
+                    opacity: 0.6,
+                    color: "#202426",
+                }}>지갑 잔액</div>
+                <div style={{
+                    fontSize: 8,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 10
+                }}>{money}KRW</div>
+
+                <div style={{
+                    fontSize: 8,
+                    opacity: 0.6,
+                    color: "#202426",
+                }}>보유 토큰</div>
+                <div onClick={() => history.push("/asset")} style={{
+                    fontSize: 8,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    marginBottom: 10,
+                    textDecorationLine: "underline",
+                    cursor: "pointer",
+                }}>
+                    {leng}<div style={{ display: "inline-block", fontWeight: "normal", textDecorationLine: "underline", fontSize: 8 }}>개</div>
+                </div>
+            </div>
+        </>
     )
 }
 
