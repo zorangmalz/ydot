@@ -406,7 +406,7 @@ export default function Asset() {
                                                         opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
-                                                    }}>{element.per}</div>
+                                                    }}>{element.ftAmount}</div>
                                                 </div>
                                                 <div style={{
                                                     display: "flex",
@@ -493,7 +493,7 @@ export default function Asset() {
                                 }}>
                                     {itemss.map(element =>
                                         <a href={element.hash} target="_blank">
-                                            <img src={jisuncard} style={{ width: 235, height: 120, borderRadius: 20, marginRight: 20, }} />
+                                            <img src={element.pic} style={{ width: 235, height: 120, borderRadius: 20, marginRight: 20, }} />
                                         </a>
                                     )}
                                 </div>
@@ -913,7 +913,7 @@ export default function Asset() {
                                                                 color: "#202426",
                                                                 marginBottom: 8,
                                                                 textAlign: "right",
-                                                            }}>보유 수량 {element.per}</div>
+                                                            }}>보유 수량 {element.ftAmount}</div>
                                                             <div style={{
                                                                 width: "100%",
                                                                 fontSize: 14,
