@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import firebase from "firebase/app";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import "./components/css/_slick-theme.scss"
+import "./components/css/_slick.scss"
+
 import "firebase/auth";
 import "firebase/firestore";
 import { createStore, compose } from "redux";
