@@ -773,22 +773,6 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                 opacity: 0.4,
                 zIndex: 1,
             }} />
-            <div className="mobile-empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 60,
-                height: 60,
-                border: "2px solid #e78276",
-                borderRadius: 30,
-                backgroundColor: "#ffffff",
-                position: "fixed",
-                zIndex: 5,
-                cursor: "pointer",
-                bottom: 112,
-                right: 30,
-            }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
@@ -857,7 +841,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         fontSize: 12,
                         color: "#161513",
                     }}>개인정보 처리 약관(필수)</div>
-                    <button onClick={() => setOne(!one)} style={{
+                    <div onClick={() => setOne(!one)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 14,
@@ -868,7 +852,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{OneIcon}</button>
+                    }}>{OneIcon}</div>
                 </div>
                 <div style={{
                     width: 250,
@@ -886,7 +870,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         fontSize: 12,
                         color: "#161513",
                     }}>이용약관 동의(필수)</div>
-                    <button onClick={() => setTwo(!two)} style={{
+                    <div onClick={() => setTwo(!two)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 14,
@@ -897,7 +881,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{TwoIcon}</button>
+                    }}>{TwoIcon}</div>
                 </div>
                 <div style={{
                     width: 250,
@@ -915,7 +899,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         fontSize: 12,
                         color: "#161513",
                     }}>자산손실의 위험을 인지했습니다(필수)</div>
-                    <button onClick={() => setThree(!three)} style={{
+                    <div onClick={() => setThree(!three)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 14,
@@ -926,7 +910,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{ThreeIcon}</button>
+                    }}>{ThreeIcon}</div>
                 </div>
                 <div style={{
                     width: 250,
@@ -944,7 +928,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         fontSize: 12,
                         color: "#161513",
                     }}>펀딩완료시 SNS, Email 알람 수신(선택)</div>
-                    <button onClick={() => setFour(!four)} style={{
+                    <div onClick={() => setFour(!four)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 14,
@@ -955,7 +939,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{FourIcon}</button>
+                    }}>{FourIcon}</div>
                 </div>
                 <div style={{
                     width: 250,
@@ -975,7 +959,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         color: "#161513",
                         fontWeight: "bold"
                     }}>투자조건을 확인했습니다.</div>
-                    <button onClick={() => setInvest(!invest)} style={{
+                    <div onClick={() => setInvest(!invest)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 14,
@@ -986,7 +970,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{InvestIcon}</button>
+                    }}>{InvestIcon}</div>
                 </div>
                 <input onClick={one&&two&&three&&invest ? onNext : console.log("동의해주세요")} type="button" style={{
                     cursor: "pointer",
@@ -1000,6 +984,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
+                    WebkitAppearance: "none"
                 }} value="다음" />
             </div>
         </div>
@@ -1150,22 +1135,6 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 opacity: 0.4,
                 zIndex: 1,
             }} />
-            <div className="mobile-empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 60,
-                height: 60,
-                border: "2px solid #e78276",
-                borderRadius: 30,
-                backgroundColor: "#ffffff",
-                position: "fixed",
-                zIndex: 5,
-                cursor: "pointer",
-                bottom: 112,
-                right: 30,
-            }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
@@ -1298,6 +1267,7 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
+                    WebkitAppearance: "none"
                 }} value="펀딩하기" />
             </div>
         </div>
@@ -1324,22 +1294,6 @@ export function MPopupThree({ setVisible }) {
                 opacity: 0.4,
                 zIndex: 1,
             }} />
-            <div className="mobile-empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 60,
-                height: 60,
-                border: "2px solid #e78276",
-                borderRadius: 30,
-                backgroundColor: "#ffffff",
-                position: "fixed",
-                zIndex: 5,
-                cursor: "pointer",
-                bottom: 112,
-                right: 30,
-            }}><IoIosCalculator size={30} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 270,
@@ -1392,6 +1346,7 @@ export function MPopupThree({ setVisible }) {
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
+                    WebkitAppearance: "none"
                 }} value="완료" />
             </div>
         </div>
