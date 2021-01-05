@@ -94,14 +94,15 @@ export default function Asset() {
                 list.push({
                     img: "#4c4c4c",
                     name: doc.data().channel,
-                    unit: "Pood",
+                    unit: doc.data().symbol,
                     chain: "KRW",
                     total:doc.data().Money,
                     number: doc.data().month+"/12",
                     next: "1/20",
                     actual: doc.data().monthly,
                     accumulate: doc.data().total,
-                    dayTime:doc.data().DayTime
+                    dayTime:doc.data().DayTime,
+                    ftAmount:doc.data().ftAmount
                 })
             }
                 console.log(doc.data().channel)
