@@ -32,8 +32,6 @@ import monthsub from '../icon/monthsub.png'
 import noojeok from '../icon/noojeok.png'
 import thumbnailone from '../icon/thumbnailone.png'
 
-import ReactPlayer from "react-player"
-
 function reducer(state, action) {
     switch (action.type) {
         case "fund":
@@ -449,7 +447,11 @@ export default function Creator() {
                                 marginTop: 20,
                             }}>
                                 {/* 썸네일 */}
-                                <ReactPlayer url={main} controls></ReactPlayer>
+                                <a href={main} target="_blank">
+                                <img src={mainImg} style={{
+                                    width: 620,
+                                    height: 320,
+                                }} /></a>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -665,7 +667,7 @@ export default function Creator() {
                                         minWidth: 1060,
                                         paddingLeft: 110,
                                         paddingRight: 110,
-                                        paddingBottom:50,
+                                        paddingBottom: 50,
                                         display: "flex",
                                         flexDirection: "column",
                                     }}>
@@ -1198,15 +1200,13 @@ export default function Creator() {
                                     marginTop: 20,
                                 }}>
                                     {/* 썸네일 */}
-                                    <div style={{
-                                        width:"90vw",
-                                        minWidth:300,
-                                        height:180,
-                                        objectFit:"cover"
-                                    }}>
- <ReactPlayer url={main} controls></ReactPlayer>
-                                    </div>
-                                    
+                                    <a href={main} target="_blank">
+                                    <img src={mainImg} style={{
+                                        width: "90vw",
+                                        minWidth: 300,
+                                        height: 180,
+                                        objectFit: "cover"
+                                    }} /></a>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",

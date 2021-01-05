@@ -231,37 +231,31 @@ export function MyInfo() {
         console.log("here")
     })
     function getInfo() {
-        
-        if(uid){
+        if (uid) {
             console.log(uid)
             firestore.collection("User").doc(uid).get().then(doc => {
                 setEmail(doc.data().email)
                 setWallet(doc.data().wallet)
                 setMoney(doc.data().totalMoney)
             })
-        }else{
+        } else {
             console.log("없음")
             history.push("/login")
         }
-        
     }
-    function logout(){
+    function logout() {
         firebase.logout()
     }
     useEffect(() => {
-
         getInfo()
+        if (wallet.length === 0) {
+            setWallet("지갑을 등록해주세요")
+        }
+        if (leng.length === 0) {
+            setLeng("0")
+        }
     }, [])
-    const data = [
-        {
-            title: "지갑주소",
-            content: "0xE50…336BC"
-        },
-        {
-            title: "지갑 잔액",
-            content: [700, <div style={{ fontWeight: "normal", display: "inline-block", fontSize: 12 }}>LINK</div>]
-        },
-    ]
+
     return (
         <>
             <div style={{
@@ -1179,7 +1173,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         justifyContent: "center"
                     }}>{InvestIcon}</button>
                 </div>
-                <input onClick={one&&two&&three&&invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
+                <input className="safari-design" onClick={one&&two&&three&&invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
@@ -1482,7 +1476,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                     marginBottom: 20,
                 }}>{warn}</div>
 
-                <input onClick={money.length > 0 ? onNext : console.log("입력해주세요")} type="button" style={{
+                <input className="safari-design" onClick={money.length > 0 ? onNext : console.log("입력해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
@@ -1578,7 +1572,7 @@ export function PopupThree({ setVisible }) {
                     <div style={{ textAlign: "center", marginBottom: 10 }}></div>
                   
                 </div>
-                <input onClick={() => setVisible(false)} type="button" style={{
+                <input className="safari-design" onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
@@ -1977,5 +1971,72 @@ export function AssetPie({ data }) {
                 }
             }}
         />
+    )
+}
+
+export function Login({ setVisible }) {
+    return (
+        <div style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+            height: "100vh",
+        }}>
+            <div onClick={() => setVisible(false)} style={{
+                position: "absolute",
+                top: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#000000",
+                opacity: 0.4,
+                zIndex: 1,
+            }} />
+            <div style={{
+                zIndex: 2,
+                width: 340,
+                height: 300,
+                paddingTop: 30,
+                paddingBottom: 40,
+                paddingRight: 30,
+                paddingLeft: 30,
+                backgroundColor: "#ffffff",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+            }}>
+                <div style={{
+                    fontSize: 21,
+                    fontWeight: "bold",
+                    color: "#202426",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 40,
+                }}>로그인</div>
+                <div style={{
+                    fontSize: 14,
+
+                    color: "#161513",
+                    width: "100%",
+                    textAlign: "center",
+                    marginBottom: 20,
+                }}>아이디 및 비밃번호 정보가 일치하지 않습니다.</div>\
+                <input className="safari-design" onClick={() => setVisible(false)} type="button" style={{
+                    cursor: "pointer",
+                    width: 300,
+                    height: 48,
+                    border: 0,
+                    outline: 0,
+                    borderRadius: 10,
+                    backgroundColor: "#e78276",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    color: "#ffffff",
+                    alignSelf: "center",
+                }} value="확인" />
+            </div>
+        </div>
     )
 }
