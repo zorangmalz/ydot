@@ -1228,12 +1228,13 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [fundingMax,setFundingMax]=useState(0)
     const [fundingTotal,setFundingTotal]=useState(0)
     const [symbol,setSymbol]=useState("")
+    const [fundingAim,setFundingAim]=useState(0)
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
             setFundingTotal(doc.data().FundingTotal)
             setSymbol(doc.data().symbol)
-            
+            setFundingAim(doc.data().FundingAim)
         })
     }
 
@@ -1259,7 +1260,8 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             total:0,
             monthly:0,
             month:0,
-            symbol:symbol
+            symbol:symbol,
+            fundingAim:fundingAim
                 })
             })
         }else{
@@ -1272,7 +1274,9 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         total:0,
         monthly:0,
         month:0,
-        symbol:symbol
+        symbol:symbol,
+        fundingAim:fundingAim,
+        
             })
             firestore.collection("User").doc(uid).update({
                 creator:firebase.firestore.FieldValue.arrayUnion(creatorName)
@@ -1295,7 +1299,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         await firestore.collection("Creator").doc(creatorName).update({
             FundingTotal: Number(fundingTotal)+realMoney
         })
-        await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
+        await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
             wallet:wallet,
             money:realMoney,
             email:email,
