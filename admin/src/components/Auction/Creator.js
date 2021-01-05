@@ -115,7 +115,7 @@ export default function FundMain() {
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 ongoing:1,
                 ftHash:receiptFT.transactionHash,
-                ftAmount: (Number(i.money)/Number(fundingAim)).toFixed(6)*1000000
+                ftAmount: (Number(i.money)/Number(fundingAim)).toFixed(6)*10000
             })
             
         }

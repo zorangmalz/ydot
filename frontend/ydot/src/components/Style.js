@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom"
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie, VictorySharedEvents, VictoryLabel } from "victory"
-
+import firebase from "firebase"
 //css
 import "./component.css"
 
@@ -1215,12 +1215,13 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [totalMoney,setTotalMoney]=useState(0)
     const [wallet,setWallet]=useState("")
     const [email,setEmail]=useState("")
-    
+    const [fundingList,setFundingList]=useState([])
     function getInfo(){
         firestore.collection("User").doc(uid).get().then(doc=>{
             setTotalMoney(doc.data().totalMoney)
             setWallet(doc.data().wallet)
             setEmail(doc.data().email)
+            setFundingList(doc.data().creator)
         })
         
     }
@@ -1232,6 +1233,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
             setFundingTotal(doc.data().FundingTotal)
             setSymbol(doc.data().symbol)
+            
         })
     }
 
@@ -1245,6 +1247,37 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const minutes=today.getMinutes()
         const seconds=today.getSeconds()
         const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
+        console.log(fundingList,creatorName)
+        if(fundingList.includes(creatorName)){
+            firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).get().then(doc=>{
+                firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).update({
+                    DayTime: docName,
+            Money: realMoney+doc.data().Money,
+            ongoing: 0,
+            channel: creatorName,
+            fullTime:today.getTime(),
+            total:0,
+            monthly:0,
+            month:0,
+            symbol:symbol
+                })
+            })
+        }else{
+            firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).set({
+                DayTime: docName,
+        Money: realMoney,
+        ongoing: 0,
+        channel: creatorName,
+        fullTime:today.getTime(),
+        total:0,
+        monthly:0,
+        month:0,
+        symbol:symbol
+            })
+            firestore.collection("User").doc(uid).update({
+                creator:firebase.firestore.FieldValue.arrayUnion(creatorName)
+            })
+        }
         firestore.collection("User").doc(uid).collection("Fund").doc(docName).set({
             DayTime: docName,
             Money: realMoney,
