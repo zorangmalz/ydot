@@ -138,9 +138,9 @@ export default function Creator() {
 
     useEffect(() => {
         getInfo()
-        console.log(myparam)
+        
     }, [])
-
+ 
     const [fundingAim, setFundingAim] = useState(0)
     const [fundingTotal, setFundingTotal] = useState(0)
     const [fundingDead, setFundingDead] = useState(0)
@@ -159,8 +159,8 @@ export default function Creator() {
     const [popularImg,setPopularImg]=useState("")
     const [profileImg,setProfileImg]=useState("")
     function getInfo() {
-        const today = new Date()
-        firestore.collection("Creator").doc(myparam).get().then(doc => {
+        
+        firestore.collection("Creator").doc(myparam).onSnapshot(doc => {
             setPopularImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Popular.jpg")
             setMainImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Main.jpg")
             setProfileImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg")
@@ -168,6 +168,10 @@ export default function Creator() {
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
             setPercentage((doc.data().FundingTotal / doc.data().FundingAim * 100).toFixed(2))
+            
+        })
+        const today = new Date()
+        firestore.collection("Creator").doc(myparam).get().then(doc=>{
             setPv(doc.data().PV)
             setView(doc.data().view)
             setGrow(doc.data().growth)
@@ -185,7 +189,6 @@ export default function Creator() {
             }
         })
     }
-
     function calculate() {
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
         console.log(a)
@@ -480,7 +483,7 @@ export default function Creator() {
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>90% <div style={{
+                                    }}>{percentage}% <div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal"
