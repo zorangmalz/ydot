@@ -7,6 +7,7 @@ import MLoginHeader from "../Mobile";
 import { useFirebase, useFirestore, firestoreConnect } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
+import { Login } from "../Style";
 
 export default function LoginScreen() {
     const chainId = 1001
@@ -36,57 +37,58 @@ export default function LoginScreen() {
     const firebase = useFirebase()
     const history = useHistory()
     const firestore = useFirestore()
-async function login(){
-   
-    await firebase.login({
-        email: document.getElementById("DID").value,
-        password: document.getElementById("DPASS").value
-    }).then(() => {
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
-            firebase.auth().onAuthStateChanged((user) => {
-                
-                history.push("/")
-            })
-        })
-    })
-}
-// async function getWallet(user){
-//     var wallet
-   
-   
-//     await firestore.collection("User").doc(user.uid).get().then(doc=>{
-//         if(doc.data().wallet){
-//             wallet=false
-//         }else{
-//             wallet=true
-//         }
-//     }).catch(
-//         wallet=true
-//     )  
-    
-//     if(wallet){
-//         console.log("no wallet , make wallet")
-//         var account = await kas()
-        
-//         firestore.collection("User").doc(user.uid).set({
-//             wallet:account.address,
-//             email:document.getElementById("DID").value,
-//         uid:user.uid,
-//         totalMoney:1000000
-//         })
-//         }else{
-//             console.log("?")
-//         }
-//     }
-            
+    async function login() {
+        await firebase.login({
+            email: document.getElementById("DID").value,
+            password: document.getElementById("DPASS").value
+        }).then(() => {
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+                firebase.auth().onAuthStateChanged((user) => {
 
-// async function kas(){
-//     const caver = new CaverExtKAS()
-//     caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-//     const account = await caver.kas.wallet.createAccount()
-//     console.log(account)
-//     return account
-// }
+                    history.push("/")
+                })
+            })
+        }).catch(() => {
+            setDiffer(true)
+        })
+    }
+    // async function getWallet(user){
+    //     var wallet
+
+
+    //     await firestore.collection("User").doc(user.uid).get().then(doc=>{
+    //         if(doc.data().wallet){
+    //             wallet=false
+    //         }else{
+    //             wallet=true
+    //         }
+    //     }).catch(
+    //         wallet=true
+    //     )  
+
+    //     if(wallet){
+    //         console.log("no wallet , make wallet")
+    //         var account = await kas()
+
+    //         firestore.collection("User").doc(user.uid).set({
+    //             wallet:account.address,
+    //             email:document.getElementById("DID").value,
+    //         uid:user.uid,
+    //         totalMoney:1000000
+    //         })
+    //         }else{
+    //             console.log("?")
+    //         }
+    //     }
+
+
+    // async function kas(){
+    //     const caver = new CaverExtKAS()
+    //     caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+    //     const account = await caver.kas.wallet.createAccount()
+    //     console.log(account)
+    //     return account
+    // }
     return (
         <div>
             <Default>
@@ -98,6 +100,7 @@ async function login(){
                     flexDirection: "column",
                     alignItems: "center",
                 }}>
+                    {differ ? <Login setVisible={setDiffer} /> : <></>}
                     <header style={{
                         zIndex: 3,
                         width: "56vw",
@@ -176,7 +179,7 @@ async function login(){
                                 outlineColor: "#e78276",
                                 paddingBottom: 4,
                                 marginBottom: 20
-                            }} placeholder="아이디"/>
+                            }} placeholder="아이디" />
                             <input id="DPASS" type="password" style={{
                                 borderTop: 0,
                                 borderLeft: 0,
@@ -279,6 +282,7 @@ async function login(){
                     flexDirection: "column",
                     alignItems: "center",
                 }}>
+                    {differ ? <Login setVisible={setDiffer} /> : <></>}
                     <MLoginHeader />
                     <div style={{
                         width: "100%",

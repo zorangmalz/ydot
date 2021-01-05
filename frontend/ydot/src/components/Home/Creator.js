@@ -992,7 +992,7 @@ export default function Creator() {
                                                 marginBottom: 10
                                             }}>인기 동영상</div>
                                             <a href ={popular} target="_blank">
-                                            <img src={popularImg} style={{ width: 290, height: 108 }} />
+                                            <img src={popularImg} style={{ height: 120, objectFit: "contain" }} />
                                             </a>
                                         </div>
                                     </div>

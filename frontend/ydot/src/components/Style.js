@@ -1992,12 +1992,12 @@ export function Login({ setVisible }) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 1,
+                zIndex: 4,
             }} />
             <div style={{
-                zIndex: 2,
-                width: 340,
-                height: 300,
+                zIndex: 5,
+                width: 240,
+                height: 150,
                 paddingTop: 30,
                 paddingBottom: 40,
                 paddingRight: 30,
@@ -2017,16 +2017,15 @@ export function Login({ setVisible }) {
                 }}>로그인</div>
                 <div style={{
                     fontSize: 14,
-
                     color: "#161513",
                     width: "100%",
                     textAlign: "center",
                     marginBottom: 20,
-                }}>아이디 및 비밃번호 정보가 일치하지 않습니다.</div>\
+                }}>아이디, 비밀번호 정보가 일치하지 않습니다</div>
                 <input className="safari-design" onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",
-                    width: 300,
-                    height: 48,
+                    width: 240,
+                    height: 40,
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
