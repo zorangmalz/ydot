@@ -961,7 +961,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         color: "#161513",
                         fontWeight: "bold"
                     }}>이용약관 전체 동의</div>
-                    <button onClick={UseClick} style={{
+                    <div onClick={UseClick} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 16,
@@ -972,7 +972,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{UserIcon}</button>
+                    }}>{UserIcon}</div>
                 </div>
                 <div style={{
                     width: 287,
@@ -990,7 +990,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         fontSize: 14,
                         color: "#161513",
                     }}>개인정보 처리 약관(필수)</div>
-                    <button onClick={() => setOne(!one)} style={{
+                    <div onClick={() => setOne(!one)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 16,
@@ -1001,7 +1001,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{OneIcon}</button>
+                    }}>{OneIcon}</div>
                 </div>
                 <div style={{
                     width: 287,
@@ -1019,7 +1019,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         fontSize: 14,
                         color: "#161513",
                     }}>이용약관 동의(필수)</div>
-                    <button onClick={() => setTwo(!two)} style={{
+                    <div onClick={() => setTwo(!two)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 16,
@@ -1030,7 +1030,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{TwoIcon}</button>
+                    }}>{TwoIcon}</div>
                 </div>
                 <div style={{
                     width: 287,
@@ -1048,7 +1048,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         fontSize: 14,
                         color: "#161513",
                     }}>자산손실의 위험을 인지했습니다(필수)</div>
-                    <button onClick={() => setThree(!three)} style={{
+                    <div onClick={() => setThree(!three)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 16,
@@ -1059,7 +1059,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{ThreeIcon}</button>
+                    }}>{ThreeIcon}</div>
                 </div>
                 <div style={{
                     width: 287,
@@ -1077,7 +1077,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         fontSize: 14,
                         color: "#161513",
                     }}>펀딩완료시 SNS, Email 알람 수신(선택)</div>
-                    <button onClick={() => setFour(!four)} style={{
+                    <div onClick={() => setFour(!four)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 16,
@@ -1088,7 +1088,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{FourIcon}</button>
+                    }}>{FourIcon}</div>
                 </div>
                 <div style={{
                     width: 287,
@@ -1108,7 +1108,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         color: "#161513",
                         fontWeight: "bold"
                     }}>투자조건을 확인했습니다.</div>
-                    <button onClick={() => setInvest(!invest)} style={{
+                    <div onClick={() => setInvest(!invest)} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 16,
@@ -1119,7 +1119,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{InvestIcon}</button>
+                    }}>{InvestIcon}</div>
                 </div>
                 <input onClick={one&&two&&three&&invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
                     cursor: "pointer",
