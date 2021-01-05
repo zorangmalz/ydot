@@ -339,7 +339,7 @@ export default function Asset() {
                                             marginTop: 20,
                                             marginBottom: 10,
                                         }}>보유자산 포트폴리오</div>
-                                        <AssetPie data={data} />
+                                        <AssetPie data={itemsssss} />
                                     </div>
                                 </div>
                                 <div className="spaceRow">
