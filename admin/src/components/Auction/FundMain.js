@@ -126,7 +126,7 @@ export default function FundMain() {
     }
     function upload(){
         uploadCreator(1610180070331,2251,2251050,10000,0,"EO",true,"EOT","IT/과학기술","매크로",8.41,10,22510500,7912200,"eo","https://www.youtube.com/watch?v=0qfqjObM50o","https://www.youtube.com/watch?v=8zfYINYNS38")
-        uploadCreator(1610180070331,11480,114799242,10000,0,"IU",true,"IUT","엔터테인먼트","메가",5.07,1,114799242,81544456,"iu","https://youtu.be/sAbU4fAqjZk","https://youtu.be/OcVmaIlHZ1o")
+        uploadCreator(1610180070331,11480,114799242,10000,0,"아이유",true,"IUT","엔터테인먼트","메가",5.07,1,114799242,81544456,"iu","https://youtu.be/sAbU4fAqjZk","https://youtu.be/OcVmaIlHZ1o")
         uploadCreator(1610180070331,1573,15730160,10000,0,"농잘알",true,"NJT","스포츠","매크로",10.19,10,15730160,3922820,"nong","https://www.youtube.com/watch?v=Sa7Jm4VWTq8","https://www.youtube.com/watch?v=yg99DXPTZjU")
         uploadCreator(1610180070331,4599,45986943,10000,0,"광마니",true,"GMT","푸드/먹방","매크로",12,10,45986943,9374812,"gwang","https://www.youtube.com/watch?v=o2m_7zX7s8Y","https://www.youtube.com/watch?v=ZVyvJpTgHAg")
         uploadCreator(1610180070331,133830,1338301634,10000,0,"핫도그",true,"HDT","엔터테인먼트","메가",10.34,1,1338301634,341184688,"hotdog"," https://www.youtube.com/watch?v=XHJcdYkgEbE","https://www.youtube.com/watch?v=ckTHSO6LIE4")
@@ -136,7 +136,7 @@ export default function FundMain() {
         uploadCreator(1610180070331,10707,107067986,10000,0,"슈카월드",true,"SWT","엔터테인먼트","메가",9.33,1,107067986,32121015,"suka"," https://www.youtube.com/watch?v=WP4eBPwVOKA"," https://www.youtube.com/watch?v=JdRcM4fLwgE")
         uploadCreator(1610180070331,545,5450533,10000,0,"POOD",true,"POT","엔터테인먼트","매크로",5.36,10,5450533,3600329,'pood',"https://www.youtube.com/watch?v=kputvfe8cQU","https://www.youtube.com/watch?v=07UD1M4NpP4")
         uploadCreator(1610180070331,46117,461172311,10000,0,"우왁굳",true,"WWT","게임","매크로",3.88,10,461172311,4578903603,"woo","https://www.youtube.com/watch?v=o0ayvb3QYsc","https://www.youtube.com/watch?v=cCUk72lgUJU")
-        uploadCreator(1610180070331,620,6196078,10000,0,"피아니스트",true,"PNT","음악","마이크로",1.56,30,6196078,20647290,"piano","https://www.youtube.com/watch?v=sJhBLJIiRDk","https://www.youtube.com/watch?v=BwTEZihOa_A")
+        uploadCreator(1610180070331,620,6196078,10000,0,"Pianist JayM",true,"PNT","음악","마이크로",1.56,30,6196078,20647290,"piano","https://www.youtube.com/watch?v=sJhBLJIiRDk","https://www.youtube.com/watch?v=BwTEZihOa_A")
         uploadCreator(1610180070331,782,7817068,10000,0,"갓승희",true,"GST","엔터테인먼트","마이크로",15.78,30,7817068,936266,"gsh","https://www.youtube.com/watch?v=zf11fdvJvMY","https://www.youtube.com/watch?v=idoQTKoAhm8")
         uploadCreator(1610180070331,2585,25853594,10000,0,"신지우",true,"SJT","엔터테인먼트","마이크로",3.57,30,25853594,28446177,'sjwoo',"https://www.youtube.com/watch?v=gkySwXlUt8w","https://www.youtube.com/watch?v=PevvrA_pAXo")
         uploadCreator(1610180070331,48,476066,10000,0,"JEICHI 42",true,"KLT","푸드/먹방","마이크로",3.98,30,476066,1675094,'cooking',"https://www.youtube.com/watch?v=oaJTDmu7Dq8","https://www.youtube.com/watch?v=hqHQRnYEpYE")
