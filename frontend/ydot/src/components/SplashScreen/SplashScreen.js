@@ -35,28 +35,28 @@ export default function SplashScreen() {
     const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
 
     async function kasTest() {
-            const caver = new CaverExtKAS()
-            caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-            const account = await caver.kas.wallet.createAccount()
-            console.log(account)
-            
-            const deployer = caver.wallet.add(
-                caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
-            )
-            const kip7 = await caver.kct.kip7.deploy(
-                { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
-                deployer.address
-            )
-            console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
+        const caver = new CaverExtKAS()
+        caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+        const account = await caver.kas.wallet.createAccount()
+        console.log(account)
 
-console.log(`Token name: ${await kip7.name()}`)
-console.log(`Token symbol: ${await kip7.symbol()}`)
-console.log(`Token decimals: ${await kip7.decimals()}`)
-console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
-        }
-    useEffect(()=>{
+        const deployer = caver.wallet.add(
+            caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
+        )
+        const kip7 = await caver.kct.kip7.deploy(
+            { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
+            deployer.address
+        )
+        console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
+
+        console.log(`Token name: ${await kip7.name()}`)
+        console.log(`Token symbol: ${await kip7.symbol()}`)
+        console.log(`Token decimals: ${await kip7.decimals()}`)
+        console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
+    }
+    useEffect(() => {
         // kasTest()
-    },[])
+    }, [])
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })
         return isMobile ? children : null
@@ -101,7 +101,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
 
     useEffect(() => {
         load()
-        var date=new Date()
+        var date = new Date()
         console.log(date.getTime())
     }, [])
 
@@ -112,19 +112,19 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
             const list = []
             var count = 1
             querySnapshot.forEach(doc => {
-                if(doc.data().Deadline>date.getTime()){
-                list.push({
-                    id: count,
-                    img: "/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg",
-                    name: doc.id,
-                    FundingNum: doc.data().FundingNum,
-                    FundingTotal: doc.data().FundingAim,
-                    percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
-                    Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000),
-                    fundingAim:doc.data().FundingAim,
-                        sector:doc.data().sector,
-                        sort:doc.data().sort
-                })
+                if (doc.data().Deadline > date.getTime()) {
+                    list.push({
+                        id: count,
+                        img: "/images/Profile/" + doc.data().channelTitle + "/" + doc.data().channelTitle + "Profile.jpg",
+                        name: doc.id,
+                        FundingNum: doc.data().FundingNum,
+                        FundingTotal: doc.data().FundingAim,
+                        percent: doc.data().FundingTotal / doc.data().FundingAim * 100,
+                        Deadline: parseInt((doc.data().Deadline - date.getTime()) / 86400000),
+                        fundingAim: doc.data().FundingAim,
+                        sector: doc.data().sector,
+                        sort: doc.data().sort
+                    })
                     count = count + 1
                 }
             })
@@ -132,17 +132,7 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
         })
     }
 
-    //슬라이더 세팅
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 2000,
-        autoplaySpeed: 2000,
-        autoplay: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        adaptiveHeight: true
-    };
+    const now = new Date().getDate()
     return (
         <div>
             <Default>
@@ -205,107 +195,113 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                             />
                         </Slider>
                     </div>
-                    <div style={{
-                        fontSize: 21,
-                        fontWeight: "bold",
-                        color: "#202426",
-                        marginBottom: 40,
-                        marginTop: 40,
-                    }}>진행중인 펀드</div>
-                    <div className="grid-container">
-                        {items.map(element =>
-                            <CreatorInfo
-                                img={element.img}
-                                name={element.name}
-                                FundingNum={element.FundingNum}
-                                percent={element.percent}
-                                Deadline={element.Deadline}
-                                sort={element.sort}
-                                    sector={element.sector}
-                                    fundingAim={element.fundingAim}
-                            />
-                        )}
-                    </div>
-                    <div style={{
-                        fontSize: 21,
-                        fontWeight: "bold",
-                        color: "#202426",
-                        marginBottom: 40,
-                    }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
-                    <div style={{
-                        width: "56vw",
-                        minWidth: 1060,
-                        backgroundColor: "#ffffff",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}>
-                        <div style={{
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                        }}>
-                            <CloseBeta
-                                img={personalInfo}
-                                title="크리에이터 정보 확인"
-                                content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
+                    {now >= 10 ?
+                        <></>
+                        :
+                        <>
+                            <div style={{
+                                fontSize: 21,
+                                fontWeight: "bold",
+                                color: "#202426",
+                                marginBottom: 40,
+                                marginTop: 40,
+                            }}>진행중인 펀드</div>
+                            <div className="grid-container">
+                                {items.map(element =>
+                                    <CreatorInfo
+                                        img={element.img}
+                                        name={element.name}
+                                        FundingNum={element.FundingNum}
+                                        percent={element.percent}
+                                        Deadline={element.Deadline}
+                                        sort={element.sort}
+                                        sector={element.sector}
+                                        fundingAim={element.fundingAim}
+                                    />
+                                )}
+                            </div>
+                            <div style={{
+                                fontSize: 21,
+                                fontWeight: "bold",
+                                color: "#202426",
+                                marginBottom: 40,
+                            }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
+                            <div style={{
+                                width: "56vw",
+                                minWidth: 1060,
+                                backgroundColor: "#ffffff",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                            }}>
+                                <div style={{
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                }}>
+                                    <CloseBeta
+                                        img={personalInfo}
+                                        title="크리에이터 정보 확인"
+                                        content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
                     읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
                     가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
-                            />
-                            <CloseBeta
-                                img={auction}
-                                title="크라우드 펀딩 참여"
-                                content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
+                                    />
+                                    <CloseBeta
+                                        img={auction}
+                                        title="크라우드 펀딩 참여"
+                                        content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
                     각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
                     빠르게 마음에 드는 크리에이터를 선점하세요!"
-                            />
-                        </div>
-                        <div style={{
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginTop: 40,
-                        }}>
-                            <CloseBeta
-                                img={moneyBag}
-                                title="토큰 및 리워드 수령"
-                                content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
-                            />
-                            <CloseBeta
-                                img={feedback}
-                                title="피드백은 언제나 환영입니다!"
-                                content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
+                                    />
+                                </div>
+                                <div style={{
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginTop: 40,
+                                }}>
+                                    <CloseBeta
+                                        img={moneyBag}
+                                        title="토큰 및 리워드 수령"
+                                        content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
+                                    />
+                                    <CloseBeta
+                                        img={feedback}
+                                        title="피드백은 언제나 환영입니다!"
+                                        content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
                     언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
-                            />
-                        </div>
-                    </div>
-                    <div style={{
-                        cursor: "pointer",
-                        background: "#ffffff",
-                        width: 300,
-                        height: 48,
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 16,
-                        fontWeight: "bold",
-                        textAlign: "center",
-                        verticalAlign: "center",
-                        marginTop: 44,
-                        marginBottom: 40,
-                        border: "2px solid #E78276",
-                        borderRadius: 10,
-                    }}>
-                        <a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" style={{
-                            textDecorationLine: "none",
-                            color: "#E78276",
-                        }}>자세한 정보를 확인해보세요!</a>
-                    </div>
+                                    />
+                                </div>
+                            </div>
+                            <div style={{
+                                cursor: "pointer",
+                                background: "#ffffff",
+                                width: 300,
+                                height: 48,
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                verticalAlign: "center",
+                                marginTop: 44,
+                                marginBottom: 40,
+                                border: "2px solid #E78276",
+                                borderRadius: 10,
+                            }}>
+                                <a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" style={{
+                                    textDecorationLine: "none",
+                                    color: "#E78276",
+                                }}>자세한 정보를 확인해보세요!</a>
+                            </div>
+                        </>
+                    }
                     <BottomTag />
                 </div>
             </Default>
