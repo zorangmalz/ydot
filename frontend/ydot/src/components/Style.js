@@ -913,22 +913,6 @@ export function PopupOne({ setVisible, setNextVisible }) {
             width: "100vw",
             height: "100vh",
         }}>
-            <div className="empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 100,
-                height: 100,
-                border: "2px solid #e78276",
-                borderRadius: 50,
-                backgroundColor: "#ffffff",
-                position: "fixed",
-                zIndex: 7,
-                cursor: "pointer",
-                bottom: 132,
-                right: 300,
-            }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
@@ -1137,7 +1121,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         justifyContent: "center"
                     }}>{InvestIcon}</button>
                 </div>
-                <input className="safari-design" onClick={one&&two&&three&&invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
+                <input onClick={one&&two&&three&&invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
@@ -1149,6 +1133,7 @@ export function PopupOne({ setVisible, setNextVisible }) {
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
+                    WebkitAppearance: "none"
                 }} value="다음" />
             </div>
         </div>
@@ -1302,22 +1287,6 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             width: "100vw",
             height: "100vh",
         }}>
-            <div className="empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 100,
-                height: 100,
-                border: "2px solid #e78276",
-                borderRadius: 50,
-                backgroundColor: "#ffffff",
-                position: "fixed",
-                zIndex: 7,
-                cursor: "pointer",
-                bottom: 132,
-                right: 300,
-            }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div onClick={() => setVisible(false)} style={{
                 position: "absolute",
                 top: 0,
@@ -1459,6 +1428,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
+                    WebkitAppearance: "none"
                 }} value="펀딩하기" />
             </div>
         </div>
@@ -1486,22 +1456,6 @@ export function PopupThree({ setVisible }) {
                 opacity: 0.4,
                 zIndex: 1,
             }} />
-            <div className="empty-room">투자하기 전에 리워드 계산기 꼭 써보세요</div>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 100,
-                height: 100,
-                border: "2px solid #e78276",
-                borderRadius: 50,
-                backgroundColor: "#ffffff",
-                position: "fixed",
-                zIndex: 7,
-                cursor: "pointer",
-                bottom: 132,
-                right: 300,
-            }}><IoIosCalculator size={60} color="#e78276" /></div>
             <div style={{
                 zIndex: 2,
                 width: 340,
@@ -1555,6 +1509,7 @@ export function PopupThree({ setVisible }) {
                     fontWeight: "bold",
                     color: "#ffffff",
                     alignSelf: "center",
+                    WebkitAppearance: "none"
                 }} value="완료" />
             </div>
         </div>

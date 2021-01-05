@@ -718,7 +718,7 @@ export default function Asset() {
                             border: 0,
                             borderBottom: section ? "2px solid #e78276" : "0px",
                             paddingBottom: 10,
-                            height: section ? "100%" - 2 : "100%"
+                            height: "100%"
                         }} value="보유자산" />
                         <input className="safari-design" type="button" onClick={() => setSection(false)} style={{
                             width: 150,
@@ -733,7 +733,7 @@ export default function Asset() {
                             border: 0,
                             borderBottom: section ? "0px" : "2px solid #e78276",
                             paddingBottom: 10,
-                            height: section ? "100%" : "100%" - 2
+                            height: "100%"
                         }} value="펀딩, 배당내역" />
                     </div>
                     {section ?

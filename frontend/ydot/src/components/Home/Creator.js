@@ -261,6 +261,8 @@ export default function Creator() {
         }
 
         var now = new Date().getDate()
+        var time = new Date().getHours()
+        console.log("시간은" + time)
         console.log("날짜는" + now)
         if (now === 9) {
             setViews(VIEWS.slice(0, -12))
@@ -268,31 +270,91 @@ export default function Creator() {
             setSubs(SUBS.slice(0, -12))
             setMonSubs(monthSubs.slice(0, -12))
         } else if (now === 10) {
-            setViews(VIEWS.slice(0, -10))
-            setMonViews(monthView.slice(0, -10))
-            setSubs(SUBS.slice(0, -10))
-            setMonSubs(monthSubs.slice(0, -10))
+            if (time < 11) {
+                setViews(VIEWS.slice(0, -12))
+                setMonViews(monthView.slice(0, -12))
+                setSubs(SUBS.slice(0, -12))
+                setMonSubs(monthSubs.slice(0, -12))
+            } else if (time >= 11 && time < 17) {
+                setViews(VIEWS.slice(0, -11))
+                setMonViews(monthView.slice(0, -11))
+                setSubs(SUBS.slice(0, -11))
+                setMonSubs(monthSubs.slice(0, -11))
+            } else {
+                setViews(VIEWS.slice(0, -10))
+                setMonViews(monthView.slice(0, -10))
+                setSubs(SUBS.slice(0, -10))
+                setMonSubs(monthSubs.slice(0, -10))
+            }
         } else if (now === 11) {
-            setViews(VIEWS.slice(0, -8))
-            setMonViews(monthView.slice(0, -8))
-            setSubs(SUBS.slice(0, -8))
-            setMonSubs(monthSubs.slice(0, -8))
+            if (time < 11) {
+                setViews(VIEWS.slice(0, -10))
+                setMonViews(monthView.slice(0, -10))
+                setSubs(SUBS.slice(0, -10))
+                setMonSubs(monthSubs.slice(0, -10))
+            } else if (time >= 11 && time < 17) {
+                setViews(VIEWS.slice(0, -9))
+                setMonViews(monthView.slice(0, -9))
+                setSubs(SUBS.slice(0, -9))
+                setMonSubs(monthSubs.slice(0, -9))
+            } else {
+                setViews(VIEWS.slice(0, -8))
+                setMonViews(monthView.slice(0, -8))
+                setSubs(SUBS.slice(0, -8))
+                setMonSubs(monthSubs.slice(0, -8))
+            }
         } else if (now === 12) {
-            setViews(VIEWS.slice(0, -6))
-            setMonViews(monthView.slice(0, -6))
-            setSubs(SUBS.slice(0, -6))
-            setMonSubs(monthSubs.slice(0, -6))
+            if (time < 11) {
+                setViews(VIEWS.slice(0, -8))
+                setMonViews(monthView.slice(0, -8))
+                setSubs(SUBS.slice(0, -8))
+                setMonSubs(monthSubs.slice(0, -8))
+            } else if (time >= 11 && time < 17) {
+                setViews(VIEWS.slice(0, -7))
+                setMonViews(monthView.slice(0, -7))
+                setSubs(SUBS.slice(0, -7))
+                setMonSubs(monthSubs.slice(0, -7))
+            } else {
+                setViews(VIEWS.slice(0, -6))
+                setMonViews(monthView.slice(0, -6))
+                setSubs(SUBS.slice(0, -6))
+                setMonSubs(monthSubs.slice(0, -6))
+            }
         } else if (now === 13) {
-            setViews(VIEWS.slice(0, -4))
-            setMonViews(monthView.slice(0, -4))
-            setSubs(SUBS.slice(0, -4))
-            setMonSubs(monthSubs.slice(0, -4))
+            if (time < 11) {
+                setViews(VIEWS.slice(0, -6))
+                setMonViews(monthView.slice(0, -6))
+                setSubs(SUBS.slice(0, -6))
+                setMonSubs(monthSubs.slice(0, -6))
+            } else if (time >= 11 && time < 17) {
+                setViews(VIEWS.slice(0, -5))
+                setMonViews(monthView.slice(0, -5))
+                setSubs(SUBS.slice(0, -5))
+                setMonSubs(monthSubs.slice(0, -5))
+            } else {
+                setViews(VIEWS.slice(0, -4))
+                setMonViews(monthView.slice(0, -4))
+                setSubs(SUBS.slice(0, -4))
+                setMonSubs(monthSubs.slice(0, -4))
+            }
         } else if (now === 14) {
-            setViews(VIEWS.slice(0, -2))
-            setMonViews(monthView.slice(0, -2))
-            setSubs(SUBS.slice(0, -2))
-            setMonSubs(monthSubs.slice(0, -2))
-        } else {
+            if (time < 11) {
+                setViews(VIEWS.slice(0, -4))
+                setMonViews(monthView.slice(0, -4))
+                setSubs(SUBS.slice(0, -4))
+                setMonSubs(monthSubs.slice(0, -4))
+            } else if (time >= 11 && time < 17) {
+                setViews(VIEWS.slice(0, -3))
+                setMonViews(monthView.slice(0, -3))
+                setSubs(SUBS.slice(0, -3))
+                setMonSubs(monthSubs.slice(0, -3))
+            } else {
+                setViews(VIEWS.slice(0, -2))
+                setMonViews(monthView.slice(0, -2))
+                setSubs(SUBS.slice(0, -2))
+                setMonSubs(monthSubs.slice(0, -2))
+            }
+        }  else {
             setViews(VIEWS)
             setMonViews(monthView)
             setSubs(SUBS)
