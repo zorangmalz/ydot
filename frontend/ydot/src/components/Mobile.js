@@ -461,7 +461,7 @@ export function MBottomTag() {
     return (
         <>
             <div style={{
-                maxWidth: "100vw",
+                width: "100vw",
                 minWidth: 300,
                 backgroundColor: "#ffffff",
                 paddingTop: 20,
