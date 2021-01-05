@@ -29,6 +29,8 @@ export default function FundMain() {
     const [symbol,setSymbol]=useState("")
     const [fundingAim,setFundingAim]=useState(0)
     const [ongoing,setOngoing]=useState(false)
+    const [fundingTotal,setFundingTotal]=useState(0)
+    const [channelTitle,setChannelTitle]=useState("")
     async function getInfo(){
         const today=new Date()
         console.log(today.getTime())
@@ -46,6 +48,8 @@ export default function FundMain() {
             setSymbol(doc.data().symbol)
             setFundingAim(doc.data().FundingAim)
             setOngoing(doc.data().ongoing)
+            setFundingTotal(doc.data().FundingTotal)
+            setChannelTitle(doc.data().channelTitle)
         })
     }
 
@@ -56,7 +60,6 @@ export default function FundMain() {
         firestore.collection("Creator").doc(myparam).collection("Investor").orderBy('fullTime','desc').onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
-
                     list.push({
                        email:doc.data().email,
                        money:doc.data().money,
@@ -64,7 +67,6 @@ export default function FundMain() {
                        fullTime:doc.data().fullTime,
                        dayTime:doc.data().DayTime,
                        uid:doc.data().uid
-
                     })
             })
             setItems(list)
@@ -90,7 +92,7 @@ export default function FundMain() {
         caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
 
         const kip7 = await caver.kct.kip7.deploy(
-            { name: myparam, symbol: symbol, decimals: 2, initialSupply: '1000000'},
+            { name: myparam, symbol: symbol, decimals: 2, initialSupply: String(fundingAim)+"00"},
             "0x064523b1C945d2eAEA22549F089A92BB193Cd25A"
         )
         console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
@@ -124,7 +126,8 @@ export default function FundMain() {
             console.log(receiptNFT)
             idx=idx+1
             await firestore.collection("User").doc(i.uid).collection("NFT").doc(i.dayTime).set({
-                NftHash:receiptNFT.transactionHash
+                NftHash:receiptNFT.transactionHash,
+                NftPic:channelTitle
             })
         }
         setOngoing(false)

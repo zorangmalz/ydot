@@ -1215,10 +1215,15 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 setWarn("최대"+Number(totalMoney)+"₩")
             }
         }else{
+            console.log("here")
+            if(money==0 || money=="0"){
+                alert("금액을 정확히 입력해 주세요")
+            }else{
+                firestoreUpload()
+                setVisible(false)
+                setNextVisible(true)
+            }
             
-            firestoreUpload()
-            setVisible(false)
-            setNextVisible(true)
         }
         
     }

@@ -28,7 +28,7 @@ export default function FundMain() {
     useEffect(() => {
         load()
         loadEnd()
-        upload()
+        // upload()
     }, [])
 
     async function load() {
@@ -136,7 +136,7 @@ export default function FundMain() {
         uploadCreator(1610180070331,1573,1573000,10000,0,"농잘알",true,"NJT","스포츠","매크로",10.19,10,15730160,3922820,"nong","https://www.youtube.com/watch?v=Sa7Jm4VWTq8","https://www.youtube.com/watch?v=yg99DXPTZjU")
         uploadCreator(1610180070331,4599,4598000,10000,0,"광마니",true,"GMT","푸드/먹방","매크로",12,10,45986943,9374812,"gwang","https://www.youtube.com/watch?v=o2m_7zX7s8Y","https://www.youtube.com/watch?v=ZVyvJpTgHAg")
         uploadCreator(1610180070331,133830,13383000,10000,0,"핫도그",true,"HDT","엔터테인먼트","메가",10.34,1,1338301634,341184688,"hotdog"," https://www.youtube.com/watch?v=XHJcdYkgEbE","https://www.youtube.com/watch?v=ckTHSO6LIE4")
-        uploadCreator(1610180070331,53443,5344000,10000,0,"잇섭",true,"IST","IT/과학기술","메가",8,1,534434126,215803603,"its","https://www.youtube.com/watch?v=-U7a_BadTlM"," https://www.youtube.com/watch?v=XymUApkMINY")
+        uploadCreator(1610180070331,53443,5344000,10000,0,"잇섭",true,"IST","IT/과학기술","메가",8,1,534434126,215803603,"itsub","https://www.youtube.com/watch?v=-U7a_BadTlM"," https://www.youtube.com/watch?v=XymUApkMINY")
         uploadCreator(1610180070331,5323,5322000,10000,0,"1분과학",true,"OST","IT/과학기술","매크로",3.98,10,53227743,49036810,"science"," https://www.youtube.com/watch?v=2P6pbgXrAtQ","https://www.youtube.com/watch?v=h5EJZNIqN0k")
         uploadCreator(1610180070331,17739,1773000,10000,0,"신사임당",true,"SST","Vlog/일상","메가",11.83,1,177393388,34521183,"sin","https://www.youtube.com/watch?v=03n3U1UK4Xg","https://www.youtube.com/watch?v=e6Qa05lBdEI")
         uploadCreator(1610180070331,10707,1070000,10000,0,"슈카월드",true,"SWT","엔터테인먼트","메가",9.33,1,107067986,32121015,"suka"," https://www.youtube.com/watch?v=WP4eBPwVOKA"," https://www.youtube.com/watch?v=JdRcM4fLwgE")

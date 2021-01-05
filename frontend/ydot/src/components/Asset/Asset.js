@@ -39,7 +39,9 @@ export default function Asset() {
             const list = []
             querySnapshot.forEach(doc => {
                     list.push({
-                        hash: "https://baobab.scope.klaytn.com/tx/"+doc.data().NftHash
+                        hash: "https://baobab.scope.klaytn.com/tx/"+doc.data().NftHash,
+                        pic:"/images/Profile/"+doc.data().NftPic+"/"+doc.data().NftPic+"Profile.jpg"
+
                     })
                 
             })
