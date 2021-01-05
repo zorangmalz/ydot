@@ -87,7 +87,7 @@ export default function Asset() {
     
     //보유자산과 보유자산
     useEffect(() => {
-        firestore.collection("User").doc(uid).collection("Fund").onSnapshot(querySnapshot => {
+        firestore.collection("User").doc(uid).collection("TotalFunding").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
                 if(doc.data().ongoing==1){
@@ -102,7 +102,7 @@ export default function Asset() {
                     actual: doc.data().monthly,
                     accumulate: doc.data().total,
                     dayTime:doc.data().DayTime,
-                    ftAmount:doc.data().ftAmount
+                    ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000
                 })
             }
                 console.log(doc.data().channel)
@@ -401,12 +401,12 @@ export default function Asset() {
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         marginBottom: 8,
-                                                    }}>{element.amount}</div>
+                                                    }}>{element.ftAmount}</div>
                                                     <div style={{
                                                         opacity: 0.4,
                                                         fontSize: 14,
                                                         color: "#202426"
-                                                    }}>{element.ftAmount}</div>
+                                                    }}>토큰</div>
                                                 </div>
                                                 <div style={{
                                                     display: "flex",

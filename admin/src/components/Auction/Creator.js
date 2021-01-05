@@ -117,6 +117,9 @@ export default function FundMain() {
                 ftHash:receiptFT.transactionHash,
                 ftAmount: (Number(i.money)/Number(fundingAim)).toFixed(6)*10000
             })
+            firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).update({
+                ongoing:1
+            })
             
         }
         var idx=0
