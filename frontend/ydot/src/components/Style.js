@@ -1228,27 +1228,27 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [number, dispatch] = useReducer(PopupReducer, 0)
     const onTwentyfive = () => {
         dispatch({ type: "25" })
-        setMoney((totalMoney/4).toFixed(0))
+        setMoney((Number(totalMoney)/4).toFixed(0))
     }
     const onFifty = () => {
         dispatch({ type: "50" })
-        setMoney((totalMoney/2).toFixed(0))
+        setMoney((Number(totalMoney)/2).toFixed(0))
     }
     const onSeventyFive = () => {
         dispatch({ type: "75" })
-        setMoney((totalMoney/4*3).toFixed(0))
+        setMoney((Number(totalMoney)/4*3).toFixed(0))
     }
     const onMax = () => {
         dispatch({ type: "max" })
-        setMoney((totalMoney).toFixed(0))
+        setMoney((Number(totalMoney)).toFixed(0))
     }
     const[warn,setWarn]=useState("")
     const onNext = () => {
-        if(totalMoney<money ||fundingMax<money){
-            if(totalMoney>fundingMax){
-                setWarn("최대"+fundingMax+"₩")
+        if(Number(totalMoney)<Number(money) ||Number(fundingMax)<Number(money)){
+            if(Number(totalMoney)>Number(fundingMax)){
+                setWarn("최대"+Number(fundingMax)+"₩")
             }else{
-                setWarn("최대"+totalMoney+"₩")
+                setWarn("최대"+Number(totalMoney)+"₩")
             }
         }else{
             firestoreUpload()
