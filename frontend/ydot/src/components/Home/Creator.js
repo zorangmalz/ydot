@@ -955,7 +955,7 @@ export default function Creator() {
                                             height: 156,
                                             marginRight: 40,
                                         }}>
-                                            <CreatorIntro title="채널 이름" content="지순's 일상" other={false} />
+                                            <CreatorIntro title="채널 이름" content={name} other={false} />
                                             <CreatorIntro title="섹터 구분" content={sector} other={false} />
                                         </div>
                                         <div style={{
