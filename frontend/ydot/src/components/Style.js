@@ -1851,32 +1851,32 @@ export function AssetGraph({data}) {
                     }}
                     tickFormat={
                         (x) => {
-                            const date = new Date(x)
-                            if (date.getMonth() === 1) {
-                                return "Jan"
-                            } else if (date.getMonth() === 2) {
-                                return "Feb"
-                            } else if (date.getMonth() === 3) {
-                                return "Mar"
-                            } else if (date.getMonth() === 4) {
-                                return "Apr"
-                            } else if (date.getMonth() === 5) {
-                                return "May"
-                            } else if (date.getMonth() === 6) {
-                                return "Jun"
-                            } else if (date.getMonth() === 7) {
-                                return "Jul"
-                            } else if (date.getMonth() === 8) {
-                                return "Aug"
-                            } else if (date.getMonth() === 9) {
-                                return "Sep"
-                            } else if (date.getMonth() === 10) {
-                                return "Oct"
-                            } else if (date.getMonth() === 11) {
-                                return "Nov"
-                            } else if (date.getMonth() === 12) {
-                                return "Dec"
-                            }
+                            // const date = new Date(x)
+                            // if (date.getMonth() === 1) {
+                            //     return "Jan"
+                            // } else if (date.getMonth() === 2) {
+                            //     return "Feb"
+                            // } else if (date.getMonth() === 3) {
+                            //     return "Mar"
+                            // } else if (date.getMonth() === 4) {
+                            //     return "Apr"
+                            // } else if (date.getMonth() === 5) {
+                            //     return "May"
+                            // } else if (date.getMonth() === 6) {
+                            //     return "Jun"
+                            // } else if (date.getMonth() === 7) {
+                            //     return "Jul"
+                            // } else if (date.getMonth() === 8) {
+                            //     return "Aug"
+                            // } else if (date.getMonth() === 9) {
+                            //     return "Sep"
+                            // } else if (date.getMonth() === 10) {
+                            //     return "Oct"
+                            // } else if (date.getMonth() === 11) {
+                            //     return "Nov"
+                            // } else if (date.getMonth() === 12) {
+                            //     return "Dec"
+                            // }
                         }
                     }
                 />
@@ -1907,7 +1907,7 @@ export function AssetGraph({data}) {
                     size={5}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.x} 원`}
+                        `${datum.y} 원`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
@@ -1931,7 +1931,7 @@ export function AssetPie({ data }) {
                             {
                                 target: "labels",
                                 mutation: ({ text, datum }) => {
-                                    return text === `${datum.x}` ? { text: `${datum.y}%` } : { text: `${datum.x}` }
+                                    return text === `${datum.x}` ? { text: `${datum.y}` } : { text: `${datum.x}` }
                                 }
                             }
                         ];
@@ -1941,7 +1941,7 @@ export function AssetPie({ data }) {
                             {
                                 target: "labels",
                                 mutation: ({text, datum}) => {
-                                    return {text: `${datum.y}%`}
+                                    return {text: `${datum.y}`}
                                 }
                             },
                         ];

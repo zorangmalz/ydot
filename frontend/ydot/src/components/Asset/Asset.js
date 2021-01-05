@@ -32,7 +32,8 @@ export default function Asset() {
     const [items, setItems] = useState([])
     const [itemss, setItemss] = useState([])
     const [itemsss, setItemsss] = useState([])
-
+    const [itemssss,setItemssss]=useState([])
+    const [itemsssss,setItemsssss]=useState([])
     //nft card
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("NFT").onSnapshot(querySnapshot => {
@@ -110,16 +111,69 @@ export default function Asset() {
             setItemsss(list)
         })
     }, [])
+    //배당내역
+    
+    useEffect(() => {
+        firestore.collection("User").doc(uid).collection("AllocateList").onSnapshot(querySnapshot => {
+            const list = []
+            querySnapshot.forEach(doc => {
+                
+                list.push({
+                    dayTime:doc.data().dayTime,
+                    name:doc.data().channel,
+                    actual:doc.data().monthly
+                })
+                
+                
+            })
+            setItemssss(list)
+        })
+    }, [])
+    //그래프용
+    useEffect(() => {
+        firestore.collection("User").doc(uid).collection("Allocate").onSnapshot(querySnapshot => {
+            const list = new Array()
+            querySnapshot.forEach(doc => {
+                const sum=doc.data().total.reduce((stack,el)=>{
+                    return stack+el
+                },0)
 
+                list.push({
+                    x:"2020-0"+doc.id,
+                    y:sum
+                })
+                
+                
+            })
+            console.log(list,"list")
+            setItemsssss(list)
+        })
+    }, [])
+    const [monthlyAllocation,setMonthlyAllocation]=useState(0)
+    const data = [
+        { x: "2020-01", y: monthlyAllocation },
+        // { x: "2020-02", y: 44 },
+        // { x: "2020-03", y: 47 },
+        // { x: "2020-04", y: 51 },
+        // { x: "2020-05", y: 57 },
+        // { x: "2020-06", y: 62 },
+        // { x: "2020-07", y: 67 },
+        // { x: "2020-08", y: 68 },
+        // { x: "2020-09", y: 63 },
+        // { x: "2020-10", y: 54 },
+        // { x: "2020-11", y: 47 },
+        // { x: "2020-12", y: 42 }
+    ];
     //보유자산 위쪽. 이번달
     const [totalFundingPrice,setTotalFundingPrice]=useState(0)
     const [accumulatedAllocation,setAccumulatedAllocation]=useState(0)
 
     //이건 그래프용
-    const [monthlyAllocation,setMonthlyAllocation]=useState(0)
+    
     useEffect(()=>{
         getPrice()
-    },[itemsss])
+        console.log(itemssss)
+    },[itemssss])
 
     async function getPrice(){
         var total=0
@@ -139,20 +193,7 @@ export default function Asset() {
     const [section, setSection] = useState(true)
 
     //그래프
-    const data = [
-        { x: "2020-01", y: monthlyAllocation },
-        // { x: "2020-02", y: 44 },
-        // { x: "2020-03", y: 47 },
-        // { x: "2020-04", y: 51 },
-        // { x: "2020-05", y: 57 },
-        // { x: "2020-06", y: 62 },
-        // { x: "2020-07", y: 67 },
-        // { x: "2020-08", y: 68 },
-        // { x: "2020-09", y: 63 },
-        // { x: "2020-10", y: 54 },
-        // { x: "2020-11", y: 47 },
-        // { x: "2020-12", y: 42 }
-    ];
+
     return (
         <div>
             <Default>
@@ -282,7 +323,7 @@ export default function Asset() {
                                             fontWeight: "normal",
                                             marginTop: 20,
                                         }}>월별 배당 그래프</div>
-                                        <AssetGraph data={data} />
+                                        <AssetGraph data={itemsssss} />
                                     </div>
                                     <div style={{
                                         display: "flex",
@@ -298,7 +339,7 @@ export default function Asset() {
                                             marginTop: 20,
                                             marginBottom: 10,
                                         }}>보유자산 포트폴리오</div>
-                                        <AssetPie data={data} />
+                                        <AssetPie data={itemsssss} />
                                     </div>
                                 </div>
                                 <div className="spaceRow">
@@ -548,7 +589,7 @@ export default function Asset() {
                                     width: "100%",
                                     minHeight: "24vh"
                                 }}>
-                                    {itemsss.map(element =>
+                                    {itemssss.map(element =>
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "row",
@@ -1121,7 +1162,7 @@ export default function Asset() {
                                     display: "flex",
                                     flexDirection: "column"
                                 }}>
-                                    {itemsss.map(element =>
+                                    {itemssss.map(element =>
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "row",

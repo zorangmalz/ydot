@@ -4,6 +4,8 @@ import { useMediaQuery } from 'react-responsive'
 import Header, { BottomTag, CreatorInfo, vw } from '../Style'
 import { useHistory,useLocation } from 'react-router-dom'
 import CaverExtKAS from 'caver-js-ext-kas'
+import { FiRefreshCw } from 'react-icons/fi'
+import firebase from "firebase"
 //임시 이미지
 
 export default function FundMain() {
@@ -107,7 +109,7 @@ export default function FundMain() {
         caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
 
         const kip7 = await caver.kct.kip7.deploy(
-            { name: myparam, symbol: symbol, decimals: 2, initialSupply: String(fundingAim)+"00"},
+            { name: myparam, symbol: symbol, decimals: 2, initialSupply: "1000000"},
             "0x064523b1C945d2eAEA22549F089A92BB193Cd25A"
         )
         console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
@@ -123,7 +125,7 @@ export default function FundMain() {
 
         
 
-        for(const i of itemss){
+        for(const i of itemsss){
             
             const receiptFT= await kip7.transfer(i.wallets, (Number(i.money)/Number(fundingAim)).toFixed(6)*1000000, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
             console.log(receiptFT.transactionHash)
@@ -205,11 +207,37 @@ export default function FundMain() {
                 await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).get().then(doc=>{
                     total=doc.data().total
             })
+            await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).update({
+                total:total+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
+            })
+
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
                 monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
                 month:time
             })
+            await firestore.collection("User").doc(i.uid).collection("Allocate").doc(time).collection("Creator").doc(myparam).set({
+                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                month:time,
+                dayTime:docName,
+                fullTime:today.getDate(),
+                channel:myparam
+            })
+                await firestore.collection("User").doc(i.uid).collection("Allocate").doc(time).update({
+                    total:firebase.firestore.FieldValue.arrayUnion(Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)))
+                })
+            
+           
+            await firestore.collection("User").doc(i.uid).collection("AllocateList").add({
+                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                month:time,
+                dayTime:docName,
+                fullTime:today.getDate(),
+                channel:myparam
+            })
+            
         }
 
     }
