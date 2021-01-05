@@ -29,18 +29,20 @@ export default function FundMain() {
     useEffect(() => {
         load()
         loadEnd()
-    }, [])
+    }, []) 
 
     async function load() {
         var date = new Date()
         firestore.collection("Creator").onSnapshot(querySnapshot => {
             const list = []
             var count = 1
+            
             querySnapshot.forEach(doc => {
                 if(doc.data().Deadline>date.getTime()){
+                    console.log("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Main.jpg")
                     list.push({
                         id: count,
-                        img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
+                        img: "/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg",
                         name: doc.id,
                         FundingNum: doc.data().FundingNum,
                         FundingTotal: doc.data().FundingAim,

@@ -153,9 +153,15 @@ export default function Creator() {
     const [sector, setSector] = useState("")
     const [popular, setPopular] = useState("")
     const [main, setMain] = useState("")
+    const [mainImg,setMainImg]=useState("")
+    const [popularImg,setPopularImg]=useState("")
+    const [profileImg,setProfileImg]=useState("")
     function getInfo() {
         const today = new Date()
         firestore.collection("Creator").doc(myparam).get().then(doc => {
+            setPopularImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Popular.jpg")
+            setMainImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Main.jpg")
+            setProfileImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg")
             setFundingAim(doc.data().FundingAim)
             setFundingTotal(doc.data().FundingTotal)
             setFundingDead(doc.data().Deadline)
@@ -442,7 +448,7 @@ export default function Creator() {
                             }}>
                                 {/* 썸네일 */}
                                 <a href={main} target="_blank">
-                                <img src={thumbnailone} style={{
+                                <img src={mainImg} style={{
                                     width: 620,
                                     height: 320,
                                 }} /></a>
@@ -945,7 +951,7 @@ export default function Creator() {
                                         alignItems: "flex-start",
                                         justifyContent: "space-between",
                                     }}>
-                                        <img src={jisun} style={{ width: 180, height: 156, borderRadius: 20, marginRight: 40 }} />
+                                        <img src={profileImg} style={{ width: 180, height: 156, borderRadius: 20, marginRight: 40 }} />
                                         <div style={{
                                             display: "flex",
                                             flexDirection: "column",
@@ -985,7 +991,7 @@ export default function Creator() {
                                                 marginBottom: 10
                                             }}>인기 동영상</div>
                                             <a href ={popular} target="_blank">
-                                            <img src={campusone} style={{ width: 290, height: 108 }} />
+                                            <img src={popularImg} style={{ width: 290, height: 108 }} />
                                             </a>
                                         </div>
                                     </div>
@@ -1194,7 +1200,7 @@ export default function Creator() {
                                 }}>
                                     {/* 썸네일 */}
                                     <a href={main} target="_blank">
-                                    <img src={thumbnailone} style={{
+                                    <img src={mainImg} style={{
                                         width: "90vw",
                                         minWidth: 300,
                                         height: 180,
@@ -1720,7 +1726,7 @@ export default function Creator() {
                                             alignItems: "center",
                                             justifyContent: "space-between"
                                         }}>
-                                            <img src={jisun} style={{ width: 80, height: 80, borderRadius: 20, marginRight: 10 }} />
+                                            <img src={profileImg} style={{ width: 80, height: 80, borderRadius: 20, marginRight: 10 }} />
                                             <div style={{
                                                 display: "flex",
                                                 flexDirection: "column",
@@ -1767,7 +1773,7 @@ export default function Creator() {
                                                     marginBottom: 5
                                                 }}>인기 동영상</div>
                                                 <a href={popular} target="_blank">
-                                                <img src={campusone} style={{ objectFit: "cover", width: "85vw" }} />
+                                                <img src={popularImg} style={{ objectFit: "cover", width: "85vw" }} />
                                                 </a>
                                             </div>
                                         </div>
