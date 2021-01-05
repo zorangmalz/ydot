@@ -257,7 +257,7 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
                     color: "#161513",
                     marginTop: 7,
                     width: 120,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 12 }}>{fundingAim}</div> 원 펀딩</div>
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 12 }}>{fundingAim}</div> 원 펀딩 완료</div>
                 <div style={{
                     fontSize: 10,
                     color: "#202426",

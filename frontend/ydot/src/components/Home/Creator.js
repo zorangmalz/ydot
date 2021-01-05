@@ -533,7 +533,7 @@ export default function Creator() {
                                         fontSize: 16,
                                         color: "#202426",
                                         fontWeight: "normal"
-                                    }}>원 펀딩</div></div>
+                                    }}>원 펀딩 완료</div></div>
                                     <div style={{
                                         fontSize: 21,
                                         fontWeight: "bold",
@@ -1308,7 +1308,7 @@ export default function Creator() {
                                                         fontSize: 12,
                                                         color: "#202426",
                                                         marginTop: 5
-                                                    }}>원 펀딩</div>
+                                                    }}>원 펀딩 완료</div>
                                                 </div>
                                                 <div style={{
                                                     width: "90%",

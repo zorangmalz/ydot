@@ -457,7 +457,7 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sect
                     color: "#161513",
                     marginTop: 10,
                     width: 195,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{fundingAim}</div> 원 펀딩</div>
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{fundingAim}</div> 원 펀딩 완료</div>
                 <div style={{
                     fontSize: 16,
                     color: "#202426",
@@ -1996,5 +1996,61 @@ export function Login({ setVisible }) {
                 }} value="확인" />
             </div>
         </div>
+    )
+}
+
+export function InvestDashboard({ rank, name, total, accumulate }) {
+    const [detail, setDetail] = useState(false)
+    return (
+        <>
+            <div style={{
+                width: 840,
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                paddingTop: 20,
+                paddingBottom: 20,
+                borderBottom: "1px solid #D2D3D3",
+                height: 30,
+                fontSize: 21,
+            }}>
+                <div style={{
+                    width: 90,
+                    marginLeft: 25,
+                    fontWeight: rank < 5 ? "bold" : "normal",
+                    color: rank < 5 ? "#e78276" : "#202426",
+                }}>{rank}</div>
+                <div style={{
+                    width: 140,
+                    marginLeft: 20,
+                    fontWeight: "bold",
+                    color: "#202426"
+                }}>{name}</div>
+                <div style={{
+                    width: 180,
+                    marginLeft: 20,
+                    color: "#202426"
+                }}>{total}</div>
+                <div style={{
+                    width: 140,
+                    marginLeft: 20,
+                    fontWeight: "bold",
+                    color: "#e78276"
+                }}>{accumulate}</div>
+                <div style={{
+                    width: 160,
+                    marginLeft: 20,
+                    textDecorationLine: "underline",
+                    cursor: "pointer"
+                }}>{detail ? "자세히" : "접기"}</div>
+            </div>
+            {detail ? 
+                <>
+
+                </>
+                :
+                <></>
+            }
+        </>
     )
 }

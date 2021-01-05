@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header, { FAQ, CreatorInfo, GuideBox, vh, vw, CloseBeta, BottomTag, TopBanner } from '../Style'
+import Header, { FAQ, CreatorInfo, GuideBox, vh, vw, CloseBeta, BottomTag, TopBanner, InvestDashboard } from '../Style'
 import { MBottomTag, MCloseBeta, MCreatorInfo, MFAQ, MHeader, MTopBanner } from '../Mobile'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
@@ -195,8 +195,41 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now >= 10 ?
-                        <></>
+                    {now >= 5 ?
+                        <>
+                            <div style={{
+                                fontSize: 21,
+                                fontWeight: "bold",
+                                color: "#202426",
+                                marginBottom: 40,
+                                marginTop: 80,
+                            }}>리워드 Top 10</div>
+                            <div style={{
+                                width: 840,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center"
+                            }}>
+                                <div style={{
+                                    width: 840,
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+
+                                    fontSize: 18,
+                                    opacity: 0.6,
+                                    color: "#202426",
+                                    textAlign: "left"
+                                }}>
+                                    <div style={{width: 90, marginLeft: 25}}>순위</div>
+                                    <div style={{width: 140, marginLeft: 20}}>이름</div>
+                                    <div style={{width: 180, marginLeft: 20}}>총 펀딩금액</div>
+                                    <div style={{width: 140, marginLeft: 20}}>누적 리워드</div>
+                                    <div style={{width: 160, marginLeft: 20}}>포트폴리오</div>
+                                </div>
+                                <InvestDashboard />
+                            </div>
+                        </>
                         :
                         <>
                             <div style={{
