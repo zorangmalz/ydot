@@ -482,10 +482,10 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sect
         <>
             <div onClick={move} className="creator-info">
                 <img src={img} style={{
-                    width: 235,
-                    height: 120,
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20
+                    width: 100,
+                    height: 100,
+                    borderRadius:100,
+                    marginTop:20
                 }} />
                 <div style={{
                     fontSize: 16,
