@@ -32,8 +32,6 @@ import monthsub from '../icon/monthsub.png'
 import noojeok from '../icon/noojeok.png'
 import thumbnailone from '../icon/thumbnailone.png'
 
-//동영상
-import ReactPlayer from "react-player"
 function reducer(state, action) {
     switch (action.type) {
         case "fund":
@@ -449,12 +447,11 @@ export default function Creator() {
                                 marginTop: 20,
                             }}>
                                 {/* 썸네일 */}
-                                {/* <a href={main} target="_blank">
+                                <a href={main} target="_blank">
                                 <img src={mainImg} style={{
                                     width: 620,
                                     height: 320,
-                                }} /></a> */}
-                                <ReactPlayer url={main} controls></ReactPlayer>
+                                }} /></a>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -986,9 +983,15 @@ export default function Creator() {
                                             width: 290,
                                             height: 156,
                                         }}>
-                                        
+                                            <div style={{
+                                                opacity: 0.6,
+                                                color: "#202426",
+                                                fontSize: 18,
+                                                height: 26,
+                                                marginBottom: 10
+                                            }}>인기 동영상</div>
                                             <a href ={popular} target="_blank">
-                                            <img src={popularImg} style={{ width: 290, height: 156 }} />
+                                            <img src={popularImg} style={{ width: 290, height: 108 }} />
                                             </a>
                                         </div>
                                     </div>
@@ -1196,14 +1199,13 @@ export default function Creator() {
                                     marginTop: 20,
                                 }}>
                                     {/* 썸네일 */}
-                                    {/* <a href={main} target="_blank">
+                                    <a href={main} target="_blank">
                                     <img src={mainImg} style={{
                                         width: "90vw",
                                         minWidth: 300,
                                         height: 180,
                                         objectFit: "cover"
-                                    }} /></a> */}
-                                    <ReactPlayer url={main} controls></ReactPlayer>
+                                    }} /></a>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -1785,7 +1787,12 @@ export default function Creator() {
                                                 width: "85vw",
                                                 maxWidth: 375,
                                             }}>
-                                          
+                                                <div style={{
+                                                    opacity: 0.6,
+                                                    color: "#202426",
+                                                    fontSize: 14,
+                                                    marginBottom: 5
+                                                }}>인기 동영상</div>
                                                 <a href={popular} target="_blank">
                                                 <img src={popularImg} style={{ objectFit: "contain", width: "85vw" }} />
                                                 </a>
