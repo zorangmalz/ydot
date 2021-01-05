@@ -983,9 +983,15 @@ export default function Creator() {
                                             width: 290,
                                             height: 156,
                                         }}>
-                                           
+                                            <div style={{
+                                                opacity: 0.6,
+                                                color: "#202426",
+                                                fontSize: 18,
+                                                height: 26,
+                                                marginBottom: 10
+                                            }}>인기 동영상</div>
                                             <a href ={popular} target="_blank">
-                                            <img src={popularImg} style={{ width: 290, height: 156}} />
+                                            <img src={popularImg} style={{ width: 290, height: 108 }} />
                                             </a>
                                         </div>
                                     </div>
@@ -1782,7 +1788,12 @@ export default function Creator() {
                                                 maxWidth: 375,
                                                 height: 120,
                                             }}>
-                                                
+                                                <div style={{
+                                                    opacity: 0.6,
+                                                    color: "#202426",
+                                                    fontSize: 14,
+                                                    marginBottom: 5
+                                                }}>인기 동영상</div>
                                                 <a href={popular} target="_blank">
                                                 <img src={popularImg} style={{ objectFit: "cover", width: "85vw" }} />
                                                 </a>
