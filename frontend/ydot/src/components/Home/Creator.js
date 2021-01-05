@@ -667,6 +667,7 @@ export default function Creator() {
                                         minWidth: 1060,
                                         paddingLeft: 110,
                                         paddingRight: 110,
+                                        paddingBottom: 50,
                                         display: "flex",
                                         flexDirection: "column",
                                     }}>
