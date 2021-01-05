@@ -294,14 +294,18 @@ console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
                         justifyContent: "center",
                         fontSize: 16,
                         fontWeight: "bold",
-                        color: "#E78276",
                         textAlign: "center",
                         verticalAlign: "center",
                         marginTop: 44,
                         marginBottom: 40,
                         border: "2px solid #E78276",
                         borderRadius: 10,
-                    }}>자세한 정보를 확인해보세요!</div>
+                    }}>
+                        <a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" style={{
+                            textDecorationLine: "none",
+                            color: "#E78276",
+                        }}>자세한 정보를 확인해보세요!</a>
+                    </div>
                     <BottomTag />
                 </div>
             </Default>
