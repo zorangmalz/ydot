@@ -131,7 +131,7 @@ export default function Asset() {
     }, [])
     //그래프용
     useEffect(() => {
-        firestore.collection("User").doc(uid).collection("Allocate").onSnapshot(querySnapshot => {
+        firestore.collection("User").doc(uid).collection("Allocate").orderBy("month","asc").onSnapshot(querySnapshot => {
             const list = new Array()
             querySnapshot.forEach(doc => {
                 const sum=doc.data().total.reduce((stack,el)=>{
