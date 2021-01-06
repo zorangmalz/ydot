@@ -195,10 +195,16 @@ export default function FundMain() {
 
         
         for(const i of items){
+            //지갑에 돈 쏴주기
+            var currentMoney
+            await firestore.collection("User").doc(i.uid).get().then(doc=>{
+                currentMoney=doc.data().totalMoney
+            })
+            await firestore.collection("User").doc(i.uid).update({
+                totalMoney=Number(currentMoney)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
+            })
             
-            console.log((Number(i.money)))
-            console.log(Number(fundingAim))
-            console.log((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0),"output")
+
             await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).collection("Allocate").doc(time).set({
                 dayTime:docName,
                 allocate:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
