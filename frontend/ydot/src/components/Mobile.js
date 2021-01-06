@@ -297,7 +297,7 @@ export function MMyInfo() {
     )
 }
 
-export function MTopBanner({img, title, content, backgroundColor}) {
+export function MTopBanner({img, title, content, backgroundColor, link}) {
     return (
         <>
             <div style={{
@@ -311,48 +311,53 @@ export function MTopBanner({img, title, content, backgroundColor}) {
             }}>
                 {/* <img src={topbanner} height="250" style={{ objectFit: "cover", minWidth: 300 }} />
                 <div style={{ position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 300, height: 250, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))" }} /> */}
-                <div style={{
-                    position: "absolute",
-                    zIndex: 1,
-                    top: 0,
-                    width: "95vw",
-                    height: 230,
-                    paddingBottom: 20,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    justifyContent: "flex-end",
-                }}>
-                    <img src={img} style={{
-                        height: 180,
-                        objectFit: "contain",
-                    }} />
-                </div>
-                <div style={{
-                    position: "absolute",
-                    zIndex: 2,
-                    bottom: 20,
-                    left: 15,
-                    width: "100vw",
-                    minWidth: 300,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
+                <a href={link} style={{
+                    textDecorationLine: "none",
+                    WebkitAppearance: "none"
                 }}>
                     <div style={{
-                        fontSize: 14,
-                        color: "#ffffff",
-                        marginBottom: 10,
-                        maxWidth: 200,
-                    }}>{title}</div>
+                        position: "absolute",
+                        zIndex: 1,
+                        top: 0,
+                        width: "95vw",
+                        height: 230,
+                        paddingBottom: 20,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "flex-end",
+                        justifyContent: "flex-end",
+                    }}>
+                        <img src={img} style={{
+                            height: 180,
+                            objectFit: "contain",
+                        }} />
+                    </div>
                     <div style={{
-                        fontSize: 20,
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                        marginBottom: 10,
-                        width: "60vw",
-                    }}>{content}</div>
-                </div>
+                        position: "absolute",
+                        zIndex: 2,
+                        bottom: 20,
+                        left: 15,
+                        width: "100vw",
+                        minWidth: 300,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                    }}>
+                        <div style={{
+                            fontSize: 14,
+                            color: "#ffffff",
+                            marginBottom: 10,
+                            maxWidth: 200,
+                        }}>{title}</div>
+                        <div style={{
+                            fontSize: 20,
+                            fontWeight: "bold",
+                            color: "#ffffff",
+                            marginBottom: 10,
+                            width: "60vw",
+                        }}>{content}</div>
+                    </div>
+                </a>
             </div>
         </>
     )

@@ -370,36 +370,42 @@ export default function SplashScreen() {
                                 title="크리에이터 크라우드 펀딩 플랫폼"
                                 content="Y.은 무슨 서비스인지 알아볼까요?"
                                 backgroundColor="#273d5a"
+                                link="https://www.notion.so/Y-8c0b0039ca7d46f5ac44fba959e55ffe"
                             />
                             <MTopBanner
                                 img={bannericontwo}
                                 title="Day 1 크라우드 펀딩"
                                 content="크라우드 펀딩에 관한 모든것들을 정리해뒀어요."
                                 backgroundColor="#787ff6"
+                                link="https://www.notion.so/945f09f4fb6a4374ac0129d6368b8ad4"
                             />
                             <MTopBanner
                                 img={bannericon}
                                 title="Day 2~7 리워드 수령기간"
                                 content="리워드는 어떻게 받는거죠?"
                                 backgroundColor="#329d9c"
+                                link="https://www.notion.so/945f09f4fb6a4374ac0129d6368b8ad4"
                             />
                             <MTopBanner
                                 img={bannericonfour}
                                 title="내가 투자 좀 잘한다 하시는분?"
                                 content="조랑말배 수익률 대회 진행중!"
                                 backgroundColor="#98c773"
+                                link="https://www.notion.so/34829d066ec94c1cb7fbbe7557e3afcc"
                             />
                             <MTopBanner
                                 img={bannericonfive}
                                 title="테스터님들의 목소리를 들려주세요!"
                                 content="질문과 피드백은 언제든 환영입니다."
                                 backgroundColor="#7097ab"
+                                link="https://www.notion.so/8fd736f2fa0d48bb8d90908b74b25543"
                             />
                             <MTopBanner
                                 img={bannericonsix}
                                 title="소개해주실 크리에이터가 있나요?"
                                 content="저희와 함께할 첫번째 크리에이터님을 찾습니다."
                                 backgroundColor="#93de8c"
+                                link="https://www.notion.so/428ceecd19474217a2a2290c6739e74b"
                             />
                         </Slider>
                     </div>
