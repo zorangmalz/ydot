@@ -1499,6 +1499,10 @@ export function MPopupThree({ setVisible }) {
     )
 }
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export function MGraph({data}) {
     return (
         <div style={{
@@ -1584,7 +1588,7 @@ export function MGraph({data}) {
                     size={3}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.x} \n 크리에이터 누적 조회수 ${datum.y}`}
+                        `${datum.x} \n 크리에이터 누적 조회수 ${numberWithCommas(datum.y)}`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
@@ -1696,7 +1700,7 @@ export function MAssetGraph({data}) {
                     size={5}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.x} 원`}
+                        `${numberWithCommas(datum.x)} 원`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}

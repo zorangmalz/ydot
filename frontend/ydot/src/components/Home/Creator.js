@@ -227,14 +227,13 @@ export default function Creator() {
     const [subs, setSubs] = useState([])
     const [monViews, setMonViews] = useState([])
     const [monSubs, setMonSubs] = useState([])
-    const [index, setIndex] = useState()
+    const [finalViews, setFinalViews] = useState()
     async function CreatorData() {
         const url = 'http://15.165.240.32:8000/v0/beta/';
         var samIndex
         await fetch(url).then(res => {
             return res.json()
         }).then(data => {
-            setIndex(data)
             samIndex=data
         })
         var channelIndex
@@ -425,7 +424,6 @@ export default function Creator() {
                         width: "100vw",
                         minWidth: 1280,
                         height: 80,
-                        zIndex: 0,
                     }}>
                         <Header bold="Fund" />
                     </div>

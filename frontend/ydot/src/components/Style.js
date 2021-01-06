@@ -42,7 +42,7 @@ export default function Header({ bold }) {
     }
     return (
         <header style={{
-            zIndex: 3,
+            zIndex: 9,
             width: "56vw",
             minWidth: 1060,
             height: 80,
@@ -1703,6 +1703,10 @@ export function HashTag({content}) {
     )
 }
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export function Graph({data}) {
     return (
         <div style={{
@@ -1789,7 +1793,7 @@ export function Graph({data}) {
                     size={5}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.x} \n 크리에이터 누적 조회수 ${datum.y}`}
+                        `${datum.x} \n 크리에이터 누적 조회수 ${numberWithCommas(datum.y)}`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
@@ -1800,7 +1804,7 @@ export function Graph({data}) {
             </VictoryChart>
         </div>
     )
-}
+}  
 
 export function AssetGraph({data}) {
     return (
@@ -1811,7 +1815,7 @@ export function AssetGraph({data}) {
             <VictoryChart
                 width={566}
                 height={212}
-                padding={{ top: 20, bottom: 30, right: 30, left: 50}}
+                padding={{ top: 40, bottom: 50, right: 40, left: 90}}
                 containerComponent={<VictoryVoronoiContainer />}
             >
                 <VictoryAxis scale="time"
@@ -1876,7 +1880,7 @@ export function AssetGraph({data}) {
                     }
                 />
                 <VictoryAxis dependentAxis={true}
-                    offsetX={30}
+                    offsetX={75}
                     style={{
                         axis: {
                             stroke: "#202426",
@@ -1889,7 +1893,7 @@ export function AssetGraph({data}) {
                             fillOpacity: 0.4,
                             fontWeight: "bold"
                         }
-                    }} 
+                    }}
                 />
                 <VictoryLine style={{
                     data: {
@@ -1902,7 +1906,7 @@ export function AssetGraph({data}) {
                     size={5}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.y} 원`}
+                        `${numberWithCommas(datum.y)} 원`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
