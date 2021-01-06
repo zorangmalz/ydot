@@ -42,7 +42,7 @@ export default function Header({ bold }) {
     }
     return (
         <header style={{
-            zIndex: 9,
+            zIndex: 1,
             width: "56vw",
             minWidth: 1060,
             height: 80,
@@ -919,10 +919,10 @@ export function PopupOne({ setVisible, setNextVisible }) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 1,
+                zIndex: 5,
             }} />
             <div style={{
-                zIndex: 2,
+                zIndex: 7,
                 width: 340,
                 height: 376,
                 paddingTop: 30,
@@ -1358,10 +1358,10 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 1,
+                zIndex: 5,
             }} />
             <div style={{
-                zIndex: 2,
+                zIndex: 7,
                 width: 340,
                 height: 250,
                 paddingTop: 30,
@@ -1518,10 +1518,10 @@ export function PopupThree({ setVisible }) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 1,
+                zIndex: 5,
             }} />
             <div style={{
-                zIndex: 2,
+                zIndex: 7,
                 width: 340,
                 height: 300,
                 paddingTop: 30,

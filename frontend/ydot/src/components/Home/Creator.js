@@ -228,6 +228,12 @@ export default function Creator() {
     const [monViews, setMonViews] = useState([])
     const [monSubs, setMonSubs] = useState([])
     const [finalViews, setFinalViews] = useState()
+    
+    const [finalSubs, setFinalSubs] = useState()
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     async function CreatorData() {
         const url = 'http://15.165.240.32:8000/v0/beta/';
         var samIndex
@@ -281,6 +287,11 @@ export default function Creator() {
 
         var a = diff(viewsDiff)
         var b = diff(subsDiff)
+        var c = a.pop()
+        var d = b.pop()
+        setFinalViews(a[a.length - 1])
+        setFinalSubs(b[b.length - 1])
+        console.log(finalSubs, finalViews)
         var count = 0
         for (var k in objtype) {
             monthView.push({x: k, y: a[count]})
@@ -292,7 +303,7 @@ export default function Creator() {
         var time = new Date().getHours()
         console.log("시간은" + time)
         console.log("날짜는" + now)
-        if (now === 9) {
+        if (now < 10) {
             setViews(VIEWS.slice(0, -12))
             setMonViews(monthView.slice(0, -12))
             setSubs(SUBS.slice(0, -12))
@@ -1076,15 +1087,8 @@ export default function Creator() {
                                             width: 290,
                                             height: 156,
                                         }}>
-                                            <div style={{
-                                                opacity: 0.6,
-                                                color: "#202426",
-                                                fontSize: 18,
-                                                height: 26,
-                                                marginBottom: 10
-                                            }}>인기 동영상</div>
-                                            <a href ={popular} target="_blank">
-                                            <img src={popularImg} style={{ height: 120, objectFit: "contain" }} />
+                                            <a href={popular} target="_blank">
+                                                <img src={popularImg} style={{ height: 156, objectFit: "contain" }} />
                                             </a>
                                         </div>
                                     </div>
@@ -1096,10 +1100,10 @@ export default function Creator() {
                                         width: "100%",
                                         marginTop: 40,
                                     }}>
-                                        <ChannelAnalysisBox title="일일 조회수  획득" content="123,123,123" img={true} growth={true} />
-                                        <ChannelAnalysisBox title="일일 구독자 획득" content="1,000" img={true} growth={false} />
-                                        <ChannelAnalysisBox title="월 평균 조회수 성장률" content="5%" img={true} growth={true} />
-                                        <ChannelAnalysisBox title="월 평균 구독자 성장률" content="5%" />
+                                        <ChannelAnalysisBox title="월 조회수 획득" content={numberWithCommas(finalViews)} img={true} growth={true} />
+                                        <ChannelAnalysisBox title="월 구독자 획득" content={numberWithCommas(finalSubs)} img={true} growth={false} />
+                                        <ChannelAnalysisBox title="월 조회수 성장률" content="5%" img={true} growth={true} />
+                                        <ChannelAnalysisBox title="월 구독자 성장률" content="5%" />
                                         <ChannelAnalysisBox title="좋아요/싫어요 비율" content="15.2" />
                                     </div>
                                 </div>
@@ -1909,9 +1913,9 @@ export default function Creator() {
                                             marginTop: 10,
                                             marginBottom: 10,
                                         }}>
-                                            <MChannelAnalysisBox title="일일 조회수  획득" content="123,123,123" img={true} growth={true} />
-                                            <MChannelAnalysisBox title="일일 구독자 획득" content="1,000" img={true} growth={false} />
-                                            <MChannelAnalysisBox title="월 평균 조회수 성장률" content="5%" img={true} growth={true} />
+                                            <MChannelAnalysisBox title="월 조회수 획득" content="123,123,123" img={true} growth={true} />
+                                            <MChannelAnalysisBox title="월 구독자 획득" content="1,000" img={true} growth={false} />
+                                            <MChannelAnalysisBox title="월 조회수 성장률" content="5%" img={true} growth={true} />
                                         </div>
                                         <div style={{
                                             width: "90vw",
@@ -1921,7 +1925,7 @@ export default function Creator() {
                                             alignItems: "center",
                                             justifyContent: "space-between"
                                         }}>
-                                            <MChannelAnalysisBoxTwo title="월 평균 구독자 성장률" content="5%" />
+                                            <MChannelAnalysisBoxTwo title="월 구독자 성장률" content="5%" />
                                             <MChannelAnalysisBoxTwo title="좋아요/싫어요 비율" content="15.2" />
                                         </div>
                                     </div>
