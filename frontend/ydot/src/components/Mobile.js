@@ -1715,6 +1715,23 @@ export function MAssetGraph({data}) {
 }
 
 export function MAssetPie({ data }) {
+    const [bottom,setBottom]=useState(0)
+    const [realColor,setRealColor]=useState([])
+    function percent(){
+        var total=0
+        var colorList=[]
+        for(var i=0;i<data.length;i++){
+            console.log(data[i],"this is i")
+            total=data[i].y+total
+            console.log(data[i].color)
+            colorList.push(data[i].color)
+        }
+setRealColor(colorList)
+setBottom(total)
+    }
+    useEffect(()=>{
+        percent()
+    },[])
     return (
         <div style={{
             width: 200,
@@ -1722,36 +1739,37 @@ export function MAssetPie({ data }) {
             alignSelf: "center",
         }}>
             <VictoryPie
-                events={[{
-                    target: "data",
-                    eventHandlers: {
-                        onMouseOver: () => {
-                            return [
-                                {
-                                    target: "labels",
-                                    mutation: ({ text, datum }) => {
-                                        return text === `${datum.x}` ? { text: `${datum.y}%` } : { text: `${datum.x}` }
-                                    }
-                                }
-                            ];
-                        },
-                        onMouseOut: () => {
-                            return [
-                                {
-                                    target: "labels",
-                                    mutation: ({ text, datum }) => {
-                                        return { text: `${datum.y}%` }
-                                    }
-                                },
-                            ];
-                        }
-                    }
-                }]}
+                  colorScale={realColor}
+                  events={[{
+                      target: "data",
+                      eventHandlers: {
+                          onMouseOver: () => {
+                              return [
+                                  {
+                                      target: "labels",
+                                      mutation: ({ text, datum }) => {
+                                          return text === `${datum.name}` ? { text: `${datum.y}` } : { text: `${datum.name}` }
+                                      }
+                                  }
+                              ];
+                          },
+                          onMouseOut: () => {
+                              return [
+                                  {
+                                      target: "labels",
+                                      mutation: ({text, datum}) => {
+                                          return {text: `${(datum.y/bottom*100).toFixed(2)}%`}
+                                      }
+                                  },
+                              ];
+                          }
+                      }
+                  }]}
                 width={200}
                 height={200}
                 padding={{ top: 0, left: 0, right: 0, bottom: 0 }}
                 data={data}
-                labels={({ datum }) => `${datum.y}%`}
+                labels={({ datum }) => `${(datum.y/bottom*100).toFixed(2)}%`}
                 labelPosition="centroid"
                 labelRadius={({ innerRadius }) => innerRadius + 70}
                 style={{

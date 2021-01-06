@@ -103,7 +103,8 @@ export default function Asset() {
                     accumulate: doc.data().total,
                     dayTime:doc.data().DayTime,
                     ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
-                    y:doc.data().total
+                    y:doc.data().total,
+                    color:doc.data().color
                 })
             }
                 console.log(doc.data().channel)
@@ -362,7 +363,7 @@ export default function Asset() {
                                         fontSize: 18,
                                         color: "#202426",
                                         width: 100,
-                                    }}>보유수량</div>
+                                    }}>보유 수량</div>
                                     <div style={{
                                         opacity: 0.6,
                                         fontSize: 18,
@@ -419,7 +420,7 @@ export default function Asset() {
                                                     alignItems: "center",
                                                     width: 185
                                                 }}>
-                                                    <div style={{ width: 54, height: 54, borderRadius: 27, backgroundColor: element.img, marginRight: 10 }} />
+                                                    <div style={{ width: 54, height: 54, borderRadius: 27, backgroundColor: element.color, marginRight: 10 }} />
                                                     <div style={{
                                                         display: "flex",
                                                         flexDirection: "column",
@@ -450,7 +451,7 @@ export default function Asset() {
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         marginBottom: 8,
-                                                    }}>{element.ftAmount}</div>
+                                                    }}>{(element.ftAmount).toFixed(2)}</div>
                                                     <div style={{
                                                         opacity: 0.4,
                                                         fontSize: 14,
@@ -803,7 +804,7 @@ export default function Asset() {
                                             paddingBottom: 5,
                                             marginTop: 20
                                         }}>월별 배당 그래프</div>
-                                        <MAssetGraph data={data} />
+                                        <MAssetGraph data={itemsssss} />
                                     </div>
                                     <div style={{
                                         display: "flex",
@@ -827,7 +828,7 @@ export default function Asset() {
                                             alignItems: "flex-start",
                                             marginBottom: 20,
                                         }}>
-                                            <MAssetPie data={data} />
+                                            <MAssetPie data={itemsss} />
                                             <div style={{
                                                 display: "flex",
                                                 flexDirection: "column",
@@ -904,7 +905,7 @@ export default function Asset() {
                                                     width: "20%",
                                                     height: 110,
                                                 }}>
-                                                    <div style={{ width: "90%", minWidth: 60, maxWidth: 65, height: 70, borderRadius: 10, backgroundColor: element.img, marginBottom: 10 }} />
+                                                    <div style={{ width: "90%", minWidth: 60, maxWidth: 65, height: 70, borderRadius: 10, backgroundColor: element.color, marginBottom: 10 }} />
                                                     <div style={{
                                                         display: "flex",
                                                         flexDirection: "column",
@@ -952,13 +953,13 @@ export default function Asset() {
                                                                 color: "#202426",
                                                                 marginBottom: 8,
                                                                 textAlign: "right",
-                                                            }}>보유 수량 {element.ftAmount}</div>
+                                                            }}>보유 수량 {}</div>
                                                             <div style={{
                                                                 width: "100%",
                                                                 fontSize: 14,
                                                                 color: "#202426",
                                                                 textAlign: "right",
-                                                            }}>{element.amount}</div>
+                                                            }}>{(element.ftAmount).toFixed(2)}</div>
                                                         </div>
                                                         <div style={{
                                                             display: "flex",

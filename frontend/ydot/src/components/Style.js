@@ -1225,6 +1225,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [symbol,setSymbol]=useState("")
     const [fundingAim,setFundingAim]=useState(0)
     const [investList,setInvestList]=useState([])
+    const [creatorColor,setCreatorColor]=useState("")
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
@@ -1232,6 +1233,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             setSymbol(doc.data().symbol)
             setFundingAim(doc.data().FundingAim)
             setInvestList(doc.data().investList)
+            setCreatorColor(doc.data().color)
         })
     }
 
@@ -1258,7 +1260,8 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             monthly:0,
             month:0,
             symbol:symbol,
-            fundingAim:fundingAim
+            fundingAim:fundingAim,
+            color:creatorColor
                 })
             })
         }else{
@@ -1273,6 +1276,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         month:0,
         symbol:symbol,
         fundingAim:fundingAim,
+        color:creatorColor,
         
             })
             firestore.collection("User").doc(uid).update({
@@ -1919,45 +1923,63 @@ export function AssetGraph({data}) {
 }
 
 export function AssetPie({ data }) {
+    const [bottom,setBottom]=useState(0)
+    const [realColor,setRealColor]=useState([])
+    function percent(){
+        var total=0
+        var colorList=[]
+        for(var i=0;i<data.length;i++){
+            console.log(data[i],"this is i")
+            total=data[i].y+total
+            console.log(data[i].color)
+            colorList.push(data[i].color)
+        }
+setRealColor(colorList)
+setBottom(total)
+    }
+    useEffect(()=>{
+        percent()
+    },[])
     return (
         <VictoryPie
-            // events={[{
-            //     target: "data",
-            //     eventHandlers: {
-            //         onMouseOver: () => {
-            //             return [
-            //                 {
-            //                     target: "labels",
-            //                     mutation: ({ text, datum }) => {
-            //                         return text === `${datum.x}` ? { text: `${datum.y}` } : { text: `${datum.x}` }
-            //                     }
-            //                 }
-            //             ];
-            //         },
-            //         onMouseOut: () => {
-            //             return [
-            //                 {
-            //                     target: "labels",
-            //                     mutation: ({text, datum}) => {
-            //                         return {text: `${datum.y}`}
-            //                     }
-            //                 },
-            //             ];
-            //         }
-            //     }
-            // }]}
+            colorScale={realColor}
+            events={[{
+                target: "data",
+                eventHandlers: {
+                    onMouseOver: () => {
+                        return [
+                            {
+                                target: "labels",
+                                mutation: ({ text, datum }) => {
+                                    return text === `${datum.name}` ? { text: `${datum.y}` } : { text: `${datum.name}` }
+                                }
+                            }
+                        ];
+                    },
+                    onMouseOut: () => {
+                        return [
+                            {
+                                target: "labels",
+                                mutation: ({text, datum}) => {
+                                    return {text: `${(datum.y/bottom*100).toFixed(2)}%`}
+                                }
+                            },
+                        ];
+                    }
+                }
+            }]}
             padding={{ top: 0, left: 20, right: 20, }}
             width={350}
             height={350}
             data={data}
-            labels={({ datum }) => `${datum.y}`}
+            labels={({ datum }) => `${(datum.y/bottom*100).toFixed(2)}%`}
             labelPosition="centroid"
             labelRadius={({ innerRadius }) => innerRadius + 100}
             style={{
                 labels: {
                     fill: "#ffffff",
-                    fontSize: 14,
-                    fontWeight: "bold",
+                    fontSize: 21,
+                    fontWeight:"bold"
                 }
             }}
         />
