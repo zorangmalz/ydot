@@ -149,6 +149,9 @@ export default function Asset() {
             setItemsssss(list)
         })
     }, [])
+
+    //총펀딩금액용
+
     const [monthlyAllocation,setMonthlyAllocation]=useState(0)
     const data = [
         { x: "2020-01", y: monthlyAllocation },
@@ -173,7 +176,7 @@ export default function Asset() {
     useEffect(()=>{
         getPrice()
         console.log(itemssss)
-    },[itemssss])
+    },[itemssss,itemsss])
 
     async function getPrice(){
         var total=0
