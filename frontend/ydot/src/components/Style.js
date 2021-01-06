@@ -459,7 +459,7 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sect
                     color: "#161513",
                     marginTop: 10,
                     width: 195,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{fundingAim}</div> 원 펀딩 완료</div>
+                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{fundingAim}</div> 원 펀딩 목표</div>
                 <div style={{
                     fontSize: 16,
                     color: "#202426",

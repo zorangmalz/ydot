@@ -195,7 +195,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now >= 5 ?
+                    {now > 5 ?
                         <>
                             <div style={{
                                 fontSize: 21,
@@ -244,7 +244,7 @@ export default function SplashScreen() {
                                 color: "#202426",
                                 marginBottom: 40,
                                 marginTop: 40,
-                            }}>진행중인 펀드</div>
+                            }}>진행중인 펀딩</div>
                             <div className="grid-container">
                                 {items.map(element =>
                                     <CreatorInfo
@@ -448,7 +448,7 @@ export default function SplashScreen() {
                                 color: "#202426",
                                 marginBottom: 20,
                                 marginTop: 40,
-                            }}>진행중인 펀드</div>
+                            }}>진행중인 펀딩</div>
                             <div style={{
                                 display: "flex",
                                 flexDirection: "column",
