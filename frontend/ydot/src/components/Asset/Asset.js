@@ -96,11 +96,11 @@ export default function Asset() {
                     name: doc.data().channel,
                     unit: doc.data().symbol,
                     chain: "KRW",
-                    total:(doc.data().Money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+                    total:doc.data().Money,
                     number: doc.data().month+"/12",
                     next: "1/20",
                     actual: doc.data().monthly,
-                    accumulate: (doc.data().total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+                    accumulate: doc.data().total,
                     dayTime:doc.data().DayTime,
                     ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000
                 })
@@ -179,12 +179,14 @@ export default function Asset() {
         var accu=0
         var mon=0
         for(const i of itemsss){
-            total= Number(i.total)+total
-            accu=Number(i.accumulate)+accu
-            mon=Number(i.actual)+mon
+            console.log(i.total,i.accumulate,"hhh")
+            total= Number(i.total)+Number(total)
+            accu=Number(i.accumulate)+Number(accu)
+            mon=Number(i.actual)+Number(mon)
         }
-        setTotalFundingPrice((total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")))
-        setAccumulatedAllocation((accu.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")))
+        console.log(total,accu)
+        setTotalFundingPrice(total)
+        setAccumulatedAllocation(accu)
         setMonthlyAllocation(mon)
     }
 
@@ -287,7 +289,7 @@ export default function Asset() {
                                                 fontWeight: "bold",
                                                 color: "#202426",
                                                 marginRight: 8,
-                                            }}>{totalFundingPrice}</div>
+                                            }}>{(totalFundingPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}</div>
                                             <div style={{
                                                 fontSize: 18,
                                                 fontWeight: "normal",
@@ -301,7 +303,7 @@ export default function Asset() {
                                                 fontWeight: "bold",
                                                 color: "#e78276",
                                                 marginRight: 8,
-                                            }}>{accumulatedAllocation}</div>
+                                            }}>{(accumulatedAllocation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}</div>
                                             <div style={{
                                                 fontSize: 18,
                                                 fontWeight: "normal",
@@ -475,7 +477,7 @@ export default function Asset() {
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         marginBottom: 8,
-                                                    }}>{element.total}</div>
+                                                    }}>{(element.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}</div>
                                                     <div style={{
                                                         opacity: 0.4,
                                                         fontSize: 14,
@@ -503,7 +505,7 @@ export default function Asset() {
                                                         color: "#e78276",
                                                         fontWeight: "bold",
                                                         marginBottom: 8,
-                                                    }}>{element.accumulate}</div>
+                                                    }}>{(element.accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}</div>
                                                     <div style={{
                                                         opacity: 0.4,
                                                         fontSize: 14,
