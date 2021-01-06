@@ -19,8 +19,16 @@ import { useMediaQuery } from 'react-responsive'
 //펀딩 핵심 포인트
 import analytics from '../icon/analytics.png'
 import risk from '../icon/risk.png'
-import vlog from '../icon/vlog.png'
 import barchart from '../icon/bar-chart.png'
+
+//섹터 이미지
+import vlog from '../icon/vlog.png'
+import it from "../icon/it.png"
+import entertainment from "../icon/entertainment.png"
+import sports from "../icon/sports.png"
+import food from "../icon/food.png"
+import game from "../icon/game.png"
+import music from "../icon/music.png"
 
 //나머지
 import thumbup from '../icon/thumb-up.png'
@@ -135,10 +143,9 @@ export default function Creator() {
     const [roi, setRoi] = useState("")
     const [percentage, setPercentage] = useState(0)
 
-
+    const [sectorImage, setSectorImage] = useState("")
     useEffect(() => {
         getInfo()
-        
     }, [])
 
     const [fundingAim, setFundingAim] = useState(0)
@@ -187,6 +194,21 @@ export default function Creator() {
             setSector(doc.data().sector)
             setMain(doc.data().mainVideo)
             setPopular(doc.data().popularVideo)
+            if (sector === "IT/과학기술") {
+                setSectorImage(it)
+            } else if (sector === "엔터테인먼트") {
+                setSectorImage("../icon/entertainment.png")
+            } else if (sector === "스포츠") {
+                setSectorImage("../icon/sports.png")
+            } else if (sector === "푸드/먹방") {
+                setSectorImage("../icon/food.png")
+            } else if (sector === "Vlog/일상") {
+                setSectorImage("../icon/vlog.png")
+            } else if (sector === "게임") {
+                setSectorImage("../icon/game.png")
+            } else if (sector === "음악") {
+                setSectorImage("../icon/music.png")
+            }
         }
         )
     }
@@ -706,7 +728,7 @@ export default function Creator() {
                                         justifyContent: "space-between",
                                     }}>
                                         <CloseBeta
-                                            img={vlog}
+                                            img={sectorImage}
                                             title={sector}
                                             content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
