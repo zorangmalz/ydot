@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Header, { FAQ, CreatorInfo, GuideBox, vh, vw, CloseBeta, BottomTag, TopBanner, InvestDashboard } from '../Style'
-import { MBottomTag, MCloseBeta, MCreatorInfo, MFAQ, MHeader, MTopBanner, MInvestDashboard } from '../Mobile'
+import Header, { CreatorInfo, CloseBeta, BottomTag, TopBanner, InvestDashboard } from '../Style'
+import { MBottomTag, MCloseBeta, MCreatorInfo, MHeader, MTopBanner, MInvestDashboard } from '../Mobile'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
@@ -16,10 +16,6 @@ import moneyBag from '../icon/money-bag.png'
 import personalInfo from '../icon/personal-information.png'
 
 //임시 이미지
-import Exampleone from '../icon/exampleone.png'
-import Exampletwo from '../icon/exampletwo.png'
-import Examplethree from '../icon/examplethree.png'
-import Examplefour from '../icon/examplefour.png'
 import bannericon from "../icon/bannericon.png"
 import bannericontwo from "../icon/bannericontwo.png"
 import bannericonfour from "../icon/bannericonfour.png"
