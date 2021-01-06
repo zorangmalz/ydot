@@ -1951,7 +1951,7 @@ export function AssetPie({ data }) {
             width={350}
             height={350}
             data={data}
-            labels={({ datum }) => `${datum.y}%`}
+            labels={({ datum }) => `${datum.y}`}
             labelPosition="centroid"
             labelRadius={({ innerRadius }) => innerRadius + 100}
             style={{

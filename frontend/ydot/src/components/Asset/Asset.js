@@ -102,7 +102,8 @@ export default function Asset() {
                     actual: doc.data().monthly,
                     accumulate: doc.data().total,
                     dayTime:doc.data().DayTime,
-                    ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000
+                    ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
+                    y:doc.data().total
                 })
             }
                 console.log(doc.data().channel)
@@ -340,7 +341,7 @@ export default function Asset() {
                                             marginTop: 20,
                                             marginBottom: 10,
                                         }}>보유자산 포트폴리오</div>
-                                        <AssetPie data={itemsssss} />
+                                        <AssetPie data={itemsss} />
                                     </div>
                                 </div>
                                 <div className="spaceRow">
