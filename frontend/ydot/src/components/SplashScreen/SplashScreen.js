@@ -201,7 +201,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now > 5 ?
+                    {now > 10 ?
                         <>
                             <div style={{
                                 fontSize: 21,
@@ -409,7 +409,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now >= 5 ?
+                    {now >= 10 ?
                         <>
                             <div style={{
                                 fontSize: 18,
