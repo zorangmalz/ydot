@@ -212,6 +212,9 @@ export default function Creator() {
         }
         )
     }
+
+    const [calMoney, setCalMoney] = useState()
+    const [calGrow, setCalGrow] = useState()
     
     function calculate() {
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
@@ -219,6 +222,8 @@ export default function Creator() {
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
+        setCalMoney(document.getElementById("PRICE").value)
+        setCalGrow(document.getElementById("RATE").value)
     }
 
 

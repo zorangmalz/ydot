@@ -304,7 +304,7 @@ export default function Asset() {
                                                 color: "#202426",
                                             }}>원</div>
                                         </div>
-                                        <div className="assetTitle">누적 배당</div>
+                                        <div className="assetTitle">누적 리워드</div>
                                         <div className="startColumn">
                                             <div style={{
                                                 fontSize: 21,
@@ -393,7 +393,7 @@ export default function Asset() {
                                         fontSize: 18,
                                         color: "#202426",
                                         width: 110,
-                                    }}>누적 배당</div>
+                                    }}>누적 리워드</div>
                                 </div>
                                 <div style={{
                                     width: "100%",
