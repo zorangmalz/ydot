@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import Header, { AssetGraph, AssetPie, DesktopMinWidthNotPadding, vh, vw } from '../Style'
+import Header, { AssetGraph, AssetPie } from '../Style'
 import "../component.css"
 import { useSelector } from "react-redux";
-import { useFirebase, useFirestore } from "react-redux-firebase"
-import { Link } from 'react-router-dom';
+import { useFirestore } from "react-redux-firebase"
 
 //아이콘
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md"

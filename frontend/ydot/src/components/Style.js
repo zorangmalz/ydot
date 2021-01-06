@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
-import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie, VictorySharedEvents, VictoryLabel } from "victory"
+import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie } from "victory"
 import firebase from "firebase"
 import HSBar from "react-horizontal-stacked-bar-chart";
 
@@ -12,11 +12,9 @@ import HSBar from "react-horizontal-stacked-bar-chart";
 import "./component.css"
 
 //아이콘
-import { IoIosCalculator } from 'react-icons/io'
-import { FaUserCircle, FaArrowRight, FaArrowDown, FaFacebook } from 'react-icons/fa';
+import { FaUserCircle, FaArrowRight, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
-import { FiArrowRightCircle } from 'react-icons/fi';
 import { BiCheckCircle } from 'react-icons/bi'
 
 //이미지
@@ -26,11 +24,9 @@ import rocketdown from "./icon/rocketdown.png"
 
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
-export const DesktopMinWidthNotPadding = 1224 * 58 / 68 + 7.4 * vw
 
 export default function Header({ bold }) {
     const [mine, setMine] = useState(false)
-    const firestore = useFirestore()
     const history =useHistory()
     const { uid } = useSelector((state) => state.firebase.auth);
   
@@ -151,7 +147,7 @@ export function TopBanner({img, title, content, backgroundColor, link}) {
                         alignItems: "flex-end",
                         justifyContent: "flex-end",
                     }}>
-                        <img src={img} style={{
+                        <img src={img} alt="" style={{
                             width: 400,
                             objectFit: "contain",
                         }} />
@@ -192,7 +188,6 @@ export function MyInfo() {
     const { uid } = useSelector((state) => state.firebase.auth);
     const [leng, setLeng] = useState("")
     const [email, setEmail] = useState("")
-    const [amount, setAmount] = useState("")
     const [wallet, setWallet] = useState("")
     const [money,setMoney]=useState(0)
     const history = useHistory()
@@ -225,7 +220,7 @@ export function MyInfo() {
         if (leng.length === 0) {
             setLeng("0")
         }
-    }, [])
+    }, [wallet])
 
     return (
         <>
@@ -434,11 +429,9 @@ export function FAQ({ title, content, value, onClick }) {
 }
 
 //HomeMain.js와 AuctionMain.js 요소
-export function CreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sector,fundingAim }) {
+export function CreatorInfo({ img, name, percent, Deadline,sort,sector,fundingAim }) {
     const history = useHistory()
 
-    const direct = "/home/" + String(name)
-    const auctiondirect = "/auction/" + String(name)
     //link 쓰려다가 화면이 이상해져서 history 로 대체. 뭔차인지는 모르겠음ㅇ
     function move() {
         history.push("/fund/" + String(name),{creatorName:String(name)})
@@ -446,7 +439,7 @@ export function CreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sect
     return (
         <>
             <div onClick={move} className="creator-info">
-                <img src={img} style={{
+                <img src={img} alt="" style={{
                     width: 100,
                     height: 100,
                     borderRadius:100,
@@ -510,7 +503,7 @@ export function CloseBeta({ img, title, content }) {
                 flexDirection: "row",
                 alignItems: "flex-start",
             }}>
-                <img src={img} style={{ width: 80, height: 80, marginTop: 7, marginRight: 40, objectFit: "contain" }} />
+                <img src={img} alt="" style={{ width: 80, height: 80, marginTop: 7, marginRight: 40, objectFit: "contain" }} />
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
@@ -553,14 +546,13 @@ export function ProgressBar({ completed }) {
         backgroundColor: "#e78276",
         borderRadius: 'inherit',
         textAlign: "center",
-        borderRadius: 10,
     }
 
-    const labelStyles = {
-        fontSize: 14,
-        color: '#ffffff',
-        fontWeight: 'bold'
-    }
+    // const labelStyles = {
+    //     fontSize: 14,
+    //     color: '#ffffff',
+    //     fontWeight: 'bold'
+    // }
 
     return (
         <div style={containerStyles}>
@@ -629,9 +621,9 @@ export function ChannelAnalysisBox({title, content, img, growth}) {
                 }}>{content}</div>
                 {img ?
                     growth ?
-                        <img src={rocketup} style={{ width: 60, height: 60 }} />
+                        <img alt="" src={rocketup} style={{ width: 60, height: 60 }} />
                         :
-                        <img src={rocketdown} style={{ width: 60, height: 60 }} />
+                        <img alt="" src={rocketdown} style={{ width: 60, height: 60 }} />
 
                     :
                     <></>}
@@ -1167,10 +1159,8 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
     const [money, setMoney] = useState("")
-    const [amount, setAmount] = useState("")
-    const [tok, setTok] = useState("")
+
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-   
     const onChange = (e) => {
         console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
         console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
@@ -1206,18 +1196,17 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             }else{
                 setWarn("최대"+Number(totalMoney)+"₩")
             }
-        }else{
+        } else {
             console.log("here")
-            if(money==0 || money=="0"){
+            if (money === 0 || money === "0") {
                 alert("금액을 정확히 입력해 주세요")
-            }else{
+            } else {
                 firestoreUpload()
                 setVisible(false)
                 setNextVisible(true)
             }
-            
+
         }
-        
     }
     const [totalMoney,setTotalMoney]=useState(0)
     const [wallet,setWallet]=useState("")
@@ -1668,7 +1657,7 @@ export function BottomTag() {
                     alignItems: "center",
                     justifyContent: "center",
                 }}>
-                    <img style={{width: 48, height: 48, marginRight: 40}} src={kakaotalk} />
+                    <img style={{width: 48, height: 48, marginRight: 40}} alt="" src={kakaotalk} />
                     <AiFillTwitterCircle style={{width: 54, height: 54, marginRight: 40}} color="#202426" />
                     <FaFacebook style={{width: 48, height: 48}} color="#202426" />
                 </div>
@@ -2055,7 +2044,7 @@ export function InvestDashboard({ rank, name, total, accumulate }) {
         if (rank === 1) {
             setDetail(true)
         }
-    }, [])
+    }, [rank])
     return (
         <div style={{
             borderBottom: "1px solid #D2D3D3",
