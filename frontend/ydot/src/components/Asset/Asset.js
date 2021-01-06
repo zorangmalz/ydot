@@ -66,7 +66,7 @@ export default function Asset() {
                     name: doc.data().channel,
                     state: doc.data().ongoing,
                     hash: "https://baobab.scope.klaytn.com/tx/" +doc.data().ftHash,
-                    total: Number(doc.data().Money),
+                    total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
                 })
             }else{
 
@@ -75,7 +75,7 @@ export default function Asset() {
                     name: doc.data().channel,
                     state: doc.data().ongoing,
                     hash: "",
-                    total: Number(doc.data().Money),
+                    total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
                 })
             }
                 console.log(doc.data().channel)
@@ -97,11 +97,11 @@ export default function Asset() {
                     name: doc.data().channel,
                     unit: doc.data().symbol,
                     chain: "KRW",
-                    total:doc.data().Money,
+                    total:(doc.data().Money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
                     number: doc.data().month+"/12",
                     next: "1/20",
                     actual: doc.data().monthly,
-                    accumulate: doc.data().total,
+                    accumulate: (doc.data().total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
                     dayTime:doc.data().DayTime,
                     ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000
                 })
@@ -121,7 +121,7 @@ export default function Asset() {
                 list.push({
                     dayTime:doc.data().dayTime,
                     name:doc.data().channel,
-                    actual:doc.data().monthly
+                    actual:(doc.data().monthly.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
                 })
                 
                 
@@ -184,8 +184,8 @@ export default function Asset() {
             accu=Number(i.accumulate)+accu
             mon=Number(i.actual)+mon
         }
-        setTotalFundingPrice(total)
-        setAccumulatedAllocation(accu)
+        setTotalFundingPrice((total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")))
+        setAccumulatedAllocation((accu.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")))
         setMonthlyAllocation(mon)
     }
 
