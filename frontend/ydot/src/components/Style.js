@@ -226,7 +226,7 @@ export function MyInfo() {
         <>
             <div style={{
                 position: "absolute",
-                zIndex: 3,
+                zIndex: 10,
                 top: 90,
                 right: 16 * vw + 10,
                 width: 330,
@@ -293,7 +293,7 @@ export function MyInfo() {
                     fontWeight: "bold",
                     color: "#202426",
                     marginBottom: 20
-                }}>{money}KRW</div>
+                }}>{(money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}KRW</div>
 
                 <div style={{
                     fontSize: 12,

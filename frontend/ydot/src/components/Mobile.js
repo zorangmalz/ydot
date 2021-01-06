@@ -275,7 +275,7 @@ export function MMyInfo() {
                     fontWeight: "bold",
                     color: "#202426",
                     marginBottom: 10
-                }}>{money}KRW</div>
+                }}>{(money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}KRW</div>
 
                 <div style={{
                     fontSize: 8,

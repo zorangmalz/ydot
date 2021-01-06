@@ -194,20 +194,20 @@ export default function Creator() {
             setSector(doc.data().sector)
             setMain(doc.data().mainVideo)
             setPopular(doc.data().popularVideo)
-            if (doc.data().sector === "IT/과학기술") {
-                setSectorImage("/images/it.png")
-            } else if (doc.data().sector === "엔터테인먼트") {
-                setSectorImage("/images/entertainment.png")
-            } else if (doc.data().sector === "스포츠") {
-                setSectorImage("/images/sports.png")
-            } else if (doc.data().sector === "푸드/먹방") {
-                setSectorImage("/images/food.png")
-            } else if (doc.data().sector === "Vlog/일상") {
-                setSectorImage("/images/vlog.png")
-            } else if (doc.data().sector === "게임") {
-                setSectorImage("/images/game.png")
-            } else if (doc.data().sector === "음악") {
-                setSectorImage("/images/music.png")
+            if (sector === "IT/과학기술") {
+                setSectorImage(it)
+            } else if (sector === "엔터테인먼트") {
+                setSectorImage("../icon/entertainment.png")
+            } else if (sector === "스포츠") {
+                setSectorImage("../icon/sports.png")
+            } else if (sector === "푸드/먹방") {
+                setSectorImage("../icon/food.png")
+            } else if (sector === "Vlog/일상") {
+                setSectorImage("../icon/vlog.png")
+            } else if (sector === "게임") {
+                setSectorImage("../icon/game.png")
+            } else if (sector === "음악") {
+                setSectorImage("../icon/music.png")
             }
         }
         )
@@ -230,29 +230,25 @@ export default function Creator() {
     const [index, setIndex] = useState()
     async function CreatorData() {
         const url = 'http://15.165.240.32:8000/v0/beta/';
-        var samIndex
+
         await fetch(url).then(res => {
             return res.json()
         }).then(data => {
             setIndex(data)
-            samIndex=data
         })
-        var channelIndex
-        await firestore.collection("Creator").doc(myparam).get().then(doc => {
+        firestore.collection("Creator").doc(myparam).get().then(doc => {
             setChannelTitle(doc.data().channelTitle)
-            channelIndex=doc.data().channelTitle
         })
         console.log(channelTitle + "입니다")
-        console.log(channelIndex,"here")
-        console.log(samIndex)
+        console.log(index)
         var count = 0;
         var objtype;
-        for (var k in samIndex) {
+        for (var k in index) {
             console.log(k)
-            if (samIndex[k]["channelTitle"] === channelIndex) {
+            if (index[k]["channelTitle"] === channelTitle) {
                 console.log(count)
-                console.log(samIndex[k]["channelTitle"])
-                objtype = samIndex[count]["logData"]
+                console.log(index[k]["channelTitle"])
+                objtype = index[count]["logData"]
                 break;
             }
             count = count + 1;
