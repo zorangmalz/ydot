@@ -222,14 +222,17 @@ export default function Creator() {
     }
 
 
-    //그래프
+    //그래프와 채널 상세 데이터
     const [views, setViews] = useState([])
     const [subs, setSubs] = useState([])
     const [monViews, setMonViews] = useState([])
     const [monSubs, setMonSubs] = useState([])
+    const [totalViews, setTotalViews] = useState()
+    const [totalSubs, setTotalSubs] = useState()
     const [finalViews, setFinalViews] = useState()
-    
+    const [growViews, setGrowViews] = useState()
     const [finalSubs, setFinalSubs] = useState()
+    const [growSubs, setGrowSubs] = useState()
 
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -247,16 +250,12 @@ export default function Creator() {
             setChannelTitle(doc.data().channelTitle)
             channelIndex=doc.data().channelTitle
         })
-        console.log(channelTitle + "입니다")
-        console.log(channelIndex,"here")
-        console.log(samIndex)
+
         var count = 0;
         var objtype;
         for (var k in samIndex) {
             console.log(k)
             if (samIndex[k]["channelTitle"] === channelIndex) {
-                console.log(count)
-                console.log(samIndex[k]["channelTitle"])
                 objtype = samIndex[count]["logData"]
                 break;
             }
@@ -289,9 +288,7 @@ export default function Creator() {
         var b = diff(subsDiff)
         var c = a.pop()
         var d = b.pop()
-        setFinalViews(a[a.length - 1])
-        setFinalSubs(b[b.length - 1])
-        console.log(finalSubs, finalViews)
+        
         var count = 0
         for (var k in objtype) {
             monthView.push({x: k, y: a[count]})
@@ -308,96 +305,266 @@ export default function Creator() {
             setMonViews(monthView.slice(0, -12))
             setSubs(SUBS.slice(0, -12))
             setMonSubs(monthSubs.slice(0, -12))
+            setFinalViews(a[a.length - 13])
+            setFinalSubs(b[b.length - 13])
+            var e = (a[a.length - 13] - a[a.length - 14]) / a[a.length - 14]
+            var f = (b[b.length - 13] - b[b.length - 14]) / b[b.length - 14]
+            setGrowViews(e.toFixed(2))
+            setGrowSubs(f.toFixed(2))
+            var g = viewsDiff.slice(0, -12)
+            var h = subsDiff.slice(0, -12)
+            setTotalViews(g[g.length - 1])
+            setTotalSubs(h[h.length - 1])
         } else if (now === 10) {
             if (time < 11) {
                 setViews(VIEWS.slice(0, -12))
                 setMonViews(monthView.slice(0, -12))
                 setSubs(SUBS.slice(0, -12))
                 setMonSubs(monthSubs.slice(0, -12))
+                setFinalViews(a[a.length - 13])
+                setFinalSubs(b[b.length - 13])
+                var e = (a[a.length - 13] - a[a.length - 14]) / a[a.length - 14]
+                var f = (b[b.length - 13] - b[b.length - 14]) / b[b.length - 14]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
+                var g = viewsDiff.slice(0, -12)
+                var h = subsDiff.slice(0, -12)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
             } else if (time >= 11 && time < 17) {
+                var g = viewsDiff.slice(0, -11)
+                var h = subsDiff.slice(0, -11)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -11))
                 setMonViews(monthView.slice(0, -11))
                 setSubs(SUBS.slice(0, -11))
                 setMonSubs(monthSubs.slice(0, -11))
+                setFinalViews(a[a.length - 12])
+                setFinalSubs(b[b.length - 12])
+                var e = (a[a.length - 12] - a[a.length - 13]) / a[a.length - 13]
+                var f = (b[b.length - 12] - b[b.length - 13]) / b[b.length - 13]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else {
+                var g = viewsDiff.slice(0, -10)
+                var h = subsDiff.slice(0, -10)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -10))
                 setMonViews(monthView.slice(0, -10))
                 setSubs(SUBS.slice(0, -10))
                 setMonSubs(monthSubs.slice(0, -10))
+                setFinalViews(a[a.length - 11])
+                setFinalSubs(b[b.length - 11])
+                var e = (a[a.length - 11] - a[a.length - 12]) / a[a.length - 12]
+                var f = (b[b.length - 11] - b[b.length - 12]) / b[b.length - 12]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             }
         } else if (now === 11) {
             if (time < 11) {
+                var g = viewsDiff.slice(0, -10)
+                var h = subsDiff.slice(0, -10)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -10))
                 setMonViews(monthView.slice(0, -10))
                 setSubs(SUBS.slice(0, -10))
                 setMonSubs(monthSubs.slice(0, -10))
+                setFinalViews(a[a.length - 11])
+                setFinalSubs(b[b.length - 11])
+                var e = (a[a.length - 11] - a[a.length - 12]) / a[a.length - 12]
+                var f = (b[b.length - 11] - b[b.length - 12]) / b[b.length - 12]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else if (time >= 11 && time < 17) {
+                var g = viewsDiff.slice(0, -9)
+                var h = subsDiff.slice(0, -9)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -9))
                 setMonViews(monthView.slice(0, -9))
                 setSubs(SUBS.slice(0, -9))
                 setMonSubs(monthSubs.slice(0, -9))
+                setFinalViews(a[a.length - 10])
+                setFinalSubs(b[b.length - 10])
+                var e = (a[a.length - 10] - a[a.length - 11]) / a[a.length - 11]
+                var f = (b[b.length - 10] - b[b.length - 11]) / b[b.length - 11]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else {
+                var g = viewsDiff.slice(0, -8)
+                var h = subsDiff.slice(0, -8)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -8))
                 setMonViews(monthView.slice(0, -8))
                 setSubs(SUBS.slice(0, -8))
                 setMonSubs(monthSubs.slice(0, -8))
+                setFinalViews(a[a.length - 9])
+                setFinalSubs(b[b.length - 9])
+                var e = (a[a.length - 9] - a[a.length - 10]) / a[a.length - 10]
+                var f = (b[b.length - 9] - b[b.length - 10]) / b[b.length - 10]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             }
         } else if (now === 12) {
             if (time < 11) {
+                var g = viewsDiff.slice(0, -8)
+                var h = subsDiff.slice(0, -8)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -8))
                 setMonViews(monthView.slice(0, -8))
                 setSubs(SUBS.slice(0, -8))
                 setMonSubs(monthSubs.slice(0, -8))
+                setFinalViews(a[a.length - 9])
+                setFinalSubs(b[b.length - 9])
+                var e = (a[a.length - 9] - a[a.length - 10]) / a[a.length - 10]
+                var f = (b[b.length - 9] - b[b.length - 10]) / b[b.length - 10]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else if (time >= 11 && time < 17) {
+                var g = viewsDiff.slice(0, -7)
+                var h = subsDiff.slice(0, -7)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -7))
                 setMonViews(monthView.slice(0, -7))
                 setSubs(SUBS.slice(0, -7))
                 setMonSubs(monthSubs.slice(0, -7))
+                setFinalViews(a[a.length - 8])
+                setFinalSubs(b[b.length - 8])
+                var e = (a[a.length - 8] - a[a.length - 9]) / a[a.length - 9]
+                var f = (b[b.length - 8] - b[b.length - 9]) / b[b.length - 9]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else {
+                var g = viewsDiff.slice(0, -6)
+                var h = subsDiff.slice(0, -6)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -6))
                 setMonViews(monthView.slice(0, -6))
                 setSubs(SUBS.slice(0, -6))
                 setMonSubs(monthSubs.slice(0, -6))
+                setFinalViews(a[a.length - 7])
+                setFinalSubs(b[b.length - 7])
+                var e = (a[a.length - 7] - a[a.length - 8]) / a[a.length - 8]
+                var f = (b[b.length - 7] - b[b.length - 8]) / b[b.length - 8]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             }
         } else if (now === 13) {
             if (time < 11) {
+                var g = viewsDiff.slice(0, -6)
+                var h = subsDiff.slice(0, -6)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -6))
                 setMonViews(monthView.slice(0, -6))
                 setSubs(SUBS.slice(0, -6))
                 setMonSubs(monthSubs.slice(0, -6))
+                setFinalViews(a[a.length - 7])
+                setFinalSubs(b[b.length - 7])
+                var e = (a[a.length - 7] - a[a.length - 8]) / a[a.length - 8]
+                var f = (b[b.length - 7] - b[b.length - 8]) / b[b.length - 8]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else if (time >= 11 && time < 17) {
+                var g = viewsDiff.slice(0, -5)
+                var h = subsDiff.slice(0, -5)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -5))
                 setMonViews(monthView.slice(0, -5))
                 setSubs(SUBS.slice(0, -5))
                 setMonSubs(monthSubs.slice(0, -5))
+                setFinalViews(a[a.length - 6])
+                setFinalSubs(b[b.length - 6])
+                var e = (a[a.length - 6] - a[a.length - 7]) / a[a.length - 7]
+                var f = (b[b.length - 6] - b[b.length - 7]) / b[b.length - 7]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else {
+                var g = viewsDiff.slice(0, -4)
+                var h = subsDiff.slice(0, -4)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -4))
                 setMonViews(monthView.slice(0, -4))
                 setSubs(SUBS.slice(0, -4))
                 setMonSubs(monthSubs.slice(0, -4))
+                setFinalViews(a[a.length - 5])
+                setFinalSubs(b[b.length - 5])
+                var e = (a[a.length - 5] - a[a.length - 6]) / a[a.length - 6]
+                var f = (b[b.length - 5] - b[b.length - 6]) / b[b.length - 6]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             }
         } else if (now === 14) {
             if (time < 11) {
+                var g = viewsDiff.slice(0, -4)
+                var h = subsDiff.slice(0, -4)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -4))
                 setMonViews(monthView.slice(0, -4))
                 setSubs(SUBS.slice(0, -4))
                 setMonSubs(monthSubs.slice(0, -4))
+                setFinalViews(a[a.length - 5])
+                setFinalSubs(b[b.length - 5])
+                var e = (a[a.length - 5] - a[a.length - 6]) / a[a.length - 6]
+                var f = (b[b.length - 5] - b[b.length - 6]) / b[b.length - 6]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else if (time >= 11 && time < 17) {
+                var g = viewsDiff.slice(0, -3)
+                var h = subsDiff.slice(0, -3)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -3))
                 setMonViews(monthView.slice(0, -3))
                 setSubs(SUBS.slice(0, -3))
                 setMonSubs(monthSubs.slice(0, -3))
+                setFinalViews(a[a.length - 4])
+                setFinalSubs(b[b.length - 4])
+                var e = (a[a.length - 4] - a[a.length - 5]) / a[a.length - 5]
+                var f = (b[b.length - 4] - b[b.length - 5]) / b[b.length - 5]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             } else {
+                var g = viewsDiff.slice(0, -2)
+                var h = subsDiff.slice(0, -2)
+                setTotalViews(g[g.length - 1])
+                setTotalSubs(h[h.length - 1])
                 setViews(VIEWS.slice(0, -2))
                 setMonViews(monthView.slice(0, -2))
                 setSubs(SUBS.slice(0, -2))
                 setMonSubs(monthSubs.slice(0, -2))
+                setFinalViews(a[a.length - 3])
+                setFinalSubs(b[b.length - 3])
+                var e = (a[a.length - 3] - a[a.length - 4]) / a[a.length - 4]
+                var f = (b[b.length - 3] - b[b.length - 4]) / b[b.length - 4]
+                setGrowViews(e.toFixed(2))
+                setGrowSubs(f.toFixed(2))
             }
-        }  else {
+        } else {
+            var g = viewsDiff
+            var h = subsDiff
+            setTotalViews(g[g.length - 1])
+            setTotalSubs(h[h.length - 1])
             setViews(VIEWS)
             setMonViews(monthView)
             setSubs(SUBS)
             setMonSubs(monthSubs)
+            setFinalViews(a[a.length - 1])
+            setFinalSubs(b[b.length - 1])
+            var e = (a[a.length - 1] - a[a.length - 2]) / a[a.length - 2]
+            var f = (b[b.length - 1] - b[b.length - 2]) / b[b.length - 2]
+            setGrowViews(e.toFixed(2))
+            setGrowSubs(f.toFixed(2))
         }
     }
 
@@ -428,6 +595,10 @@ export default function Creator() {
                     overflowY: modalOne ? "hidden" : modalTwo ? "hidden" : modalThree ? "hidden" : "scroll"
                 }}>
                     <div style={{
+                        position: "fixed",
+                        top: 0,
+                        zIndex: 3,
+                        borderBottom: "1px solid #D2D3D3",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
@@ -447,6 +618,7 @@ export default function Creator() {
                         width: "100vw",
                         minWidth: 1280,
                         zIndex: 0,
+                        marginTop: 80,
                     }}>
                         {ongoing ?
                             <div onClick={modal} style={{
@@ -1077,8 +1249,8 @@ export default function Creator() {
                                             height: 156,
                                             marginRight: 150,
                                         }}>
-                                            <CreatorIntro title="구독자" content="100,000명" other={false} />
-                                            <CreatorIntro title="누적 조회수" content="10,000,000회" other={false} />
+                                            <CreatorIntro title="구독자" content={`${numberWithCommas(totalSubs)}명`} other={false} />
+                                            <CreatorIntro title="누적 조회수" content={`${numberWithCommas(totalViews)}회`} other={false} />
                                         </div>
                                         <div style={{
                                             display: "flex",
@@ -1100,10 +1272,10 @@ export default function Creator() {
                                         width: "100%",
                                         marginTop: 40,
                                     }}>
-                                        <ChannelAnalysisBox title="월 조회수 획득" content={numberWithCommas(finalViews)} img={true} growth={true} />
-                                        <ChannelAnalysisBox title="월 구독자 획득" content={numberWithCommas(finalSubs)} img={true} growth={false} />
-                                        <ChannelAnalysisBox title="월 조회수 성장률" content="5%" img={true} growth={true} />
-                                        <ChannelAnalysisBox title="월 구독자 성장률" content="5%" />
+                                        <ChannelAnalysisBox title="월 조회수 획득" content={numberWithCommas(finalViews)} img={true} growth={finalViews} />
+                                        <ChannelAnalysisBox title="월 구독자 획득" content={numberWithCommas(finalSubs)} img={true} growth={finalSubs} />
+                                        <ChannelAnalysisBox title="월 조회수 성장률" content={`${numberWithCommas(growViews)}%`} img={true} growth={growViews} />
+                                        <ChannelAnalysisBox title="월 구독자 성장률" content={`${numberWithCommas(growSubs)}%`} img={true} growth={growSubs} />
                                         <ChannelAnalysisBox title="좋아요/싫어요 비율" content="15.2" />
                                     </div>
                                 </div>
@@ -1172,11 +1344,13 @@ export default function Creator() {
                             :
                             <></>
                 }
+                <MHeader bold="Fund" />
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     backgroundColor: "#efefef",
+                    marginTop: 80,
                     maxHeight: MmodalOne ? "100vh" : MmodalTwo ? "100vh" : MmodalThree ? "100vh" : 3000,
                     overflowY: MmodalOne ? "hidden" : MmodalTwo ? "hidden" : MmodalThree ? "hidden" : "scroll"
                 }}>
@@ -1188,7 +1362,6 @@ export default function Creator() {
                         width: "100vw",
                         zIndex: 0,
                     }}>
-                        <MHeader bold="Fund" />
                         <div style={{
                             backgroundColor: "#ffffff",
                             display: "flex",
@@ -1865,8 +2038,8 @@ export default function Creator() {
                                                 width: 100,
                                                 height: 80,
                                             }}>
-                                                <MCreatorIntro title="구독자" content="100,000명" other={false} />
-                                                <MCreatorIntro title="누적 조회수" content="10,000,000회" other={false} />
+                                                <MCreatorIntro title="구독자" content={`${numberWithCommas(totalSubs)}명`} other={false} />
+                                                <MCreatorIntro title="누적 조회수" content={`${numberWithCommas(totalViews)}회`} other={false} />
                                             </div>
                                         </div>
                                         <div style={{
@@ -1913,9 +2086,9 @@ export default function Creator() {
                                             marginTop: 10,
                                             marginBottom: 10,
                                         }}>
-                                            <MChannelAnalysisBox title="월 조회수 획득" content="123,123,123" img={true} growth={true} />
-                                            <MChannelAnalysisBox title="월 구독자 획득" content="1,000" img={true} growth={false} />
-                                            <MChannelAnalysisBox title="월 조회수 성장률" content="5%" img={true} growth={true} />
+                                            <MChannelAnalysisBox title="월 조회수 획득" content={numberWithCommas(finalViews)} img={true} growth={finalViews} />
+                                            <MChannelAnalysisBox title="월 구독자 획득" content={numberWithCommas(finalSubs)} img={true} growth={finalSubs} />
+                                            <MChannelAnalysisBox title="월 조회수 성장률" content={`${numberWithCommas(growViews)}%`} img={true} growth={growViews} />
                                         </div>
                                         <div style={{
                                             width: "90vw",
@@ -1925,7 +2098,7 @@ export default function Creator() {
                                             alignItems: "center",
                                             justifyContent: "space-between"
                                         }}>
-                                            <MChannelAnalysisBoxTwo title="월 구독자 성장률" content="5%" />
+                                            <MChannelAnalysisBoxTwo title="월 구독자 성장률" content={`${numberWithCommas(growSubs)}%`} img={true} growth={growSubs} />
                                             <MChannelAnalysisBoxTwo title="좋아요/싫어요 비율" content="15.2" />
                                         </div>
                                     </div>

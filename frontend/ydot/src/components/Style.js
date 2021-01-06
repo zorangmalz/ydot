@@ -620,11 +620,10 @@ export function ChannelAnalysisBox({title, content, img, growth}) {
                     marginBottom: 10,
                 }}>{content}</div>
                 {img ?
-                    growth ?
+                    growth >= 0 ?
                         <img alt="" src={rocketup} style={{ width: 60, height: 60 }} />
                         :
                         <img alt="" src={rocketdown} style={{ width: 60, height: 60 }} />
-
                     :
                     <></>}
             </div>

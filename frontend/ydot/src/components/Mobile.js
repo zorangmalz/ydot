@@ -90,15 +90,18 @@ export function MHeader({ bold }) {
     }
     return (
         <header style={{
+            position: "fixed",
+            top: 0,
             zIndex: 3,
-            width: "90vw",
+            width: "100vw",
             minWidth: 300,
             height: 80,
             backgroundColor: "#ffffff",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-between"
+            justifyContent: "center",
+            borderBottom: "1px solid #d2d3d3"
         }}>
             {mine ? 
                 <MMyInfo />
@@ -106,7 +109,7 @@ export function MHeader({ bold }) {
                 <></>
             }
             <div style={{
-                width: "100%",
+                width: "90%",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -765,8 +768,7 @@ export function MChannelAnalysisBox({title, content, img, growth}) {
                 alignItems: "center",
                 width: "28vw",
                 minWidth: 85,
-                minHeight: 85,
-                height: "28vw",
+                height: 85,
                 border: "2px solid #e78276",
                 borderRadius: 20,
                 paddingTop: 10
@@ -789,7 +791,7 @@ export function MChannelAnalysisBox({title, content, img, growth}) {
                     textAlign: "center"
                 }}>{content}</div>
                 {img ?
-                    growth ?
+                    growth >= 0 ?
                         <img src={rocketup} style={{ width: 25, height: 25 }} />
                         :
                         <img src={rocketdown} style={{ width: 25, height: 25 }} />
@@ -810,8 +812,7 @@ export function MChannelAnalysisBoxTwo({title, content, img, growth}) {
                 alignItems: "center",
                 width: "43vw",
                 minWidth: 140,
-                minHeight: 85,
-                height: "28vw",
+                height: 85,
                 border: "2px solid #e78276",
                 borderRadius: 20,
                 paddingTop: 10
@@ -834,7 +835,7 @@ export function MChannelAnalysisBoxTwo({title, content, img, growth}) {
                     textAlign: "center"
                 }}>{content}</div>
                 {img ?
-                    growth ?
+                    growth >= 0 ?
                         <img src={rocketup} style={{ width: 25, height: 25 }} />
                         :
                         <img src={rocketdown} style={{ width: 25, height: 25 }} />
@@ -917,10 +918,10 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 1,
+                zIndex: 5,
             }} />
             <div style={{
-                zIndex: 2,
+                zIndex: 7,
                 width: 270,
                 height: 340,
                 paddingTop: 20,
@@ -1279,10 +1280,10 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 1,
+                zIndex: 5,
             }} />
             <div style={{
-                zIndex: 2,
+                zIndex: 7,
                 width: 270,
                 height: 200,
                 paddingTop: 20,
@@ -1438,10 +1439,10 @@ export function MPopupThree({ setVisible }) {
                 height: "100vh",
                 backgroundColor: "#000000",
                 opacity: 0.4,
-                zIndex: 1,
+                zIndex: 5,
             }} />
             <div style={{
-                zIndex: 2,
+                zIndex: 7,
                 width: 270,
                 height: 270,
                 paddingTop: 20,

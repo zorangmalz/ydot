@@ -107,17 +107,27 @@ export default function FundMain() {
         <div>
             <Default>
                 <div style={{
+                    position: "fixed",
+                    top: 0,
+                    zIndex: 3,
+                    borderBottom: "1px solid #D2D3D3",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    backgroundColor: "#ffffff"
+                    backgroundColor: "#ffffff",
+                    width: "100vw",
+                    minWidth: 1280,
+                    height: 80,
                 }}>
                     <Header bold="Fund" />
-                    <div style={{
-                        width: "100vw",
-                        minWidth: 1060,
-                        borderTop: "1px solid #D2D3D3",
-                    }} />
+                </div>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#ffffff",
+                    marginTop: 80,
+                }}>
                     <div style={{
                         display: "flex",
                         flexDirection: "column",
@@ -174,13 +184,14 @@ export default function FundMain() {
                 </div>
             </Default>
             <Mobile>
+                <MHeader bold="Fund" />
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    backgroundColor: "#ffffff"
+                    backgroundColor: "#ffffff",
+                    marginTop: 80,
                 }}>
-                    <MHeader bold="Fund" />
                     <div style={{
                         width: "100vw",
                         minWidth: 300,

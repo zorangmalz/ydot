@@ -202,19 +202,22 @@ export default function Asset() {
     return (
         <div>
             <Default>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef" }}>
-                    <div style={{
-                        width: "100vw",
-                        minWidth: 1280,
-                        height: 80,
-                        backgroundColor: "#ffffff",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}>
-                        <Header bold="Asset" />
-                    </div>
+                <div style={{
+                    position: "fixed",
+                    top: 0,
+                    zIndex: 3,
+                    borderBottom: "1px solid #D2D3D3",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    backgroundColor: "#ffffff",
+                    width: "100vw",
+                    minWidth: 1280,
+                    height: 80,
+                }}>
+                    <Header bold="Asset" />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef", marginTop: 80, }}>
                     <div style={{
                         width: "56vw",
                         height: 36,
@@ -727,18 +730,8 @@ export default function Asset() {
                 </div>
             </Default>
             <Mobile>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#ffffff" }}>
-                    <div style={{
-                        width: "100vw",
-                        height: 80,
-                        backgroundColor: "#ffffff",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}>
-                        <MHeader bold="Asset" />
-                    </div>
+                <MHeader bold="Asset" />
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#ffffff", marginTop: 80 }}>
                     <div style={{
                         width: "100vw",
                         minWidth: 300,
