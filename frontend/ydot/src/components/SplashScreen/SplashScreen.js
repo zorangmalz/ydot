@@ -157,6 +157,7 @@ export default function SplashScreen() {
                                 content="Y.은 무슨 서비스인지 알아볼까요?"
                                 num={1}
                                 backgroundColor="#273d5a"
+                                link="https://www.notion.so/Y-8c0b0039ca7d46f5ac44fba959e55ffe"
                             />
                             <TopBanner
                                 img={bannericontwo}
@@ -164,6 +165,7 @@ export default function SplashScreen() {
                                 content="크라우드 펀딩에 관한 모든것들을 정리해뒀어요."
                                 num={2}
                                 backgroundColor="#787ff6"
+                                link="https://www.notion.so/945f09f4fb6a4374ac0129d6368b8ad4"
                             />
                             <TopBanner
                                 img={bannericon}
@@ -171,6 +173,7 @@ export default function SplashScreen() {
                                 content="리워드는 어떻게 받는거죠?"
                                 num={3}
                                 backgroundColor="#329d9c"
+                                link="https://www.notion.so/945f09f4fb6a4374ac0129d6368b8ad4"
                             />
                             <TopBanner
                                 img={bannericonfour}
@@ -178,6 +181,7 @@ export default function SplashScreen() {
                                 content="조랑말배 수익률 대회 진행중!"
                                 num={4}
                                 backgroundColor="#98c773"
+                                link="https://www.notion.so/34829d066ec94c1cb7fbbe7557e3afcc"
                             />
                             <TopBanner
                                 img={bannericonfive}
@@ -185,6 +189,7 @@ export default function SplashScreen() {
                                 content="질문과 피드백은 언제든 환영입니다."
                                 num={5}
                                 backgroundColor="#7097ab"
+                                link="https://www.notion.so/8fd736f2fa0d48bb8d90908b74b25543"
                             />
                             <TopBanner
                                 img={bannericonsix}
@@ -192,6 +197,7 @@ export default function SplashScreen() {
                                 content="저희와 함께할 첫번째 크리에이터님을 찾습니다."
                                 num={6}
                                 backgroundColor="#93de8c"
+                                link="https://www.notion.so/428ceecd19474217a2a2290c6739e74b"
                             />
                         </Slider>
                     </div>

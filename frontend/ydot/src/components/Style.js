@@ -122,7 +122,7 @@ export default function Header({ bold }) {
     )
 }
 
-export function TopBanner({img, title, content, backgroundColor}) {
+export function TopBanner({img, title, content, backgroundColor, link}) {
     return (
         <>
             <div style={{
@@ -138,44 +138,49 @@ export function TopBanner({img, title, content, backgroundColor}) {
                 {/* vlog 리영자 디자인 */}
                 {/* <img src={topbanner} height="418" style={{objectFit: "cover", minWidth: 1060}} />
                 <div style={{position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 1060, height: 418, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))"}} /> */}
-                <div style={{
-                    width: 1060,
-                    height: 352,
-                    paddingBottom: 62,
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    justifyContent: "flex-end",
-                }}>
-                    <img src={img} style={{
-                        width: 400,
-                        objectFit: "contain",
-                    }} />
-                </div>
-                <div style={{
-                   position: "absolute",
-                   zIndex: 2,
-                   top: 144,
-                   width: "56vw",
-                   minWidth: 1060,
-                   display: "flex",
-                   flexDirection: "column",
-                   alignItems: "flex-start",
+                <a href={link} style={{
+                    textDecorationLine: "none",
+                    WebkitAppearance: "none"
                 }}>
                     <div style={{
-                        width: 445,
-                        fontWeight: "bold",
-                        fontSize: 24,
-                        color: "#ffffff",
-                        marginBottom: 20,
-                    }}>{title}</div>
+                        width: 1060,
+                        height: 352,
+                        paddingBottom: 62,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "flex-end",
+                        justifyContent: "flex-end",
+                    }}>
+                        <img src={img} style={{
+                            width: 400,
+                            objectFit: "contain",
+                        }} />
+                    </div>
                     <div style={{
-                        width: 510,
-                        fontSize: 36,
-                        fontWeight: "bold",
-                        color: "#ffffff",
-                    }}>{content}</div>
-                </div>
+                        position: "absolute",
+                        zIndex: 2,
+                        top: 144,
+                        width: "56vw",
+                        minWidth: 1060,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                    }}>
+                        <div style={{
+                            width: 445,
+                            fontWeight: "bold",
+                            fontSize: 24,
+                            color: "#ffffff",
+                            marginBottom: 20,
+                        }}>{title}</div>
+                        <div style={{
+                            width: 510,
+                            fontSize: 36,
+                            fontWeight: "bold",
+                            color: "#ffffff",
+                        }}>{content}</div>
+                    </div>
+                </a>
             </div>
         </>
     )
