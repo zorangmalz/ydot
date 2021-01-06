@@ -528,7 +528,7 @@ export default function Creator() {
                                         fontSize: 24,
                                         fontWeight: "bold",
                                         color: "#e78276",
-                                    }}>{fundingTotal} <div style={{
+                                    }}>{(fundingTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))} <div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         color: "#202426",
@@ -556,7 +556,7 @@ export default function Creator() {
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>{fundingAim} <div style={{
+                                    }}>{(fundingAim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))} <div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal"
