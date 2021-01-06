@@ -134,7 +134,7 @@ export function TopBanner({img, title, content, backgroundColor, link}) {
                 {/* vlog 리영자 디자인 */}
                 {/* <img src={topbanner} height="418" style={{objectFit: "cover", minWidth: 1060}} />
                 <div style={{position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 1060, height: 418, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))"}} /> */}
-                <a href={link} style={{
+                <a href={link} target="_blank" style={{
                     textDecorationLine: "none",
                     WebkitAppearance: "none"
                 }}>
@@ -1917,31 +1917,31 @@ export function AssetGraph({data}) {
 export function AssetPie({ data }) {
     return (
         <VictoryPie
-            events={[{
-                target: "data",
-                eventHandlers: {
-                    onMouseOver: () => {
-                        return [
-                            {
-                                target: "labels",
-                                mutation: ({ text, datum }) => {
-                                    return text === `${datum.x}` ? { text: `${datum.y}` } : { text: `${datum.x}` }
-                                }
-                            }
-                        ];
-                    },
-                    onMouseOut: () => {
-                        return [
-                            {
-                                target: "labels",
-                                mutation: ({text, datum}) => {
-                                    return {text: `${datum.y}`}
-                                }
-                            },
-                        ];
-                    }
-                }
-            }]}
+            // events={[{
+            //     target: "data",
+            //     eventHandlers: {
+            //         onMouseOver: () => {
+            //             return [
+            //                 {
+            //                     target: "labels",
+            //                     mutation: ({ text, datum }) => {
+            //                         return text === `${datum.x}` ? { text: `${datum.y}` } : { text: `${datum.x}` }
+            //                     }
+            //                 }
+            //             ];
+            //         },
+            //         onMouseOut: () => {
+            //             return [
+            //                 {
+            //                     target: "labels",
+            //                     mutation: ({text, datum}) => {
+            //                         return {text: `${datum.y}`}
+            //                     }
+            //                 },
+            //             ];
+            //         }
+            //     }
+            // }]}
             padding={{ top: 0, left: 20, right: 20, }}
             width={350}
             height={350}

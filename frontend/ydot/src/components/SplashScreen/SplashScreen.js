@@ -340,7 +340,7 @@ export default function SplashScreen() {
                                 border: "2px solid #E78276",
                                 borderRadius: 10,
                             }}>
-                                <a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" style={{
+                                <a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" target="_blank" style={{
                                     textDecorationLine: "none",
                                     color: "#E78276",
                                 }}>자세한 정보를 확인해보세요!</a>
@@ -543,7 +543,7 @@ export default function SplashScreen() {
                                 marginBottom: 40,
                                 border: "2px solid #E78276",
                                 borderRadius: 10,
-                            }}><a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" style={{
+                            }}><a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" target="_blank" style={{
                                 textDecorationLine: "none",
                                 color: "#E78276",
                             }}>자세한 정보를 확인해보세요!</a></div>

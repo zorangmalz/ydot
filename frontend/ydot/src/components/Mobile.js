@@ -311,7 +311,7 @@ export function MTopBanner({img, title, content, backgroundColor, link}) {
             }}>
                 {/* <img src={topbanner} height="250" style={{ objectFit: "cover", minWidth: 300 }} />
                 <div style={{ position: "absolute", zIndex: 1, top: 0, width: "100vw", minWidth: 300, height: 250, background: "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8))" }} /> */}
-                <a href={link} style={{
+                <a href={link} target="_blank" style={{
                     textDecorationLine: "none",
                     WebkitAppearance: "none"
                 }}>
