@@ -236,7 +236,10 @@ export default function Creator() {
         }).then(data => {
             setIndex(data)
         })
-        console.log(channelTitle)
+        firestore.collection("Creator").doc(myparam).get().then(doc => {
+            setChannelTitle(doc.data().channelTitle)
+        })
+        console.log(channelTitle + "입니다")
         console.log(index)
         var count = 0;
         var objtype;
