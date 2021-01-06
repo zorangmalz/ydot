@@ -771,7 +771,7 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     marginBottom: 20
                                                 }}>
-                                                    <input type="text" placeholder="100" id="PRICE" style={{
+                                                    <input type="text" placeholder="펀딩 금액을 입력해주세요" id="PRICE" style={{
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         border: 0,
@@ -808,7 +808,7 @@ export default function Creator() {
                                                     backgroundColor: "#F2F2F2",
                                                     marginBottom: 20
                                                 }}>
-                                                    <input type="text" placeholder="5" id="RATE" style={{
+                                                    <input type="text" placeholder={grow} id="RATE" style={{
                                                         fontSize: 18,
                                                         color: "#202426",
                                                         border: 0,
@@ -1639,7 +1639,7 @@ export default function Creator() {
                                                 backgroundColor: "#F2F2F2",
                                                 marginBottom: 20
                                             }}>
-                                                <input type="text" placeholder="5" id="RATE" style={{
+                                                <input type="text" placeholder={grow} id="RATE" style={{
                                                     fontSize: 18,
                                                     color: "#202426",
                                                     border: 0,
