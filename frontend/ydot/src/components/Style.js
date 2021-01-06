@@ -1717,6 +1717,7 @@ export function Graph({data}) {
                         borderRadius: 20,
                     }
                 }}
+                padding={{left: 70, right: 70, top: 40, bottom: 40, }}
                 width={1060}
                 height={273}
                 containerComponent={<VictoryVoronoiContainer />}

@@ -1513,7 +1513,7 @@ export function MGraph({data}) {
                         borderRadius: 10,
                     }
                 }}
-                padding={{top: 10, left: 30, right: 20, bottom: 30,}}
+                padding={{top: 10, left: 70, right: 20, bottom: 30,}}
                 height={180}
                 containerComponent={<VictoryVoronoiContainer />}
             >

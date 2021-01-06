@@ -1541,7 +1541,7 @@ export default function Creator() {
                                             content={"해당 펀딩 금액은 월 "+grow+"%의 성장을 가정해 산정되었습니다. 성장률에 따른 예상 리워드를 확인해 보세요"}
                                         />
                                         <MFunding
-                                            img={vlog}
+                                            img={sectorImage}
                                             title={sector}
                                             content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
