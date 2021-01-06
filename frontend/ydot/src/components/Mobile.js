@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom"
 import { useSelector } from "react-redux";
 import { VictoryLine, VictoryChart, VictoryScatter, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryBrushLine, VictoryPie } from "victory"
 import HSBar from "react-horizontal-stacked-bar-chart";
-
+import firebase from "firebase"
+import { useFirebase, useFirestore } from "react-redux-firebase"
 //css
 import "./component.css"
 
@@ -15,7 +16,7 @@ import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
 import { FiArrowRightCircle } from 'react-icons/fi';
 import { BiCheckCircle } from 'react-icons/bi'
-import { useFirebase, useFirestore } from "react-redux-firebase"
+
 
 
 
@@ -1154,74 +1155,90 @@ function MPopupReducer(state, action) {
 }
 
 export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
-    const [money, setMoney] = useState("")
-    const [number, dispatch] = useReducer(MPopupReducer, 0)
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
-    const onTwentyfive = () => {
-        dispatch({ type: "25" })
-        setMoney((totalMoney/4).toFixed(0))
-    }
-    const onFifty = () => {
-        dispatch({ type: "50" })
-        setMoney((totalMoney/2).toFixed(0))
-    }
-    const onSeventyFive = () => {
-        dispatch({ type: "75" })
-        setMoney((totalMoney/4*3).toFixed(0))
-    }
-    const onMax = () => {
-        dispatch({ type: "max" })
-        setMoney((totalMoney).toFixed(0))
+    const [money, setMoney] = useState("")
+
+    //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
+    const onChange = (e) => {
+        console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
+        console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
+        setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
     }
 
     useEffect(() => {
         getInfo()
         getCreatorInfo()
     }, [])
-    const onChange = (e) => {
-        console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
-        console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
-        setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
+    const [number, dispatch] = useReducer(MPopupReducer, 0)
+    const onTwentyfive = () => {
+        dispatch({ type: "25" })
+        setMoney((Number(totalMoney)/4).toFixed(0))
+    }
+    const onFifty = () => {
+        dispatch({ type: "50" })
+        setMoney((Number(totalMoney)/2).toFixed(0))
+    }
+    const onSeventyFive = () => {
+        dispatch({ type: "75" })
+        setMoney((Number(totalMoney)/4*3).toFixed(0))
+    }
+    const onMax = () => {
+        dispatch({ type: "max" })
+        setMoney((Number(totalMoney)).toFixed(0))
     }
     const[warn,setWarn]=useState("")
     const onNext = () => {
-        if(totalMoney<money ||fundingMax<money){
-            if(totalMoney>fundingMax){
-                setWarn("최대 "+fundingMax+" ₩")
+        if(Number(totalMoney)<Number(money) ||Number(fundingMax)<Number(money)){
+            if(Number(totalMoney)>Number(fundingMax)){
+                setWarn("최대"+Number(fundingMax)+"₩")
             }else{
-                setWarn("최대 "+totalMoney+" ₩")
+                setWarn("최대"+Number(totalMoney)+"₩")
             }
-        }else{
-            firestoreUpload()
-            setVisible(false)
-            setNextVisible(true)
+        } else {
+            console.log("here")
+            if (money === 0 || money === "0") {
+                alert("금액을 정확히 입력해 주세요")
+            } else {
+                firestoreUpload()
+                setVisible(false)
+                setNextVisible(true)
+            }
+
         }
-        
     }
     const [totalMoney,setTotalMoney]=useState(0)
     const [wallet,setWallet]=useState("")
     const [email,setEmail]=useState("")
+    const [fundingList,setFundingList]=useState([])
     function getInfo(){
         firestore.collection("User").doc(uid).get().then(doc=>{
             setTotalMoney(doc.data().totalMoney)
             setWallet(doc.data().wallet)
             setEmail(doc.data().email)
+            setFundingList(doc.data().creator)
         })
         
     }
     const [fundingMax,setFundingMax]=useState(0)
     const [fundingTotal,setFundingTotal]=useState(0)
     const [symbol,setSymbol]=useState("")
+    const [fundingAim,setFundingAim]=useState(0)
+    const [investList,setInvestList]=useState([])
+    const [creatorColor,setCreatorColor]=useState("")
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
             setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
             setFundingTotal(doc.data().FundingTotal)
             setSymbol(doc.data().symbol)
+            setFundingAim(doc.data().FundingAim)
+            setInvestList(doc.data().investList)
+            setCreatorColor(doc.data().color)
         })
     }
 
     async function firestoreUpload() {
+        const realMoney=Number(money)
         const today = new Date()
         const year = today.getFullYear();
         const month = today.getMonth() + 1
@@ -1230,9 +1247,45 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const minutes=today.getMinutes()
         const seconds=today.getSeconds()
         const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
+        console.log(fundingList,creatorName)
+        if(fundingList.includes(creatorName)){
+            firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).get().then(doc=>{
+                firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).update({
+                    DayTime: docName,
+            Money: realMoney+doc.data().Money,
+            ongoing: 0,
+            channel: creatorName,
+            fullTime:today.getTime(),
+            total:0,
+            monthly:0,
+            month:0,
+            symbol:symbol,
+            fundingAim:fundingAim,
+            color:creatorColor
+                })
+            })
+        }else{
+            firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).set({
+                DayTime: docName,
+        Money: realMoney,
+        ongoing: 0,
+        channel: creatorName,
+        fullTime:today.getTime(),
+        total:0,
+        monthly:0,
+        month:0,
+        symbol:symbol,
+        fundingAim:fundingAim,
+        color:creatorColor,
+        
+            })
+            firestore.collection("User").doc(uid).update({
+                creator:firebase.firestore.FieldValue.arrayUnion(creatorName)
+            })
+        }
         firestore.collection("User").doc(uid).collection("Fund").doc(docName).set({
             DayTime: docName,
-            Money: Number(money),
+            Money: realMoney,
             ongoing: 0,
             channel: creatorName,
             fullTime:today.getTime(),
@@ -1242,14 +1295,43 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
             symbol:symbol
         })
         firestore.collection("User").doc(uid).update({
-            totalMoney:Number(totalMoney)-Number(money)
+            totalMoney:Number(totalMoney)-realMoney
         })
         await firestore.collection("Creator").doc(creatorName).update({
-            FundingTotal: Number(fundingTotal)+Number(money)
+            FundingTotal: Number(fundingTotal)+realMoney
         })
-        await firestore.collection("Creator").doc(creatorName).collection("Investor").doc(wallet).set({
+
+        if(investList.includes(uid)){
+            firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).get().then(doc=>{
+                console.log(doc.data().money,"herererererere")
+
+                firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).update({
+                    
+                    wallet:wallet,
+                    money:realMoney+doc.data().money,
+                    email:email,
+                    DayTime:docName,
+                    fullTime:today.getTime(),
+                    uid:uid
+                })
+            })
+        }else{
+            firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).set({
+                wallet:wallet,
+                money:realMoney,
+                email:email,
+                DayTime:docName,
+                fullTime:today.getTime(),
+                uid:uid
+        
+            })
+            firestore.collection("Creator").doc(creatorName).update({
+                investList:firebase.firestore.FieldValue.arrayUnion(uid)
+            })
+        }
+        await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
             wallet:wallet,
-            money:Number(money),
+            money:realMoney,
             email:email,
             DayTime:docName,
             fullTime:today.getTime(),
@@ -1262,7 +1344,6 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
             dayTime:docName,
         })
     }
-
     return (
         <div style={{
             position: "absolute",
