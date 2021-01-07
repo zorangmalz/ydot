@@ -127,7 +127,12 @@ export default function FundMain() {
 
         for(const i of itemsss){
             
-            const receiptFT= await kip7.transfer(i.wallets, (Number(i.money)/Number(fundingAim)).toFixed(6)*1000000, { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
+            // console.log(i.money)
+            // console.log(fundingAim)
+            // console.log(Math.floor((Number(i.money)/Number(fundingAim))*1000000))
+            // console.log(Number(i.money)/Number(fundingAim))
+            // console.log(((Number(i.money)/Number(fundingAim)).toFixed(6)*1000000).toFixed(0),"final")
+            const receiptFT= await kip7.transfer(i.wallets, Math.floor((Number(i.money)/Number(fundingAim))*1000000), { from: "0x064523b1C945d2eAEA22549F089A92BB193Cd25A" })
             console.log(receiptFT.transactionHash)
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 ongoing:1,

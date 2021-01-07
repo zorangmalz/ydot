@@ -118,7 +118,7 @@ export default function Asset() {
         firestore.collection("User").doc(uid).collection("AllocateList").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
-                
+                console.log(doc.data().monthly)
                 list.push({
                     dayTime:doc.data().dayTime,
                     name:doc.data().channel,

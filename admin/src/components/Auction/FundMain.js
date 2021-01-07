@@ -9,6 +9,7 @@ import Exampletwo from '../icon/exampletwo.png'
 import Examplethree from '../icon/examplethree.png'
 import Examplefour from '../icon/examplefour.png'
 import { MBottomTag, MCreatorInfo, MHeader } from '../Mobile'
+import { FiRss } from 'react-icons/fi'
 
 export default function FundMain() {
     //모바일 대응
@@ -29,6 +30,7 @@ export default function FundMain() {
         load()
         loadEnd()
         // upload()
+        // userUpload()
     }, [])
 
     async function load() {
@@ -151,12 +153,27 @@ export default function FundMain() {
         uploadCreator(1610180070331,39,116000,10000,0,"믕디의 반란",true,"MBT","음악","마이크로",4.17,30,389947,354182,'meungdi',"https://www.youtube.com/watch?v=lsZti2j0IUc","https://www.youtube.com/watch?v=1glwnKjCTVA",[],"#797FF6")
     }
 
-    // function uploadUser(a,b,c,d){
-    //     firestore.collection("User").doc()
-    // }
-    // function userUpload(){
-
-    // }
+    async function uploadUser(a,b,c){
+        firestore.collection("User").doc(a).set({
+            creator:[],
+            email:b,
+            uid:a,
+            totalMoney:1500000,
+            wallet:c
+        })
+        for(var i=1;i<13;i++){
+            firestore.collection("User").doc(a).collection("Allocate").doc(String(i)).set({
+                month:i,
+                total:[]
+            })
+        }
+    }
+    function userUpload(){
+        uploadUser("yWpZjAseaoNepPM7HPQd3ErthQB2","a@a.com","0x75FB2ca50C08570D7FFEE9A86A7Bc643a352936D")
+        uploadUser("at4g7OHt5GS4JKOB4rbDOuafuB72","wise@ydot.xyz","0xB66AA013EdBAF7B7C1e2de69aC2Cc9eA5d41F599")
+        uploadUser("RPHIygmYnUhW8bjrO7zkA5P4Pxw1","jake@ydot.xyz","0x661F9475360CBbAD77D496300D935E9f24014cE8")
+        uploadUser("1sdPy2XK1XeUghVEJtfTnzPccnF2","user1@ydot.xyz","0x691Fd6ac480d994589D57582F798c04dB4111145")
+    }
     const contents = 2
     return (
         <div>
