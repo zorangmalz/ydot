@@ -753,7 +753,7 @@ export default function Creator() {
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>D-9 <div style={{
+                                    }}>D-1 <div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal"
@@ -1531,7 +1531,7 @@ export default function Creator() {
                                                         fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#202426",
-                                                    }}>D-9 </div>
+                                                    }}>D-1 </div>
                                                     <div style={{
                                                         fontSize: 12,
                                                         color: "#202426",

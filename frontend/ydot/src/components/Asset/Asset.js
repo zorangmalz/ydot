@@ -375,12 +375,6 @@ export default function Asset() {
                                         opacity: 0.6,
                                         fontSize: 18,
                                         color: "#202426",
-                                        width: 100,
-                                    }}>개당 가격</div>
-                                    <div style={{
-                                        opacity: 0.6,
-                                        fontSize: 18,
-                                        color: "#202426",
                                         width: 110,
                                     }}>펀딩 금액</div>
                                     <div style={{
@@ -464,23 +458,6 @@ export default function Asset() {
                                                         fontSize: 14,
                                                         color: "#202426"
                                                     }}>토큰</div>
-                                                </div>
-                                                <div style={{
-                                                    display: "flex",
-                                                    flexDirection: "column",
-                                                    alignItems: "flex-start",
-                                                    width: 100,
-                                                }}>
-                                                    <div style={{
-                                                        fontSize: 18,
-                                                        color: "#202426",
-                                                        marginBottom: 8,
-                                                    }}>{element.price}</div>
-                                                    <div style={{
-                                                        opacity: 0.4,
-                                                        fontSize: 14,
-                                                        color: "#202426"
-                                                    }}>{element.chain}</div>
                                                 </div>
                                                 <div style={{
                                                     display: "flex",
@@ -908,12 +885,13 @@ export default function Asset() {
                                                         alignItems: "center",
                                                         justifyContent: "space-between",
                                                         marginBottom: 20,
+                                                        width: "100%",
                                                     }}>
                                                         <div style={{
                                                             display: "flex",
                                                             flexDirection: "column",
                                                             alignItems: "flex-start",
-                                                            width: "30%",
+                                                            width: "40%",
                                                             minWidth: 60,
                                                             marginLeft: 3,
                                                         }}>
@@ -937,30 +915,7 @@ export default function Asset() {
                                                             flexDirection: "column",
                                                             alignItems: "flex-start",
                                                             minWidth: 90,
-                                                            width: "35%",
-                                                            marginLeft: 3,
-                                                        }}>
-                                                            <div style={{
-                                                                width: "100%",
-                                                                opacity: 0.4,
-                                                                fontSize: 6,
-                                                                color: "#202426",
-                                                                marginBottom: 8,
-                                                                textAlign: "right",
-                                                            }}>개당 가격 ({element.chain})</div>
-                                                            <div style={{
-                                                                width: "100%",
-                                                                fontSize: 14,
-                                                                color: "#202426",
-                                                                textAlign: "right",
-                                                            }}>{element.price}</div>
-                                                        </div>
-                                                        <div style={{
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            alignItems: "flex-start",
-                                                            minWidth: 90,
-                                                            width: "35%",
+                                                            width: "40%",
                                                             marginLeft: 3,
                                                         }}>
                                                             <div style={{
