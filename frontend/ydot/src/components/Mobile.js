@@ -1795,7 +1795,7 @@ export function MAssetGraph({data}) {
                     size={5}
                     data={data}
                     labels={({ datum }) =>
-                        `${numberWithCommas(datum.x)} 원`}
+                        `${numberWithCommas(datum.y)} 원`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
@@ -1865,7 +1865,7 @@ setBottom(total)
                 data={data}
                 labels={({ datum }) => `${(datum.y/bottom*100).toFixed(2)}%`}
                 labelPosition="centroid"
-                labelRadius={({ innerRadius }) => innerRadius + 70}
+                labelRadius={({ innerRadius }) => innerRadius + 50}
                 style={{
                     labels: {
                         fill: "#ffffff",

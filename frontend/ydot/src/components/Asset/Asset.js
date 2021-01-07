@@ -106,7 +106,7 @@ export default function Asset() {
                     accumulate: doc.data().total,
                     dayTime:doc.data().DayTime,
                     ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
-                    y:doc.data().total,
+                    y:doc.data().Money,
                     color:doc.data().color
                 })
                 }
