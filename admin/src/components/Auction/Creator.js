@@ -229,7 +229,9 @@ export default function FundMain() {
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
                 monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
-                month:time
+                month:time,
+                fullTime:today.getTime(),
+                fundingAim:fundingAim
             })
             await firestore.collection("User").doc(i.uid).collection("Allocate").doc(time).collection("Creator").doc(myparam).set({
                 total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
