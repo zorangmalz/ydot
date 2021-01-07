@@ -33,6 +33,7 @@ export default function FundMain() {
     const [ongoing,setOngoing]=useState(false)
     const [fundingTotal,setFundingTotal]=useState(0)
     const [channelTitle,setChannelTitle]=useState("")
+    const [share,setShare]=useState(0)
     async function getInfo(){
         const today=new Date()
         console.log(today.getTime())
@@ -52,6 +53,7 @@ export default function FundMain() {
             setOngoing(doc.data().ongoing)
             setFundingTotal(doc.data().FundingTotal)
             setChannelTitle(doc.data().channelTitle)
+            setShare(doc.data().share)
         })
     }
 
@@ -212,42 +214,42 @@ export default function FundMain() {
 
             await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).collection("Allocate").doc(time).set({
                 dayTime:docName,
-                allocate:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
+                allocate:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0))
             })
             var total
                 await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).get().then(doc=>{
                     total=doc.data().total
             })
             await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(myparam).update({
-                total:total+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                total:total+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
                 month:time,
-                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
+                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0))
             })
 
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
-                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
-                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
+                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
                 month:time
             })
             await firestore.collection("User").doc(i.uid).collection("Allocate").doc(time).collection("Creator").doc(myparam).set({
-                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
-                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
+                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
                 month:time,
                 dayTime:docName,
                 fullTime:today.getDate(),
                 channel:myparam
             })
                 await firestore.collection("User").doc(i.uid).collection("Allocate").doc(time).update({
-                    total:firebase.firestore.FieldValue.arrayUnion(Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)))
+                    total:firebase.firestore.FieldValue.arrayUnion(Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)))
                 })
             
            
             await firestore.collection("User").doc(i.uid).collection("AllocateList").add({
-                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
-                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0)),
+                total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
+                monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
                 month:time,
                 dayTime:docName,
-                fullTime:today.getDate(),
+                fullTime:today.getTime(),
                 channel:myparam
             })
             

@@ -116,7 +116,7 @@ export default function Asset() {
     //배당내역
     
     useEffect(() => {
-        firestore.collection("User").doc(uid).collection("AllocateList").onSnapshot(querySnapshot => {
+        firestore.collection("User").doc(uid).collection("AllocateList").orderBy("fullTime","desc").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
                 console.log(doc.data().monthly)
@@ -1260,10 +1260,10 @@ export default function Asset() {
                                             <div style={{ width: 60, textAlign: "right" }}>{element.total} 원</div>
                                             {element.hash ?
                                                 <a href={element.hash} target="_blank">
-                                                    <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                                    <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                                 </a>
                                                 :
-                                                <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                                <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                             }
 
                                         </div>

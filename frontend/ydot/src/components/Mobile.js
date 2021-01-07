@@ -188,7 +188,15 @@ export function MMyInfo() {
                 setEmail(doc.data().email)
                 setWallet(doc.data().wallet)
                 setMoney(doc.data().totalMoney)
+                if(doc.data().creator.length>0){
+                    firestore.collection("User").doc(uid).collection("NFT").get().then(querySnapshot=>{
+                        setLeng(querySnapshot.size)
+                        console.log(querySnapshot.size,"here")
+                    })
+                }
             })
+            
+            
         } else {
             console.log("없음")
             history.push("/login")
@@ -1197,7 +1205,8 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
             }
         } else {
             console.log("here")
-            if (money === 0 || money === "0") {
+            
+            if (money === 0 || money === "0" || isNaN(money)) {
                 alert("금액을 정확히 입력해 주세요")
             } else {
                 firestoreUpload()
