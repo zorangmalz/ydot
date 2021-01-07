@@ -32,7 +32,7 @@ export default function FundMain() {
         //크리에이터 정보 입력
         // upload()
         //크리에이터 수입 입력
-        // uploadTwo()
+        uploadTwo()
         //유저정보 입력
         // userUpload()
       

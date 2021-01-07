@@ -1573,7 +1573,7 @@ export default function Creator() {
                                                         fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#202426",
-                                                    }}>{fundingAim} </div>
+                                                    }}>{fundingAim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} </div>
                                                     <div style={{
                                                         fontSize: 12,
                                                         color: "#202426",

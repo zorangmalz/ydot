@@ -167,7 +167,7 @@ export default function FundMain() {
     
     async function shareMoney(){
        
-        for(const i of itemss){
+        for(const i of items){
             var money
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 ongoing:2

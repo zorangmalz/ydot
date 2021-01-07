@@ -663,7 +663,7 @@ export default function Asset() {
                                             <div style={{ width: 200, marginRight: 50 }}>{element.date}</div>
                                             <div style={{ width: 200 }}>{element.name}</div>
                                             <div style={{ width: 200 }}>{element.amount}</div>
-                                            <div style={{ width: 150, paddingRight: 100, textAlign: "right" }}>{element.total} 원</div>
+                                            <div style={{ width: 150, paddingRight: 100, textAlign: "right" }}>{element.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
                                             {element.hash ?
                                                 <a href={element.hash} style={{
                                                     textDecorationLine: "underline",
@@ -1169,7 +1169,7 @@ export default function Asset() {
                                             <div style={{ width: 60, textAlign: "left" }}>{element.date}</div>
                                             <div style={{ width: 60, textAlign: "center" }}>{element.name}</div>
                                             <div style={{ width: 50, textAlign: "center" }}>{element.amount}</div>
-                                            <div style={{ width: 100, textAlign: "right" }}>{element.total} 원</div>
+                                            <div style={{ width: 100, textAlign: "right" }}>{element.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</div>
                                             {element.hash ?
                                                 <a href={element.hash} style={{
                                                     textDecorationLine: "underline",
