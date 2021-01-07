@@ -271,15 +271,15 @@ export default function SplashScreen() {
                                 }}>
                                     <div style={{width: 90, marginLeft: 25}}>순위</div>
                                     <div style={{width: 140, marginLeft: 20}}>이름</div>
-                                    <div style={{width: 180, marginLeft: 20}}>총 펀딩금액</div>
-                                    <div style={{width: 140, marginLeft: 20}}>누적 리워드</div>
+                                    <div style={{width: 180, marginLeft: 20}}>누적 리워드</div>
+                                    <div style={{width: 140, marginLeft: 20}}>총 보유자산</div>
                                     <div style={{width: 160, marginLeft: 20}}>포트폴리오</div>
                                 </div>
                                 {itemss.map(element=>
                                 <InvestDashboard 
                                 rank={element.rank}
                                 name={element.email}
-                                total={element.totalFundingPrice}
+                                total={element.totalMoney}
                                 accumulate={element.accumulatedAllocation}
                                 uid={element.uid}
                             />
@@ -486,15 +486,15 @@ export default function SplashScreen() {
                                 }}>
                                     <div style={{ width: 30, marginLeft: 5 }}>순위</div>
                                     <div style={{ width: 60, marginLeft: 5 }}>이름</div>
-                                    <div style={{ width: 60, marginLeft: 5 }}>총 펀딩금액</div>
-                                    <div style={{ width: 50, marginLeft: 5 }}>누적 리워드</div>
+                                    <div style={{ width: 60, marginLeft: 5 }}>누적 리워드</div>
+                                    <div style={{ width: 50, marginLeft: 5 }}>총 보유자산</div>
                                     <div style={{ width: 50, marginLeft: 5 }}>포트폴리오</div>
                                 </div>
                                 {itemss.map(element=>
                                 <MInvestDashboard 
                                 rank={element.rank}
                                 name={element.email}
-                                total={element.totalFundingPrice}
+                                total={element.totalMoney}
                                 accumulate={element.accumulatedAllocation}
                                 uid={element.uid}
                             />

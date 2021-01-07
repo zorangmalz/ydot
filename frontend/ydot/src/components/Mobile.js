@@ -1884,12 +1884,12 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
     const [item,setitem]=useState([])
     const firestore=useFirestore()
     useEffect(()=>{
-        firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("total","desc").onSnapshot(querySnapshot=>{
+        firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("Money","desc").onSnapshot(querySnapshot=>{
             const list=[]
             querySnapshot.forEach(doc=>{
                 list.push({
                     name:doc.data().channel,
-                    value:doc.data().total,
+                    value:doc.data().Money,
                     color:doc.data().color
                 })
             })
@@ -1948,13 +1948,13 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                     width: 60,
                     marginLeft: 5,
                     color: "#202426"
-                }}>{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                }}>{accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div style={{
                     width: 50,
                     marginLeft: 5,
                     fontWeight: "bold",
                     color: "#e78276"
-                }}>{accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                }}>{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div onClick={() => setDetail(!detail)} style={{
                     width: 50,
                     marginLeft: 5,
