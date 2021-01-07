@@ -188,7 +188,15 @@ export function MMyInfo() {
                 setEmail(doc.data().email)
                 setWallet(doc.data().wallet)
                 setMoney(doc.data().totalMoney)
+                if(doc.data().creator.length>0){
+                    firestore.collection("User").doc(uid).collection("NFT").get().then(querySnapshot=>{
+                        setLeng(querySnapshot.size)
+                        console.log(querySnapshot.size,"here")
+                    })
+                }
             })
+            
+            
         } else {
             console.log("없음")
             history.push("/login")

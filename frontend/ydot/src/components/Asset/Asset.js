@@ -116,7 +116,7 @@ export default function Asset() {
     //배당내역
     
     useEffect(() => {
-        firestore.collection("User").doc(uid).collection("AllocateList").onSnapshot(querySnapshot => {
+        firestore.collection("User").doc(uid).collection("AllocateList").orderBy("fullTime","desc").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
                 console.log(doc.data().monthly)
