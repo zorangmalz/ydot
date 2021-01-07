@@ -1720,7 +1720,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function Graph({data}) {
+export function Graph({data, kind}) {
     return (
         <div style={{
             width: "100%",
@@ -1806,7 +1806,7 @@ export function Graph({data}) {
                     size={5}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.x} \n 크리에이터 누적 조회수 ${numberWithCommas(datum.y)}`}
+                        `${datum.x} \n 크리에이터 ${kind} ${numberWithCommas(datum.y)}`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
@@ -1828,7 +1828,7 @@ export function AssetGraph({data}) {
             <VictoryChart
                 width={566}
                 height={212}
-                padding={{ top: 40, bottom: 50, right: 40, left: 90}}
+                padding={{ top: 20, bottom: 50, right: 20, left: 110}}
                 containerComponent={<VictoryVoronoiContainer />}
             >
                 <VictoryAxis scale="time"
@@ -1855,7 +1855,7 @@ export function AssetGraph({data}) {
                             strokeWidth: 0
                         },
                         tickLabels: {
-                            fontSize: 14,
+                            fontSize: 12,
                             fill: "#202426",
                             fillOpacity: 0.4,
                             fontWeight: "bold"
@@ -1893,7 +1893,7 @@ export function AssetGraph({data}) {
                     }
                 />
                 <VictoryAxis dependentAxis={true}
-                    offsetX={75}
+                    offsetX={100}
                     style={{
                         axis: {
                             stroke: "#202426",
@@ -1901,7 +1901,7 @@ export function AssetGraph({data}) {
                             strokeWidth: 0
                         },
                         tickLabels: {
-                            fontSize: 14,
+                            fontSize: 12,
                             fill: "#202426",
                             fillOpacity: 0.4,
                             fontWeight: "bold"
