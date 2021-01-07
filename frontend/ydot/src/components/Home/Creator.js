@@ -1474,13 +1474,14 @@ export default function Creator() {
                                     marginTop: 20,
                                 }}>
                                     {/* 썸네일 */}
-                                    <a href={main} target="_blank">
+                                    <ReactPlayer url={main} controls width="90vw" height={250}></ReactPlayer>
+                                    {/* <a href={main} target="_blank">
                                     <img src={mainImg} style={{
                                         width: "90vw",
                                         minWidth: 300,
                                         height: 180,
                                         objectFit: "cover"
-                                    }} /></a>
+                                    }} /></a> */}
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
