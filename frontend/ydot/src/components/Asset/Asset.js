@@ -3,6 +3,7 @@ import Header, { AssetGraph, AssetPie } from '../Style'
 import "../component.css"
 import { useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase"
+import MaterialTable, { MTableToolbar } from "material-table"
 
 //아이콘
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md"
@@ -33,6 +34,7 @@ export default function Asset() {
     const [itemsss, setItemsss] = useState([])
     const [itemssss,setItemssss]=useState([])
     const [itemsssss,setItemsssss]=useState([])
+
     //nft card
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("NFT").onSnapshot(querySnapshot => {
@@ -53,6 +55,7 @@ export default function Asset() {
     const [Bend, setBend] = useState(5)
     const [Fstart, setFstart] = useState(0)
     const [Fend, setFend] = useState(5)
+    var BPageTotalCount;
 
     //참여한 펀딩
     useEffect(() => {
@@ -80,13 +83,12 @@ export default function Asset() {
             }
                 console.log(doc.data().channel)
             })
-            setFend(list.length)
-            setItems(list.slice(Fstart, Fstart + 5))
+            setItems(list)
             console.log(list)
         })
     }, [])
     
-    //보유자산과 보유자산
+    //보유자산
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("TotalFunding").onSnapshot(querySnapshot => {
             const list = []
@@ -107,30 +109,31 @@ export default function Asset() {
                     y:doc.data().total,
                     color:doc.data().color
                 })
-            }
+                }
                 console.log(doc.data().channel)
             })
             setItemsss(list)
         })
     }, [])
+
     //배당내역
-    
     useEffect(() => {
-        firestore.collection("User").doc(uid).collection("AllocateList").orderBy("fullTime","desc").onSnapshot(querySnapshot => {
+        firestore.collection("User").doc(uid).collection("AllocateList").orderBy("fullTime", "desc").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
                 console.log(doc.data().monthly)
                 list.push({
-                    dayTime:doc.data().dayTime,
-                    name:doc.data().channel,
-                    actual:(doc.data().monthly.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+                    dayTime: doc.data().dayTime,
+                    name: doc.data().channel,
+                    actual: (doc.data().monthly.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
                 })
-                
-                
             })
             setItemssss(list)
+            BPageTotalCount = Math.ceil(itemssss.length)
+            console.log(BPageTotalCount + "asfsajndjfankfa")
         })
     }, [])
+
     //그래프용
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("Allocate").orderBy("month","asc").onSnapshot(querySnapshot => {
@@ -153,7 +156,6 @@ export default function Asset() {
     }, [])
 
     //총펀딩금액용
-
     const [monthlyAllocation,setMonthlyAllocation]=useState(0)
     const data = [
         { x: "2020-01", y: monthlyAllocation },
@@ -169,12 +171,12 @@ export default function Asset() {
         // { x: "2020-11", y: 47 },
         // { x: "2020-12", y: 42 }
     ];
+
     //보유자산 위쪽. 이번달
     const [totalFundingPrice,setTotalFundingPrice]=useState(0)
     const [accumulatedAllocation,setAccumulatedAllocation]=useState(0)
 
     //이건 그래프용
-    
     useEffect(()=>{
         getPrice()
         console.log(itemssss)
@@ -198,8 +200,6 @@ export default function Asset() {
 
     //보유자산과 펀딩, 배당내역을 나누는 곳
     const [section, setSection] = useState(true)
-
-    //그래프
 
     return (
         <div>
@@ -591,7 +591,6 @@ export default function Asset() {
                                 paddingRight: 110,
                                 backgroundColor: "#ffffff",
                                 borderTop: "1px solid #D2D3D3",
-                                paddingTop: 20,
                             }}>
                                 <div style={{
                                     display: "flex",
@@ -1294,5 +1293,41 @@ export default function Asset() {
                 </div>
             </Mobile>
         </div>
+    )
+}
+
+function SelectedRowStyling() {
+    const { useState } = React;
+    const [selectedRow, setSelectedRow] = useState(null);
+
+    return (
+        <MaterialTable
+            
+            title="배당 내역"
+            style={{
+                width: 1060,
+                border: 0,
+                boxShadow: 0,
+                height: 500,
+            }}
+            columns={[
+                { title: '날짜', field: 'date' },
+                { title: '이름', field: 'name' },
+                { title: '배당', field: 'funding' },
+            ]}
+            data={[
+                { date: 'Mehmet', name: 'Baran', funding: 1987 },
+                { date: 'Zerya Betül', name: 'Baran', funding: 2017 },
+            ]}
+            onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+            options={{
+                search: false,
+                paginationType: "stepped",
+                rowStyle: rowData => ({
+                    backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF',
+                    textAlign: "center",
+                })
+            }}
+        />
     )
 }
