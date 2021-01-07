@@ -66,6 +66,7 @@ export default function Asset() {
                     state: doc.data().ongoing,
                     hash: "https://baobab.scope.klaytn.com/tx/" +doc.data().ftHash,
                     total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+                    amount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
                 })
             }else{
 
