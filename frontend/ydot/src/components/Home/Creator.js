@@ -1309,28 +1309,28 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>누적 조회수</div>
-                                    <Graph data={views} />
+                                    <Graph data={views} kind={"누적 조회수"} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>누적 구독자</div>
-                                    <Graph data={subs} />
+                                    <Graph data={subs} kind={"누적 구독자"} />
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>월별 조회수 획득</div>
-                                    <Graph data={monViews} />
+                                    <Graph data={monViews} kind={"월별 조회수 획득"}/>
                                     <div style={{
                                         fontSize: 21,
                                         color: "#202426",
                                         fontWeight: "bold",
                                         marginBottom: 20,
                                     }}>월별 구독자 획득</div>
-                                    <Graph data={monSubs} />
+                                    <Graph data={monSubs} kind={"월별 구독자 획득"} />
                                 </div>
                             </>
                         }
