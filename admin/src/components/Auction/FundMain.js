@@ -185,7 +185,7 @@ export default function FundMain() {
         uploadCreatorIncome("믕디의 반란" ,[159322 ,67250 ,74328 ,172012 ,238044 ,143412 ,111282 ,53434 ,88154 ,69320 ,88246 ,109058] )
     }
     async function uploadUser(a,b,c){
-        firestore.collection("User").doc(a).set({
+        await firestore.collection("User").doc(a).set({
             creator:[],
             email:b,
             uid:a,
@@ -204,6 +204,7 @@ export default function FundMain() {
         uploadUser("at4g7OHt5GS4JKOB4rbDOuafuB72","wise@ydot.xyz","0xB66AA013EdBAF7B7C1e2de69aC2Cc9eA5d41F599")
         uploadUser("RPHIygmYnUhW8bjrO7zkA5P4Pxw1","jake@ydot.xyz","0x661F9475360CBbAD77D496300D935E9f24014cE8")
         uploadUser("1sdPy2XK1XeUghVEJtfTnzPccnF2","user1@ydot.xyz","0x691Fd6ac480d994589D57582F798c04dB4111145")
+        uploadUser("PYZ9nDdkSJXTcMCdLJexR6gxTvu2","master@ydot.xyz","0x1fD79ff6CB1654b8aeEeb1584e356c9A699BDC69")
     }
     const contents = 2
     return (

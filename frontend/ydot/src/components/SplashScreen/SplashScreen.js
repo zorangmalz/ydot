@@ -26,26 +26,26 @@ import bannericonsix from "../icon/bannericonsix.png"
 export default function SplashScreen() {
 
     const { uid } = useSelector((state) => state.firebase.auth);
-    // const chainId = 1001
-    // const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
-    // const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
+    const chainId = 1001
+    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
+    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
 
-    // async function kasTest() {
-    //     const caver = new CaverExtKAS()
-    //     caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-    //     const account = await caver.kas.wallet.createAccount()
-
-    //     const deployer = caver.wallet.add(
-    //         caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
-    //     )
-    //     const kip7 = await caver.kct.kip7.deploy(
-    //         { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
-    //         deployer.address
-    //     )
-    // }
-    // useEffect(() => {
-    //     // kasTest()
-    // }, [])
+    async function kasTest() {
+        const caver = new CaverExtKAS()
+        caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+        const account = await caver.kas.wallet.createAccount()
+        console.log(account)
+        // const deployer = caver.wallet.add(
+        //     caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
+        // )
+        // const kip7 = await caver.kct.kip7.deploy(
+        //     { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
+        //     deployer.address
+        // )
+    }
+    useEffect(() => {
+        kasTest()
+    }, [])
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })
         return isMobile ? children : null
