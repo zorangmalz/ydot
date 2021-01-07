@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header, { AssetGraph, AssetPie } from '../Style'
+import Header, { AssetGraph, AssetPie, BottomTag } from '../Style'
 import "../component.css"
 import { useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase"
@@ -52,42 +52,48 @@ export default function Asset() {
 
     //5개씩 끊어야하기 때문에 position과 위치를 잘 봐야함
     const [Bstart, setBstart] = useState(0)
-    const [Bend, setBend] = useState(5)
     const [Fstart, setFstart] = useState(0)
-    const [Fend, setFend] = useState(5)
-    var BPageTotalCount;
+    const [Btotal, setBtotal] = useState(0) 
+    const [Bcurrent, setBcurrent] = useState(1)
+    const [Ftotal, setFtotal] = useState(0)
+    const [Fcurrent, setFcurrent] = useState(1)
 
     //참여한 펀딩
-    useEffect(() => {
-        firestore.collection("User").doc(uid).collection("Fund").orderBy("fullTime", "desc").onSnapshot(querySnapshot => {
+    async function FundingParticipate() {
+        await firestore.collection("User").doc(uid).collection("Fund").orderBy("fullTime", "desc").onSnapshot(querySnapshot => {
             const list = []
+            var count = 0;
             querySnapshot.forEach(doc => {
-                if(doc.data().ftHash){
-                list.push({
-                    date: doc.data().DayTime,
-                    name: doc.data().channel,
-                    state: doc.data().ongoing,
-                    hash: "https://baobab.scope.klaytn.com/tx/" +doc.data().ftHash,
-                    total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
-                    amount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
-                })
-            }else{
-
-                list.push({
-                    date: doc.data().DayTime,
-                    name: doc.data().channel,
-                    state: doc.data().ongoing,
-                    hash: "",
-                    total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
-                })
-            }
-                console.log(doc.data().channel)
+                if (doc.data().ftHash) {
+                    list.push({
+                        date: doc.data().DayTime,
+                        name: doc.data().channel,
+                        state: doc.data().ongoing,
+                        hash: "https://baobab.scope.klaytn.com/tx/" + doc.data().ftHash,
+                        total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+                        amount: ((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000).toFixed(2),
+                    })
+                    count = count + 1;
+                } else {
+                    list.push({
+                        date: doc.data().DayTime,
+                        name: doc.data().channel,
+                        state: doc.data().ongoing,
+                        hash: "",
+                        total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
+                    })
+                    count = count + 1;
+                }
             })
-            setItems(list)
-            console.log(list)
+            var slicePosition = Fcurrent * 5 - 5;
+            setFtotal(count)
+            setItems(list.slice(slicePosition, slicePosition + 5))
         })
-    }, [])
-    
+    }
+    useEffect(() => {
+        FundingParticipate()
+    }, [Fcurrent, Ftotal])
+
     //보유자산
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("TotalFunding").onSnapshot(querySnapshot => {
@@ -110,7 +116,6 @@ export default function Asset() {
                     color:doc.data().color
                 })
                 }
-                console.log(doc.data().channel)
             })
             setItemsss(list)
         })
@@ -120,19 +125,20 @@ export default function Asset() {
     useEffect(() => {
         firestore.collection("User").doc(uid).collection("AllocateList").orderBy("fullTime", "desc").onSnapshot(querySnapshot => {
             const list = []
+            var count = 0;
             querySnapshot.forEach(doc => {
-                console.log(doc.data().monthly)
                 list.push({
                     dayTime: doc.data().dayTime,
                     name: doc.data().channel,
                     actual: (doc.data().monthly.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))
                 })
+                count = count + 1;
             })
-            setItemssss(list)
-            BPageTotalCount = Math.ceil(itemssss.length)
-            console.log(BPageTotalCount + "asfsajndjfankfa")
+            var slicePosition = Bcurrent * 5 - 5;
+            setBtotal(count)
+            setItemssss(list.slice(slicePosition, slicePosition + 5))
         })
-    }, [])
+    }, [Bcurrent, Btotal])
 
     //그래프용
     useEffect(() => {
@@ -150,7 +156,6 @@ export default function Asset() {
                 
                 
             })
-            console.log(list,"list")
             setItemsssss(list)
         })
     }, [])
@@ -179,7 +184,6 @@ export default function Asset() {
     //이건 그래프용
     useEffect(()=>{
         getPrice()
-        console.log(itemssss)
     },[itemssss,itemsss])
 
     async function getPrice(){
@@ -187,15 +191,17 @@ export default function Asset() {
         var accu=0
         var mon=0
         for(const i of itemsss){
-            console.log(i.total,i.accumulate,"hhh")
             total= Number(i.total)+Number(total)
             accu=Number(i.accumulate)+Number(accu)
             mon=Number(i.actual)+Number(mon)
         }
-        console.log(total,accu)
         setTotalFundingPrice(total)
         setAccumulatedAllocation(accu)
         setMonthlyAllocation(mon)
+        await firestore.collection("User").doc(uid).update({
+            totalFundingPrice:total,
+            accumulatedAllocation:accu
+        })
     }
 
     //보유자산과 펀딩, 배당내역을 나누는 곳
@@ -219,7 +225,7 @@ export default function Asset() {
                 }}>
                     <Header bold="Asset" />
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef", marginTop: 80, }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#efefef", marginTop: 80 }}>
                     <div style={{
                         width: "56vw",
                         height: 36,
@@ -541,6 +547,7 @@ export default function Asset() {
                                     flexDirection: "row",
                                     alignItems: "center",
                                     overflowX: "scroll",
+                                    paddingBottom: 100,
                                 }}>
                                     {itemss.map(element =>
                                         <a href={element.hash} target="_blank">
@@ -591,12 +598,13 @@ export default function Asset() {
                                 paddingRight: 110,
                                 backgroundColor: "#ffffff",
                                 borderTop: "1px solid #D2D3D3",
+                                paddingTop: 20,
                             }}>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "column",
                                     width: "100%",
-                                    minHeight: "24vh"
+                                    height: 150,
                                 }}>
                                     {itemssss.map(element =>
                                         <div style={{
@@ -615,25 +623,7 @@ export default function Asset() {
                                         </div>
                                     )}
                                 </div>
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: 16,
-                                    fontWeight: "bold",
-                                    color: "#202426",
-                                    cursor: "pointer",
-                                    marginTop: 20,
-                                }}>
-                                    <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{Bstart + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 4}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Bstart + 5}</div>
-                                    <MdKeyboardArrowRight size={20} color="#161513" />
-                                </div>
+                                <Pagnation current={Bcurrent} totalcount={Math.ceil(Btotal / 5)} setCurrent={setBcurrent} />
                                 <div style={{
                                     fontSize: 18,
                                     fontWeight: "bold",
@@ -654,11 +644,10 @@ export default function Asset() {
                                     marginTop: 20,
                                     marginBottom: 20,
                                 }}>
-                                    <div style={{ width: 200 }}>날짜</div>
+                                    <div style={{ width: 200, marginRight: 50 }}>날짜</div>
                                     <div style={{ width: 200 }}>이름</div>
-                                    <div style={{ width: 150 }}>수량</div>
-                                    <div style={{ width: 100, marginRight: 50 }}>개당 가격</div>
-                                    <div style={{ width: 150, marginRight: 50 }}>펀딩 금액</div>
+                                    <div style={{ width: 200 }}>수량</div>
+                                    <div style={{ width: 150, paddingRight: 100 }}>펀딩 금액</div>
                                     <div style={{ width: 100 }}>상태</div>
                                 </div>
                             </div>
@@ -669,13 +658,13 @@ export default function Asset() {
                                 paddingRight: 110,
                                 backgroundColor: "#ffffff",
                                 borderTop: "1px solid #D2D3D3",
-                                paddingTop: 20,
                             }}>
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "column",
                                     width: "100%",
-                                    minHeight: "24vh"
+                                    height: 150,
+                                    paddingTop: 20,
                                 }}>
                                     {items.map(element =>
                                         <div style={{
@@ -686,16 +675,17 @@ export default function Asset() {
                                             fontSize: 18,
                                             width: "100%",
                                             color: "#161513",
-                                            marginTop: 20,
-                                            marginBottom: 20,
+                                            marginBottom: 10,
                                         }}>
-                                            <div style={{ width: 200 }}>{element.date}</div>
+                                            <div style={{ width: 200, marginRight: 50 }}>{element.date}</div>
                                             <div style={{ width: 200 }}>{element.name}</div>
-                                            <div style={{ width: 150 }}>{element.amount}</div>
-                                            <div style={{ width: 100, marginRight: 50, textAlign: "right" }}>{element.price} 원</div>
-                                            <div style={{ width: 150, marginRight: 50, textAlign: "right" }}>{element.total} 원</div>
+                                            <div style={{ width: 200 }}>{element.amount}</div>
+                                            <div style={{ width: 150, paddingRight: 100, textAlign: "right" }}>{element.total} 원</div>
                                             {element.hash ?
-                                                <a href={element.hash} target="_blank">
+                                                <a href={element.hash} style={{
+                                                    textDecorationLine: "underline",
+                                                    color: "#161513",
+                                                }} target="_blank">
                                                     <div style={{ width: 100 }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                                 </a>
                                                 :
@@ -705,26 +695,7 @@ export default function Asset() {
                                         </div>
                                     )}
                                 </div>
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: 16,
-                                    fontWeight: "bold",
-                                    color: "#202426",
-                                    cursor: "pointer",
-                                    marginTop: 20,
-                                    marginBottom: 40,
-                                }}>
-                                    <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{Fstart + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 4}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Fstart + 5}</div>
-                                    <MdKeyboardArrowRight size={20} color="#161513" />
-                                </div>
+                                <Pagnation current={Fcurrent} totalcount={Math.ceil(Ftotal / 5)} setCurrent={setFcurrent} />
                             </div>
                         </>
                     }
@@ -953,7 +924,7 @@ export default function Asset() {
                                                                 color: "#202426",
                                                                 marginBottom: 8,
                                                                 textAlign: "right",
-                                                            }}>보유 수량 {}</div>
+                                                            }}>보유 수량</div>
                                                             <div style={{
                                                                 width: "100%",
                                                                 fontSize: 14,
@@ -1157,7 +1128,7 @@ export default function Asset() {
                             }}>
                                 <div style={{
                                     width: "100%",
-                                    minHeight: "24vh",
+                                    minHeight: 150,
                                     display: "flex",
                                     flexDirection: "column"
                                 }}>
@@ -1178,25 +1149,7 @@ export default function Asset() {
                                         </div>
                                     )}
                                 </div>
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: 14,
-                                    fontWeight: "bold",
-                                    color: "#202426",
-                                    cursor: "pointer",
-                                    marginTop: 20,
-                                }}>
-                                    <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{Bstart + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Bstart + 4}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Bstart + 5}</div>
-                                    <MdKeyboardArrowRight size={20} color="#161513" />
-                                </div>
+                                <Pagnation current={Bcurrent} totalcount={Math.ceil(Btotal / 5)} setCurrent={setBcurrent} />
                                 <div style={{
                                     fontSize: 18,
                                     fontWeight: "bold",
@@ -1220,8 +1173,7 @@ export default function Asset() {
                                     <div style={{ width: 50, textAlign: "left" }}>날짜</div>
                                     <div style={{ width: 60, textAlign: "center" }}>이름</div>
                                     <div style={{ width: 50, textAlign: "center" }}>수량</div>
-                                    <div style={{ width: 50, textAlign: "center" }}>개당 가격</div>
-                                    <div style={{ width: 60, textAlign: "center" }}>펀딩 금액</div>
+                                    <div style={{ width: 100, textAlign: "center" }}>펀딩 금액</div>
                                     <div style={{ width: 40, textAlign: "right" }}>상태</div>
                                 </div>
                             </div>
@@ -1233,11 +1185,12 @@ export default function Asset() {
                             <div style={{
                                 width: "90vw",
                                 backgroundColor: "#ffffff",
-                                marginTop: 10
+                                marginTop: 10,
+                                paddingBottom: 40,
                             }}>
                                 <div style={{
                                     width: "100%",
-                                    minHeight: "24vh",
+                                    minHeight: 150,
                                     display: "flex",
                                     flexDirection: "column"
                                 }}>
@@ -1250,15 +1203,17 @@ export default function Asset() {
                                             fontSize: 12,
                                             width: "100%",
                                             color: "#161513",
-                                            marginBottom: 20,
+                                            marginBottom: 10,
                                         }}>
-                                            <div style={{ width: 50, textAlign: "left" }}>{element.date}</div>
+                                            <div style={{ width: 60, textAlign: "left" }}>{element.date}</div>
                                             <div style={{ width: 60, textAlign: "center" }}>{element.name}</div>
                                             <div style={{ width: 50, textAlign: "center" }}>{element.amount}</div>
-                                            <div style={{ width: 50, textAlign: "right" }}>{element.price} 원</div>
-                                            <div style={{ width: 60, textAlign: "right" }}>{element.total} 원</div>
+                                            <div style={{ width: 100, textAlign: "right" }}>{element.total} 원</div>
                                             {element.hash ?
-                                                <a href={element.hash} target="_blank">
+                                                <a href={element.hash} style={{
+                                                    textDecorationLine: "underline",
+                                                    color: "#161513"
+                                                }} target="_blank">
                                                     <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                                 </a>
                                                 :
@@ -1268,25 +1223,7 @@ export default function Asset() {
                                         </div>
                                     )}
                                 </div>
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: 14,
-                                    fontWeight: "bold",
-                                    color: "#202426",
-                                    cursor: "pointer",
-                                    marginTop: 10,
-                                }}>
-                                    <MdKeyboardArrowLeft style={{ marginRight: 10 }} size={20} color="#161513" />
-                                    <div style={{ opacity: 1, marginRight: 20 }}>{Fstart + 1}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 2}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 3}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 20 }}>{Fstart + 4}</div>
-                                    <div style={{ opacity: 0.4, marginRight: 10 }}>{Fstart + 5}</div>
-                                    <MdKeyboardArrowRight size={20} color="#161513" />
-                                </div>
+                                <Pagnation current={Fcurrent} totalcount={Math.ceil(Ftotal / 5)} setCurrent={setFcurrent} />
                             </div>
                         </>
                     }
@@ -1296,38 +1233,69 @@ export default function Asset() {
     )
 }
 
-function SelectedRowStyling() {
-    const { useState } = React;
-    const [selectedRow, setSelectedRow] = useState(null);
-
+function Pagnation({totalcount, current, setCurrent}) {
     return (
-        <MaterialTable
-            
-            title="배당 내역"
-            style={{
-                width: 1060,
-                border: 0,
-                boxShadow: 0,
-                height: 500,
-            }}
-            columns={[
-                { title: '날짜', field: 'date' },
-                { title: '이름', field: 'name' },
-                { title: '배당', field: 'funding' },
-            ]}
-            data={[
-                { date: 'Mehmet', name: 'Baran', funding: 1987 },
-                { date: 'Zerya Betül', name: 'Baran', funding: 2017 },
-            ]}
-            onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
-            options={{
-                search: false,
-                paginationType: "stepped",
-                rowStyle: rowData => ({
-                    backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF',
-                    textAlign: "center",
-                })
-            }}
-        />
+        <div style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 16,
+            fontWeight: "bold",
+            color: "#202426",
+            cursor: "pointer",
+            marginTop: 20,
+            marginBottom: 40,
+        }}>
+            {totalcount >= 3 ?
+                current === 1 ?
+                    <>
+                        <MdKeyboardArrowLeft onClick={() =>  setCurrent(1)} style={{ marginRight: 10 }} size={20} color="#161513" />
+                        <div onClick={() => setCurrent(current)} style={{ opacity: 1, marginRight: 20 }}>1</div>
+                        <div onClick={() => setCurrent(current + 1)} style={{ opacity: 0.4, marginRight: 20 }}>2</div>
+                        <div onClick={() => setCurrent(current + 2)} style={{ opacity: 0.4 }}>3</div>
+                        <MdKeyboardArrowRight onClick={() =>  setCurrent(totalcount)} style={{ marginLeft: 10 }} size={20} color="#161513" />
+                    </>
+                    :
+                    current === totalcount ?
+                        <>
+                            <MdKeyboardArrowLeft onClick={() =>  setCurrent(1)} style={{ marginRight: 10 }} size={20} color="#161513" />
+                            <div onClick={() => setCurrent(current - 2)} style={{ opacity: 0.4, marginRight: 20 }}>{current - 2}</div>
+                            <div onClick={() => setCurrent(current - 1)} style={{ opacity: 0.4, marginRight: 20 }}>{current - 1}</div>
+                            <div onClick={() => setCurrent(current)} style={{ opacity: 1 }}>{current}</div>
+                            <MdKeyboardArrowRight onClick={() =>  setCurrent(totalcount)} style={{ marginLeft: 10 }} size={20} color="#161513" />
+                        </>
+                        :
+                        <>
+                            <MdKeyboardArrowLeft onClick={() =>  setCurrent(1)} style={{ marginRight: 10 }} size={20} color="#161513" />
+                            <div onClick={() => setCurrent(current - 1)} style={{ opacity: 0.4, marginRight: 20 }}>{current - 1}</div>
+                            <div onClick={() => setCurrent(current)} style={{ opacity: 1, marginRight: 20 }}>{current}</div>
+                            <div onClick={() => setCurrent(current + 1)} style={{ opacity: 0.4 }}>{current + 1}</div>
+                            <MdKeyboardArrowRight onClick={() =>  setCurrent(totalcount)} style={{ marginLeft: 10 }} size={20} color="#161513" />
+                        </>
+                :
+                totalcount === 1 ?
+                    <>
+                        <MdKeyboardArrowLeft onClick={() =>  setCurrent(1)} style={{ marginRight: 10 }} size={20} color="#161513" />
+                        <div style={{ opacity: 1 }}>{current}</div>
+                        <MdKeyboardArrowRight onClick={() =>  setCurrent(totalcount)} style={{ marginLeft: 10 }} size={20} color="#161513" />
+                    </>
+                    :
+                    current === totalcount ?
+                        <>
+                            <MdKeyboardArrowLeft onClick={() =>  setCurrent(1)} style={{ marginRight: 10 }} size={20} color="#161513" />
+                            <div onClick={() => setCurrent(current - 1)} style={{ opacity: 0.4, marginRight: 20 }}>{current - 1}</div>
+                            <div onClick={() => setCurrent(current)} style={{ opacity: 1 }}>{current}</div>
+                            <MdKeyboardArrowRight onClick={() =>  setCurrent(totalcount)} style={{ marginLeft: 10 }} size={20} color="#161513" />
+                        </>
+                        :
+                        <>
+                            <MdKeyboardArrowLeft onClick={() =>  setCurrent(1)} style={{ marginRight: 10 }} size={20} color="#161513" />
+                            <div onClick={() => setCurrent(current)} style={{ opacity: 1, marginRight: 20 }}>{current}</div>
+                            <div onClick={() => setCurrent(current + 1)} style={{ opacity: 0.4 }}>{current + 1}</div>
+                            <MdKeyboardArrowRight onClick={() =>  setCurrent(totalcount)} style={{ marginLeft: 10 }} size={20} color="#161513" />
+                        </>
+            }
+        </div>
     )
 }
