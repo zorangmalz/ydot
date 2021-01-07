@@ -1879,8 +1879,23 @@ setBottom(total)
 }
 
 
-export function MInvestDashboard({ rank, name, total, accumulate }) {
+export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
     const [detail, setDetail] = useState(false)
+    const [item,setitem]=useState([])
+    const firestore=useFirestore()
+    useEffect(()=>{
+        firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("total","desc").onSnapshot(querySnapshot=>{
+            const list=[]
+            querySnapshot.forEach(doc=>{
+                list.push({
+                    name:doc.data().channel,
+                    value:doc.data().total,
+                    color:doc.data().color
+                })
+            })
+            setitem(list)
+        })
+    })
     const data = [
         {
             name: "iu",
@@ -1897,7 +1912,7 @@ export function MInvestDashboard({ rank, name, total, accumulate }) {
         if (rank === 1) {
             setDetail(true)
         }
-    }, [])
+    }, [rank])
     return (
         <div style={{
             borderBottom: "1px solid #D2D3D3",
@@ -1933,13 +1948,13 @@ export function MInvestDashboard({ rank, name, total, accumulate }) {
                     width: 60,
                     marginLeft: 5,
                     color: "#202426"
-                }}>{total}</div>
+                }}>{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div style={{
                     width: 50,
                     marginLeft: 5,
                     fontWeight: "bold",
                     color: "#e78276"
-                }}>{accumulate}</div>
+                }}>{accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div onClick={() => setDetail(!detail)} style={{
                     width: 50,
                     marginLeft: 5,
@@ -1958,11 +1973,11 @@ export function MInvestDashboard({ rank, name, total, accumulate }) {
                     }}>
                         <HSBar 
                             height={15}
-                            data={data}
+                            data={item}
                         />
                     </div>
                     <div className="mobile-ranking-grid-container">
-                            {data.map(ele => 
+                            {item.map(ele => 
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",

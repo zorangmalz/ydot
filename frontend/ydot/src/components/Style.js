@@ -2062,8 +2062,23 @@ export function Login({ setVisible }) {
     )
 }
 
-export function InvestDashboard({ rank, name, total, accumulate }) {
+export function InvestDashboard({ rank, name, total, accumulate,uid }) {
     const [detail, setDetail] = useState(false)
+    const [item,setitem]=useState([])
+    const firestore=useFirestore()
+    useEffect(()=>{
+        firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("total","desc").onSnapshot(querySnapshot=>{
+            const list=[]
+            querySnapshot.forEach(doc=>{
+                list.push({
+                    name:doc.data().channel,
+                    value:doc.data().total,
+                    color:doc.data().color
+                })
+            })
+            setitem(list)
+        })
+    })
     const data = [
         {
             name: "iu",
@@ -2114,13 +2129,13 @@ export function InvestDashboard({ rank, name, total, accumulate }) {
                     width: 180,
                     marginLeft: 20,
                     color: "#202426"
-                }}>{total}</div>
+                }}>{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div style={{
                     width: 140,
                     marginLeft: 20,
                     fontWeight: "bold",
                     color: "#e78276"
-                }}>{accumulate}</div>
+                }}>{accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div onClick={() => setDetail(!detail)} style={{
                     width: 160,
                     marginLeft: 20,
@@ -2139,11 +2154,11 @@ export function InvestDashboard({ rank, name, total, accumulate }) {
                     }}>
                         <HSBar 
                             height={27}
-                            data={data}
+                            data={item}
                         />
                     </div>
                     <div className="desktop-ranking-grid-container">
-                            {data.map(ele => 
+                            {item.map(ele => 
                                 <div style={{
                                     display: "flex",
                                     flexDirection: "row",

@@ -86,7 +86,7 @@ export default function FundMain() {
                 {
                     list.push({
                         id: count,
-                        img: count === 1 ? Exampleone : count === 2 ? Exampletwo : count === 3 ? Examplethree : Examplefour,
+                        img: "/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg",
                         name: doc.id,
                         FundingNum: doc.data().FundingNum,
                         FundingTotal: doc.data().FundingAim,

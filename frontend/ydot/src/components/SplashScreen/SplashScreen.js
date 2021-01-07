@@ -134,19 +134,30 @@ export default function SplashScreen() {
             const list=[]
             var count=1
             querySnapshot.forEach(doc=>{
-                
+                if(doc.data().totalFundingPrice){
                 list.push({
                     totalMoney:doc.data().totalMoney,
                     totalFundingPrice:doc.data().totalFundingPrice,
                     accumulatedAllocation:doc.data().accumulatedAllocation,
                     email:doc.data().email,
-                    rank:count
-                })
+                    rank:count,
+                    uid:doc.data().uid
+                })}
+                else{
+                    list.push({
+                        totalMoney:doc.data().totalMoney,
+                        totalFundingPrice:0,
+                        accumulatedAllocation:0,
+                        email:doc.data().email,
+                        rank:count,
+                        uid:doc.data().uid
+                    })
+                }
                 count=count+1
             })    
             setItemss(list)
         })
-    })
+    },[])
     const now = new Date().getDate()
     return (
         <div>
@@ -270,6 +281,7 @@ export default function SplashScreen() {
                                 name={element.email}
                                 total={element.totalFundingPrice}
                                 accumulate={element.accumulatedAllocation}
+                                uid={element.uid}
                             />
                                     )}
                                 
@@ -443,7 +455,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now >= 10 ?
+                    {now <= 10 ?
                         <>
                             <div style={{
                                 fontSize: 18,
@@ -478,12 +490,15 @@ export default function SplashScreen() {
                                     <div style={{ width: 50, marginLeft: 5 }}>누적 리워드</div>
                                     <div style={{ width: 50, marginLeft: 5 }}>포트폴리오</div>
                                 </div>
-                                <MInvestDashboard
-                                    rank={1}
-                                    name="지순's 일상"
-                                    total={300000}
-                                    accumulate={600000}
-                                />
+                                {itemss.map(element=>
+                                <MInvestDashboard 
+                                rank={element.rank}
+                                name={element.email}
+                                total={element.totalFundingPrice}
+                                accumulate={element.accumulatedAllocation}
+                                uid={element.uid}
+                            />
+                                    )}
                             </div>
                         </>
                         :
