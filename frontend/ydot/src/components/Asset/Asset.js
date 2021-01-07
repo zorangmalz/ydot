@@ -91,7 +91,7 @@ export default function Asset() {
         firestore.collection("User").doc(uid).collection("TotalFunding").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
-                if(doc.data().ongoing==1){
+                if(doc.data().==1){
                 list.push({
                     img: "#4c4c4c",
                     name: doc.data().channel,
@@ -1260,10 +1260,10 @@ export default function Asset() {
                                             <div style={{ width: 60, textAlign: "right" }}>{element.total} 원</div>
                                             {element.hash ?
                                                 <a href={element.hash} target="_blank">
-                                                    <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                                    <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                                 </a>
                                                 :
-                                                <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 1 ? "실패" : "성공")}</div>
+                                                <div style={{ width: 40, textAlign: "right" }}>{element.state == 0 ? "진행중" : (element.state == 2 ? "실패" : "성공")}</div>
                                             }
 
                                         </div>
