@@ -1110,7 +1110,7 @@ export default function Asset() {
                                 }}>
                                     {itemss.map(element =>
                                         <a href={element.hash} target="_blank">
-                                            <img src={jisuncard} style={{ width: 100, height: 60, borderRadius: 10, marginRight: 10, }} />
+                                            <img src={element.pic} style={{ width: 100, height: 60, borderRadius: 10, marginRight: 10, }} />
                                         </a>
                                     )}
                                 </div>
