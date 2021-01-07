@@ -5,7 +5,7 @@ import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
 import Slider from "react-slick"
-
+import { useSelector } from "react-redux";
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
 
@@ -25,34 +25,34 @@ import bannericonsix from "../icon/bannericonsix.png"
 
 export default function SplashScreen() {
 
+    const { uid } = useSelector((state) => state.firebase.auth);
+    // const chainId = 1001
+    // const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
+    // const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
 
-    const chainId = 1001
-    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
-    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
+    // async function kasTest() {
+    //     const caver = new CaverExtKAS()
+    //     caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
+    //     const account = await caver.kas.wallet.createAccount()
+    //     console.log(account)
 
-    async function kasTest() {
-        const caver = new CaverExtKAS()
-        caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
-        const account = await caver.kas.wallet.createAccount()
-        console.log(account)
+    //     const deployer = caver.wallet.add(
+    //         caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
+    //     )
+    //     const kip7 = await caver.kct.kip7.deploy(
+    //         { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
+    //         deployer.address
+    //     )
+    //     console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
 
-        const deployer = caver.wallet.add(
-            caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
-        )
-        const kip7 = await caver.kct.kip7.deploy(
-            { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
-            deployer.address
-        )
-        console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
-
-        console.log(`Token name: ${await kip7.name()}`)
-        console.log(`Token symbol: ${await kip7.symbol()}`)
-        console.log(`Token decimals: ${await kip7.decimals()}`)
-        console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
-    }
-    useEffect(() => {
-        // kasTest()
-    }, [])
+    //     console.log(`Token name: ${await kip7.name()}`)
+    //     console.log(`Token symbol: ${await kip7.symbol()}`)
+    //     console.log(`Token decimals: ${await kip7.decimals()}`)
+    //     console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
+    // }
+    // useEffect(() => {
+    //     // kasTest()
+    // }, [])
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })
         return isMobile ? children : null
@@ -127,7 +127,26 @@ export default function SplashScreen() {
             setItems(list)
         })
     }
-
+    const [itemss,setItemss]=useState([])
+    useEffect(()=>{
+        
+        firestore.collection("User").orderBy("totalMoney","desc").onSnapshot(querySnapshot=>{
+            const list=[]
+            var count=1
+            querySnapshot.forEach(doc=>{
+                
+                list.push({
+                    totalMoney:doc.data().totalMoney,
+                    totalFundingPrice:doc.data().totalFundingPrice,
+                    accumulatedAllocation:doc.data().accumulatedAllocation,
+                    email:doc.data().email,
+                    rank:count
+                })
+                count=count+1
+            })    
+            setItemss(list)
+        })
+    })
     const now = new Date().getDate()
     return (
         <div>
@@ -212,7 +231,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now >= 10 ?
+                    {now <= 10 ?
                         <>
                             <div style={{
                                 fontSize: 21,
@@ -245,12 +264,15 @@ export default function SplashScreen() {
                                     <div style={{width: 140, marginLeft: 20}}>누적 리워드</div>
                                     <div style={{width: 160, marginLeft: 20}}>포트폴리오</div>
                                 </div>
+                                {itemss.map(element=>
                                 <InvestDashboard 
-                                    rank={1}
-                                    name="지순's 일상"
-                                    total={300000}
-                                    accumulate={600000}
-                                />
+                                rank={element.rank}
+                                name={element.email}
+                                total={element.totalFundingPrice}
+                                accumulate={element.accumulatedAllocation}
+                            />
+                                    )}
+                                
                             </div>
                         </>
                         :

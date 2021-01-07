@@ -189,7 +189,7 @@ export default function FundMain() {
             creator:[],
             email:b,
             uid:a,
-            totalMoney:1500000,
+            totalMoney:150000000,
             wallet:c
         })
         for(var i=1;i<13;i++){
