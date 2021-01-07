@@ -225,7 +225,7 @@ export default function FundMain() {
                 month:time,
                 monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0))
             })
-
+            console.log(Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),"hererereer")
             await firestore.collection("User").doc(i.uid).collection("Fund").doc(i.dayTime).update({
                 total:Number(total)+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
                 monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
@@ -236,7 +236,7 @@ export default function FundMain() {
                 monthly:Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0)),
                 month:time,
                 dayTime:docName,
-                fullTime:today.getDate(),
+                fullTime:today.getTime(),
                 channel:myparam
             })
                 await firestore.collection("User").doc(i.uid).collection("Allocate").doc(time).update({

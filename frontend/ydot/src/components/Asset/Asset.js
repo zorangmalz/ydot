@@ -855,7 +855,7 @@ export default function Asset() {
                                                         fontSize: 12,
                                                         fontWeight: "bold",
                                                         color: "#202426",
-                                                    }}>{totalFundingPrice}</div>
+                                                    }}>{totalFundingPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                                 </div>
                                                 <div style={{
                                                     display: "flex",
@@ -874,7 +874,7 @@ export default function Asset() {
                                                         fontSize: 12,
                                                         fontWeight: "bold",
                                                         color: "#e78276",
-                                                    }}>{accumulatedAllocation}</div>
+                                                    }}>{accumulatedAllocation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1006,7 +1006,7 @@ export default function Asset() {
                                                                 textAlign: "right",
                                                                 fontSize: 14,
                                                                 color: "#202426"
-                                                            }}>{element.total}</div>
+                                                            }}>{element.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                                         </div>
                                                     </div>
                                                     <div style={{
@@ -1083,7 +1083,7 @@ export default function Asset() {
                                                                 fontSize: 14,
                                                                 color: "#e78276",
                                                                 fontWeight: "bold",
-                                                            }}>{element.actual}</div>
+                                                            }}>{element.actual.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                                         </div>
                                                     </div>
                                                 </div>
