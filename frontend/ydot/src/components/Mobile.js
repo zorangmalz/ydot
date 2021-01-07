@@ -1205,7 +1205,8 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
             }
         } else {
             console.log("here")
-            if (money === 0 || money === "0") {
+            
+            if (money === 0 || money === "0" || isNaN(money)) {
                 alert("금액을 정확히 입력해 주세요")
             } else {
                 firestoreUpload()
