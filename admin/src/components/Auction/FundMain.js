@@ -29,7 +29,11 @@ export default function FundMain() {
     useEffect(() => {
         load()
         loadEnd()
+        //크리에이터 정보 입력
         // upload()
+        //크리에이터 수입 입력
+        uploadTwo()
+        //유저정보 입력
         // userUpload()
     }, [])
 
@@ -133,9 +137,18 @@ export default function FundMain() {
             })
 
     }
+    function uploadCreatorIncome(a,b){
+
+        for (var i=1;i<13;i++){
+            firestore.collection("Creator").doc(a).collection("Income").doc(String(i)).set({
+                income:b[i-1]
+            })
+        }
+        
+    }
     function upload(){
         uploadCreator(1610180070331,2251,2251000,10000,0,"EO",true,"EOT","IT/과학기술","매크로",8.41,10,22510500,7912200,"eo","https://www.youtube.com/watch?v=0qfqjObM50o","https://www.youtube.com/watch?v=8zfYINYNS38",[],"#DDD3C2")
-        uploadCreator(1610180070331,11480,1147000,10000,0,"아이유",true,"IUT","엔터테인먼트","메가",5.07,1,114799242,81544456,"iu","https://youtu.be/sAbU4fAqjZk","https://youtu.be/OcVmaIlHZ1o",[],"#C6A477")
+        uploadCreator(1610180070331,11480,1147000,10000,0,"이지금",true,"IUT","엔터테인먼트","메가",5.07,1,114799242,81544456,"iu","https://youtu.be/sAbU4fAqjZk","https://youtu.be/OcVmaIlHZ1o",[],"#C6A477")
         uploadCreator(1610180070331,1573,1573000,10000,0,"농잘알",true,"NJT","스포츠","매크로",10.19,10,15730160,3922820,"nong","https://www.youtube.com/watch?v=Sa7Jm4VWTq8","https://www.youtube.com/watch?v=yg99DXPTZjU",[],"#78D5F5")
         uploadCreator(1610180070331,4599,4598000,10000,0,"광마니",true,"GMT","푸드/먹방","매크로",11.82,10,45986943,9374812,"gwang","https://www.youtube.com/watch?v=o2m_7zX7s8Y","https://www.youtube.com/watch?v=ZVyvJpTgHAg",[],"#7BE495")
         uploadCreator(1610180070331,133830,13383000,10000,0,"핫도그",true,"HDT","엔터테인먼트","메가",10.34,1,1338301634,341184688,"hotdog"," https://www.youtube.com/watch?v=XHJcdYkgEbE","https://www.youtube.com/watch?v=ckTHSO6LIE4",[],"#ABD1DC")
@@ -152,7 +165,25 @@ export default function FundMain() {
         uploadCreator(1610180070331,723,2169000,10000,0,"햇살한스푼",true,"SST","푸드/먹방","마이크로",1.91,30,7230289,16352313,'hatsal',"https://www.youtube.com/watch?v=QIa7abUkBP4","https://www.youtube.com/watch?v=iWlgHnJu-Mo",[],"#7097AB")
         uploadCreator(1610180070331,39,116000,10000,0,"믕디의 반란",true,"MBT","음악","마이크로",4.17,30,389947,354182,'meungdi',"https://www.youtube.com/watch?v=lsZti2j0IUc","https://www.youtube.com/watch?v=1glwnKjCTVA",[],"#797FF6")
     }
-
+    function uploadTwo(){
+        uploadCreatorIncome("EO" ,[1464486,1224888 ,2099988  ,1773766 ,2056252 ,3545602 ,2680382 ,5153630 ,5233410 ,3385148 ,6869084 ,2875054] )
+        uploadCreatorIncome("이지금" ,[18179690 ,14847692 ,13486268 ,26105380 ,35787620 ,33957972 ,23271432 ,17320354 ,21545532 ,20593190 ,27306232 ,39912100] )
+        uploadCreatorIncome("농잘알" ,[2570814 ,2533506 ,1593846 ,696698 ,404166 ,1518190 ,845384 ,875298 ,966882 ,256808 ,772650 ,1096890] )
+        uploadCreatorIncome("광마니" ,[2681678 ,3619688 ,4088356 ,7188904 ,6075294 ,7626456 ,11270060 ,10124358 ,6156796 ,11543266 ,15514780 ,11424626] )
+        uploadCreatorIncome("핫도그" ,[39144322 ,46036986 ,51527218 ,33998950 ,46413026 ,40413028 ,36880192 ,42497472 ,58821680 ,48488304 ,47043834 ,88138966] )
+        uploadCreatorIncome("잇섭" ,[34705088 ,36533378 ,36367950 ,38647070 ,35306374 ,31777172 ,25908308 ,32502262 ,43165658 ,39728546 ,35691418 ,35947884] )
+        uploadCreatorIncome("1분과학" ,[2831882 ,2647114 ,1791906 ,1648250 ,2726508 ,4953512 ,2366536 ,1497832 ,5444202 ,1567322 ,5117534 ,4779420] )
+        uploadCreatorIncome("신사임당" ,[12611662 ,12292948 ,14071188 ,27071518 ,26476938 ,26581580 ,26210474 ,36768762 ,59168808 ,60285794 ,61848398 ,66822918] )
+        uploadCreatorIncome("슈카월드" ,[12876400 ,17465782 ,12603504 ,15675620 ,13538668 ,12996914 ,14825184 ,16550602 ,16954706 ,13141516 ,12829450 ,16657254] )
+        uploadCreatorIncome("POOD" ,[1770424 ,1287160 ,428908 ,373452 ,761752 ,643432 ,147256 ,132772 ,2423696 ,2424450 ,3018320 ,1511406] )
+        uploadCreatorIncome("우왁굳" ,[48054006 ,47223124 ,54366772 ,65523804 ,54203196 ,47089966 ,38973378 ,46541746 ,61004376 ,52630100 ,49989716 ,46878944] )
+        uploadCreatorIncome("Pianist JayM" ,[377388 ,384596 ,385204 ,438442 ,359832 ,362818 ,357622 ,357422 ,405444 ,345772 ,327798 ,371052] )
+        uploadCreatorIncome("갓승희" ,[481588 ,393042 ,309210 ,275878 ,254704 ,265076 ,230648 ,200550 ,181500 ,101068 ,117060 ,156396] )
+        uploadCreatorIncome("신지우" ,[1502676 ,1211962 ,2174882 ,2000844 ,1971442 ,1761110 ,1693776 ,1481048 ,1970384 ,1845416 ,1214972,1209520] )
+        uploadCreatorIncome("JEICHI 42" ,[45800 ,46774 ,44856 ,66458 ,32496 ,47624 ,46220 ,37546 ,33952 ,27898 ,34812 ,38686] )
+        uploadCreatorIncome("햇살한스푼" ,[417156 ,574242 ,527202 ,577642 ,460004 ,425620 ,406476 ,398506 ,436938 ,361448 ,281944 ,322710] )
+        uploadCreatorIncome("믕디의 반란" ,[159322 ,67250 ,74328 ,172012 ,238044 ,143412 ,111282 ,53434 ,88154 ,69320 ,88246 ,109058] )
+    }
     async function uploadUser(a,b,c){
         firestore.collection("User").doc(a).set({
             creator:[],
