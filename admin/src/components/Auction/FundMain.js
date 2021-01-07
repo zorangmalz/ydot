@@ -32,11 +32,12 @@ export default function FundMain() {
         //크리에이터 정보 입력
         // upload()
         //크리에이터 수입 입력
-        // uploadTwo()
+        uploadTwo()
         //유저정보 입력
         // userUpload()
+      
     }, [])
-
+    
     async function load() {
         var date = new Date()
         firestore.collection("Creator").onSnapshot(querySnapshot => {
@@ -179,7 +180,7 @@ export default function FundMain() {
         uploadCreatorIncome("우왁굳" ,[48054006 ,47223124 ,54366772 ,65523804 ,54203196 ,47089966 ,38973378 ,46541746 ,61004376 ,52630100 ,49989716 ,46878944] )
         uploadCreatorIncome("Pianist JayM" ,[377388 ,384596 ,385204 ,438442 ,359832 ,362818 ,357622 ,357422 ,405444 ,345772 ,327798 ,371052] )
         uploadCreatorIncome("갓승희" ,[481588 ,393042 ,309210 ,275878 ,254704 ,265076 ,230648 ,200550 ,181500 ,101068 ,117060 ,156396] )
-        uploadCreatorIncome("신지우" ,[1502676 ,1211962 ,2174882 ,2000844 ,1971442 ,1761110 ,1693776 ,1481048 ,1970384 ,1845416 ,1214972,1209520] )
+        uploadCreatorIncome("신지우" ,[1502676 ,1211962 ,2174882 ,2000844 ,1971442 ,1761110 ,1693776 ,1481048 ,1970384 ,1845416 ,0,1209520] )
         uploadCreatorIncome("JEICHI 42" ,[45800 ,46774 ,44856 ,66458 ,32496 ,47624 ,46220 ,37546 ,33952 ,27898 ,34812 ,38686] )
         uploadCreatorIncome("햇살한스푼" ,[417156 ,574242 ,527202 ,577642 ,460004 ,425620 ,406476 ,398506 ,436938 ,361448 ,281944 ,322710] )
         uploadCreatorIncome("믕디의 반란" ,[159322 ,67250 ,74328 ,172012 ,238044 ,143412 ,111282 ,53434 ,88154 ,69320 ,88246 ,109058] )
@@ -205,6 +206,7 @@ export default function FundMain() {
         uploadUser("RPHIygmYnUhW8bjrO7zkA5P4Pxw1","jake@ydot.xyz","0x661F9475360CBbAD77D496300D935E9f24014cE8")
         uploadUser("1sdPy2XK1XeUghVEJtfTnzPccnF2","user1@ydot.xyz","0x691Fd6ac480d994589D57582F798c04dB4111145")
         uploadUser("PYZ9nDdkSJXTcMCdLJexR6gxTvu2","master@ydot.xyz","0x1fD79ff6CB1654b8aeEeb1584e356c9A699BDC69")
+        uploadUser("lPQ1PSfylXf2v0NwdkojZyIkDDz2","jihun@ydot.xyz","0x1fD79ff6CB1654b8aeEeb1584e356c9A699BDC69")
     }
     const contents = 2
     return (

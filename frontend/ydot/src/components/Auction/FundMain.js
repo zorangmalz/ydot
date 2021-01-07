@@ -39,7 +39,7 @@ export default function FundMain() {
             
             querySnapshot.forEach(doc => {
                 if(doc.data().Deadline>date.getTime()){
-                    console.log("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Main.jpg")
+                    // console.log("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Main.jpg")
                     list.push({
                         id: count,
                         img: "/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg",
