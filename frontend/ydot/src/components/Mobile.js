@@ -968,7 +968,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         color: "#161513",
                         fontWeight: "bold"
                     }}>이용약관 전체 동의</div>
-                    <button onClick={UseClick} style={{
+                    <div onClick={UseClick} style={{
                         cursor: "pointer",
                         outline: 0,
                         width: 14,
@@ -979,7 +979,7 @@ export function MPopupOne({ setVisible, setNextVisible }) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>{UserIcon}</button>
+                    }}>{UserIcon}</div>
                 </div>
                 <div style={{
                     width: 250,
@@ -1442,6 +1442,7 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                         border: number === 25 ? 0 : "1px solid #35363b",
                         backgroundColor: number === 25 ? "#202426" : "#ffffff",
                         borderRadius: 5,
+                        WebkitAppearance: "none"
                     }} value="25%" />
                     <input onClick={onFifty} type="button" style={{
                         width: 40,
@@ -1455,6 +1456,7 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                         backgroundColor: number === 50 ? "#202426" : "#ffffff",
                         borderRadius: 5,
                         marginLeft: 10,
+                        WebkitAppearance: "none"
                     }} value="50%" />
                     <input onClick={onSeventyFive} type="button" style={{
                         width: 40,
@@ -1468,6 +1470,7 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                         backgroundColor: number === 75 ? "#202426" : "#ffffff",
                         borderRadius: 5,
                         marginLeft: 10,
+                        WebkitAppearance: "none"
                     }} value="75%" />
                     <input onClick={onMax} type="button" style={{
                         width: 40,
@@ -1481,6 +1484,7 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                         backgroundColor: number === 100 ? "#202426" : "#ffffff",
                         borderRadius: 5,
                         marginLeft: 10,
+                        WebkitAppearance: "none"
                     }} value="MAX" />
                 </div>
                 <div style={{
@@ -1594,7 +1598,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function MGraph({data}) {
+export function MGraph({data, kind}) {
     return (
         <div style={{
             width: "100%",
@@ -1679,7 +1683,7 @@ export function MGraph({data}) {
                     size={3}
                     data={data}
                     labels={({ datum }) =>
-                        `${datum.x} \n 크리에이터 누적 조회수 ${numberWithCommas(datum.y)}`}
+                        `${datum.x} \n 크리에이터 ${kind} ${numberWithCommas(datum.y)}`}
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
@@ -1700,7 +1704,7 @@ export function MAssetGraph({data}) {
         }}>
             <VictoryChart
                 height={200}
-                padding={{ top: 0, bottom: 30, right: 30, left: 30}}
+                padding={{ top: 0, bottom: 30, right: 30, left: 70}}
                 containerComponent={<VictoryVoronoiContainer />}
             >
                 <VictoryAxis scale="time"
@@ -1765,7 +1769,7 @@ export function MAssetGraph({data}) {
                     }
                 />
                 <VictoryAxis dependentAxis={true}
-                    offsetX={30}
+                    offsetX={65}
                     style={{
                         axis: {
                             stroke: "#202426",

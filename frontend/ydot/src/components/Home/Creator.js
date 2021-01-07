@@ -1455,7 +1455,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         color: "#202426",
                                         marginBottom: 20,
-                                    }}>[Vlog] 공부의 달인 두번째 펀딩을 모집합니다.</div>
+                                    }}>{name}</div>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -2130,7 +2130,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>누적 조회수</div>
-                                    <MGraph data={views} />
+                                    <MGraph data={views} kind="누적 조회수" />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
@@ -2138,7 +2138,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>누적 구독자</div>
-                                    <MGraph data={subs} />
+                                    <MGraph data={subs} kind="누적 구독자" />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
@@ -2146,7 +2146,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>월별 조회수 획득</div>
-                                    <MGraph data={monViews} />
+                                    <MGraph data={monViews} kind="월별 조회수 획득" />
                                     <div style={{
                                         fontSize: 18,
                                         alignSelf: "flex-start",
@@ -2154,7 +2154,7 @@ export default function Creator() {
                                         fontWeight: "bold",
                                         marginBottom: 10,
                                     }}>월별 구독자 획득</div>
-                                    <MGraph data={monSubs} />
+                                    <MGraph data={monSubs} kind="월별 조회수 획득" />
                                 </div>
                             </>
                         }
