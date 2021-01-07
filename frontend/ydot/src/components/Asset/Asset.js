@@ -91,7 +91,7 @@ export default function Asset() {
         firestore.collection("User").doc(uid).collection("TotalFunding").onSnapshot(querySnapshot => {
             const list = []
             querySnapshot.forEach(doc => {
-                if(doc.data().==1){
+                if(doc.data()==1){
                 list.push({
                     img: "#4c4c4c",
                     name: doc.data().channel,
