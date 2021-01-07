@@ -211,14 +211,12 @@ export function MyInfo() {
     }
     function logout() {
         firebase.logout()
+        alert("로그아웃 되셨습니다")
     }
     useEffect(() => {
         getInfo()
         if (wallet.length === 0) {
             setWallet("지갑을 등록해주세요")
-        }
-        if (leng.length === 0) {
-            setLeng("0")
         }
     }, [wallet])
 
