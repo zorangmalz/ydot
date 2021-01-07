@@ -34,7 +34,6 @@ export default function SplashScreen() {
     //     const caver = new CaverExtKAS()
     //     caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
     //     const account = await caver.kas.wallet.createAccount()
-    //     console.log(account)
 
     //     const deployer = caver.wallet.add(
     //         caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
@@ -43,12 +42,6 @@ export default function SplashScreen() {
     //         { name: 'Jasmines', symbol: 'JAS', decimals: 18, initialSupply: '100000000000000000' },
     //         deployer.address
     //     )
-    //     console.log(`Deployed KIP-7 token contract address: ${kip7.options.address}`)
-
-    //     console.log(`Token name: ${await kip7.name()}`)
-    //     console.log(`Token symbol: ${await kip7.symbol()}`)
-    //     console.log(`Token decimals: ${await kip7.decimals()}`)
-    //     console.log(`Token totalSupply: ${await kip7.totalSupply()}`)
     // }
     // useEffect(() => {
     //     // kasTest()
@@ -98,12 +91,10 @@ export default function SplashScreen() {
     useEffect(() => {
         load()
         var date = new Date()
-        console.log(date.getTime())
     }, [])
 
     async function load() {
         var date = new Date()
-        console.log(date)
         firestore.collection("Creator").onSnapshot(querySnapshot => {
             const list = []
             var count = 1
@@ -136,7 +127,7 @@ export default function SplashScreen() {
             querySnapshot.forEach(doc=>{
                 if(doc.data().totalFundingPrice){
                 list.push({
-                    totalMoney:doc.data().totalMoney,
+                    totalMoney: doc.data().totalMoney,
                     totalFundingPrice:doc.data().totalFundingPrice,
                     accumulatedAllocation:doc.data().accumulatedAllocation,
                     email:doc.data().email,
@@ -242,7 +233,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now <= 10 ?
+                    {now >= 10 ?
                         <>
                             <div style={{
                                 fontSize: 21,
@@ -465,7 +456,8 @@ export default function SplashScreen() {
                                 marginTop: 40,
                             }}>리워드 Top 10</div>
                             <div style={{
-                                width: 300,
+                                minWidth: 300,
+                                width: "90vw",
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
@@ -473,7 +465,8 @@ export default function SplashScreen() {
                                 marginBottom: 50,
                             }}>
                                 <div style={{
-                                    width: 300,
+                                    minWidth: 300,
+                                    width: "90vw",
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "center",

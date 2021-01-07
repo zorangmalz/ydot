@@ -32,10 +32,8 @@ export default function Header({ bold }) {
   
     function getInfo() {
         if(uid){
-            console.log(uid)
             history.push("/asset")
         }else{
-            console.log("없음")
             history.push("/login")
         }
         
@@ -193,12 +191,8 @@ export function MyInfo() {
     const history = useHistory()
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
   
-    useEffect(()=>{
-        console.log("here")
-    })
     function getInfo() {
         if (uid) {
-            console.log(uid)
             firestore.collection("User").doc(uid).get().then(doc => {
                 setEmail(doc.data().email)
                 setWallet(doc.data().wallet)
@@ -206,14 +200,12 @@ export function MyInfo() {
                 if(doc.data().creator.length>0){
                     firestore.collection("User").doc(uid).collection("NFT").get().then(querySnapshot=>{
                         setLeng(querySnapshot.size)
-                        console.log(querySnapshot.size,"here")
                     })
                 }
             })
             
             
         } else {
-            console.log("없음")
             history.push("/login")
         }
     }
@@ -1169,8 +1161,6 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
 
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
     const onChange = (e) => {
-        console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
-        console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
         setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
     }
 
@@ -1204,7 +1194,6 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 setWarn("최대"+Number(totalMoney)+"₩")
             }
         } else {
-            console.log("here")
             
             if (money === 0 || money === "0" || isNaN(money)) {
                 alert("금액을 정확히 입력해 주세요")
@@ -1256,7 +1245,6 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const minutes=today.getMinutes()
         const seconds=today.getSeconds()
         const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
-        console.log(fundingList,creatorName)
         if(fundingList.includes(creatorName)){
             firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).get().then(doc=>{
                 firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).update({
@@ -1313,7 +1301,6 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
 
         if(investList.includes(uid)){
             firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).get().then(doc=>{
-                console.log(doc.data().money,"herererererere")
 
                 firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).update({
                     
@@ -1810,7 +1797,7 @@ export function Graph({data, kind}) {
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
-                            flyoutWidth={200}
+                            flyoutWidth={300}
                         />
                     }
                 />
@@ -1939,9 +1926,7 @@ export function AssetPie({ data }) {
         var total=0
         var colorList=[]
         for(var i=0;i<data.length;i++){
-            console.log(data[i],"this is i")
             total=data[i].y+total
-            console.log(data[i].color)
             colorList.push(data[i].color)
         }
 setRealColor(colorList)
@@ -2112,7 +2097,7 @@ export function InvestDashboard({ rank, name, total, accumulate,uid }) {
                 flexDirection: "row",
                 alignItems: "center",
                 height: 30,
-                fontSize: 21,
+                fontSize: 16,
             }}>
                 <div style={{
                     width: 90,
@@ -2124,12 +2109,11 @@ export function InvestDashboard({ rank, name, total, accumulate,uid }) {
                     width: 140,
                     marginLeft: 20,
                     fontWeight: "bold",
-                    color: "#202426"
+                    color: "#202426",
                 }}>{name}</div>
                 <div style={{
                     width: 180,
                     marginLeft: 20,
-                    
                     fontWeight: "bold",
                     color: "#e78276"
                 }}>{accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>

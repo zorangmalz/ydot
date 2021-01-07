@@ -82,10 +82,8 @@ export function MHeader({ bold }) {
     const { uid } = useSelector((state) => state.firebase.auth);
     function getInfo() {
         if(uid){
-            console.log(uid)
             history.push("/asset")
         }else{
-            console.log("없음")
             history.push("/login")
         }
     }
@@ -176,14 +174,9 @@ export function MMyInfo() {
     const [wallet, setWallet] = useState("")
     const [money,setMoney]=useState(0)
     const history = useHistory()
-    //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-  
-    useEffect(()=>{
-        console.log("here")
-    })
+
     function getInfo() {
         if (uid) {
-            console.log(uid)
             firestore.collection("User").doc(uid).get().then(doc => {
                 setEmail(doc.data().email)
                 setWallet(doc.data().wallet)
@@ -191,14 +184,12 @@ export function MMyInfo() {
                 if(doc.data().creator.length>0){
                     firestore.collection("User").doc(uid).collection("NFT").get().then(querySnapshot=>{
                         setLeng(querySnapshot.size)
-                        console.log(querySnapshot.size,"here")
                     })
                 }
             })
             
             
         } else {
-            console.log("없음")
             history.push("/login")
         }
     }
@@ -397,10 +388,10 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
                 marginTop: 20,
             }}>
                 <img src={img} style={{
-                    width: 150,
-                    height: 80,
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
+                    width: 70,
+                    height: 70,
+                    borderRadius: 35,
+                    marginTop: 10,
                     objectFit: "cover"
                 }} />
                 <div style={{
@@ -1169,8 +1160,6 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
 
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
     const onChange = (e) => {
-        console.log(e.target)		//이벤트가 발생한 타겟의 요소를 출력
-        console.log(e.target.value)	//이벤트가 발생한 타겟의 Value를 출력
         setMoney(e.target.value)		//이벤트 발생한 value값으로 {text} 변경
     }
 
@@ -1204,7 +1193,6 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
                 setWarn("최대"+Number(totalMoney)+"₩")
             }
         } else {
-            console.log("here")
             
             if (money === 0 || money === "0" || isNaN(money)) {
                 alert("금액을 정확히 입력해 주세요")
@@ -1256,7 +1244,6 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
         const minutes=today.getMinutes()
         const seconds=today.getSeconds()
         const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
-        console.log(fundingList,creatorName)
         if(fundingList.includes(creatorName)){
             firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).get().then(doc=>{
                 firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).update({
@@ -1312,7 +1299,6 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
 
         if(investList.includes(uid)){
             firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).get().then(doc=>{
-                console.log(doc.data().money,"herererererere")
 
                 firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).update({
                     
@@ -1687,7 +1673,7 @@ export function MGraph({data, kind}) {
                     labelComponent={
                         <VictoryTooltip constrainToVisibleArea
                             flyoutStyle={{ stroke: "#202426", strokeWidth: 2, fill: "#ffffff" }}
-                            flyoutWidth={200}
+                            flyoutWidth={300}
                         />
                     }
                 />
@@ -1815,9 +1801,7 @@ export function MAssetPie({ data }) {
         var total=0
         var colorList=[]
         for(var i=0;i<data.length;i++){
-            console.log(data[i],"this is i")
             total=data[i].y+total
-            console.log(data[i].color)
             colorList.push(data[i].color)
         }
 setRealColor(colorList)
@@ -1883,6 +1867,8 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
     const [detail, setDetail] = useState(false)
     const [item,setitem]=useState([])
     const firestore=useFirestore()
+    var arr = name.split("@")
+    var Realname = arr[0]
     useEffect(()=>{
         firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("Money","desc").onSnapshot(querySnapshot=>{
             const list=[]
@@ -1896,18 +1882,6 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
             setitem(list)
         })
     })
-    const data = [
-        {
-            name: "iu",
-            value: 80,
-            color: "#205072"
-        },
-        {
-            name: "Paid",
-            value: 200,
-            color: "#F8C78D"
-        }
-    ]
     useEffect(() => {
         if (rank === 1) {
             setDetail(true)
@@ -1924,12 +1898,12 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
             paddingBottom: 10,
         }}>
             <div style={{
-                width: 300,
+                minWidth: 300,
+                width: "90vw",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
-                height: 20,
                 fontSize: 10,
             }}>
                 <div style={{
@@ -1937,29 +1911,34 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                     marginLeft: 5,
                     fontWeight: rank < 5 ? "bold" : "normal",
                     color: rank < 5 ? "#e78276" : "#202426",
+                    fontSize: 4,
                 }}>{rank}</div>
                 <div style={{
                     width: 60,
                     marginLeft: 5,
                     fontWeight: "bold",
-                    color: "#202426"
-                }}>{name}</div>
+                    color: "#202426",
+                    fontSize: 4,
+                }}>{Realname}</div>
                 <div style={{
                     width: 60,
                     marginLeft: 5,
-                    color: "#202426"
+                    color: "#202426",
+                    fontSize: 8,
                 }}>{accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div style={{
                     width: 50,
                     marginLeft: 5,
                     fontWeight: "bold",
-                    color: "#e78276"
+                    color: "#e78276",
+                    fontSize: 8,
                 }}>{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div onClick={() => setDetail(!detail)} style={{
                     width: 50,
                     marginLeft: 5,
                     textDecorationLine: "underline",
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    fontSize: 8,
                 }}>{detail ? "접기" : "자세히"}</div>
             </div>
             {detail ?
@@ -1984,10 +1963,10 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                                     alignItems: "center",
                                 }}>
                                     <div style={{
-                                        width: 8,
-                                        height: 8,
-                                        borderRadius: 4,
-                                        marginRight: 8,
+                                        width: 6,
+                                        height: 6,
+                                        borderRadius: 3,
+                                        marginRight: 4,
                                         backgroundColor: ele.color,
                                     }} />
                                     <div style={{
