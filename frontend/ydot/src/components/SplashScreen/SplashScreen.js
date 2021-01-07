@@ -44,7 +44,7 @@ export default function SplashScreen() {
         // )
     }
     useEffect(() => {
-        kasTest()
+        // kasTest()
     }, [])
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })

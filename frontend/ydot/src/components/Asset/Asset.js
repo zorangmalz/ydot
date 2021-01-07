@@ -73,6 +73,12 @@ export default function Asset() {
                         total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
                         amount: ((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000).toFixed(2),
                     })
+                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000).toFixed(2),"first")
+                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000),"second")
+                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6)),"third")
+                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim))),"fo")
+                    console.log(Number(doc.data().Money),"fi")
+                    console.log((Number(doc.data().fundingAim)),"End")
                     count = count + 1;
                 } else {
                     list.push({
@@ -107,7 +113,7 @@ export default function Asset() {
                     chain: "KRW",
                     total:doc.data().Money,
                     number: doc.data().month+"/12",
-                    next: "1/20",
+                    next: doc.data().month+"/20",
                     actual: doc.data().monthly,
                     accumulate: doc.data().total,
                     dayTime:doc.data().DayTime,
@@ -1001,14 +1007,14 @@ export default function Asset() {
                                                                 fontSize: 6,
                                                                 color: "#202426",
                                                                 marginBottom: 8,
-                                                            }}>실제 배당 ({element.chain})</div>
+                                                            }}>누적 리워드 ({element.chain})</div>
                                                             <div style={{
                                                                 width: "100%",
                                                                 textAlign: "right",
                                                                 fontSize: 14,
                                                                 color: "#e78276",
                                                                 fontWeight: "bold",
-                                                            }}>{element.actual.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                                                            }}>{element.accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1229,7 +1235,7 @@ function Pagnation({totalcount, current, setCurrent}) {
                             <MdKeyboardArrowRight onClick={() =>  setCurrent(totalcount)} style={{ marginLeft: 10 }} size={20} color="#161513" />
                         </>
                 :
-                totalcount === 1 ?
+                totalcount === 1 ||totalcount===0 ?
                     <>
                         <MdKeyboardArrowLeft onClick={() =>  setCurrent(1)} style={{ marginRight: 10 }} size={20} color="#161513" />
                         <div style={{ opacity: 1 }}>{current}</div>

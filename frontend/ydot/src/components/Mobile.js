@@ -1911,7 +1911,7 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                     marginLeft: 5,
                     fontWeight: rank < 5 ? "bold" : "normal",
                     color: rank < 5 ? "#e78276" : "#202426",
-                    fontSize: 4,
+                    fontSize: 8,
                 }}>{rank}</div>
                 <div style={{
                     width: 60,
