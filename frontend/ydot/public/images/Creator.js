@@ -475,7 +475,7 @@ export default function Creator() {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                            }}>펀딩이 종료되었습니다</div>
+                            }}>펀딩 준비중입니다</div>
                         }
 
                         {/* 계산기 디자인 */}
@@ -1229,7 +1229,7 @@ export default function Creator() {
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                }}>펀딩이 종료되었습니다</div>
+                                }}>펀딩 준비중입니다</div>
                             }
                             {MmodalOne || MmodalThree ? <></> : <div onClick={() => {
                                 onFund()

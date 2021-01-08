@@ -30,7 +30,7 @@ export default function FundMain() {
         load()
         // loadEnd()
         //크리에이터 정보 입력
-        upload()
+        // upload()
         //크리에이터 수입 입력
         // uploadTwo()
         //유저정보 입력
@@ -122,18 +122,41 @@ for(const i of list){
     }   
 
     async function uploadUser(a,b,c,d){
+        const list= [ "EO" ,
+        "이지금" ,
+        "농잘알" ,
+        "광마니" ,
+        "핫도그" ,
+        "잇섭" ,
+        "1분과학" ,
+        "신사임당" ,
+        "슈카월드" ,
+        "POOD" ,
+        "우왁굳" ,
+        "Pianist JayM" ,
+        "갓승희" ,
+        "신지우" ,
+        "JEICHI 42" ,
+        "햇살한스푼" ,
+        "믕디의 반란" ]
+
         await firestore.collection("User").doc(a).set({
             creator:[],
             email:b,
             uid:a,
-            totalMoney:1000,
+            totalMoney:1500000,
             wallet:c,
             name:d
         })
-        for(var i=1;i<13;i++){
-            firestore.collection("User").doc(a).collection("Allocate").doc(String(i)).set({
-                month:i,
-                total:[]
+        // for(var i=1;i<13;i++){
+        //     firestore.collection("User").doc(a).collection("Allocate").doc(String(i)).set({
+        //         month:i,
+        //         total:[]
+        //     })
+        // }
+        for(var i=0;i<17;i++){
+            firestore.collection("User").doc(a).collection("Calculate").doc(list[i]).set({
+                data:[]
             })
         }
     }
@@ -284,7 +307,10 @@ for(const i of list){
         uploadCreatorIncome("햇살한스푼" ,[417156 ,574242 ,527202 ,577642 ,460004 ,425620 ,406476 ,398506 ,436938 ,361448 ,281944 ,322710] )
         uploadCreatorIncome("믕디의 반란" ,[159322 ,67250 ,74328 ,172012 ,238044 ,143412 ,111282 ,53434 ,88154 ,69320 ,88246 ,109058] )
     }
-   
+
+
+  
+
     function userUpload(){
         uploadUser("1sdPy2XK1XeUghVEJtfTnzPccnF2","a@a.com","0x75FB2ca50C08570D7FFEE9A86A7Bc643a352936D","정선웅")
         uploadUser("p6Hhag7hkNYoYzvSXhTDRUatdJ32","wise@ydot.xyz","0xB66AA013EdBAF7B7C1e2de69aC2Cc9eA5d41F599","김현명")
@@ -437,7 +463,7 @@ for(const i of list){
                         color: "#202426",
                         marginTop: 40,
                         marginBottom: 40
-                    }}>종료된 펀딩</div>
+                    }}>진행 예정 펀딩</div>
                     <div style={{
                         width: "56vw",
                         minWidth: 1060,
@@ -539,7 +565,7 @@ for(const i of list){
                         marginTop: 40,
                         marginBottom: 40,
                         textAlign: "center"
-                    }}>종료된 펀딩</div>
+                    }}>진행 예정 펀딩</div>
                     <div style={{
                         width: "100vw",
                         minWidth: 300,

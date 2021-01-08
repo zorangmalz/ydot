@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useFirestore } from "react-redux-firebase"
 import { useSelector } from "react-redux";
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar';
-
+import firebase from "firebase"
 //디자인
 import Header, { CreatorIntro, QAList, CloseBeta, HashTag, ChannelAnalysisBox, PopupOne, PopupTwo, PopupThree, MyInfo, Graph } from '../Style'
 import { MHeader, MHashTag, MFunding, MQAList, MChannelAnalysisBox, MChannelAnalysisBoxTwo, MCreatorIntro, MPopupOne, MPopupTwo, MPopupThree, MGraph } from '../Mobile'
@@ -227,11 +227,17 @@ const dategetTimes= new Date().getTime()
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
         
         setRoi((a * 100).toFixed(2))
+        var roi=(a * 100).toFixed(2)
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
+        var reward=b.toFixed(2)
+        firestore.collection("User").doc(uid).collection("Calculate").doc(myparam).update({
+            data:firebase.firestore.FieldValue.arrayUnion(document.getElementById("RATE").value+"@"+document.getElementById("PRICE").value+"@"+roi+"@"+reward)
+        })
+        console.log(document.getElementById("RATE").value+"@"+document.getElementById("PRICE").value+"@"+roi+"@"+reward)
     }
 
-
+    
     //그래프와 채널 상세 데이터
     const [views, setViews] = useState([])
     const [subs, setSubs] = useState([])
@@ -670,7 +676,7 @@ const dategetTimes= new Date().getTime()
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                            }}>펀딩이 종료되었습니다</div>
+                            }}>펀딩 진행 예정</div>
                         }
 
                         {/* 계산기 디자인 */}
@@ -758,7 +764,7 @@ const dategetTimes= new Date().getTime()
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>{deadline === 100 ? "펀딩 종료" : "D-" + deadline}<div style={{
+                                    }}>{deadline === 100 ? "펀딩 진행 예정" : "D-" + deadline}<div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal",
@@ -1419,7 +1425,7 @@ const dategetTimes= new Date().getTime()
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                }}>펀딩이 종료되었습니다</div>
+                                }}>펀딩 진행 예정</div>
                             }
                             {MmodalOne || MmodalThree ? <></> : <div onClick={() => {
                                 onFund()
@@ -1537,7 +1543,7 @@ const dategetTimes= new Date().getTime()
                                                         fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#202426",
-                                                    }}>{deadline === 100 ? "펀딩 종료" : "D-" + deadline}</div>
+                                                    }}>{deadline === 100 ? "펀딩 진행 예정" : "D-" + deadline}</div>
                                                     <div style={{
                                                         fontSize: 12,
                                                         color: "#202426",
