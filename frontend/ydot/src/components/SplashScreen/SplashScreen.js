@@ -457,7 +457,6 @@ export default function SplashScreen() {
                             }}>리워드 Top 10</div>
                             <div style={{
                                 minWidth: 300,
-                                width: "90vw",
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
@@ -470,28 +469,28 @@ export default function SplashScreen() {
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "center",
-                                    justifyContent: "center",
+                                    justifyContent: "space-evenly",
 
                                     fontSize: 10,
                                     opacity: 0.6,
                                     color: "#202426",
                                     textAlign: "left"
                                 }}>
-                                    <div style={{ width: 30, marginLeft: 5 }}>순위</div>
+                                    <div style={{ width: 25, marginLeft: 5 }}>순위</div>
                                     <div style={{ width: 60, marginLeft: 5 }}>이름</div>
-                                    <div style={{ width: 60, marginLeft: 5 }}>누적 리워드</div>
-                                    <div style={{ width: 50, marginLeft: 5 }}>총 보유자산</div>
+                                    <div style={{ width: 80, marginLeft: 5 }}>누적 리워드</div>
+                                    <div style={{ width: 80, marginLeft: 5 }}>총 보유자산</div>
                                     <div style={{ width: 50, marginLeft: 5 }}>포트폴리오</div>
                                 </div>
-                                {itemss.map(element=>
-                                <MInvestDashboard 
-                                rank={element.rank}
-                                name={element.email}
-                                total={element.totalMoney}
-                                accumulate={element.accumulatedAllocation}
-                                uid={element.uid}
-                            />
-                                    )}
+                                {itemss.map(element =>
+                                    <MInvestDashboard
+                                        rank={element.rank}
+                                        name={element.email}
+                                        total={element.totalMoney}
+                                        accumulate={element.accumulatedAllocation}
+                                        uid={element.uid}
+                                    />
+                                )}
                             </div>
                         </>
                         :

@@ -1903,11 +1903,11 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "space-evenly",
                 fontSize: 10,
             }}>
                 <div style={{
-                    width: 30,
+                    width: 25,
                     marginLeft: 5,
                     fontWeight: rank < 5 ? "bold" : "normal",
                     color: rank < 5 ? "#e78276" : "#202426",
@@ -1918,16 +1918,16 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                     marginLeft: 5,
                     fontWeight: "bold",
                     color: "#202426",
-                    fontSize: 4,
+                    fontSize: 8,
                 }}>{Realname}</div>
                 <div style={{
-                    width: 60,
+                    width: 80,
                     marginLeft: 5,
                     color: "#202426",
                     fontSize: 8,
                 }}>{accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                 <div style={{
-                    width: 50,
+                    width: 80,
                     marginLeft: 5,
                     fontWeight: "bold",
                     color: "#e78276",
