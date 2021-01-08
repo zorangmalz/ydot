@@ -1812,8 +1812,8 @@ setBottom(total)
     },[])
     return (
         <div style={{
-            width: 200,
-            height: 200,
+            width: 150,
+            height: 150,
             alignSelf: "center",
         }}>
             <VictoryPie
@@ -1843,13 +1843,13 @@ setBottom(total)
                           }
                       }
                   }]}
-                width={200}
-                height={200}
+                width={150}
+                height={150}
                 padding={{ top: 0, left: 0, right: 0, bottom: 0 }}
                 data={data}
                 labels={({ datum }) => `${(datum.y/bottom*100).toFixed(2)}%`}
                 labelPosition="centroid"
-                labelRadius={({ innerRadius }) => innerRadius + 50}
+                labelRadius={({ innerRadius }) => innerRadius + 40}
                 style={{
                     labels: {
                         fill: "#ffffff",

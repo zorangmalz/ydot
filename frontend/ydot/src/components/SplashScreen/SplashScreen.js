@@ -121,7 +121,7 @@ export default function SplashScreen() {
     const [itemss,setItemss]=useState([])
     useEffect(()=>{
         
-        firestore.collection("User").orderBy("totalMoney","desc").onSnapshot(querySnapshot=>{
+        firestore.collection("User").orderBy("totalMoney","desc").limit(10).onSnapshot(querySnapshot=>{
             const list=[]
             var count=1
             querySnapshot.forEach(doc=>{

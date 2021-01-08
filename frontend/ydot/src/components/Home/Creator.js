@@ -151,6 +151,7 @@ export default function Creator() {
     const [fundingAim, setFundingAim] = useState(0)
     const [fundingTotal, setFundingTotal] = useState(0)
     const [fundingDead, setFundingDead] = useState(0)
+    const [deadline, setDeadline] = useState(0)
     const [ongoing, setOngoing] = useState(false)
     const [pv, setPv] = useState(0)
     const [view, setView] = useState(0)
@@ -165,6 +166,7 @@ export default function Creator() {
     const [mainImg,setMainImg]=useState("")
     const [popularImg,setPopularImg]=useState("")
     const [profileImg,setProfileImg]=useState("")
+    const dategetTime = new Date().getTime()
     function getInfo() {
         
         firestore.collection("Creator").doc(myparam).onSnapshot(doc => {
@@ -173,6 +175,7 @@ export default function Creator() {
             setProfileImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg")
             setFundingAim(doc.data().FundingAim)
             setFundingTotal(doc.data().FundingTotal)
+            setDeadline(parseInt((doc.data().Deadline - dategetTime) / 86400000),)
             setFundingDead(doc.data().Deadline)
             setPercentage((doc.data().FundingTotal / doc.data().FundingAim * 100).toFixed(2))
            
@@ -212,9 +215,6 @@ export default function Creator() {
         }
         )
     }
-
-    const [calMoney, setCalMoney] = useState()
-    const [calGrow, setCalGrow] = useState()
     
     function calculate() {
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
@@ -222,8 +222,6 @@ export default function Creator() {
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
-        setCalMoney(document.getElementById("PRICE").value)
-        setCalGrow(document.getElementById("RATE").value)
     }
 
 
@@ -753,7 +751,7 @@ export default function Creator() {
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>D-1 <div style={{
+                                    }}>D-{deadline} <div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal"
@@ -905,7 +903,7 @@ export default function Creator() {
                                         <CloseBeta
                                             img={analytics}
                                             title={"채널 수익의 "+share+"% 분배"}
-                                            content={"6개월간 채널수익의 "+share+"%를 리워드로 수령하는 조건으로 진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"}
+                                            content={"1년간 채널수익의 "+share+"%를 리워드로 수령하는 조건으로 진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"}
                                         />
                                         <CloseBeta
                                             img={barchart}
@@ -923,7 +921,7 @@ export default function Creator() {
                                         <CloseBeta
                                             img={sectorImage}
                                             title={sector}
-                                            content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
+                                            content="해당 섹터의 평균 조회수 성장률은 x%, 구독자 성장률은 x% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
                                         <CloseBeta
                                             img={risk}
@@ -1531,7 +1529,7 @@ export default function Creator() {
                                                         fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#202426",
-                                                    }}>D-1 </div>
+                                                    }}>D-{fundingDead} </div>
                                                     <div style={{
                                                         fontSize: 12,
                                                         color: "#202426",
@@ -1714,7 +1712,7 @@ export default function Creator() {
                                         <MFunding
                                             img={analytics}
                                             title={"채널 수익의 "+share+"% 분배"}
-                                            content={"6개월간 채널수익의 "+share+"%를 리워드로 수령하는 조건으로 진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"}
+                                            content={"1년간 채널수익의 "+share+"%를 리워드로 수령하는 조건으로 진행되는 펀딩입니다. (2021/03/20일 ~ 2021/09/20)"}
                                         />
                                         <MFunding
                                             img={barchart}
@@ -1724,7 +1722,7 @@ export default function Creator() {
                                         <MFunding
                                             img={sectorImage}
                                             title={sector}
-                                            content="해당 섹터의 평균 조회수 성장률은 5%, 구독자 성장률은 3% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
+                                            content="해당 섹터의 평균 조회수 성장률은 x%, 구독자 성장률은 x% 입니다. 채널 분석에서 상세한 비교를 확인하세요!"
                                         />
                                         <MFunding
                                             img={risk}

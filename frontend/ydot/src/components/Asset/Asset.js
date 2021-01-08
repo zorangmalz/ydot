@@ -788,13 +788,13 @@ export default function Asset() {
                                                 flexDirection: "column",
                                                 alignItems: "center",
                                                 justifyContent: "flex-start",
-                                                marginLeft: 10,
+                                                marginLeft: 20,
                                             }}>
                                                 <div style={{
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     alignItems: "flex-start",
-                                                    width: 90,
+                                                    minWidth: 90,
                                                     marginBottom: 20,
                                                 }}>
                                                     <div style={{
@@ -805,7 +805,7 @@ export default function Asset() {
                                                         marginTop: 10
                                                     }} >총 펀딩 금액(원)</div>
                                                     <div style={{
-                                                        fontSize: 12,
+                                                        fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#202426",
                                                     }}>{totalFundingPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
@@ -814,7 +814,7 @@ export default function Asset() {
                                                     display: "flex",
                                                     flexDirection: "column",
                                                     alignItems: "flex-start",
-                                                    width: 90,
+                                                    minWidth: 90,
                                                 }}>
                                                     <div style={{
                                                         opacity: 0.4,
@@ -824,7 +824,7 @@ export default function Asset() {
                                                         marginTop: 10
                                                     }} >누적배당(원)</div>
                                                     <div style={{
-                                                        fontSize: 12,
+                                                        fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#e78276",
                                                     }}>{accumulatedAllocation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
@@ -889,7 +889,7 @@ export default function Asset() {
                                                         display: "flex",
                                                         flexDirection: "row",
                                                         alignItems: "center",
-                                                        justifyContent: "space-between",
+                                                        justifyContent: "flex-start",
                                                         marginBottom: 20,
                                                         width: "100%",
                                                     }}>
@@ -897,36 +897,11 @@ export default function Asset() {
                                                             display: "flex",
                                                             flexDirection: "column",
                                                             alignItems: "flex-start",
-                                                            width: "40%",
-                                                            minWidth: 60,
-                                                            marginLeft: 3,
+                                                            minWidth: 100,
+                                                            width: "45%",
                                                         }}>
                                                             <div style={{
                                                                 width: "100%",
-                                                                opacity: 0.4,
-                                                                fontSize: 6,
-                                                                color: "#202426",
-                                                                marginBottom: 8,
-                                                                textAlign: "right",
-                                                            }}>보유 수량</div>
-                                                            <div style={{
-                                                                width: "100%",
-                                                                fontSize: 14,
-                                                                color: "#202426",
-                                                                textAlign: "right",
-                                                            }}>{(element.ftAmount).toFixed(2)}</div>
-                                                        </div>
-                                                        <div style={{
-                                                            display: "flex",
-                                                            flexDirection: "column",
-                                                            alignItems: "flex-start",
-                                                            minWidth: 90,
-                                                            width: "40%",
-                                                            marginLeft: 3,
-                                                        }}>
-                                                            <div style={{
-                                                                width: "100%",
-                                                                textAlign: "right",
                                                                 opacity: 0.4,
                                                                 fontSize: 6,
                                                                 color: "#202426",
@@ -934,29 +909,49 @@ export default function Asset() {
                                                             }}>펀딩 금액 ({element.chain})</div>
                                                             <div style={{
                                                                 width: "100%",
-                                                                textAlign: "right",
                                                                 fontSize: 14,
                                                                 color: "#202426"
                                                             }}>{element.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                                                        </div>
+                                                        <div style={{
+                                                            display: "flex",
+                                                            flexDirection: "column",
+                                                            alignItems: "flex-start",
+                                                            minWidth: 100,
+                                                            width: "35%",
+                                                            marginLeft: 6,
+                                                        }}>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                opacity: 0.4,
+                                                                fontSize: 6,
+                                                                color: "#202426",
+                                                                marginBottom: 8,
+                                                            }}>누적 리워드 ({element.chain})</div>
+                                                            <div style={{
+                                                                width: "100%",
+                                                                fontSize: 14,
+                                                                color: "#e78276",
+                                                                fontWeight: "bold",
+                                                            }}>{element.accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                                         </div>
                                                     </div>
                                                     <div style={{
                                                         display: "flex",
                                                         flexDirection: "row",
                                                         alignItems: "center",
-                                                        justifyContent: "flex-end"
+                                                        justifyContent: "flex-start",
+                                                        width: "100%",
                                                     }}>
                                                         <div style={{
                                                             display: "flex",
                                                             flexDirection: "column",
                                                             alignItems: "flex-start",
-                                                            width: "30%",
-                                                            minWidth: 60,
-                                                            marginLeft: 3,
+                                                            width: "20%",
+                                                            minWidth: 50,
                                                         }}>
                                                             <div style={{
                                                                 width: "100%",
-                                                                textAlign: "right",
                                                                 opacity: 0.4,
                                                                 fontSize: 6,
                                                                 color: "#202426",
@@ -964,7 +959,6 @@ export default function Asset() {
                                                             }}>배당 횟수</div>
                                                             <div style={{
                                                                 width: "100%",
-                                                                textAlign: "right",
                                                                 fontSize: 14,
                                                                 color: "#202426"
                                                             }}>{element.number}</div>
@@ -973,13 +967,12 @@ export default function Asset() {
                                                             display: "flex",
                                                             flexDirection: "column",
                                                             alignItems: "flex-start",
-                                                            minWidth: 90,
-                                                            width: "35%",
+                                                            minWidth: 50,
+                                                            width: "25%",
                                                             marginLeft: 3,
                                                         }}>
                                                             <div style={{
                                                                 width: "100%",
-                                                                textAlign: "right",
                                                                 opacity: 0.4,
                                                                 fontSize: 6,
                                                                 color: "#202426",
@@ -987,7 +980,6 @@ export default function Asset() {
                                                             }}>다음 배당일</div>
                                                             <div style={{
                                                                 width: "100%",
-                                                                textAlign: "right",
                                                                 fontSize: 14,
                                                                 color: "#202426"
                                                             }}>{element.next}</div>
@@ -996,25 +988,22 @@ export default function Asset() {
                                                             display: "flex",
                                                             flexDirection: "column",
                                                             alignItems: "flex-start",
-                                                            minWidth: 90,
                                                             width: "35%",
+                                                            minWidth: 80,
                                                             marginLeft: 3,
                                                         }}>
                                                             <div style={{
                                                                 width: "100%",
-                                                                textAlign: "right",
                                                                 opacity: 0.4,
                                                                 fontSize: 6,
                                                                 color: "#202426",
                                                                 marginBottom: 8,
-                                                            }}>누적 리워드 ({element.chain})</div>
+                                                            }}>보유 수량</div>
                                                             <div style={{
                                                                 width: "100%",
-                                                                textAlign: "right",
                                                                 fontSize: 14,
-                                                                color: "#e78276",
-                                                                fontWeight: "bold",
-                                                            }}>{element.accumulate.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                                                                color: "#202426",
+                                                            }}>{(element.ftAmount).toFixed(2)}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1038,10 +1027,11 @@ export default function Asset() {
                                     flexDirection: "row",
                                     alignItems: "center",
                                     overflowX: "scroll",
+                                    paddingBottom: 100,
                                 }}>
                                     {itemss.map(element =>
                                         <a href={element.hash} target="_blank">
-                                            <img src={element.pic} style={{ width: 100, height: 60, borderRadius: 10, marginRight: 10, }} />
+                                            <img src={element.pic} style={{ width: 60, height: 60, borderRadius: 10, marginRight: 10, objectFit: "contain" }} />
                                         </a>
                                     )}
                                 </div>
@@ -1147,7 +1137,7 @@ export default function Asset() {
                                 width: "90vw",
                                 backgroundColor: "#ffffff",
                                 marginTop: 10,
-                                paddingBottom: 40,
+                                paddingBottom: 20,
                             }}>
                                 <div style={{
                                     width: "100%",
