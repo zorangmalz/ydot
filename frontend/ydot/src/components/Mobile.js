@@ -1873,11 +1873,13 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
         firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("Money","desc").onSnapshot(querySnapshot=>{
             const list=[]
             querySnapshot.forEach(doc=>{
+                if(doc.data().ongoing==1){
                 list.push({
                     name:doc.data().channel,
                     value:doc.data().Money,
                     color:doc.data().color
                 })
+            }
             })
             setitem(list)
         })

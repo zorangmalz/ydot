@@ -125,7 +125,7 @@ for(const i of list){
             creator:[],
             email:b,
             uid:a,
-            totalMoney:1500000,
+            totalMoney:1500000000,
             wallet:c,
             name:d
         })
@@ -285,10 +285,10 @@ for(const i of list){
     }
    
     function userUpload(){
-        uploadUser("yWpZjAseaoNepPM7HPQd3ErthQB2","a@a.com","0x75FB2ca50C08570D7FFEE9A86A7Bc643a352936D","정선웅")
-        uploadUser("at4g7OHt5GS4JKOB4rbDOuafuB72","wise@ydot.xyz","0xB66AA013EdBAF7B7C1e2de69aC2Cc9eA5d41F599","김현명")
-        uploadUser("RPHIygmYnUhW8bjrO7zkA5P4Pxw1","jake@ydot.xyz","0x661F9475360CBbAD77D496300D935E9f24014cE8","박주규")
-        uploadUser("1sdPy2XK1XeUghVEJtfTnzPccnF2","user1@ydot.xyz","0x691Fd6ac480d994589D57582F798c04dB4111145","김진성")
+        uploadUser("1sdPy2XK1XeUghVEJtfTnzPccnF2","a@a.com","0x75FB2ca50C08570D7FFEE9A86A7Bc643a352936D","정선웅")
+        uploadUser("p6Hhag7hkNYoYzvSXhTDRUatdJ32","wise@ydot.xyz","0xB66AA013EdBAF7B7C1e2de69aC2Cc9eA5d41F599","김현명")
+        uploadUser("4xIToKJZPfQAt2HHXfo1Y1o55nK2","jake@ydot.xyz","0x661F9475360CBbAD77D496300D935E9f24014cE8","박주규")
+        uploadUser("4V1Xnbu98WR09Dm7n3NX26TpKdB3","user1@ydot.xyz","0x691Fd6ac480d994589D57582F798c04dB4111145","김진성")
         uploadUser("PYZ9nDdkSJXTcMCdLJexR6gxTvu2","master@ydot.xyz","0x1fD79ff6CB1654b8aeEeb1584e356c9A699BDC69","?")
         uploadUser("lPQ1PSfylXf2v0NwdkojZyIkDDz2","jihun@ydot.xyz","0x1fD79ff6CB1654b8aeEeb1584e356c9A699BDC69","박지훈")
     }
