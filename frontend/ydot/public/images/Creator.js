@@ -96,7 +96,7 @@ export default function Creator() {
             setModalOne(true)
 
         } else {
-            console.log("없음")
+            
             history.push("/login")
         }
 
@@ -106,7 +106,7 @@ export default function Creator() {
             setMModalOne(true)
 
         } else {
-            console.log("없음")
+            
             history.push("/login")
         }
 
@@ -215,7 +215,7 @@ export default function Creator() {
     
     function calculate() {
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
-        console.log(a)
+        
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
@@ -239,15 +239,15 @@ export default function Creator() {
         firestore.collection("Creator").doc(myparam).get().then(doc => {
             setChannelTitle(doc.data().channelTitle)
         })
-        console.log(channelTitle + "입니다")
-        console.log(index)
+        
+        
         var count = 0;
         var objtype;
         for (var k in index) {
-            console.log(k)
+            
             if (index[k]["channelTitle"] === channelTitle) {
-                console.log(count)
-                console.log(index[k]["channelTitle"])
+                
+                
                 objtype = index[count]["logData"]
                 break;
             }
@@ -287,8 +287,8 @@ export default function Creator() {
 
         var now = new Date().getDate()
         var time = new Date().getHours()
-        console.log("시간은" + time)
-        console.log("날짜는" + now)
+        
+        
         if (now === 9) {
             setViews(VIEWS.slice(0, -12))
             setMonViews(monthView.slice(0, -12))

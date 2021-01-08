@@ -35,7 +35,7 @@ export default function FundMain() {
         // uploadTwo()
         //유저정보 입력
         // userUpload()
-        ex()
+        // ex()
         
     }, [])
     async function ex (){

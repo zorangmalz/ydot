@@ -34,7 +34,7 @@ export default function SplashScreen() {
         const caver = new CaverExtKAS()
         caver.initKASAPI(chainId, accessKeyId, secretAccessKey)
         const account = await caver.kas.wallet.createAccount()
-        console.log(account)
+        // console.log(account)
         // const deployer = caver.wallet.add(
         //     caver.wallet.keyring.createFromPrivateKey('0xa2a9f4bb9bb176731943b362b40564dc9275d306dccece54d83fa2c03f01d018')
         // )

@@ -73,12 +73,12 @@ export default function Asset() {
                         total: (Number(doc.data().Money).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")),
                         amount: ((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000).toFixed(2),
                     })
-                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000).toFixed(2),"first")
-                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000),"second")
-                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6)),"third")
-                    console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim))),"fo")
-                    console.log(Number(doc.data().Money),"fi")
-                    console.log((Number(doc.data().fundingAim)),"End")
+                    // console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000).toFixed(2),"first")
+                    // console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6) * 10000),"second")
+                    // console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim)).toFixed(6)),"third")
+                    // console.log(((Number(doc.data().Money) / Number(doc.data().fundingAim))),"fo")
+                    // console.log(Number(doc.data().Money),"fi")
+                    // console.log((Number(doc.data().fundingAim)),"End")
                     count = count + 1;
                 } else {
                     list.push({

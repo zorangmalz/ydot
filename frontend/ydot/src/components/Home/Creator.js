@@ -96,7 +96,7 @@ export default function Creator() {
             setModalOne(true)
 
         } else {
-            console.log("없음")
+            
             history.push("/login")
         }
 
@@ -106,7 +106,7 @@ export default function Creator() {
             setMModalOne(true)
 
         } else {
-            console.log("없음")
+            
             history.push("/login")
         }
 
@@ -218,7 +218,7 @@ export default function Creator() {
     
     function calculate() {
         var a = ((Math.pow(1 + Number(document.getElementById("RATE").value) / 100, 12) - 1) * Number(view) * 2 - Number(pv)) / Number(pv)
-        console.log(a)
+        
         setRoi((a * 100).toFixed(2))
         var b = Number(document.getElementById("PRICE").value) * a + Number(document.getElementById("PRICE").value)
         setReward(b.toFixed(2))
@@ -259,7 +259,7 @@ export default function Creator() {
         var count = 0;
         var objtype;
         for (var k in samIndex) {
-            console.log(k)
+            
             if (samIndex[k]["channelTitle"] === channelIndex) {
                 objtype = samIndex[count]["logData"]
                 break;
@@ -303,8 +303,8 @@ export default function Creator() {
 
         var now = new Date().getDate()
         var time = new Date().getHours()
-        console.log("시간은" + time)
-        console.log("날짜는" + now)
+        
+        
         if (now < 10) {
             setViews(VIEWS.slice(0, -12))
             setMonViews(monthView.slice(0, -12))
