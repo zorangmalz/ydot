@@ -125,7 +125,7 @@ for(const i of list){
             creator:[],
             email:b,
             uid:a,
-            totalMoney:1500000000,
+            totalMoney:15000000,
             wallet:c,
             name:d
         })

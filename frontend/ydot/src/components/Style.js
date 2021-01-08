@@ -211,7 +211,7 @@ export function MyInfo() {
     }
     function logout() {
         firebase.logout()
-        alert("로그아웃 되셨습니다")
+        alert("로그아웃 되었습니다")
     }
     useEffect(() => {
         getInfo()
