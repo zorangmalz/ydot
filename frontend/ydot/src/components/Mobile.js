@@ -645,6 +645,7 @@ export function MBottomTag() {
                             outline: 0,
                             backgroundColor: "#ffffff",
                             border: 0,
+                            WebkitAppearance: "none"
                         }} value="About" />
                         <input type="button" style={{
                             fontSize: 18,
@@ -653,6 +654,7 @@ export function MBottomTag() {
                             outline: 0,
                             backgroundColor: "#ffffff",
                             border: 0,
+                            WebkitAppearance: "none"
                         }} value="Contact" />
                         <input type="button" style={{
                             fontSize: 18,
@@ -661,6 +663,7 @@ export function MBottomTag() {
                             outline: 0,
                             backgroundColor: "#ffffff",
                             border: 0,
+                            WebkitAppearance: "none"
                         }} value="Privacy Policy" />
                     </div>
                     <div style={{
@@ -676,6 +679,7 @@ export function MBottomTag() {
                             outline: 0,
                             backgroundColor: "#ffffff",
                             border: 0,
+                            WebkitAppearance: "none"
                         }} value="Terms of Service" />
                         <input type="button" style={{
                             fontSize: 18,
@@ -685,6 +689,7 @@ export function MBottomTag() {
                             outline: 0,
                             backgroundColor: "#ffffff",
                             border: 0,
+                            WebkitAppearance: "none"
                         }} value="Risk Disclosure" />
                     </div>
                 </div>
