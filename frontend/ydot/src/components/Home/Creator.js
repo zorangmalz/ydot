@@ -146,6 +146,8 @@ export default function Creator() {
     const [sectorImage, setSectorImage] = useState("")
     useEffect(() => {
         getInfo()
+const dategetTimes= new Date().getTime()
+        console.log(dategetTimes)
     }, [])
 
     const [fundingAim, setFundingAim] = useState(0)

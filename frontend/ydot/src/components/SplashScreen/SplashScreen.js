@@ -132,7 +132,8 @@ export default function SplashScreen() {
                     accumulatedAllocation:doc.data().accumulatedAllocation,
                     email:doc.data().email,
                     rank:count,
-                    uid:doc.data().uid
+                    uid:doc.data().uid,
+                    name:doc.data().name
                 })}
                 else{
                     list.push({
@@ -141,7 +142,8 @@ export default function SplashScreen() {
                         accumulatedAllocation:0,
                         email:doc.data().email,
                         rank:count,
-                        uid:doc.data().uid
+                        uid:doc.data().uid,
+                        name:doc.data().name
                     })
                 }
                 count=count+1
@@ -269,7 +271,7 @@ export default function SplashScreen() {
                                 {itemss.map(element=>
                                 <InvestDashboard 
                                 rank={element.rank}
-                                name={element.email}
+                                name={element.name}
                                 total={element.totalMoney}
                                 accumulate={element.accumulatedAllocation}
                                 uid={element.uid}
@@ -446,7 +448,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now <= 10 ?
+                    {now >= 10 ?
                         <>
                             <div style={{
                                 fontSize: 18,
@@ -485,7 +487,7 @@ export default function SplashScreen() {
                                 {itemss.map(element =>
                                     <MInvestDashboard
                                         rank={element.rank}
-                                        name={element.email}
+                                        name={element.name}
                                         total={element.totalMoney}
                                         accumulate={element.accumulatedAllocation}
                                         uid={element.uid}

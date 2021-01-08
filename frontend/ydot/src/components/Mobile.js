@@ -414,7 +414,7 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
                     marginBottom: 7,
                     width: 120,
                     fontWeight: "bold",
-                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 종료" : "D-" + `${Deadline}`}</div>
+                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 준비중" : "D-" + `${Deadline}`}</div>
                 <MProgressBar completed={percent} />
                 <div style={{
                     display: "flex",
@@ -1867,8 +1867,6 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
     const [detail, setDetail] = useState(false)
     const [item,setitem]=useState([])
     const firestore=useFirestore()
-    var arr = name.split("@")
-    var Realname = arr[0]
     useEffect(()=>{
         firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("Money","desc").onSnapshot(querySnapshot=>{
             const list=[]
@@ -1921,7 +1919,7 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                     fontWeight: "bold",
                     color: "#202426",
                     fontSize: 8,
-                }}>{Realname}</div>
+                }}>{name}</div>
                 <div style={{
                     width: 80,
                     marginLeft: 5,

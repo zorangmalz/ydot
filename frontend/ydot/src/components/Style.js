@@ -2049,8 +2049,6 @@ export function InvestDashboard({ rank, name, total, accumulate,uid }) {
     const [detail, setDetail] = useState(false)
     const [item,setitem]=useState([])
     const firestore=useFirestore()
-    var arr = name.split("@")
-    var RealName = arr[0]
     useEffect(()=>{
         firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("Money","desc").onSnapshot(querySnapshot=>{
             const list=[]
@@ -2112,7 +2110,7 @@ export function InvestDashboard({ rank, name, total, accumulate,uid }) {
                     marginLeft: 20,
                     fontWeight: "bold",
                     color: "#202426",
-                }}>{RealName}</div>
+                }}>{name}</div>
                 <div style={{
                     width: 180,
                     marginLeft: 20,
