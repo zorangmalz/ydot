@@ -175,7 +175,6 @@ export default function Creator() {
             setProfileImg("/images/Profile/"+doc.data().channelTitle+"/"+doc.data().channelTitle+"Profile.jpg")
             setFundingAim(doc.data().FundingAim)
             setFundingTotal(doc.data().FundingTotal)
-            setDeadline(parseInt((doc.data().Deadline - dategetTime) / 86400000),)
             setFundingDead(doc.data().Deadline)
             setPercentage((doc.data().FundingTotal / doc.data().FundingAim * 100).toFixed(2))
            
@@ -183,6 +182,12 @@ export default function Creator() {
                 setOngoing(false)
             } else {
                 setOngoing(true)
+            }
+            
+            if (parseInt((doc.data().Deadline - dategetTime) / 86400000 < 0)) {
+                setDeadline(100)
+            } else {
+                setDeadline(parseInt((doc.data().Deadline - dategetTime) / 86400000))
             }
         })
         const today = new Date()
@@ -751,11 +756,11 @@ export default function Creator() {
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>D-{deadline} <div style={{
+                                    }}>{deadline === 100 ? "펀딩 종료" : "D-" + deadline}<div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal"
-                                    }}>2021/1/9 종료</div></div>
+                                    }}>{deadline === 100 ? "종료" : "2021/1/9 종료"}</div></div>
                                     <div style={{
                                         fontSize: 21,
                                         fontWeight: "bold",
@@ -1529,12 +1534,12 @@ export default function Creator() {
                                                         fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#202426",
-                                                    }}>D-{fundingDead} </div>
+                                                    }}>{deadline === 100 ? "펀딩 종료" : "D-" + deadline}</div>
                                                     <div style={{
                                                         fontSize: 12,
                                                         color: "#202426",
                                                         marginTop: 5
-                                                    }}>2021/1/9 종료</div>
+                                                    }}>{deadline === 100 ? "종료" : "2021/1/9 종료"}</div>
                                                 </div>
                                             </div>
                                             <div style={{
