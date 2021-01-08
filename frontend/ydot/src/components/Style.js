@@ -2026,7 +2026,7 @@ export function Login({ setVisible }) {
                     width: "100%",
                     textAlign: "center",
                     marginBottom: 20,
-                }}>아이디, 비밀번호 정보가 일치하지 않습니다</div>
+                }}>회원 정보가 일치하지 않습니다</div>
                 <input className="safari-design" onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",
                     width: 240,
