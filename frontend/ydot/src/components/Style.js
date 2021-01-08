@@ -463,7 +463,7 @@ export function CreatorInfo({ img, name, percent, Deadline,sort,sector,fundingAi
                     marginBottom: 10,
                     width: 195,
                     fontWeight: "bold",
-                }}>{percent.toFixed(0)}% | D-{Deadline}</div>
+                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 종료" : "D-" + `${Deadline}`}</div>
                 <ProgressBar completed={percent} />
                 <div style={{
                     display: "flex",

@@ -184,7 +184,7 @@ export default function Creator() {
                 setOngoing(true)
             }
             
-            if (parseInt((doc.data().Deadline - dategetTime) / 86400000 < 0)) {
+            if ((parseInt((doc.data().Deadline - dategetTime) / 86400000) < 0)) {
                 setDeadline(100)
             } else {
                 setDeadline(parseInt((doc.data().Deadline - dategetTime) / 86400000))
@@ -759,8 +759,9 @@ export default function Creator() {
                                     }}>{deadline === 100 ? "펀딩 종료" : "D-" + deadline}<div style={{
                                         display: "inline-block",
                                         fontSize: 16,
-                                        fontWeight: "normal"
-                                    }}>{deadline === 100 ? "종료" : "2021/1/9 종료"}</div></div>
+                                        fontWeight: "normal",
+                                        marginLeft: 4,
+                                    }}>{deadline === 100 ? "일정" : "2021/1/9 종료"}</div></div>
                                     <div style={{
                                         fontSize: 21,
                                         fontWeight: "bold",
@@ -1539,7 +1540,7 @@ export default function Creator() {
                                                         fontSize: 12,
                                                         color: "#202426",
                                                         marginTop: 5
-                                                    }}>{deadline === 100 ? "종료" : "2021/1/9 종료"}</div>
+                                                    }}>{deadline === 100 ? "일정" : "2021/1/9 종료"}</div>
                                                 </div>
                                             </div>
                                             <div style={{

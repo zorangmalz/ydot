@@ -414,7 +414,7 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
                     marginBottom: 7,
                     width: 120,
                     fontWeight: "bold",
-                }}>{percent.toFixed(0)}% | D-{Deadline}</div>
+                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 종료" : "D-" + `${Deadline}`}</div>
                 <MProgressBar completed={percent} />
                 <div style={{
                     display: "flex",
