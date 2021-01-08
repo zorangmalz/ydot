@@ -1849,7 +1849,7 @@ setBottom(total)
                 data={data}
                 labels={({ datum }) => `${(datum.y/bottom*100).toFixed(2)}%`}
                 labelPosition="centroid"
-                labelRadius={({ innerRadius }) => innerRadius + 40}
+                labelRadius={({ innerRadius }) => innerRadius + 30}
                 style={{
                     labels: {
                         fill: "#ffffff",
