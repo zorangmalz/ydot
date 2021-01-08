@@ -209,7 +209,7 @@ export default function FundMain() {
                 currentMoney=doc.data().totalMoney
             })
             await firestore.collection("User").doc(i.uid).update({
-                totalMoney:Number(currentMoney)+Number((Number(i.money)/Number(fundingAim)*totalIncome).toFixed(0))
+                totalMoney:Number(currentMoney)+Number((Number(i.money)/Number(fundingAim)*totalIncome*Number(share)/100).toFixed(0))
             })
 
 
