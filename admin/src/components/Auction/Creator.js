@@ -386,6 +386,7 @@ export default function FundMain() {
                                     outline: 0,
                                     borderRadius: 10,
                                     backgroundColor: "#e78276",
+                                    marginTop:500,
                                     fontSize: 16,
                                     fontWeight: "bold",
                                     color: "#ffffff",
