@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Creator from './components/Auction/Creator';
 import FundMain from './components/Auction/FundMain';
+import UserList from "./components/Auction/UserList"
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Switch>
           <Route path="/fund" exact component={FundMain} />
           <Route path="/fund/:id"><Creator /></Route>
+          <Route path="/user" exact component={UserList} />
         </Switch>
       </Router>
     </>
