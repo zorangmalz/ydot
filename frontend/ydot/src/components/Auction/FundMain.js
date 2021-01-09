@@ -165,7 +165,7 @@ export default function FundMain() {
                         fontWeight: "bold",
                         color: "#202426",
                         marginBottom: 40
-                    }}>진행 예정 펀딩</div>
+                    }}>종료된 펀딩</div>
                     <div className="grid-container">
                         {itemss.map(element =>
                             <CreatorInfo
@@ -238,7 +238,7 @@ export default function FundMain() {
                         marginTop: 40,
                         marginBottom: 40,
                         textAlign: "center"
-                    }}>진행 예정 펀딩</div>
+                    }}>종료된 펀딩</div>
                     <div style={{
                         width: "100vw",
                         minWidth: 300,

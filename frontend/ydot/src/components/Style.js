@@ -463,7 +463,7 @@ export function CreatorInfo({ img, name, percent, Deadline,sort,sector,fundingAi
                     marginBottom: 10,
                     width: 195,
                     fontWeight: "bold",
-                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 진행 예정" : "D-" + `${Deadline}`}</div>
+                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 종료" : "D-" + `${Deadline}`}</div>
                 <ProgressBar completed={percent} />
                 <div style={{
                     display: "flex",
@@ -1193,7 +1193,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             }
         } else {
             
-            if (money === 0 || money === "0" || isNaN(money)) {
+            if (money === 0 || money === "0" || isNaN(money || money<0)) {
                 alert("금액을 정확히 입력해 주세요")
             } else {
                 firestoreUpload()

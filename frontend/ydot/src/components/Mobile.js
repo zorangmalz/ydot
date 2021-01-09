@@ -1199,7 +1199,7 @@ export function MPopupTwo({ setVisible, setNextVisible ,creatorName}) {
             }
         } else {
             
-            if (money === 0 || money === "0" || isNaN(money)) {
+            if (money === 0 || money === "0" || isNaN(money ||money<0)) {
                 alert("금액을 정확히 입력해 주세요")
             } else {
                 firestoreUpload()

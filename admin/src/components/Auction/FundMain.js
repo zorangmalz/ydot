@@ -30,25 +30,7 @@ export default function FundMain() {
         load()
         loadEnd()
         
-        //생각하고 주석풀고 주석풀면 바로닫자 생각하고 쓰자 싀발
-        
-        //크리에이터 정보 입력
-        // upload()
-
-        
-        //크리에이터 수입 입력
-        // uploadTwo()
-
-        
-        //유저정보 입력
-        // userUpload()
-        // ex()
-        
-        
-        
-        // uploadUser("S4emIAS0GLaBAnVY1LpW5TzhETt2","test@test.com","0x2c7c8569a0F2f4CA8dAcfF1Fb6CE8271bEcA3918","김민수")
-        // uploadUser("6iccD9aMkdOxk8yWxBpG4wlmorS2","so990926@gmail.com","0x3209f879985cEA940D3c481b5bCCD0748B16861C","박성은")
-        
+     
     }, [])
     async function ex (){
     //    firebase.auth().createUserWithEmailAndPassword("email@email.com","aaaaaa").then((user)=>{

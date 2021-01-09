@@ -676,7 +676,7 @@ const dategetTimes= new Date().getTime()
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                            }}>펀딩 진행 예정</div>
+                            }}>펀딩이 종료되었습니다</div>
                         }
 
                         {/* 계산기 디자인 */}
@@ -764,7 +764,7 @@ const dategetTimes= new Date().getTime()
                                         fontSize: 21,
                                         fontWeight: "bold",
                                         color: "#202426",
-                                    }}>{deadline === 100 ? "펀딩 진행 예정" : "D-" + deadline}<div style={{
+                                    }}>{deadline === 100 ? "펀딩 종료" : "D-" + deadline}<div style={{
                                         display: "inline-block",
                                         fontSize: 16,
                                         fontWeight: "normal",
@@ -1425,7 +1425,7 @@ const dategetTimes= new Date().getTime()
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                }}>펀딩 진행 예정</div>
+                                }}>펀딩이 종료되었습니다</div>
                             }
                             {MmodalOne || MmodalThree ? <></> : <div onClick={() => {
                                 onFund()
@@ -1543,7 +1543,7 @@ const dategetTimes= new Date().getTime()
                                                         fontSize: 16,
                                                         fontWeight: "bold",
                                                         color: "#202426",
-                                                    }}>{deadline === 100 ? "펀딩 진행 예정" : "D-" + deadline}</div>
+                                                    }}>{deadline === 100 ? "펀딩 종료" : "D-" + deadline}</div>
                                                     <div style={{
                                                         fontSize: 12,
                                                         color: "#202426",
