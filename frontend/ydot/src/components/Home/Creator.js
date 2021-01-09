@@ -2045,7 +2045,7 @@ const dategetTimes= new Date().getTime()
                                                 width: 100,
                                                 height: 80,
                                             }}>
-                                                <MCreatorIntro title="채널 이름" content="지순's 일상" other={false} />
+                                                <MCreatorIntro title="채널 이름" content={name} other={false} />
                                                 <MCreatorIntro title="섹터 구분" content={sector} other={false} />
                                             </div>
                                             <div style={{
