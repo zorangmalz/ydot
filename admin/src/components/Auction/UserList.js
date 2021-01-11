@@ -30,7 +30,8 @@ export default function UserList() {
                     email:doc.data().email,
                     name:doc.data().name,
                     money:doc.data().totalMoney,
-                    list:doc.data().creator
+                    list:doc.data().creator,
+                    uid:doc.data().uid
                 })
             })
             setItems(list)
@@ -38,9 +39,57 @@ export default function UserList() {
     }
     useEffect(() => {
       getInfo()
-     
+    //  getPrice()
     }, [])
-   
+   const[itemsss,setItemsss]=useState([])
+
+    async function getPrice(){
+       
+        for (const i of items){
+            
+            await firestore.collection("User").doc(i.uid).collection("TotalFunding").onSnapshot(querySnapshot => {
+                const list=[]
+                var total=0
+            var accu=0
+            
+                querySnapshot.forEach(doc => {
+                    if(doc.data().ongoing==1){
+                    list.push({
+                        img: "#4c4c4c",
+                        name: doc.data().channel,
+                        unit: doc.data().symbol,
+                        chain: "KRW",
+                        total:doc.data().Money,
+                        number: doc.data().month+"/12",
+                        next: String(Number(doc.data().month)+1)+"/20",
+                        actual: doc.data().monthly,
+                        accumulate: doc.data().total,
+                        dayTime:doc.data().DayTime,
+                        ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
+                        y:doc.data().Money,
+                        color:doc.data().color
+                    })
+                    }
+                })
+                // console.log(list)
+                for(const a of list){
+                    
+                    total= Number(a.total)+Number(total)
+                    accu=Number(a.accumulate)+Number(accu)
+                }       
+                console.log(total,accu)
+                firestore.collection("User").doc(i.uid).update({
+                    totalFundingPrice:total,
+                    accumulatedAllocation:accu
+                })    
+            })
+            // console.log(total,accu)
+            
+           
+        }
+    }
+    
+
     return (
         <div>
             <Default>

@@ -42,7 +42,7 @@ export default function LoginScreen() {
             email: document.getElementById("DID").value,
             password: document.getElementById("DPASS").value
         }).then(() => {
-            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
                 firebase.auth().onAuthStateChanged((user) => {
 
                     history.push("/")

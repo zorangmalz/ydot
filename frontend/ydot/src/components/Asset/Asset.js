@@ -113,7 +113,7 @@ export default function Asset() {
                     chain: "KRW",
                     total:doc.data().Money,
                     number: doc.data().month+"/12",
-                    next: doc.data().month+"/20",
+                    next: String(Number(doc.data().month)+1)+"/20",
                     actual: doc.data().monthly,
                     accumulate: doc.data().total,
                     dayTime:doc.data().DayTime,
