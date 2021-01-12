@@ -4,16 +4,12 @@ import { FaUserCircle } from "react-icons/fa"
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
 import MLoginHeader from "../Mobile";
-import { useFirebase, useFirestore, firestoreConnect } from "react-redux-firebase"
+import { useFirebase, useFirestore, firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
 import { Login } from "../Style";
 
 export default function LoginScreen() {
-    const chainId = 1001
-    const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
-    const secretAccessKey = "BkbIcfQfJuD9IrEZawH3+0ML7uARiyw910cEHiOH"
-
     //모바일 대응
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })
@@ -52,6 +48,21 @@ export default function LoginScreen() {
             setDiffer(true)
         })
     }
+    // async function googleLogin(){
+    //     await firebase.login({
+    //         provider:"google",
+    //         type:"popup"
+    //     }).then(()=>{
+    //         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+    //             firebase.auth().onAuthStateChanged((user) => {
+
+    //                 history.push("/")
+    //             })
+    //         })
+    //     }).catch(() => {
+    //         setDiffer(true)
+    //     })
+    // }
     // async function getWallet(user){
     //     var wallet
 
@@ -257,7 +268,7 @@ export default function LoginScreen() {
                                 marginBottom: 20,
                                 fontWeight: "bold"
                             }} value="Kakaotalk" />
-                            <input type="button" style={{
+                            <input onClick={googleLogin} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,

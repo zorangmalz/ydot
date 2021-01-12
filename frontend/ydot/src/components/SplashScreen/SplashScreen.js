@@ -121,7 +121,7 @@ export default function SplashScreen() {
     const [itemss,setItemss]=useState([])
     useEffect(()=>{
         
-        firestore.collection("User").orderBy("totalMoney","desc").limit(10).onSnapshot(querySnapshot=>{
+        firestore.collection("User").orderBy("totalMoney","desc").limit(30).onSnapshot(querySnapshot=>{
             const list=[]
             var count=1
             querySnapshot.forEach(doc=>{
@@ -243,7 +243,7 @@ export default function SplashScreen() {
                                 color: "#202426",
                                 marginBottom: 40,
                                 marginTop: 80,
-                            }}>리워드 Top 10</div>
+                            }}>리워드 Top 30</div>
                             <div style={{
                                 width: 840,
                                 display: "flex",
@@ -456,7 +456,7 @@ export default function SplashScreen() {
                                 color: "#202426",
                                 marginBottom: 20,
                                 marginTop: 40,
-                            }}>리워드 Top 10</div>
+                            }}>리워드 Top 30</div>
                             <div style={{
                                 minWidth: 300,
                                 display: "flex",

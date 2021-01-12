@@ -39,7 +39,7 @@ export default function UserList() {
     }
     useEffect(() => {
       getInfo()
-    //  getPrice()
+     getPrice()
     }, [])
    const[itemsss,setItemsss]=useState([])
 
