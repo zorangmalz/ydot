@@ -38,7 +38,7 @@ export default function LoginScreen() {
             email: document.getElementById("DID").value,
             password: document.getElementById("DPASS").value
         }).then(() => {
-            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
                 firebase.auth().onAuthStateChanged((user) => {
 
                     history.push("/")
@@ -48,21 +48,39 @@ export default function LoginScreen() {
             setDiffer(true)
         })
     }
-    // async function googleLogin(){
-    //     await firebase.login({
-    //         provider:"google",
-    //         type:"popup"
-    //     }).then(()=>{
-    //         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
-    //             firebase.auth().onAuthStateChanged((user) => {
+    async function googleLogin(){
+        await firebase.login({
+            provider:"google",
+            type:"popup"
+        }).then(()=>{
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+                firebase.auth().onAuthStateChanged((user) => {
 
-    //                 history.push("/")
-    //             })
-    //         })
-    //     }).catch(() => {
-    //         setDiffer(true)
-    //     })
-    // }
+                    history.push("/")
+                })
+            })
+        }).catch(() => {
+            setDiffer(true)
+        })
+    }
+    const {Kakao}=window
+    var kakaoAuth = firebase.functions().httpsCallable("kakaoCustomAuth");
+    function kakaoLogin(){
+ 
+            Kakao.Auth.login({
+                success:function(authObj){
+                    console.log(authObj)
+                    kakaoAuth({ token: authObj.access_token }).then(function (res) {
+                        console.log(res)
+                        history.push("/")
+                      }).catch(err => {
+                   console.log(err)   
+                      })
+                   
+                }
+            })
+        
+    }
     // async function getWallet(user){
     //     var wallet
 
@@ -241,7 +259,7 @@ export default function LoginScreen() {
                                 marginBottom: 20,
                                 textAlign: "center",
                             }}>비밀번호를 확인해주세요</div> : <></>}
-                            {/* <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
+                            <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
                             <input type="button" style={{
                                 border: 0,
                                 width: 300,
@@ -255,7 +273,7 @@ export default function LoginScreen() {
                                 marginBottom: 20,
                                 fontWeight: "bold"
                             }} value="Facebook" />
-                            <input type="button" style={{
+                            <input onClick={kakaoLogin} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,
@@ -280,7 +298,7 @@ export default function LoginScreen() {
                                 backgroundColor: "#cd5642",
                                 marginBottom: 20,
                                 fontWeight: "bold"
-                            }} value="Google" /> */}
+                            }} value="Google" />
                         </div>
                     </div>
                 </div>
