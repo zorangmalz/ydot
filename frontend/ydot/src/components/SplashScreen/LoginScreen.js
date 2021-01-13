@@ -71,8 +71,12 @@ export default function LoginScreen() {
                 success:function(authObj){
                     console.log(authObj)
                     kakaoAuth({ token: authObj.access_token }).then(function (res) {
-                        console.log(res)
-                        history.push("/")
+                        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+                            firebase.auth().onAuthStateChanged((user) => {
+            
+                                history.push("/")
+                            })
+                        })
                       }).catch(err => {
                    console.log(err)   
                       })
