@@ -57,6 +57,11 @@ export default function SplashScreen() {
 
     const history = useHistory()
     const firebase = useFirebase()
+    function logout() {
+        firebase.logout()
+        alert("로그아웃 되었습니다")
+    }
+
     const [inputs, setInputs] = useState({
         name: '',
         nickname: '',
@@ -237,7 +242,7 @@ export default function SplashScreen() {
                     </div>
                     {now >= 10 ?
                         <>
-                            <div style={{
+                            <div onClick={logout} style={{
                                 fontSize: 21,
                                 fontWeight: "bold",
                                 color: "#202426",
