@@ -23,8 +23,61 @@ import bannericonfive from "../icon/bannericonfive.png"
 import bannericonsix from "../icon/bannericonsix.png"
 
 
-export default function SplashScreen() {
 
+import axios from "axios"
+
+export default function SplashScreen() {
+    
+    
+    async function iam(){
+      try{
+        let result=await axios({
+            url: "https://api.iamport.kr/users/getToken",
+            method: "post", // POST method
+            headers: { "Content-Type": "application/json" }, // "Content-Type": "application/json"
+            data: {
+              imp_key: "1351325662487144", // REST API키
+              imp_secret: "sw52uUZEevQyNobtGFhnNHOuRAeuZ97sGdua8tPmYGVM46gLMx8zfX46yiBxsI08Vvj4Z8qYOlKTs0Ee" // REST API Secret
+            }
+          })
+          console.log(result.data.response.access_token)
+          let bank=await axios({
+              url:"https://api.iamport.kr/vbanks/holder",
+              method:"get",
+              headers:{
+                "Content-Type": "application/json", // "Content-Type": "application/json"
+                "Authorization": "Bearer "+result.data.response.access_token // 발행된 액세스 토큰
+              },
+              params:{
+                  "bank_code":"011",
+                  "bank_num":"74301656029176"
+              }
+          })
+          
+          console.log(bank)
+          let createBank=await axios({
+            url:"https://api.iamport.kr/vbanks/holder",
+            method:"post",
+            headers:{
+              "Content-Type": "application/json", // "Content-Type": "application/json"
+              "Authorization": "Bearer "+result.data.response.access_token // 발행된 액세스 토큰
+            },
+            params:{
+                "merchant_uid":"imp61776496",
+                "amount":"10000",
+                "vbank_code":"011",
+                "vbank_due":"100000000000",
+                "vbank_holder":"정선웅"
+            }
+          })
+          console.log(createBank)
+      }catch(err){
+        console.log(err)
+      }
+
+    
+    }
+    
     const { uid } = useSelector((state) => state.firebase.auth);
     const chainId = 1001
     const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
@@ -45,6 +98,7 @@ export default function SplashScreen() {
     }
     useEffect(() => {
         // kasTest()
+        iam()
     }, [])
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })

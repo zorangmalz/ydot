@@ -1624,6 +1624,7 @@ export function BottomTag() {
                         border: 0,
                         marginRight: 40,
                     }} value="Contact" />
+                    <a  target="_blank"  href={"https://sites.google.com/view/ydotpersonal/%ED%99%88"}>
                     <input type="button" style={{
                         fontSize: 18,
                         color: "#202426",
@@ -1632,6 +1633,8 @@ export function BottomTag() {
                         border: 0,
                         marginRight: 40,
                     }} value="Privacy Policy" />
+</a>
+<a  target="_blank"  href={"https://sites.google.com/view/ydotuse/%ED%99%88"}>
                     <input type="button" style={{
                         fontSize: 18,
                         color: "#202426",
@@ -1640,6 +1643,7 @@ export function BottomTag() {
                         border: 0,
                         marginRight: 40,
                     }} value="Terms of Service" />
+                    </a>
                     <input type="button" style={{
                         fontSize: 18,
                         fontWeight: "bold",

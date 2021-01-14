@@ -44,7 +44,7 @@ export default function UserList() {
    const[itemsss,setItemsss]=useState([])
 
     async function getPrice(){
-       
+       console.log("GetPirce")
         for (const i of items){
             
             await firestore.collection("User").doc(i.uid).collection("TotalFunding").onSnapshot(querySnapshot => {

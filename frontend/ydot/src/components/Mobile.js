@@ -656,6 +656,7 @@ export function MBottomTag() {
                             border: 0,
                             WebkitAppearance: "none"
                         }} value="Contact" />
+                        <a  target="_blank"  href={"https://sites.google.com/view/ydotpersonal/%ED%99%88"}>
                         <input type="button" style={{
                             fontSize: 18,
                             color: "#202426",
@@ -665,6 +666,7 @@ export function MBottomTag() {
                             border: 0,
                             WebkitAppearance: "none"
                         }} value="Privacy Policy" />
+                        </a>
                     </div>
                     <div style={{
                         display: "flex",
@@ -672,6 +674,7 @@ export function MBottomTag() {
                         alignItems: "center",
                         marginTop: 10
                     }}>
+                        <a  target="_blank"  href={"https://sites.google.com/view/ydotuse/%ED%99%88"}>
                         <input type="button" style={{
                             fontSize: 18,
                             color: "#202426",
@@ -681,6 +684,7 @@ export function MBottomTag() {
                             border: 0,
                             WebkitAppearance: "none"
                         }} value="Terms of Service" />
+                        </a>
                         <input type="button" style={{
                             fontSize: 18,
                             fontWeight: "bold",

@@ -48,43 +48,45 @@ export default function LoginScreen() {
             setDiffer(true)
         })
     }
-    async function googleLogin(){
-        await firebase.login({
-            provider:"google",
-            type:"popup"
-        }).then(()=>{
-            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
-                firebase.auth().onAuthStateChanged((user) => {
+    // async function googleLogin(){
+    //     await firebase.login({
+    //         provider:"google",
+    //         type:"popup"
+    //     }).then(()=>{
+    //         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+    //             firebase.auth().onAuthStateChanged((user) => {
 
-                    history.push("/")
-                })
-            })
-        }).catch(() => {
-            setDiffer(true)
-        })
-    }
-    const {Kakao}=window
-    var kakaoAuth = firebase.functions().httpsCallable("kakaoCustomAuth");
-    function kakaoLogin(){
+    //                 history.push("/")
+    //             })
+    //         })
+    //     }).catch(() => {
+    //         setDiffer(true)
+    //     })
+    // }
+    // const {Kakao}=window
+    // var kakaoAuth = firebase.functions().httpsCallable("kakaoCustomAuth");
+    // function kakaoLogin(){
  
-            Kakao.Auth.login({
-                success:function(authObj){
-                    console.log(authObj)
-                    kakaoAuth({ token: authObj.access_token }).then(function (res) {
-                        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
-                            firebase.auth().onAuthStateChanged((user) => {
+    //         Kakao.Auth.login({
+    //             success:function(authObj){
+    //                 console.log(authObj)
+    //                 kakaoAuth({ token: authObj.access_token }).then(function (res) {
+    //                     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+    //                         firebase.auth().onAuthStateChanged((user) => {
             
-                                history.push("/")
-                            })
-                        })
-                      }).catch(err => {
-                   console.log(err)   
-                      })
+    //                             history.push("/")
+    //                         })
+    //                     })
+    //                   }).catch(err => {
+    //                console.log(err)   
+    //                   })
                    
-                }
-            })
+    //             }
+    //         })
         
-    }
+    // }
+
+
     // async function getWallet(user){
     //     var wallet
 
@@ -263,7 +265,7 @@ export default function LoginScreen() {
                                 marginBottom: 20,
                                 textAlign: "center",
                             }}>비밀번호를 확인해주세요</div> : <></>}
-                            <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
+                            {/* <div style={{ width: 300, border: "1px solid #d2d3d3", marginBottom: 20 }} />
                             <input type="button" style={{
                                 border: 0,
                                 width: 300,
@@ -302,7 +304,7 @@ export default function LoginScreen() {
                                 backgroundColor: "#cd5642",
                                 marginBottom: 20,
                                 fontWeight: "bold"
-                            }} value="Google" />
+                            }} value="Google" /> */}
                         </div>
                     </div>
                 </div>
