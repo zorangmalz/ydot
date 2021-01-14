@@ -98,7 +98,7 @@ export default function SplashScreen() {
     }
     useEffect(() => {
         // kasTest()
-        iam()
+        // iam()
     }, [])
     const Mobile = ({ children }) => {
         const isMobile = useMediaQuery({ maxWidth: 450 })
