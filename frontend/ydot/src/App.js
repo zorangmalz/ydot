@@ -10,6 +10,8 @@ import PrivateRoute from "./components/PrivateRoute"
 import Asset from './components/Asset/Asset';
 import { MyInfo, PopupOne, PopupThree, PopupTwo } from './components/Style';
 import LoginScreen from './components/SplashScreen/LoginScreen';
+import SignupScreen from './components/SplashScreen/SignupScreen';
+import EmailSignup from './components/SplashScreen/EmailSignup';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Switch>
           <Route path="/" exact component={SplashScreen} />
           <Route path="/login" component={LoginScreen} />
+          <Route path="/signup" component={SignupScreen} />
+          <Route path="/emailsignup" component={EmailSignup} />
           {/* 여기서 : id가 먼저 렌더링 될 수 있게 나와야 한다. */}
           {/* 로그인 이후에는 그냥 route말고 미리 설정한 privateroute로 감싸기 */}
           <Route path="/fund/:id"><Creator /></Route>
