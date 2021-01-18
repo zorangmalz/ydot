@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useHistory } from 'react-router-dom';
 
 //디자인
@@ -11,6 +11,8 @@ import { BiCheck } from "react-icons/bi"
 import { useMediaQuery } from 'react-responsive'
 import { SignupModule } from "../Style";
 
+//firebase
+import firebase from "firebase/app";
 
 export default function EmailSignup() {
     const history = useHistory()
@@ -24,7 +26,7 @@ export default function EmailSignup() {
         const isNotMobile = useMediaQuery({ minWidth: 451 })
         return isNotMobile ? children : null
     }
-
+    
     //이용약관 동의
     const [totalAgree, setTotalAgree] = useState(false)
     const [serviceAgree, setServiceAgree] = useState(false)
@@ -41,7 +43,6 @@ export default function EmailSignup() {
         }
     }
     const [fold, setFold] = useState(false)
-
     return (
         <div>
             <Default>
