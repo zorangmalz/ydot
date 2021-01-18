@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useFirebase, useFirestore } from "react-redux-firebase"
+import { useFirestore } from "react-redux-firebase"
 import { useMediaQuery } from 'react-responsive'
-import Header, { BottomTag, CreatorInfo, NewCreatorInfo, TypeCard, vw } from '../Style'
+import Header, { BottomTag, CreatorInfo, NewCreatorInfo, TypeCard } from '../Style'
 
 //임시 이미지
 import { MBottomTag, MCreatorInfo, MHeader, MTypeCard } from '../Mobile'

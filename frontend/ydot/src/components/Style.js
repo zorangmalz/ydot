@@ -16,7 +16,7 @@ import { FaUserCircle, FaArrowRight, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck, BsArrowRightShort } from 'react-icons/bs'
 import { BiCheckCircle, BiCheck } from 'react-icons/bi'
-import { FaHeart, FaRegHeart } from "react-icons/fa"
+import { FaHeart } from "react-icons/fa"
 
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState } from "react"
 import { Link, useHistory } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa"
 import { BsCheck } from 'react-icons/bs'
@@ -7,8 +7,7 @@ import MLoginHeader from "../Mobile";
 
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
-import { useFirebase, useFirestore, firestoreConnect, isLoaded, isEmpty } from "react-redux-firebase"
-import CaverExtKAS from "caver-js-ext-kas"
+import { useFirebase, useFirestore } from "react-redux-firebase"
 
 
 export default function LoginScreen() {

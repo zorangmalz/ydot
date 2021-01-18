@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Link, useHistory } from 'react-router-dom';
 
 //디자인
 import MLoginHeader, { MSignupModule } from "../Mobile";
 import { FaUserCircle } from "react-icons/fa"
 import { BsCheck, BsChevronDown } from 'react-icons/bs'
-import { BiCheck } from "react-icons/bi"
 
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
 import { SignupModule } from "../Style";
-
-//firebase
-import firebase from "firebase/app";
 
 export default function EmailSignup() {
     const history = useHistory()
@@ -26,7 +22,7 @@ export default function EmailSignup() {
         const isNotMobile = useMediaQuery({ minWidth: 451 })
         return isNotMobile ? children : null
     }
-    
+
     //이용약관 동의
     const [totalAgree, setTotalAgree] = useState(false)
     const [serviceAgree, setServiceAgree] = useState(false)

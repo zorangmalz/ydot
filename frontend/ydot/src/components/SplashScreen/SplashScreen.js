@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Header, { CreatorInfo, CloseBeta, BottomTag, TopBanner, InvestDashboard, NewCreatorInfo, YdotCard, NowCard } from '../Style'
-import { MBottomTag, MCloseBeta, MCreatorInfo, MHeader, MTopBanner, MNowCard, MYdotCard } from '../Mobile'
+import Header, { CreatorInfo, BottomTag, TopBanner, NewCreatorInfo, YdotCard, NowCard } from '../Style'
+import { MBottomTag, MCreatorInfo, MHeader, MTopBanner, MNowCard, MYdotCard } from '../Mobile'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
