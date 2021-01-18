@@ -14,7 +14,7 @@ import "./component.css"
 //아이콘
 import { FaUserCircle, FaArrowRight, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
-import { BsCheck, BsArrowRightShort } from 'react-icons/bs'
+import { BsCheck, BsArrowRightShort, BsChevronDown } from 'react-icons/bs'
 import { BiCheckCircle, BiCheck } from 'react-icons/bi'
 import { FaHeart } from "react-icons/fa"
 
@@ -2421,6 +2421,7 @@ export function InvestDashboard({ rank, name, total, accumulate, uid }) {
 }
 
 export function SignupModule() {
+    const history = useHistory()
     const [inputs, setInputs] = useState({
         name: '',
         password: ''
@@ -2465,7 +2466,7 @@ export function SignupModule() {
         if (passCheck.search(/₩s/) != -1) {
             alert("비밀번호는 공백업이 입력해주세요.");
             setPassCheck("")
-        } 
+        }
         if (num >= 1) {
             setNumber(true)
         }
@@ -2492,6 +2493,24 @@ export function SignupModule() {
             setPassValid(false)
         }
     }, [inputs, passCheck])
+
+    //이용약관 동의
+    const [totalAgree, setTotalAgree] = useState(false)
+    const [serviceAgree, setServiceAgree] = useState(false)
+    const [personalAgree, setPersonalAgree] = useState(false)
+    const [marketingAgree, setMarketingAgree] = useState(false)
+    const total = () => {
+        setTotalAgree(!totalAgree)
+        setServiceAgree(!serviceAgree)
+        setPersonalAgree(!personalAgree)
+        if (totalAgree) {
+            setMarketingAgree(false)
+        } else {
+            setMarketingAgree(true)
+        }
+    }
+    const [fold, setFold] = useState(false)
+
     return (
         <>
             <div style={{
@@ -2609,6 +2628,148 @@ export function SignupModule() {
                 {lengthChar ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" />}
                 <div style={{ fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10 }}>8자리 이상</div>
             </div>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingRight: 20,
+                width: 380,
+            }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center"
+                }}>
+                    <div onClick={total} style={{
+                        border: "1px solid #A5A6A7",
+                        backgroundColor: "#ffffff",
+                        width: 20,
+                        height: 20,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        cursor: "pointer"
+                    }}>
+                        {marketingAgree ? <BsCheck color="#202426" size={20} /> : <></>}
+                    </div>
+                    <div style={{
+                        fontSize: 16,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        marginLeft: 10,
+                    }}>이용약관 전체 동의</div>
+                </div>
+                <BsChevronDown onClick={() => setFold(!fold)} style={{
+                    cursor: "pointer",
+                }} size={20} color="#202426" />
+            </div>
+            {fold ?
+                <></>
+                :
+                <div style={{
+                    width: 370,
+                    paddingLeft: 30,
+                    display: "flex",
+                    flexDirection: "column",
+                    marginTop: 10,
+                }}>
+                    <div style={{
+                        fontSize: 14,
+                        color: "#4c4f51",
+                        width: "100%",
+                        marginBottom: 20,
+                    }}>이용약관 동의(필수), 개인정보 수집 및 이용 동의(필수), 마케팅, 이벤트 등 혜택 / 정보 수신 동의(선택)에 대해 모두 동의합니다.</div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginBottom: 8,
+                    }}>
+                        <div onClick={() => setServiceAgree(!serviceAgree)} style={{
+                            border: "1px solid #A5A6A7",
+                            backgroundColor: "#ffffff",
+                            width: 20,
+                            height: 20,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}>
+                            {serviceAgree ? <BsCheck color="#202426" size={20} /> : <></>}
+                        </div>
+                        <div style={{
+                            fontSize: 16,
+                            color: "#4c4f51",
+                            marginLeft: 10,
+                        }}><div style={{ textDecorationLine: "underline", display: "inline-block" }}>와이닷 서비스 이용약관</div> (필수)</div>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginBottom: 8,
+                    }}>
+                        <div onClick={() => setPersonalAgree(!personalAgree)} style={{
+                            border: "1px solid #A5A6A7",
+                            backgroundColor: "#ffffff",
+                            width: 20,
+                            height: 20,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}>
+                            {personalAgree ? <BsCheck color="#202426" size={20} /> : <></>}
+                        </div>
+                        <div style={{
+                            fontSize: 16,
+                            color: "#4c4f51",
+                            marginLeft: 10,
+                        }}><div style={{ textDecorationLine: "underline", display: "inline-block" }}>개인정보 수집 이용</div> 동의 (필수)</div>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginBottom: 10,
+                    }}>
+                        <div onClick={() => setMarketingAgree(!marketingAgree)} style={{
+                            border: "1px solid #A5A6A7",
+                            backgroundColor: "#ffffff",
+                            width: 20,
+                            height: 20,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            cursor: "pointer"
+                        }}>
+                            {marketingAgree ? <BsCheck color="#202426" size={20} /> : <></>}
+                        </div>
+                        <div style={{
+                            fontSize: 16,
+                            color: "#4c4f51",
+                            marginLeft: 10,
+                        }}>마케팅 정보 수신 (선택)</div>
+                    </div>
+                    <div style={{
+                        fontSize: 14,
+                        color: "#4c4f51",
+                        width: 340,
+                        marginBottom: 20,
+                        marginLeft: 30,
+                    }}>와이닷의 모든 서비스(투자 정보, 이벤트, 할인 혜택 등)에 대한 정보를 받아볼 수 있습니다. (동의 철회 시까지)</div>
+                </div>
+            }
+            <input onClick={() => history.push("/login")} type="button" style={{
+                border: 0,
+                width: 400,
+                height: 56,
+                fontSize: 22,
+                borderRadius: 10,
+                cursor: "pointer",
+                outline: 0,
+                color: "#ffffff",
+                backgroundColor: "#e78276",
+                marginTop: 20,
+                WebkitAppearance: "none",
+            }} value="다음" />
         </>
     )
 }
