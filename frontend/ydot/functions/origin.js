@@ -122,6 +122,7 @@ console.log("!")
   exports.kakaoCustomAuth = functions.https
   .onRequest((req, res) => {
     cors(req,res,()=>{
+
       const token = req.body.data.token
       if (!token) return res.status(400).send({error: 'There is no token.'})
       console.log(`Verifying Kakao token: ${token}`)

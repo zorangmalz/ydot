@@ -7,7 +7,7 @@ import { FaUserCircle } from "react-icons/fa"
 
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
-
+import firebase from "firebase/app";
 
 export default function SignupScreen() {
     //모바일 대응
@@ -21,6 +21,47 @@ export default function SignupScreen() {
     }
 
     const history = useHistory()
+
+  async function googleLogin(){
+        await firebase.login({
+            provider:"google",
+            type:"popup"
+        }).then(()=>{
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+                firebase.auth().onAuthStateChanged((user) => {
+
+                    history.push("/")
+                })
+            })
+        }).catch(() => {
+            
+        })
+    }
+
+    const {Kakao}=window
+    var kakaoAuth = firebase.functions().httpsCallable("kakaoCustomAuth");
+
+    function kakaoLogin(){
+        console.log("here")
+            Kakao.Auth.login({
+                success:function(authObj){
+                    console.log(authObj)
+                    kakaoAuth({ token: authObj.access_token }).then(function (res) {
+                        console.log(res)
+                        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
+                            firebase.auth().onAuthStateChanged((user) => {
+            
+                                history.push("/")
+                            })
+                        })
+                      }).catch(err => {
+                   console.log(err)   
+                      })
+                   
+                }
+            })
+        
+    }
 
     return (
         <div>
@@ -115,7 +156,7 @@ export default function SignupScreen() {
                                 marginBottom: 20,
                                 WebkitAppearance: "none"
                             }} value="페이스북으로 가입" />
-                            <input type="button" style={{
+                            <input onClick={kakaoLogin} type="button" style={{
                                 border: 0,
                                 width: 400,
                                 height: 56,
@@ -128,7 +169,7 @@ export default function SignupScreen() {
                                 marginBottom: 20,
                                 WebkitAppearance: "none"
                             }} value="Kakao talk 가입" />
-                            <input type="button" style={{
+                            <input onClick={googleLogin} type="button" style={{
                                 border: 0,
                                 width: 400,
                                 height: 56,
@@ -212,7 +253,7 @@ export default function SignupScreen() {
                                 marginBottom: 20,
                                 WebkitAppearance: "none"
                             }} value="페이스북으로 로그인" />
-                            <input type="button" style={{
+                            <input onClick={kakaoLogin} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,
@@ -225,7 +266,7 @@ export default function SignupScreen() {
                                 marginBottom: 20,
                                 WebkitAppearance: "none"
                             }} value="Kakao talk 로그인" />
-                            <input type="button" style={{
+                            <input onClick={googleLogin} type="button" style={{
                                 border: 0,
                                 width: 300,
                                 height: 48,

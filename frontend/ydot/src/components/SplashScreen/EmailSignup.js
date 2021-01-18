@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useHistory } from 'react-router-dom';
 
 //디자인
@@ -10,6 +10,8 @@ import { BiCheck } from "react-icons/bi"
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
 
+//firebase
+import firebase from "firebase/app";
 
 export default function EmailSignup() {
     const history = useHistory()
@@ -26,7 +28,7 @@ export default function EmailSignup() {
 
     //이메일 유효
     const [valid, setValid] = useState(false)
-
+ 
     //이용약관 동의
     const [totalAgree, setTotalAgree] = useState(false)
     const [serviceAgree, setServiceAgree] = useState(false)
@@ -49,6 +51,32 @@ export default function EmailSignup() {
     const [number, setNumber] = useState(false)
     const [uniqueChar, setUniqueChar] = useState(false)
     const [lengthChar, setLengthChar] = useState(false)
+
+
+    const [inputs, setInputs] = useState({
+        name: '',
+        nickname: ''
+      });
+    
+      const { name, nickname } = inputs; // 비구조화 할당을 통해 값 추출
+    
+      const onChange = (e) => {
+        const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+        setInputs({
+          ...inputs, // 기존의 input 객체를 복사한 뒤
+          [name]: value // name 키를 가진 값을 value 로 설정
+        });
+      };
+
+useEffect(()=>{
+    console.log(name,nickname)
+})
+async function signin(){
+    
+    firebase.auth().signInWithEmailAndPassword("csh1379@nate.com","01072749591").then((user)=>{
+        
+    })
+}
 
     return (
         <div>
@@ -165,7 +193,7 @@ export default function EmailSignup() {
                                 color: "#202426",
                                 marginBottom: 10,
                             }}>비밀번호</div>
-                            <input id="DPASS" type="password" style={{
+                            <input name="name" onChange={onChange} value={name}  id="DPASS" type="password" style={{
                                 width: 360,
                                 paddingLeft: 20,
                                 paddingRight: 20,
@@ -189,7 +217,7 @@ export default function EmailSignup() {
                                 color: "#202426",
                                 marginBottom: 10,
                             }}>비밀번호 확인</div>
-                            <input id="DPASS" type="password" style={{
+                            <input name="nickname" onChange={onChange} value={nickname} id="DPASS" type="password" style={{
                                 width: 360,
                                 paddingLeft: 20,
                                 paddingRight: 20,
@@ -443,7 +471,7 @@ export default function EmailSignup() {
                                 color: "#202426",
                                 marginBottom: 10,
                             }}>비밀번호</div>
-                            <input id="DPASS" type="password" style={{
+                            <input name="name" onChange={onChange} value={name} id="DPASS" type="password" style={{
                                 width: 270,
                                 paddingLeft: 15,
                                 paddingRight: 15,
@@ -464,7 +492,7 @@ export default function EmailSignup() {
                                 color: "#202426",
                                 marginBottom: 10,
                             }}>비밀번호 확인</div>
-                            <input id="DPASS" type="password" style={{
+                            <input name="nickname" onChange={onChange} value={nickname} id="DPASS" type="password" style={{
                                 width: 270,
                                 paddingLeft: 15,
                                 paddingRight: 15,
