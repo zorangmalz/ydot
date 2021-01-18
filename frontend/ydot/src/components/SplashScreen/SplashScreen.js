@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Header, { CreatorInfo, CloseBeta, BottomTag, TopBanner, InvestDashboard, NewCreatorInfo, YdotCard, NowCard } from '../Style'
-import { MBottomTag, MCloseBeta, MCreatorInfo, MHeader, MTopBanner, MInvestDashboard } from '../Mobile'
+import { MBottomTag, MCloseBeta, MCreatorInfo, MHeader, MTopBanner, MNowCard, MYdotCard } from '../Mobile'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
@@ -591,36 +591,123 @@ export default function SplashScreen() {
                         </>
                         :
                         <> */}
-                            <div style={{
-                                fontSize: 21,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 20,
-                                marginTop: 40,
-                            }}>진행중인 펀딩</div>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                minWidth: 300,
-                                width: "100vw",
-                            }}>
-                                <div className="mobile-grid-container">
-                                    {items.map(element =>
-                                        <MCreatorInfo
-                                            img={element.img}
-                                            name={element.name}
-                                            FundingNum={element.FundingNum}
-                                            percent={element.percent}
-                                            Deadline={element.Deadline}
-                                            sort={element.sort}
-                                            sector={element.sector}
-                                            fundingAim={element.fundingAim}
-                                        />
-                                    )}
-                                </div>
-                            </div>
-                        {/* </>
+                    <div style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        textAlign: "left",
+                        width: "90%",
+
+                        minWidth: 300,
+                        marginBottom: 20,
+                        marginTop: 20,
+                    }}>새로운 펀딩</div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        minWidth: 300,
+                        width: "100vw",
+                    }}>
+                        {items.map(element =>
+                            <MCreatorInfo
+                                img={element.img}
+                                name={element.name}
+                                FundingNum={element.FundingNum}
+                                percent={element.percent}
+                                Deadline={element.Deadline}
+                                sort={element.sort}
+                                sector={element.sector}
+                                fundingAim={element.fundingAim}
+                            />
+                        )}
+                    </div>
+                    <div style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        textAlign: "left",
+                        width: "90%",
+                        minWidth: 300,
+                        marginBottom: 20,
+                        marginTop: 20,
+                    }}>와이닷 NOW</div>
+                    <div style={{
+                        display: "flex",
+                        overflowX: "scroll",
+                        width: "90%",
+                        minWidth: 300,
+                        marginBottom: 10,
+                    }}>
+                        <MNowCard
+                            thumbnail={nowcardexample}
+                            title="Lorem ipsum dolor sit…"
+                            icon={nowcardicon}
+                            name="햇살한스푼"
+                        />
+                        <MNowCard
+                            thumbnail={nowcardexample}
+                            title="Lorem ipsum dolor sit…"
+                            icon={nowcardicon}
+                            name="햇살한스푼"
+                        />
+                        <MNowCard
+                            thumbnail={nowcardexample}
+                            title="Lorem ipsum dolor sit…"
+                            icon={nowcardicon}
+                            name="햇살한스푼"
+                        />
+                        <MNowCard
+                            thumbnail={nowcardexample}
+                            title="Lorem ipsum dolor sit…"
+                            icon={nowcardicon}
+                            name="햇살한스푼"
+                        />
+                    </div>
+                    <div style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "#202426",
+                        textAlign: "left",
+                        width: "90%",
+
+                        minWidth: 300,
+                        marginBottom: 20,
+                        marginTop: 20,
+                    }}>기획 펀딩 - 먹방</div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        minWidth: 300,
+                        width: "100vw",
+                    }}>
+                        {items.map(element =>
+                            <MCreatorInfo
+                                img={element.img}
+                                name={element.name}
+                                FundingNum={element.FundingNum}
+                                percent={element.percent}
+                                Deadline={element.Deadline}
+                                sort={element.sort}
+                                sector={element.sector}
+                                fundingAim={element.fundingAim}
+                            />
+                        )}
+                    </div>
+                    <MYdotCard
+                        title="크리에이터님인가요?"
+                        content="와이닷 펀딩 오픈하고 빠르게 성장하세요!"
+                        backgroundColor="#6bd69e"
+                        img={ydoticon}
+                    />
+                    <MYdotCard
+                        title="펀딩에 참여하고 싶으신가요?"
+                        content="와이닷 펀딩 A - Z 총정리 !"
+                        backgroundColor="#a5a7a8"
+                        img={ydoticon}
+                    />
+                    {/* </>
                     } */}
                     <MBottomTag />
                 </div>

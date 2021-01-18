@@ -15,7 +15,7 @@ import "./component.css"
 import { FaUserCircle, FaArrowRight, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck, BsArrowRightShort } from 'react-icons/bs'
-import { BiCheckCircle } from 'react-icons/bi'
+import { BiCheckCircle, BiCheck } from 'react-icons/bi'
 import { FaHeart, FaRegHeart } from "react-icons/fa"
 
 //이미지
@@ -26,22 +26,23 @@ import leaf from "./icon/leaf.png"
 import tree from "./icon/tree.png"
 import unicon from "./icon/unicon.png"
 import colorrocket from "./icon/colorrocket.png"
+import typeexample from "./icon/typeexample.png"
 
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
 
 export default function Header({ bold }) {
     const [mine, setMine] = useState(false)
-    const history =useHistory()
+    const history = useHistory()
     const { uid } = useSelector((state) => state.firebase.auth);
-  
+
     function getInfo() {
-        if(uid){
+        if (uid) {
             history.push("/asset")
-        }else{
+        } else {
             history.push("/login")
         }
-        
+
     }
     return (
         <header style={{
@@ -100,7 +101,7 @@ export default function Header({ bold }) {
                             textDecorationLine: "none",
                         }}>펀딩하기</Link>
                         <div onClick={getInfo} style={{
-                            cursor:"pointer",
+                            cursor: "pointer",
                             fontSize: 21,
                             color: "#202426",
                             fontWeight: bold === "Asset" ? "bold" : "normal",
@@ -121,7 +122,7 @@ export default function Header({ bold }) {
     )
 }
 
-export function TopBanner({img, title, content, backgroundColor, link}) {
+export function TopBanner({ img, title, content, backgroundColor, link }) {
     return (
         <>
             <div style={{
@@ -192,24 +193,24 @@ export function MyInfo() {
     const [leng, setLeng] = useState("")
     const [email, setEmail] = useState("")
     const [wallet, setWallet] = useState("")
-    const [money,setMoney]=useState(0)
+    const [money, setMoney] = useState(0)
     const history = useHistory()
     //유저의 코인 총량. 내 자산 및 팝업에서 원 대신에 보여주면 됨
-  
+
     function getInfo() {
         if (uid) {
             firestore.collection("User").doc(uid).get().then(doc => {
                 setEmail(doc.data().email)
                 setWallet(doc.data().wallet)
                 setMoney(doc.data().totalMoney)
-                if(doc.data().creator.length>0){
-                    firestore.collection("User").doc(uid).collection("NFT").get().then(querySnapshot=>{
+                if (doc.data().creator.length > 0) {
+                    firestore.collection("User").doc(uid).collection("NFT").get().then(querySnapshot => {
                         setLeng(querySnapshot.size)
                     })
                 }
             })
-            
-            
+
+
         } else {
             history.push("/login")
         }
@@ -505,8 +506,8 @@ export function CreatorInfo({ img, name, percent, Deadline, sort, sector, fundin
                         alignItems: "center",
                         justifyContent: "space-evenly"
                     }}>
-                        {subscribe < 1 ? <img src={leaf} style={{width: 32, height: 32}} /> : subscribe <10 ? <img src={tree} style={{width: 32, height: 32}}  /> : <img src={unicon} style={{width: 32, height: 32}}  /> }
-                        {monthrate < 4 ? <div style={{width: 32, height: 32}} /> : <img src={colorrocket} style={{width: 32, height: 32}} /> }
+                        {subscribe < 1 ? <img src={leaf} style={{ width: 32, height: 32 }} /> : subscribe < 10 ? <img src={tree} style={{ width: 32, height: 32 }} /> : <img src={unicon} style={{ width: 32, height: 32 }} />}
+                        {monthrate < 4 ? <div style={{ width: 32, height: 32 }} /> : <img src={colorrocket} style={{ width: 32, height: 32 }} />}
                     </div>
                     <ProgressBar completed={percent} />
                 </div>
@@ -563,7 +564,7 @@ export function NewCreatorInfo() {
                                 fontSize: 18,
                                 color: "#4c4f51",
                                 height: 58,
-                            }}>매달 커뮤니티 투표를 통해 선정된 
+                            }}>매달 커뮤니티 투표를 통해 선정된
                             크리에이터에게 제안을 보냅니다.</div>
                         </div>
                     </div>
@@ -588,7 +589,7 @@ export function NewCreatorInfo() {
     )
 }
 
-export function YdotCard({title, content, img, backgroundColor}) {
+export function YdotCard({ title, content, img, backgroundColor }) {
     return (
         <div className="information" style={{
             width: 430,
@@ -628,7 +629,7 @@ export function YdotCard({title, content, img, backgroundColor}) {
     )
 }
 
-export function NowCard({thumbnail, title, icon, name}) {
+export function NowCard({ thumbnail, title, icon, name }) {
     return (
         <div style={{
             width: 250,
@@ -638,11 +639,11 @@ export function NowCard({thumbnail, title, icon, name}) {
             alignItems: "flex-start",
             backgroundColor: "#ffffff"
         }}>
-            <img src={thumbnail} alt="썸네일" style={{width: 250, height: 170, objectFit: "contain"}} />
+            <img src={thumbnail} alt="썸네일" style={{ width: 250, height: 170, objectFit: "contain" }} />
             <div style={{
                 width: 250,
                 marginTop: 10,
-                
+
                 fontSize: 18,
                 fontWeight: "bold",
                 color: "#202426"
@@ -781,7 +782,7 @@ export function CreatorIntro({ title, content, other }) {
     )
 }
 
-export function ChannelAnalysisBox({title, content, img, growth}) {
+export function ChannelAnalysisBox({ title, content, img, growth }) {
     return (
         <>
             <div style={{
@@ -1022,6 +1023,56 @@ export function BuyInput({ title, unit, value, setValue }) {
                 fontWeight: "bold",
                 textAlign: "right"
             }}>{unit}</div>
+        </div>
+    )
+}
+
+export function TypeCard({type}) {
+    return (
+        <div style={{
+            minWidth: 180,
+            height: 120,
+            marginRight: 40,
+            borderRadius: 15,
+
+            position: "relative",
+            cursor: "pointer",
+            backgroundColor: "#000000"
+        }}>
+            <div style={{
+                position: "absolute",
+                zIndex: 1,
+
+                width: 180,
+                height: 120,
+                borderRadius: 15,
+                opacity: 0.4,
+                backgroundColor: "#000000"
+            }} />
+            <img src={typeexample} style={{
+                position: "absolute",
+                zIndex: 0,
+
+                width: 180,
+                height: 120,
+                borderRadius: 15,
+                objectFit: "contain"
+            }} />
+            <div style={{
+                position: "relative",
+                zIndex: 3,
+                width: "100%",
+                height: "100%",
+                
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+
+                fontSize: 22,
+                fontWeight: "bold",
+                color: "#ffffff",
+                textAlign: "center",
+            }}># {type}</div>
         </div>
     )
 }
@@ -1307,14 +1358,14 @@ export function PopupOne({ setVisible, setNextVisible }) {
                         justifyContent: "center"
                     }}>{InvestIcon}</div>
                 </div>
-                <input onClick={one&&two&&three&&invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
+                <input onClick={one && two && three && invest ? onNext : console.log("동의를 완료해주세요")} type="button" style={{
                     cursor: "pointer",
                     width: 300,
                     height: 48,
                     border: 0,
                     outline: 0,
                     borderRadius: 10,
-                    backgroundColor: one&&two&&three&&invest ? "#e78276" : "#d2d2d2",
+                    backgroundColor: one && two && three && invest ? "#e78276" : "#d2d2d2",
                     fontSize: 16,
                     fontWeight: "bold",
                     color: "#ffffff",
@@ -1341,7 +1392,7 @@ function PopupReducer(state, action) {
     }
 }
 
-export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
+export function PopupTwo({ setVisible, setNextVisible, creatorName }) {
 
     const firestore = useFirestore()
     const { uid } = useSelector((state) => state.firebase.auth);
@@ -1359,31 +1410,31 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     const [number, dispatch] = useReducer(PopupReducer, 0)
     const onTwentyfive = () => {
         dispatch({ type: "25" })
-        setMoney((Number(totalMoney)/4).toFixed(0))
+        setMoney((Number(totalMoney) / 4).toFixed(0))
     }
     const onFifty = () => {
         dispatch({ type: "50" })
-        setMoney((Number(totalMoney)/2).toFixed(0))
+        setMoney((Number(totalMoney) / 2).toFixed(0))
     }
     const onSeventyFive = () => {
         dispatch({ type: "75" })
-        setMoney((Number(totalMoney)/4*3).toFixed(0))
+        setMoney((Number(totalMoney) / 4 * 3).toFixed(0))
     }
     const onMax = () => {
         dispatch({ type: "max" })
         setMoney((Number(totalMoney)).toFixed(0))
     }
-    const[warn,setWarn]=useState("")
+    const [warn, setWarn] = useState("")
     const onNext = () => {
-        if(Number(totalMoney)<Number(money) ||Number(fundingMax)<Number(money)){
-            if(Number(totalMoney)>Number(fundingMax)){
-                setWarn("최대"+Number(fundingMax)+"₩")
-            }else{
-                setWarn("최대"+Number(totalMoney)+"₩")
+        if (Number(totalMoney) < Number(money) || Number(fundingMax) < Number(money)) {
+            if (Number(totalMoney) > Number(fundingMax)) {
+                setWarn("최대" + Number(fundingMax) + "₩")
+            } else {
+                setWarn("최대" + Number(totalMoney) + "₩")
             }
         } else {
-            
-            if (money === 0 || money === "0" || isNaN(money || money<0)) {
+
+            if (money === 0 || money === "0" || isNaN(money || money < 0)) {
                 alert("금액을 정확히 입력해 주세요")
             } else {
                 firestoreUpload()
@@ -1393,28 +1444,28 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
 
         }
     }
-    const [totalMoney,setTotalMoney]=useState(0)
-    const [wallet,setWallet]=useState("")
-    const [email,setEmail]=useState("")
-    const [fundingList,setFundingList]=useState([])
-    function getInfo(){
-        firestore.collection("User").doc(uid).get().then(doc=>{
+    const [totalMoney, setTotalMoney] = useState(0)
+    const [wallet, setWallet] = useState("")
+    const [email, setEmail] = useState("")
+    const [fundingList, setFundingList] = useState([])
+    function getInfo() {
+        firestore.collection("User").doc(uid).get().then(doc => {
             setTotalMoney(doc.data().totalMoney)
             setWallet(doc.data().wallet)
             setEmail(doc.data().email)
             setFundingList(doc.data().creator)
         })
-        
+
     }
-    const [fundingMax,setFundingMax]=useState(0)
-    const [fundingTotal,setFundingTotal]=useState(0)
-    const [symbol,setSymbol]=useState("")
-    const [fundingAim,setFundingAim]=useState(0)
-    const [investList,setInvestList]=useState([])
-    const [creatorColor,setCreatorColor]=useState("")
+    const [fundingMax, setFundingMax] = useState(0)
+    const [fundingTotal, setFundingTotal] = useState(0)
+    const [symbol, setSymbol] = useState("")
+    const [fundingAim, setFundingAim] = useState(0)
+    const [investList, setInvestList] = useState([])
+    const [creatorColor, setCreatorColor] = useState("")
     function getCreatorInfo() {
         firestore.collection("Creator").doc(creatorName).onSnapshot(doc => {
-            setFundingMax(doc.data().FundingAim-doc.data().FundingTotal)
+            setFundingMax(doc.data().FundingAim - doc.data().FundingTotal)
             setFundingTotal(doc.data().FundingTotal)
             setSymbol(doc.data().symbol)
             setFundingAim(doc.data().FundingAim)
@@ -1424,48 +1475,48 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
     }
 
     async function firestoreUpload() {
-        const realMoney=Number(money)
+        const realMoney = Number(money)
         const today = new Date()
         const year = today.getFullYear();
         const month = today.getMonth() + 1
         const day = today.getDate()
-        const hours= today.getHours()
-        const minutes=today.getMinutes()
-        const seconds=today.getSeconds()
-        const docName=String(year + "-" + month + "-" + day+"-"+hours+":"+minutes+":"+seconds)
-        if(fundingList.includes(creatorName)){
-            firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).get().then(doc=>{
+        const hours = today.getHours()
+        const minutes = today.getMinutes()
+        const seconds = today.getSeconds()
+        const docName = String(year + "-" + month + "-" + day + "-" + hours + ":" + minutes + ":" + seconds)
+        if (fundingList.includes(creatorName)) {
+            firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).get().then(doc => {
                 firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).update({
                     DayTime: docName,
-            Money: realMoney+doc.data().Money,
-            ongoing: 0,
-            channel: creatorName,
-            fullTime:today.getTime(),
-            total:0,
-            monthly:0,
-            month:0,
-            symbol:symbol,
-            fundingAim:fundingAim,
-            color:creatorColor
+                    Money: realMoney + doc.data().Money,
+                    ongoing: 0,
+                    channel: creatorName,
+                    fullTime: today.getTime(),
+                    total: 0,
+                    monthly: 0,
+                    month: 0,
+                    symbol: symbol,
+                    fundingAim: fundingAim,
+                    color: creatorColor
                 })
             })
-        }else{
+        } else {
             firestore.collection("User").doc(uid).collection("TotalFunding").doc(creatorName).set({
                 DayTime: docName,
-        Money: realMoney,
-        ongoing: 0,
-        channel: creatorName,
-        fullTime:today.getTime(),
-        total:0,
-        monthly:0,
-        month:0,
-        symbol:symbol,
-        fundingAim:fundingAim,
-        color:creatorColor,
-        
+                Money: realMoney,
+                ongoing: 0,
+                channel: creatorName,
+                fullTime: today.getTime(),
+                total: 0,
+                monthly: 0,
+                month: 0,
+                symbol: symbol,
+                fundingAim: fundingAim,
+                color: creatorColor,
+
             })
             firestore.collection("User").doc(uid).update({
-                creator:firebase.firestore.FieldValue.arrayUnion(creatorName)
+                creator: firebase.firestore.FieldValue.arrayUnion(creatorName)
             })
         }
         firestore.collection("User").doc(uid).collection("Fund").doc(docName).set({
@@ -1473,60 +1524,60 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
             Money: realMoney,
             ongoing: 0,
             channel: creatorName,
-            fullTime:today.getTime(),
-            total:0,
-            monthly:0,
-            month:0,
-            symbol:symbol,
-            fundingAim:fundingAim
+            fullTime: today.getTime(),
+            total: 0,
+            monthly: 0,
+            month: 0,
+            symbol: symbol,
+            fundingAim: fundingAim
         })
         firestore.collection("User").doc(uid).update({
-            totalMoney:Number(totalMoney)-realMoney
+            totalMoney: Number(totalMoney) - realMoney
         })
         await firestore.collection("Creator").doc(creatorName).update({
-            FundingTotal: Number(fundingTotal)+realMoney
+            FundingTotal: Number(fundingTotal) + realMoney
         })
 
-        if(investList.includes(uid)){
-            firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).get().then(doc=>{
+        if (investList.includes(uid)) {
+            firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).get().then(doc => {
 
                 firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).update({
-                    
-                    wallet:wallet,
-                    money:realMoney+doc.data().money,
-                    email:email,
-                    DayTime:docName,
-                    fullTime:today.getTime(),
-                    uid:uid
+
+                    wallet: wallet,
+                    money: realMoney + doc.data().money,
+                    email: email,
+                    DayTime: docName,
+                    fullTime: today.getTime(),
+                    uid: uid
                 })
             })
-        }else{
+        } else {
             firestore.collection("Creator").doc(creatorName).collection("InvestorList").doc(uid).set({
-                wallet:wallet,
-                money:realMoney,
-                email:email,
-                DayTime:docName,
-                fullTime:today.getTime(),
-                uid:uid
-        
+                wallet: wallet,
+                money: realMoney,
+                email: email,
+                DayTime: docName,
+                fullTime: today.getTime(),
+                uid: uid
+
             })
             firestore.collection("Creator").doc(creatorName).update({
-                investList:firebase.firestore.FieldValue.arrayUnion(uid)
+                investList: firebase.firestore.FieldValue.arrayUnion(uid)
             })
         }
         await firestore.collection("Creator").doc(creatorName).collection("Investor").add({
-            wallet:wallet,
-            money:realMoney,
-            email:email,
-            DayTime:docName,
-            fullTime:today.getTime(),
-            uid:uid
+            wallet: wallet,
+            money: realMoney,
+            email: email,
+            DayTime: docName,
+            fullTime: today.getTime(),
+            uid: uid
         })
         await firestore.collection("Creator").doc(creatorName).collection("NFT").doc(wallet).set({
-            wallet:wallet,
-            email:email,
-            uid:uid,
-            dayTime:docName,
+            wallet: wallet,
+            email: email,
+            uid: uid,
+            dayTime: docName,
         })
     }
     return (
@@ -1688,7 +1739,7 @@ export function PopupTwo({ setVisible, setNextVisible ,creatorName}) {
 }
 
 export function PopupThree({ setVisible }) {
-    
+
     return (
         <div style={{
             position: "absolute",
@@ -1732,7 +1783,7 @@ export function PopupThree({ setVisible }) {
                 <BiCheckCircle color="#202426" size={120} style={{ width: 120, height: 120, marginBottom: 40 }} />
                 <div style={{
                     fontSize: 14,
-                    
+
                     color: "#161513",
                     width: "100%",
                     textAlign: "center",
@@ -1747,7 +1798,7 @@ export function PopupThree({ setVisible }) {
                     flexDirection: "column"
                 }}>
                     <div style={{ textAlign: "center", marginBottom: 10 }}></div>
-                  
+
                 </div>
                 <input className="safari-design" onClick={() => setVisible(false)} type="button" style={{
                     cursor: "pointer",
@@ -1789,7 +1840,7 @@ export function BottomTag() {
                     color: "#202426",
                     letterSpacing: 0.89,
                     marginBottom: 20,
-                }}>Y<div style={{display: "inline-block", color: "#da877a"}}>.</div></div>
+                }}>Y<div style={{ display: "inline-block", color: "#da877a" }}>.</div></div>
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
@@ -1814,25 +1865,25 @@ export function BottomTag() {
                         border: 0,
                         marginRight: 40,
                     }} value="Contact" />
-                    <a  target="_blank"  href={"https://sites.google.com/view/ydotpersonal/%ED%99%88"}>
-                    <input type="button" style={{
-                        fontSize: 18,
-                        color: "#202426",
-                        outline: 0,
-                        backgroundColor: "#ffffff",
-                        border: 0,
-                        marginRight: 40,
-                    }} value="Privacy Policy" />
-</a>
-<a  target="_blank"  href={"https://sites.google.com/view/ydotuse/%ED%99%88"}>
-                    <input type="button" style={{
-                        fontSize: 18,
-                        color: "#202426",
-                        outline: 0,
-                        backgroundColor: "#ffffff",
-                        border: 0,
-                        marginRight: 40,
-                    }} value="Terms of Service" />
+                    <a target="_blank" href={"https://sites.google.com/view/ydotpersonal/%ED%99%88"}>
+                        <input type="button" style={{
+                            fontSize: 18,
+                            color: "#202426",
+                            outline: 0,
+                            backgroundColor: "#ffffff",
+                            border: 0,
+                            marginRight: 40,
+                        }} value="Privacy Policy" />
+                    </a>
+                    <a target="_blank" href={"https://sites.google.com/view/ydotuse/%ED%99%88"}>
+                        <input type="button" style={{
+                            fontSize: 18,
+                            color: "#202426",
+                            outline: 0,
+                            backgroundColor: "#ffffff",
+                            border: 0,
+                            marginRight: 40,
+                        }} value="Terms of Service" />
                     </a>
                     <input type="button" style={{
                         fontSize: 18,
@@ -1849,9 +1900,9 @@ export function BottomTag() {
                     alignItems: "center",
                     justifyContent: "center",
                 }}>
-                    <img style={{width: 48, height: 48, marginRight: 40}} alt="" src={kakaotalk} />
-                    <AiFillTwitterCircle style={{width: 54, height: 54, marginRight: 40}} color="#202426" />
-                    <FaFacebook style={{width: 48, height: 48}} color="#202426" />
+                    <img style={{ width: 48, height: 48, marginRight: 40 }} alt="" src={kakaotalk} />
+                    <AiFillTwitterCircle style={{ width: 54, height: 54, marginRight: 40 }} color="#202426" />
+                    <FaFacebook style={{ width: 48, height: 48 }} color="#202426" />
                 </div>
             </div>
             <div style={{
@@ -1881,7 +1932,7 @@ export function BottomTag() {
     )
 }
 
-export function HashTag({content}) {
+export function HashTag({ content }) {
     return (
         <div style={{
             border: "1px solid #939596",
@@ -1899,7 +1950,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function Graph({data, kind}) {
+export function Graph({ data, kind }) {
     return (
         <div style={{
             width: "100%",
@@ -1913,7 +1964,7 @@ export function Graph({data, kind}) {
                         borderRadius: 20,
                     }
                 }}
-                padding={{left: 70, right: 70, top: 40, bottom: 40, }}
+                padding={{ left: 70, right: 70, top: 40, bottom: 40, }}
                 width={1060}
                 height={273}
                 containerComponent={<VictoryVoronoiContainer />}
@@ -1996,9 +2047,9 @@ export function Graph({data, kind}) {
             </VictoryChart>
         </div>
     )
-}  
+}
 
-export function AssetGraph({data}) {
+export function AssetGraph({ data }) {
     return (
         <div style={{
             width: 566,
@@ -2007,12 +2058,12 @@ export function AssetGraph({data}) {
             <VictoryChart
                 width={566}
                 height={212}
-                padding={{ top: 20, bottom: 50, right: 20, left: 110}}
+                padding={{ top: 20, bottom: 50, right: 20, left: 110 }}
                 containerComponent={<VictoryVoronoiContainer />}
             >
                 <VictoryAxis scale="time"
                     gridComponent={
-                        <VictoryBrushLine 
+                        <VictoryBrushLine
                             width={35}
                             allowDrag={false}
                             allowDraw={false}
@@ -2112,21 +2163,21 @@ export function AssetGraph({data}) {
 }
 
 export function AssetPie({ data }) {
-    const [bottom,setBottom]=useState(0)
-    const [realColor,setRealColor]=useState([])
-    function percent(){
-        var total=0
-        var colorList=[]
-        for(var i=0;i<data.length;i++){
-            total=data[i].y+total
+    const [bottom, setBottom] = useState(0)
+    const [realColor, setRealColor] = useState([])
+    function percent() {
+        var total = 0
+        var colorList = []
+        for (var i = 0; i < data.length; i++) {
+            total = data[i].y + total
             colorList.push(data[i].color)
         }
-setRealColor(colorList)
-setBottom(total)
+        setRealColor(colorList)
+        setBottom(total)
     }
-    useEffect(()=>{
+    useEffect(() => {
         percent()
-    },[])
+    }, [])
     return (
         <VictoryPie
             colorScale={realColor}
@@ -2147,8 +2198,8 @@ setBottom(total)
                         return [
                             {
                                 target: "labels",
-                                mutation: ({text, datum}) => {
-                                    return {text: `${(datum.y/bottom*100).toFixed(2)}%`}
+                                mutation: ({ text, datum }) => {
+                                    return { text: `${(datum.y / bottom * 100).toFixed(2)}%` }
                                 }
                             },
                         ];
@@ -2159,14 +2210,14 @@ setBottom(total)
             width={350}
             height={350}
             data={data}
-            labels={({ datum }) => `${(datum.y/bottom*100).toFixed(2)}%`}
+            labels={({ datum }) => `${(datum.y / bottom * 100).toFixed(2)}%`}
             labelPosition="centroid"
             labelRadius={({ innerRadius }) => innerRadius + 70}
             style={{
                 labels: {
                     fill: "#ffffff",
                     fontSize: 21,
-                    fontWeight:"bold"
+                    fontWeight: "bold"
                 }
             }}
         />
@@ -2239,22 +2290,22 @@ export function Login({ setVisible }) {
     )
 }
 
-export function InvestDashboard({ rank, name, total, accumulate,uid }) {
+export function InvestDashboard({ rank, name, total, accumulate, uid }) {
     const [detail, setDetail] = useState(false)
-    const [item,setitem]=useState([])
-    const firestore=useFirestore()
-    useEffect(()=>{
-        firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("Money","desc").onSnapshot(querySnapshot=>{
-            const list=[]
-            querySnapshot.forEach(doc=>{
-                if(doc.data().ongoing==1){
-                list.push({
-                    name:doc.data().channel,
-                    value:doc.data().Money,
-                    color:doc.data().color,
-                    
-                })
-            }
+    const [item, setitem] = useState([])
+    const firestore = useFirestore()
+    useEffect(() => {
+        firestore.collection("User").doc(uid).collection("TotalFunding").orderBy("Money", "desc").onSnapshot(querySnapshot => {
+            const list = []
+            querySnapshot.forEach(doc => {
+                if (doc.data().ongoing == 1) {
+                    list.push({
+                        name: doc.data().channel,
+                        value: doc.data().Money,
+                        color: doc.data().color,
+
+                    })
+                }
             })
             setitem(list)
         })
@@ -2335,31 +2386,31 @@ export function InvestDashboard({ rank, name, total, accumulate,uid }) {
                         marginTop: 20,
                         marginBottom: 10,
                     }}>
-                        <HSBar 
+                        <HSBar
                             height={27}
                             data={item}
                         />
                     </div>
                     <div className="desktop-ranking-grid-container">
-                            {item.map(ele => 
+                        {item.map(ele =>
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                            }}>
                                 <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}>
-                                    <div style={{
-                                        width: 8,
-                                        height: 8,
-                                        borderRadius: 4,
-                                        marginRight: 8,
-                                        backgroundColor: ele.color,
-                                    }} />
-                                    <div style={{
-                                        fontSize: 14,
-                                        color: "#161513"
-                                    }}>{ele.name} {ele.value}</div>
-                                </div>
-                            )}
+                                    width: 8,
+                                    height: 8,
+                                    borderRadius: 4,
+                                    marginRight: 8,
+                                    backgroundColor: ele.color,
+                                }} />
+                                <div style={{
+                                    fontSize: 14,
+                                    color: "#161513"
+                                }}>{ele.name} {ele.value}</div>
+                            </div>
+                        )}
                     </div>
                 </>
                 :
@@ -2369,3 +2420,195 @@ export function InvestDashboard({ rank, name, total, accumulate,uid }) {
     )
 }
 
+export function SignupModule() {
+    const [inputs, setInputs] = useState({
+        name: '',
+        password: ''
+    });
+
+    const { name, password } = inputs;
+
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+    };
+
+    const [passCheck, setPassCheck] = useState("")
+
+    const onPassCheck = (e) => {
+        setPassCheck(e.target.value)
+    }
+
+    //이메일과 비밀번호 유효
+    const [valid, setValid] = useState(false)
+    const [passValid, setPassValid] = useState(false)
+
+    //대문자, 숫자, 특수 문자를 조합한 8자리 이상
+    const [largeChar, setLargeChar] = useState(false)
+    const [number, setNumber] = useState(false)
+    const [uniqueChar, setUniqueChar] = useState(false)
+    const [lengthChar, setLengthChar] = useState(false)
+
+    useEffect(() => {
+        var num = passCheck.search(/[0-9]/g);
+        var large = passCheck.search(/[A-Z]/g)
+        var spe = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/;
+        if (passCheck.length > 7 || passCheck.length < 20) {
+            setLengthChar(true)
+        }
+        if (passCheck.length < 8 || passCheck.length > 20) {
+            setLengthChar(false)
+        }
+        if (passCheck.search(/₩s/) != -1) {
+            alert("비밀번호는 공백업이 입력해주세요.");
+            setPassCheck("")
+        } 
+        if (num >= 1) {
+            setNumber(true)
+        }
+        if (large >= 1) {
+            setLargeChar(true)
+        }
+        if (spe.test(passCheck)) {
+            setUniqueChar(true)
+        }
+        if (num < 0) {
+            setNumber(false)
+        }
+        if (large < 0) {
+            setLargeChar(false)
+        }
+        if (!spe.test(passCheck)) {
+            setUniqueChar(false)
+        }
+        console.log(passCheck)
+        if (inputs.password === passCheck) {
+            setPassValid(true)
+        }
+        if (inputs.password != passCheck) {
+            setPassValid(false)
+        }
+    }, [inputs, passCheck])
+    return (
+        <>
+            <div style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#202426",
+                marginBottom: 10,
+            }}>이메일 주소</div>
+            <input id="DID" type="text" name="name" style={{
+                width: 360,
+                paddingLeft: 20,
+                paddingRight: 20,
+                height: 56,
+
+                verticalAlign: "center",
+                fontSize: 18,
+                color: "#202426",
+                fontWeight: "normal",
+                backgroundColor: "#ffffff",
+                borderRadius: 10,
+                border: "1px solid #202426",
+
+                outlineColor: "#e78276",
+                marginBottom: valid ? 20 : 10,
+                WebkitAppearance: "none"
+            }} placeholder="이메일 주소 입력" value={name} onChange={onChange} />
+            {valid ?
+                <></>
+                :
+                <div style={{
+                    fontSize: 14,
+                    color: "#da1414",
+                    fontWeight: "normal",
+                    marginBottom: 10,
+                }}>유효한 이메일을 입력해주세요</div>
+            }
+            <div style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#202426",
+                marginBottom: 10,
+            }}>비밀번호</div>
+            <input id="DPASS" type="password" name="password" style={{
+                width: 360,
+                paddingLeft: 20,
+                paddingRight: 20,
+                height: 56,
+
+                verticalAlign: "center",
+                fontSize: 18,
+                color: "#202426",
+                fontWeight: "normal",
+                backgroundColor: "#ffffff",
+                border: "1px solid #202426",
+                borderRadius: 10,
+
+                outlineColor: "#e78276",
+                marginBottom: 20,
+                WebkitAppearance: "none",
+            }} placeholder="비밀번호 입력" value={password} onChange={onChange} />
+            <div style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#202426",
+                marginBottom: 10,
+            }}>비밀번호 확인</div>
+            <input id="DPASS" type="password" style={{
+                width: 360,
+                paddingLeft: 20,
+                paddingRight: 20,
+                height: 56,
+
+                verticalAlign: "center",
+                fontSize: 18,
+                color: "#202426",
+                fontWeight: "normal",
+                backgroundColor: "#ffffff",
+                border: "1px solid #202426",
+                borderRadius: 10,
+
+                outlineColor: "#e78276",
+                marginBottom: passValid ? 20 : 10,
+                WebkitAppearance: "none",
+            }} placeholder="비밀번호 확인" value={passCheck} onChange={onPassCheck} />
+            {passValid ?
+                <></>
+                :
+                <div style={{
+                    fontSize: 14,
+                    color: "#da1414",
+                    fontWeight: "normal",
+                    marginBottom: 10,
+                }}>비밀번호가 일치하지 않습니다</div>
+            }
+            <div style={{
+                fontSize: 16,
+                color: "#202426",
+                marginLeft: 10,
+                marginBottom: 10,
+            }}>영문 대문자, 숫자, 특수문자를 조합한 8자리 이상</div>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 10,
+                height: 20,
+                marginBottom: 35,
+            }}>
+                {largeChar ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" />}
+                <div style={{ fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10 }}>대문자</div>
+                {number ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" />}
+                <div style={{ fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10 }}>숫자</div>
+                {uniqueChar ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" />}
+                <div style={{ fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10 }}>특수문자</div>
+                {lengthChar ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" />}
+                <div style={{ fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10 }}>8자리 이상</div>
+            </div>
+        </>
+    )
+}

@@ -91,12 +91,11 @@
     display: grid;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
     width: 90vw;
     min-width: 300px;
     margin-bottom: 40px;
     align-items: center;
-    justify-content: space-evenly;
 }
 
 .desktop-ranking-grid-container {

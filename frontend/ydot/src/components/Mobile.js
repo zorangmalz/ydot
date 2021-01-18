@@ -10,23 +10,20 @@ import { useFirebase, useFirestore } from "react-redux-firebase"
 import "./component.css"
 
 //icon
-import { IoIosCalculator } from 'react-icons/io'
-import { FaUserCircle, FaArrowRight, FaArrowDown, FaFacebook } from 'react-icons/fa';
+import { FaUserCircle, FaFacebook, FaHeart } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
 import { BsCheck } from 'react-icons/bs'
-import { FiArrowRightCircle } from 'react-icons/fi';
-import { BiCheckCircle } from 'react-icons/bi'
-
-
-
-
-//Style.js에서 가져옴
-import { ProgressBar } from "./Style"
+import { BiCheckCircle, BiCheck } from 'react-icons/bi'
 
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"
 import rocketup from "./icon/rocketup.png"
 import rocketdown from "./icon/rocketdown.png"
+import leaf from "./icon/leaf.png"
+import tree from "./icon/tree.png"
+import unicon from "./icon/unicon.png"
+import colorrocket from "./icon/colorrocket.png"
+import typeexample from "./icon/typeexample.png"
 
 export default function MLoginHeader() {
     return (
@@ -374,71 +371,90 @@ export function MCreatorInfo({ img, name, FundingNum, percent, Deadline,sort,sec
     function move() {
         history.push("/fund/" + String(name),{creatorName:String(name)})
     }
+    
+    const subscribe = 0.1
+    const monthrate = 3
     return (
         <>
             <div onClick={move} style={{
-                width: 150,
-                height: 200,
+                width: "80%",
+                minWidth: 260,
+                paddingTop: 20,
+                paddingBottom: 15,
+                paddingLeft: 20,
+                paddingRight: 20,
+                height: 80,
                 borderRadius: 10,
-                border: "1px solid #D2D3D3",
                 backgroundColor: "#ffffff",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                marginTop: 20,
+                marginBottom: 20,
+                boxShadow: "0px 5px 15px 2px rgba(0, 0, 0, 0.12)"
             }}>
-                <img src={img} style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 35,
-                    marginTop: 10,
-                    objectFit: "cover"
-                }} />
                 <div style={{
-                    fontSize: 10,
-                    fontWeight: "bold",
-                    color: "#161513",
-                    marginTop: 10,
-                    width: 120,
-                }}>{name}</div>
-                <div style={{
-                    fontSize: 10,
-                    color: "#161513",
-                    marginTop: 7,
-                    width: 120,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 12 }}>{fundingAim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div> 원 펀딩 목표</div>
-                <div style={{
-                    fontSize: 10,
-                    color: "#202426",
-                    marginTop: 7,
-                    marginBottom: 7,
-                    width: 120,
-                    fontWeight: "bold",
-                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 준비중" : "D-" + `${Deadline}`}</div>
-                <MProgressBar completed={percent} />
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    marginBottom: 10,
+                }}>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
+                        <img src={img} alt="" style={{
+                            width: 50,
+                            height: 50,
+                            borderRadius: 25,
+                            objectFit: "contain"
+                        }} />
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            justifyContent: "space-between",
+                            width: 180,
+                            height: 50,
+                            marginLeft: 10,
+                        }}>
+                            <div style={{
+                                fontSize: 12,
+                                fontWeight: "bold",
+                                color: "#202426",
+                            }}>{name}</div>
+                            <div style={{
+                                fontSize: 10,
+                                color: "#202426",
+                            }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 12 }}>{(fundingAim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}</div> 원 펀딩 목표</div>
+                            <div style={{
+                                fontSize: 12,
+                                color: "#202426",
+                            }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 종료" : "D-" + `${Deadline}`}</div>
+                        </div>
+                    </div>
+                    <FaHeart size={18} color="#e78276" />
+                </div>
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: 7,
-                    fontSize: 8,
-                    fontWeight: "normal",
-                    color: "#161513",
-                    width: 130,
+                    width: "100%",
                 }}>
                     <div style={{
-                        border: "1px solid #202426",
-                        padding: "1.5px 3px",
-                        fontSize: 8,
-                        borderRadius: 20,
-                        marginRight: 4,
-                    }}># {sector}</div>
-                    <div style={{
-                        fontSize: 8,
-                        border: "1px solid #202426",
-                        padding: "1.5px 3px",
-                        borderRadius: 20,
-                    }}># {sort}</div>
+                        width: 50,
+                        marginRight: 10,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-evenly"
+                    }}>
+                        {subscribe < 1 ? <img src={leaf} style={{ width: 20, height: 20 }} /> : subscribe < 10 ? <img src={tree} style={{ width: 20, height: 20 }} /> : <img src={unicon} style={{ width: 20, height: 20 }} />}
+                        {monthrate < 4 ? <div style={{ width: 20, height: 20 }} /> : <img src={colorrocket} style={{ width: 20, height: 20 }} />}
+                    </div>
+                    <MProgressBar completed={percent} />
                 </div>
             </div>
         </>
@@ -449,7 +465,7 @@ export function MProgressBar({ completed }) {
 
     const containerStyles = {
         height: 10,
-        width: 120,
+        width: "60%",
         backgroundColor: "#efefef",
         borderRadius: 10,
     }
@@ -613,25 +629,25 @@ export function MBottomTag() {
                 minWidth: 300,
                 backgroundColor: "#ffffff",
                 paddingTop: 20,
-                paddingBottom: 40,
+                paddingBottom: 20,
                 borderTop: "1px solid #D2D3D3",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
             }}>
                 <div style={{
-                    fontSize: 74,
+                    fontSize: 60,
                     fontWeight: "bold",
                     color: "#202426",
                     letterSpacing: 0.89,
-                    marginBottom: 20,
+                    marginBottom: 10,
                 }}>Y<div style={{display: "inline-block", color: "#da877a"}}>.</div></div>
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    marginBottom: 40,
+                    marginBottom: 20,
                 }}>
                     <div style={{
                         display: "flex",
@@ -639,7 +655,7 @@ export function MBottomTag() {
                         alignItems: "center"
                     }}>
                         <input type="button" style={{
-                            fontSize: 18,
+                            fontSize: 14,
                             color: "#202426",
                             cursor: "pointer",
                             outline: 0,
@@ -648,7 +664,7 @@ export function MBottomTag() {
                             WebkitAppearance: "none"
                         }} value="About" />
                         <input type="button" style={{
-                            fontSize: 18,
+                            fontSize: 14,
                             color: "#202426",
                             cursor: "pointer",
                             outline: 0,
@@ -658,7 +674,7 @@ export function MBottomTag() {
                         }} value="Contact" />
                         <a  target="_blank"  href={"https://sites.google.com/view/ydotpersonal/%ED%99%88"}>
                         <input type="button" style={{
-                            fontSize: 18,
+                            fontSize: 14,
                             color: "#202426",
                             cursor: "pointer",
                             outline: 0,
@@ -676,7 +692,7 @@ export function MBottomTag() {
                     }}>
                         <a  target="_blank"  href={"https://sites.google.com/view/ydotuse/%ED%99%88"}>
                         <input type="button" style={{
-                            fontSize: 18,
+                            fontSize: 14,
                             color: "#202426",
                             cursor: "pointer",
                             outline: 0,
@@ -686,7 +702,7 @@ export function MBottomTag() {
                         }} value="Terms of Service" />
                         </a>
                         <input type="button" style={{
-                            fontSize: 18,
+                            fontSize: 14,
                             fontWeight: "bold",
                             color: "#202426",
                             cursor: "pointer",
@@ -718,11 +734,11 @@ export function MBottomTag() {
                 flexDirection: "column",
                 alignItems: "center",
             }}>
-                <div style={{ width: "90vw", textAlign: "center", fontSize: 14, color: "#ffffff", marginBottom: 10 }}>주식회사 조랑말즈</div>
-                <div style={{ width: "90vw", textAlign: "center", fontSize: 14, color: "#ffffff", marginBottom: 10 }}>대표자 : 김현명</div>
-                <div style={{ width: "90vw", textAlign: "center", fontSize: 14, color: "#ffffff", marginBottom: 10 }}>서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
-                <div style={{ width: "90vw", textAlign: "center", fontSize: 14, color: "#ffffff", marginBottom: 10 }}>사업자 등록번호 : 20310-2300-12302</div>
-                <div style={{ width: "90vw", textAlign: "center", fontSize: 14, color: "#ffffff", opacity: 0.9, fontWeight: "bold" }}>© Jorangmals Co., Ltd.</div>
+                <div style={{ width: "90vw", textAlign: "center", fontSize: 10, color: "#ffffff", marginBottom: 10 }}>주식회사 조랑말즈</div>
+                <div style={{ width: "90vw", textAlign: "center", fontSize: 10, color: "#ffffff", marginBottom: 10 }}>대표자 : 김현명</div>
+                <div style={{ width: "90vw", textAlign: "center", fontSize: 10, color: "#ffffff", marginBottom: 10 }}>서울특별시 종로구 창경궁로 1길 35-38 킹고스타트업 스페이스 306호</div>
+                <div style={{ width: "90vw", textAlign: "center", fontSize: 10, color: "#ffffff", marginBottom: 10 }}>사업자 등록번호 : 20310-2300-12302</div>
+                <div style={{ width: "90vw", textAlign: "center", fontSize: 10, color: "#ffffff", opacity: 0.9, fontWeight: "bold" }}>© Jorangmals Co., Ltd.</div>
             </div>
         </>
     )
@@ -1989,6 +2005,336 @@ export function MInvestDashboard({ rank, name, total, accumulate,uid }) {
                 :
                 <></>
             }
+        </div>
+    )
+}
+
+export function MSignupModule() {
+    const [inputs, setInputs] = useState({
+        name: '',
+        password: ''
+    });
+
+    const { name, password } = inputs;
+
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+    };
+
+    const [passCheck, setPassCheck] = useState("")
+
+    const onPassCheck = (e) => {
+        setPassCheck(e.target.value)
+    }
+
+    //이메일과 비밀번호 유효
+    const [valid, setValid] = useState(false)
+    const [passValid, setPassValid] = useState(false)
+
+    //대문자, 숫자, 특수 문자를 조합한 8자리 이상
+    const [largeChar, setLargeChar] = useState(false)
+    const [number, setNumber] = useState(false)
+    const [uniqueChar, setUniqueChar] = useState(false)
+    const [lengthChar, setLengthChar] = useState(false)
+
+    useEffect(() => {
+        var num = passCheck.search(/[0-9]/g);
+        var large = passCheck.search(/[A-Z]/g)
+        var spe = /[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/;
+        if (passCheck.length > 7 || passCheck.length < 20) {
+            setLengthChar(true)
+        }
+        if (passCheck.length < 8 || passCheck.length > 20) {
+            setLengthChar(false)
+        }
+        if (passCheck.search(/₩s/) != -1) {
+            alert("비밀번호는 공백업이 입력해주세요.");
+            setPassCheck("")
+        } 
+        if (num >= 1) {
+            setNumber(true)
+        }
+        if (large >= 1) {
+            setLargeChar(true)
+        }
+        if (spe.test(passCheck)) {
+            setUniqueChar(true)
+        }
+        if (num < 0) {
+            setNumber(false)
+        }
+        if (large < 0) {
+            setLargeChar(false)
+        }
+        if (!spe.test(passCheck)) {
+            setUniqueChar(false)
+        }
+        console.log(passCheck)
+        if (inputs.password === passCheck) {
+            setPassValid(true)
+        }
+        if (inputs.password != passCheck) {
+            setPassValid(false)
+        }
+    }, [inputs, passCheck])
+    return (
+        <>
+            <div style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                color: "#202426",
+                marginBottom: 10,
+            }}>이메일 주소</div>
+            <input id="DID" name="name" style={{
+                width: 270,
+                paddingLeft: 15,
+                paddingRight: 15,
+                height: 48,
+                borderRadius: 10,
+                fontSize: 18,
+                color: "#202426",
+                fontWeight: "normal",
+                backgroundColor: "#ffffff",
+                border: "1px solid #202426",
+                outlineColor: "#e78276",
+                marginBottom: valid ? 20 : 10,
+                WebkitAppearance: "none"
+            }} placeholder="이메일 주소 입력" value={name} onChange={onChange} />
+            {valid ?
+                <></>
+                :
+                <div style={{
+                    fontSize: 14,
+                    color: "#da1414",
+                    fontWeight: "normal",
+                    marginBottom: 10,
+                }}>유효한 이메일을 입력해주세요</div>
+            }
+            <div style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                color: "#202426",
+                marginBottom: 10,
+            }}>비밀번호</div>
+            <input id="DPASS" type="password" name="password" style={{
+                width: 270,
+                paddingLeft: 15,
+                paddingRight: 15,
+                height: 48,
+                borderRadius: 10,
+                fontSize: 18,
+                color: "#202426",
+                fontWeight: "normal",
+                backgroundColor: "#ffffff",
+                border: "1px solid #202426",
+                outlineColor: "#e78276",
+                marginBottom: 20,
+                WebkitAppearance: "none",
+            }} placeholder="비밀번호 입력" value={password} onChange={onChange} />
+            <div style={{
+                fontSize: 14,
+                fontWeight: "bold",
+                color: "#202426",
+                marginBottom: 10,
+            }}>비밀번호 확인</div>
+            <input id="DPASS" type="password" style={{
+                width: 270,
+                paddingLeft: 15,
+                paddingRight: 15,
+                height: 48,
+                borderRadius: 10,
+                fontSize: 18,
+                color: "#202426",
+                fontWeight: "normal",
+                backgroundColor: "#ffffff",
+                border: "1px solid #202426",
+                outlineColor: "#e78276",
+                marginBottom: passValid ? 20 : 10,
+                WebkitAppearance: "none",
+            }} placeholder="비밀번호 확인" value={passCheck} onChange={onPassCheck} />
+            {passValid ?
+                <></>
+                :
+                <div style={{
+                    fontSize: 14,
+                    color: "#da1414",
+                    fontWeight: "normal",
+                    marginBottom: 10,
+                }}>유효한 이메일을 입력해주세요</div>
+            }
+            <div style={{
+                fontSize: 14,
+                color: "#202426",
+                marginLeft: 10,
+                marginBottom: 10,
+            }}>영문 대문자, 숫자, 특수문자를 조합한 8자리 이상</div>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 10,
+                height: 20,
+                marginBottom: 35,
+            }}>
+                {largeChar ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" />}
+                <div style={{ fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5 }}>대문자</div>
+                {number ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" />}
+                <div style={{ fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5 }}>숫자</div>
+                {uniqueChar ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" />}
+                <div style={{ fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5 }}>특수분자</div>
+                {lengthChar ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" />}
+                <div style={{ fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5 }}>8자리 이상</div>
+            </div>
+        </>
+    )
+}
+
+export function MYdotCard({ title, content, img, backgroundColor }) {
+    return (
+        <div className="information" style={{
+            width: "80%",
+            minWidth: 260,
+            height: 85,
+            padding: 20,
+            backgroundColor: backgroundColor,
+            borderRadius: 15,
+            marginBottom: 20,
+
+            cursor: "pointer",
+
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between"
+        }}>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "space-evenly",
+
+                width: 180,
+                height: "100%"
+            }}>
+                <div style={{
+                    fontSize: 14,
+                    color: "#ffffff",
+                }}>{title}</div>
+                <div style={{
+                    fontSize: 16,
+                    color: "#ffffff",
+                    fontWeight: "bold"
+                }}>{content}</div>
+            </div>
+            <img style={{ width: 60, height: 93 }} src={img} />
+        </div>
+    )
+}
+
+export function MNowCard({ thumbnail, title, icon, name }) {
+    return (
+        <div style={{
+            width: 170,
+
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            backgroundColor: "#ffffff"
+        }}>
+            <img src={thumbnail} alt="썸네일" style={{ width: 170, height: 110, objectFit: "contain" }} />
+            <div style={{
+                width: 170,
+                marginTop: 10,
+
+                fontSize: 12,
+                fontWeight: "bold",
+                color: "#202426"
+            }}>{title}</div>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                marginTop: 10,
+            }}>
+                <img src={icon} alt="채널 아이콘" style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 15,
+                }} />
+                <div style={{
+                    height: 30,
+                    marginLeft: 8,
+
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "space-evenly"
+                }}>
+                    <div style={{
+                        fontSize: 12,
+                        color: "#202426"
+                    }}>{name}</div>
+                    <div style={{
+                        fontSize: 10,
+                        color: "#4c4f51"
+                    }}>10분전</div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export function MTypeCard({type}) {
+    return (
+        <div style={{
+            minWidth: 120,
+            height: 80,
+            marginRight: 20,
+            borderRadius: 10,
+
+            position: "relative",
+            cursor: "pointer",
+            backgroundColor: "#000000"
+        }}>
+            <div style={{
+                position: "absolute",
+                zIndex: 1,
+
+                width: 120,
+                height: 80,
+                borderRadius: 10,
+                opacity: 0.4,
+                backgroundColor: "#000000"
+            }} />
+            <img src={typeexample} style={{
+                position: "absolute",
+                zIndex: 0,
+
+                width: 120,
+                height: 80,
+                borderRadius: 10,
+                objectFit: "contain"
+            }} />
+            <div style={{
+                position: "relative",
+                zIndex: 3,
+                width: "100%",
+                height: "100%",
+                
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "#ffffff",
+                textAlign: "center",
+            }}># {type}</div>
         </div>
     )
 }

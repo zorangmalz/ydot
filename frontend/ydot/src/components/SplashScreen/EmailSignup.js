@@ -2,13 +2,14 @@ import React, { useState } from "react"
 import { Link, useHistory } from 'react-router-dom';
 
 //디자인
-import MLoginHeader from "../Mobile";
+import MLoginHeader, { MSignupModule } from "../Mobile";
 import { FaUserCircle } from "react-icons/fa"
 import { BsCheck, BsChevronDown } from 'react-icons/bs'
 import { BiCheck } from "react-icons/bi"
 
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
+import { SignupModule } from "../Style";
 
 
 export default function EmailSignup() {
@@ -23,9 +24,6 @@ export default function EmailSignup() {
         const isNotMobile = useMediaQuery({ minWidth: 451 })
         return isNotMobile ? children : null
     }
-
-    //이메일 유효
-    const [valid, setValid] = useState(false)
 
     //이용약관 동의
     const [totalAgree, setTotalAgree] = useState(false)
@@ -43,12 +41,6 @@ export default function EmailSignup() {
         }
     }
     const [fold, setFold] = useState(false)
-
-    //대문자, 숫자, 특수 문자를 조합한 8자리 이상
-    const [largeChar, setLargeChar] = useState(false)
-    const [number, setNumber] = useState(false)
-    const [uniqueChar, setUniqueChar] = useState(false)
-    const [lengthChar, setLengthChar] = useState(false)
 
     return (
         <div>
@@ -125,111 +117,7 @@ export default function EmailSignup() {
                                 color: "#202426",
                                 marginBottom: 40
                             }}>회원가입</div>
-                            <div style={{
-                                fontSize: 16,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 10,
-                            }}>이메일 주소</div>
-                            <input id="DID" type="text" style={{
-                                width: 360,
-                                paddingLeft: 20,
-                                paddingRight: 20,
-                                height: 56,
-
-                                verticalAlign: "center",
-                                fontSize: 18,
-                                color: "#202426",
-                                fontWeight: "normal",
-                                backgroundColor: "#ffffff",
-                                borderRadius: 10,
-                                border: "1px solid #202426",
-
-                                outlineColor: "#e78276",
-                                marginBottom: valid ? 20 : 10,
-                                WebkitAppearance: "none"
-                            }} placeholder="이메일 주소 입력" />
-                            {valid ?
-                                <></>
-                                :
-                                <div style={{
-                                    fontSize: 14,
-                                    color: "#da1414",
-                                    fontWeight: "normal",
-                                    marginBottom: 10,
-                                }}>유효한 이메일을 입력해주세요</div>
-                            }
-                            <div style={{
-                                fontSize: 16,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 10,
-                            }}>비밀번호</div>
-                            <input id="DPASS" type="password" style={{
-                                width: 360,
-                                paddingLeft: 20,
-                                paddingRight: 20,
-                                height: 56,
-
-                                verticalAlign: "center",
-                                fontSize: 18,
-                                color: "#202426",
-                                fontWeight: "normal",
-                                backgroundColor: "#ffffff",
-                                border: "1px solid #202426",
-                                borderRadius: 10,
-
-                                outlineColor: "#e78276",
-                                marginBottom: 20,
-                                WebkitAppearance: "none",
-                            }} placeholder="비밀번호 입력" />
-                            <div style={{
-                                fontSize: 16,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 10,
-                            }}>비밀번호 확인</div>
-                            <input id="DPASS" type="password" style={{
-                                width: 360,
-                                paddingLeft: 20,
-                                paddingRight: 20,
-                                height: 56,
-
-                                verticalAlign: "center",
-                                fontSize: 18,
-                                color: "#202426",
-                                fontWeight: "normal",
-                                backgroundColor: "#ffffff",
-                                border: "1px solid #202426",
-                                borderRadius: 10,
-
-                                outlineColor: "#e78276",
-                                marginBottom: 20,
-                                WebkitAppearance: "none",
-                            }} placeholder="비밀번호 확인" />
-                            <div style={{
-                                fontSize: 16,
-                                color: "#202426",
-                                marginLeft: 10,
-                                marginBottom: 10,
-                            }}>영문 대문자, 숫자, 특수문자를 조합한 8자리 이상</div>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                marginLeft: 10,
-                                height: 20,
-                                marginBottom: 35,
-                            }}>
-                                {largeChar ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" /> }
-                                <div style={{fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10}}>대문자</div>
-                                {number ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" /> }
-                                <div style={{fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10}}>숫자</div>
-                                {uniqueChar ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" /> }
-                                <div style={{fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10}}>특수분자</div>
-                                {lengthChar ? <BiCheck size={16} color="#5aca75" /> : <BiCheck size={16} color="#202426" /> }
-                                <div style={{fontSize: 16, color: "#202426", marginLeft: 10, marginRight: 10}}>8자리 이상</div>
-                            </div>
+                            <SignupModule />
                             <div style={{
                                 display: "flex",
                                 flexDirection: "row",
@@ -406,102 +294,7 @@ export default function EmailSignup() {
                                 color: "#202426",
                                 marginBottom: 20
                             }}>회원가입</div>
-                            <div style={{
-                                fontSize: 14,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 10,
-                            }}>이메일 주소</div>
-                            <input id="DID" style={{
-                                width: 270,
-                                paddingLeft: 15,
-                                paddingRight: 15,
-                                height: 48,
-                                borderRadius: 10,
-                                fontSize: 18,
-                                color: "#202426",
-                                fontWeight: "normal",
-                                backgroundColor: "#ffffff",
-                                border: "1px solid #202426",
-                                outlineColor: "#e78276",
-                                marginBottom: valid ? 20 : 10,
-                                WebkitAppearance: "none"
-                            }} placeholder="이메일 주소 입력" />
-                            {valid ?
-                                <></>
-                                :
-                                <div style={{
-                                    fontSize: 14,
-                                    color: "#da1414",
-                                    fontWeight: "normal",
-                                    marginBottom: 10,
-                                }}>유효한 이메일을 입력해주세요</div>
-                            }
-                            <div style={{
-                                fontSize: 14,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 10,
-                            }}>비밀번호</div>
-                            <input id="DPASS" type="password" style={{
-                                width: 270,
-                                paddingLeft: 15,
-                                paddingRight: 15,
-                                height: 48,
-                                borderRadius: 10,
-                                fontSize: 18,
-                                color: "#202426",
-                                fontWeight: "normal",
-                                backgroundColor: "#ffffff",
-                                border: "1px solid #202426",
-                                outlineColor: "#e78276",
-                                marginBottom: 20,
-                                WebkitAppearance: "none",
-                            }} placeholder="비밀번호 입력" />
-                            <div style={{
-                                fontSize: 14,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 10,
-                            }}>비밀번호 확인</div>
-                            <input id="DPASS" type="password" style={{
-                                width: 270,
-                                paddingLeft: 15,
-                                paddingRight: 15,
-                                height: 48,
-                                borderRadius: 10,
-                                fontSize: 18,
-                                color: "#202426",
-                                fontWeight: "normal",
-                                backgroundColor: "#ffffff",
-                                border: "1px solid #202426",
-                                outlineColor: "#e78276",
-                                marginBottom: 20,
-                                WebkitAppearance: "none",
-                            }} placeholder="비밀번호 확인" />
-                            <div style={{
-                                fontSize: 14,
-                                color: "#202426",
-                                marginLeft: 10,
-                                marginBottom: 10,
-                            }}>영문 대문자, 숫자, 특수문자를 조합한 8자리 이상</div>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                marginLeft: 10,
-                                height: 20,
-                                marginBottom: 35,
-                            }}>
-                                {largeChar ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" /> }
-                                <div style={{fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5}}>대문자</div>
-                                {number ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" /> }
-                                <div style={{fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5}}>숫자</div>
-                                {uniqueChar ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" /> }
-                                <div style={{fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5}}>특수분자</div>
-                                {lengthChar ? <BiCheck size={14} color="#5aca75" /> : <BiCheck size={14} color="#202426" /> }
-                                <div style={{fontSize: 14, color: "#202426", marginLeft: 5, marginRight: 5}}>8자리 이상</div>
-                            </div>
+                            <MSignupModule />
                             <div style={{
                                 display: "flex",
                                 flexDirection: "row",

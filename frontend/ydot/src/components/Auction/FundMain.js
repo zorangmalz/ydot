@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useMediaQuery } from 'react-responsive'
-import Header, { BottomTag, CreatorInfo, vw } from '../Style'
+import Header, { BottomTag, CreatorInfo, NewCreatorInfo, TypeCard, vw } from '../Style'
 
 //임시 이미지
-import Exampleone from '../icon/exampleone.png'
-import Exampletwo from '../icon/exampletwo.png'
-import Examplethree from '../icon/examplethree.png'
-import Examplefour from '../icon/examplefour.png'
-import { MBottomTag, MCreatorInfo, MHeader } from '../Mobile'
+import { MBottomTag, MCreatorInfo, MHeader, MTypeCard } from '../Mobile'
 
 export default function FundMain() {
     //모바일 대응
@@ -134,15 +130,43 @@ export default function FundMain() {
                         backgroundColor: "#ffffff",
                         width: "56vw",
                         minWidth: 1060,
-                        paddingTop: 40
+                        paddingTop: 40,
                     }}>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            overflowX: "scroll",
+                            width: 1060,
+                            height: 120,
+                        }}>
+                            <TypeCard 
+                                type="전체"
+                            />
+                            <TypeCard 
+                                type="푸드"
+                            />
+                            <TypeCard 
+                                type="음악"
+                            />
+                            <TypeCard 
+                                type="Vlog"
+                            />
+                            <TypeCard 
+                                type="펫"
+                            />
+                            <TypeCard 
+                                type="IT"
+                            />
+                        </div>
                         <div style={{
                             fontSize: 21,
                             fontWeight: "bold",
                             alignSelf: "flex-start",
                             color: "#202426",
+                            marginTop: 40,
                             marginBottom: 40
-                        }}>진행중인 펀딩</div>
+                        }}>전체 펀딩</div>
                         <div className="grid-container">
                             {items.map(element =>
                                 <CreatorInfo
@@ -156,6 +180,7 @@ export default function FundMain() {
                                     fundingAim={element.fundingAim}
                                 />
                             )}
+                            <NewCreatorInfo />
                         </div>
                     </div>
                     <div style={{
@@ -164,6 +189,7 @@ export default function FundMain() {
                         fontSize: 21,
                         fontWeight: "bold",
                         color: "#202426",
+                        marginTop: 60,
                         marginBottom: 40
                     }}>종료된 펀딩</div>
                     <div className="grid-container">
@@ -193,10 +219,35 @@ export default function FundMain() {
                     marginTop: 80,
                 }}>
                     <div style={{
-                        width: "100vw",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        overflowX: "scroll",
+                        width: "90vw",
                         minWidth: 300,
-                        borderTop: "1px solid #D2D3D3",
-                    }} />
+                        height: 80,
+                        position: "relative",
+                        marginTop: 30,
+                    }}>
+                        <MTypeCard
+                            type="전체"
+                        />
+                        <MTypeCard
+                            type="푸드"
+                        />
+                        <MTypeCard
+                            type="음악"
+                        />
+                        <MTypeCard
+                            type="Vlog"
+                        />
+                        <MTypeCard
+                            type="펫"
+                        />
+                        <MTypeCard
+                            type="IT"
+                        />
+                    </div>
                     <div style={{
                         display: "flex",
                         flexDirection: "column",
@@ -204,40 +255,41 @@ export default function FundMain() {
                         backgroundColor: "#ffffff",
                         width: "100vw",
                         minWidth: 300,
-                        paddingTop: 40
                     }}>
                         <div style={{
-                            fontSize: 21,
+                            fontSize: 18,
                             fontWeight: "bold",
-                            alignSelf: "center",
                             color: "#202426",
-                            textAlign: "center",
-                            marginBottom: 20
-                        }}>진행중인 펀딩</div>
-                        <div className="mobile-grid-container">
-                            {items.map(element =>
-                                <MCreatorInfo
-                                    img={element.img}
-                                    name={element.name}
-                                    FundingNum={element.FundingNum}
-                                    percent={element.percent}
-                                    Deadline={element.Deadline}
-                                    sort={element.sort}
-                                    sector={element.sector}
-                                    fundingAim={element.fundingAim}
-                                />
-                            )}
-                        </div>
+                            textAlign: "left",
+                            width: "90%",
+
+                            minWidth: 300,
+                            marginBottom: 20,
+                            marginTop: 20,
+                        }}>전체 펀딩</div>
+                        {items.map(element =>
+                            <MCreatorInfo
+                                img={element.img}
+                                name={element.name}
+                                FundingNum={element.FundingNum}
+                                percent={element.percent}
+                                Deadline={element.Deadline}
+                                sort={element.sort}
+                                sector={element.sector}
+                                fundingAim={element.fundingAim}
+                            />
+                        )}
                     </div>
                     <div style={{
-                        width: "90vw",
-                        minWidth: 300,
-                        fontSize: 21,
+                        fontSize: 18,
                         fontWeight: "bold",
                         color: "#202426",
-                        marginTop: 40,
-                        marginBottom: 40,
-                        textAlign: "center"
+                        textAlign: "left",
+                        width: "90%",
+
+                        minWidth: 300,
+                        marginBottom: 20,
+                        marginTop: 20,
                     }}>종료된 펀딩</div>
                     <div style={{
                         width: "100vw",
@@ -247,20 +299,18 @@ export default function FundMain() {
                         alignItems: "center",
                         marginBottom: 40,
                     }}>
-                        <div className="mobile-grid-container">
-                            {itemss.map(element =>
-                                <MCreatorInfo
-                                    img={element.img}
-                                    name={element.name}
-                                    FundingNum={element.FundingNum}
-                                    percent={element.percent}
-                                    Deadline={element.Deadline}
-                                    sort={element.sort}
-                                    sector={element.sector}
-                                    fundingAim={element.fundingAim}
-                                />
-                            )}
-                        </div>
+                        {itemss.map(element =>
+                            <MCreatorInfo
+                                img={element.img}
+                                name={element.name}
+                                FundingNum={element.FundingNum}
+                                percent={element.percent}
+                                Deadline={element.Deadline}
+                                sort={element.sort}
+                                sector={element.sector}
+                                fundingAim={element.fundingAim}
+                            />
+                        )}
                     </div>
                     <MBottomTag />
                 </div>
