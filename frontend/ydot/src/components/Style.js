@@ -14,13 +14,18 @@ import "./component.css"
 //아이콘
 import { FaUserCircle, FaArrowRight, FaFacebook } from 'react-icons/fa';
 import { AiFillCaretDown, AiFillTwitterCircle } from 'react-icons/ai';
-import { BsCheck } from 'react-icons/bs'
+import { BsCheck, BsArrowRightShort } from 'react-icons/bs'
 import { BiCheckCircle } from 'react-icons/bi'
+import { FaHeart, FaRegHeart } from "react-icons/fa"
 
 //이미지
 import kakaotalk from "./icon/kakaotalk.png"
 import rocketup from "./icon/rocketup.png"
 import rocketdown from "./icon/rocketdown.png"
+import leaf from "./icon/leaf.png"
+import tree from "./icon/tree.png"
+import unicon from "./icon/unicon.png"
+import colorrocket from "./icon/colorrocket.png"
 
 export const vw = window.innerWidth / 100
 export const vh = window.innerHeight / 100
@@ -427,68 +432,253 @@ export function FAQ({ title, content, value, onClick }) {
 }
 
 //HomeMain.js와 AuctionMain.js 요소
-export function CreatorInfo({ img, name, percent, Deadline,sort,sector,fundingAim }) {
+export function CreatorInfo({ img, name, percent, Deadline, sort, sector, fundingAim }) {
     const history = useHistory()
 
     //link 쓰려다가 화면이 이상해져서 history 로 대체. 뭔차인지는 모르겠음ㅇ
     function move() {
-        history.push("/fund/" + String(name),{creatorName:String(name)})
+        history.push("/fund/" + String(name), { creatorName: String(name) })
     }
+
+    const subscribe = 0.1
+    const monthrate = 3
     return (
         <>
             <div onClick={move} className="creator-info">
-                <img src={img} alt="" style={{
-                    width: 100,
-                    height: 100,
-                    borderRadius:100,
-                    marginTop:20
-                }} />
                 <div style={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    color: "#161513",
-                    marginTop: 20,
-                    width: 195,
-                }}>{name}</div>
-                <div style={{
-                    fontSize: 16,
-                    color: "#161513",
-                    marginTop: 10,
-                    width: 195,
-                }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 18 }}>{(fundingAim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}</div> 원 펀딩 목표</div>
-                <div style={{
-                    fontSize: 16,
-                    color: "#202426",
-                    marginTop: 10,
-                    marginBottom: 10,
-                    width: 195,
-                    fontWeight: "bold",
-                }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 종료" : "D-" + `${Deadline}`}</div>
-                <ProgressBar completed={percent} />
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    marginBottom: 20,
+                }}>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
+                        <img src={img} alt="" style={{
+                            width: 100,
+                            height: 100,
+                            borderRadius: 10,
+                            objectFit: "contain"
+                        }} />
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            justifyContent: "space-between",
+                            width: 252,
+                            height: 100,
+                            marginLeft: 20,
+                        }}>
+                            <div style={{
+                                fontSize: 22,
+                                fontWeight: "bold",
+                                color: "#202426",
+                            }}>{name}</div>
+                            <div style={{
+                                fontSize: 16,
+                                color: "#202426",
+                            }}><div style={{ display: "inline-block", fontWeight: "bold", fontSize: 22 }}>{(fundingAim.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))}</div> 원 펀딩 목표</div>
+                            <div style={{
+                                fontSize: 18,
+                                color: "#202426",
+                            }}>{percent.toFixed(0)}% | {Deadline < 0 ? "펀딩 종료" : "D-" + `${Deadline}`}</div>
+                        </div>
+                    </div>
+                    <FaHeart size={32} color="#e78276" />
+                </div>
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: 10,
-                    fontSize: 12,
-                    fontWeight: "normal",
-                    color: "#161513",
-                    width: 195,
+                    width: "100%",
                 }}>
                     <div style={{
-                        border: "1px solid #202426",
-                        padding: "4px 8px",
-                        borderRadius: 20,
-                        marginRight: 4,
-                    }}># {sector}</div>
-                    <div style={{
-                        border: "1px solid #202426",
-                        padding: "4px 8px",
-                        borderRadius: 20,
-                    }}># {sort}</div>
+                        width: 100,
+                        marginRight: 20,
+                        height: 32,
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-evenly"
+                    }}>
+                        {subscribe < 1 ? <img src={leaf} style={{width: 32, height: 32}} /> : subscribe <10 ? <img src={tree} style={{width: 32, height: 32}}  /> : <img src={unicon} style={{width: 32, height: 32}}  /> }
+                        {monthrate < 4 ? <div style={{width: 32, height: 32}} /> : <img src={colorrocket} style={{width: 32, height: 32}} /> }
+                    </div>
+                    <ProgressBar completed={percent} />
                 </div>
             </div>
         </>
+    )
+}
+
+export function NewCreatorInfo() {
+    return (
+        <>
+            <div className="creator-info">
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "flex-start",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    marginBottom: 20,
+                }}>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
+                        <div style={{
+                            width: 100,
+                            height: 100,
+                            borderRadius: 10,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "#202426",
+
+                            fontSize: 50,
+                            color: "#ffffff",
+                            fontWeight: "bold"
+                        }}>?</div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            justifyContent: "space-between",
+                            width: 300,
+                            height: 100,
+                            marginLeft: 20,
+                        }}>
+                            <div style={{
+                                fontSize: 22,
+                                fontWeight: "bold",
+                                color: "#202426",
+                            }}>다음 크리에이터를 선정해주세요!</div>
+                            <div style={{
+                                fontSize: 18,
+                                color: "#4c4f51",
+                                height: 58,
+                            }}>매달 커뮤니티 투표를 통해 선정된 
+                            크리에이터에게 제안을 보냅니다.</div>
+                        </div>
+                    </div>
+                </div>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    alignSelf: "flex-start",
+                    marginLeft: 120,
+                }}>
+                    <div style={{
+                        fontSize: 18,
+                        color: "#202426",
+                        fontWeight: "bold",
+                        marginRight: 8
+                    }}>투표하러가기</div>
+                    <BsArrowRightShort size={24} color="#202426" />
+                </div>
+            </div>
+        </>
+    )
+}
+
+export function YdotCard({title, content, img, backgroundColor}) {
+    return (
+        <div className="information" style={{
+            width: 430,
+            height: 124,
+            padding: 40,
+            backgroundColor: backgroundColor,
+            borderRadius: 15,
+
+            cursor: "pointer",
+
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between"
+        }}>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+
+                width: 290,
+                height: "100%"
+            }}>
+                <div style={{
+                    fontSize: 22,
+                    color: "#ffffff",
+                }}>{title}</div>
+                <div style={{
+                    fontSize: 26,
+                    color: "#ffffff",
+                    fontWeight: "bold"
+                }}>{content}</div>
+            </div>
+            <img style={{ width: 80, height: 124 }} src={img} />
+        </div>
+    )
+}
+
+export function NowCard({thumbnail, title, icon, name}) {
+    return (
+        <div style={{
+            width: 250,
+
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            backgroundColor: "#ffffff"
+        }}>
+            <img src={thumbnail} alt="썸네일" style={{width: 250, height: 170, objectFit: "contain"}} />
+            <div style={{
+                width: 250,
+                marginTop: 10,
+                
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "#202426"
+            }}>{title}</div>
+            <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                marginTop: 10,
+            }}>
+                <img src={icon} alt="채널 아이콘" style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 24,
+                }} />
+                <div style={{
+                    height: 48,
+                    marginLeft: 10,
+
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    justifyContent: "space-evenly"
+                }}>
+                    <div style={{
+                        fontSize: 16,
+                        color: "#202426"
+                    }}>{name}</div>
+                    <div style={{
+                        fontSize: 12,
+                        color: "#4c4f51"
+                    }}>10분전</div>
+                </div>
+            </div>
+        </div>
     )
 }
 
@@ -533,7 +723,7 @@ export function ProgressBar({ completed }) {
 
     const containerStyles = {
         height: 10,
-        width: 195,
+        width: 240,
         backgroundColor: "#efefef",
         borderRadius: 10,
     }

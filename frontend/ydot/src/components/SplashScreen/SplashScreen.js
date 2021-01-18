@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import Header, { CreatorInfo, CloseBeta, BottomTag, TopBanner, InvestDashboard } from '../Style'
+import Header, { CreatorInfo, CloseBeta, BottomTag, TopBanner, InvestDashboard, NewCreatorInfo, YdotCard, NowCard } from '../Style'
 import { MBottomTag, MCloseBeta, MCreatorInfo, MHeader, MTopBanner, MInvestDashboard } from '../Mobile'
 import { useFirebase, useFirestore } from "react-redux-firebase"
 import { useHistory } from "react-router-dom"
 import CaverExtKAS from "caver-js-ext-kas"
 import Slider from "react-slick"
 import { useSelector } from "react-redux";
+
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
 
-//클로즈 베타 이미지
-import feedback from '../icon/feedback.png'
-import auction from '../icon/auction.png'
-import moneyBag from '../icon/money-bag.png'
-import personalInfo from '../icon/personal-information.png'
+//icon
+import { BsArrowRightShort } from "react-icons/bs"
 
 //임시 이미지
 import bannericon from "../icon/bannericon.png"
@@ -21,63 +19,64 @@ import bannericontwo from "../icon/bannericontwo.png"
 import bannericonfour from "../icon/bannericonfour.png"
 import bannericonfive from "../icon/bannericonfive.png"
 import bannericonsix from "../icon/bannericonsix.png"
-
-
+import ydoticon from "../icon/ydoticon.png"
+import nowcardexample from "../icon/nowcardexample.png"
+import nowcardicon from "../icon/nowcardicon.png"
 
 import axios from "axios"
 
 export default function SplashScreen() {
-    
-    
-    async function iam(){
-      try{
-        let result=await axios({
-            url: "https://api.iamport.kr/users/getToken",
-            method: "post", // POST method
-            headers: { "Content-Type": "application/json" }, // "Content-Type": "application/json"
-            data: {
-              imp_key: "1351325662487144", // REST API키
-              imp_secret: "sw52uUZEevQyNobtGFhnNHOuRAeuZ97sGdua8tPmYGVM46gLMx8zfX46yiBxsI08Vvj4Z8qYOlKTs0Ee" // REST API Secret
-            }
-          })
-          console.log(result.data.response.access_token)
-          let bank=await axios({
-              url:"https://api.iamport.kr/vbanks/holder",
-              method:"get",
-              headers:{
-                "Content-Type": "application/json", // "Content-Type": "application/json"
-                "Authorization": "Bearer "+result.data.response.access_token // 발행된 액세스 토큰
-              },
-              params:{
-                  "bank_code":"011",
-                  "bank_num":"74301656029176"
-              }
-          })
-          
-          console.log(bank)
-          let createBank=await axios({
-            url:"https://api.iamport.kr/vbanks/holder",
-            method:"post",
-            headers:{
-              "Content-Type": "application/json", // "Content-Type": "application/json"
-              "Authorization": "Bearer "+result.data.response.access_token // 발행된 액세스 토큰
-            },
-            params:{
-                "merchant_uid":"imp61776496",
-                "amount":"10000",
-                "vbank_code":"011",
-                "vbank_due":"100000000000",
-                "vbank_holder":"정선웅"
-            }
-          })
-          console.log(createBank)
-      }catch(err){
-        console.log(err)
-      }
 
-    
+
+    async function iam() {
+        try {
+            let result = await axios({
+                url: "https://api.iamport.kr/users/getToken",
+                method: "post", // POST method
+                headers: { "Content-Type": "application/json" }, // "Content-Type": "application/json"
+                data: {
+                    imp_key: "1351325662487144", // REST API키
+                    imp_secret: "sw52uUZEevQyNobtGFhnNHOuRAeuZ97sGdua8tPmYGVM46gLMx8zfX46yiBxsI08Vvj4Z8qYOlKTs0Ee" // REST API Secret
+                }
+            })
+            console.log(result.data.response.access_token)
+            let bank = await axios({
+                url: "https://api.iamport.kr/vbanks/holder",
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json", // "Content-Type": "application/json"
+                    "Authorization": "Bearer " + result.data.response.access_token // 발행된 액세스 토큰
+                },
+                params: {
+                    "bank_code": "011",
+                    "bank_num": "74301656029176"
+                }
+            })
+
+            console.log(bank)
+            let createBank = await axios({
+                url: "https://api.iamport.kr/vbanks/holder",
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json", // "Content-Type": "application/json"
+                    "Authorization": "Bearer " + result.data.response.access_token // 발행된 액세스 토큰
+                },
+                params: {
+                    "merchant_uid": "imp61776496",
+                    "amount": "10000",
+                    "vbank_code": "011",
+                    "vbank_due": "100000000000",
+                    "vbank_holder": "정선웅"
+                }
+            })
+            console.log(createBank)
+        } catch (err) {
+            console.log(err)
+        }
+
+
     }
-    
+
     const { uid } = useSelector((state) => state.firebase.auth);
     const chainId = 1001
     const accessKeyId = "KASK8QUCLZUJ1K1YZ9GB2VJ2"
@@ -177,40 +176,41 @@ export default function SplashScreen() {
             setItems(list)
         })
     }
-    const [itemss,setItemss]=useState([])
-    useEffect(()=>{
-        
-        firestore.collection("User").orderBy("totalMoney","desc").limit(30).onSnapshot(querySnapshot=>{
-            const list=[]
-            var count=1
-            querySnapshot.forEach(doc=>{
-                if(doc.data().totalFundingPrice){
-                list.push({
-                    totalMoney: doc.data().totalMoney,
-                    totalFundingPrice:doc.data().totalFundingPrice,
-                    accumulatedAllocation:doc.data().accumulatedAllocation,
-                    email:doc.data().email,
-                    rank:count,
-                    uid:doc.data().uid,
-                    name:doc.data().name
-                })}
-                else{
+    const [itemss, setItemss] = useState([])
+    useEffect(() => {
+
+        firestore.collection("User").orderBy("totalMoney", "desc").limit(30).onSnapshot(querySnapshot => {
+            const list = []
+            var count = 1
+            querySnapshot.forEach(doc => {
+                if (doc.data().totalFundingPrice) {
                     list.push({
-                        totalMoney:doc.data().totalMoney,
-                        totalFundingPrice:0,
-                        accumulatedAllocation:0,
-                        email:doc.data().email,
-                        rank:count,
-                        uid:doc.data().uid,
-                        name:doc.data().name
+                        totalMoney: doc.data().totalMoney,
+                        totalFundingPrice: doc.data().totalFundingPrice,
+                        accumulatedAllocation: doc.data().accumulatedAllocation,
+                        email: doc.data().email,
+                        rank: count,
+                        uid: doc.data().uid,
+                        name: doc.data().name
                     })
                 }
-                count=count+1
-            })    
+                else {
+                    list.push({
+                        totalMoney: doc.data().totalMoney,
+                        totalFundingPrice: 0,
+                        accumulatedAllocation: 0,
+                        email: doc.data().email,
+                        rank: count,
+                        uid: doc.data().uid,
+                        name: doc.data().name
+                    })
+                }
+                count = count + 1
+            })
             setItemss(list)
         })
-    },[])
-    const now = new Date().getDate()
+    }, [])
+    // const now = new Date().getDate()
     return (
         <div>
             <Default>
@@ -294,7 +294,8 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now >= 10 ?
+                    {/* 랭킹용 */}
+                    {/* {now >= 10 ?
                         <>
                             <div onClick={logout} style={{
                                 fontSize: 21,
@@ -328,7 +329,7 @@ export default function SplashScreen() {
                                     <div style={{width: 160, marginLeft: 20}}>포트폴리오</div>
                                 </div>
                                 {itemss.map(element=>
-                                <InvestDashboard 
+                                <InvestDashboard
                                 rank={element.rank}
                                 name={element.name}
                                 total={element.totalMoney}
@@ -336,114 +337,148 @@ export default function SplashScreen() {
                                 uid={element.uid}
                             />
                                     )}
-                                
                             </div>
                         </>
                         :
-                        <>
+                        <> */}
+                    <div style={{
+                        width: 1060,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }}>
+                        <div style={{
+                            fontSize: 22,
+                            fontWeight: "bold",
+                            color: "#202426",
+                            marginBottom: 20,
+                            marginTop: 40,
+                            alignSelf: "flex-start"
+                        }}>진행중인 펀딩</div>
+                        <div className="grid-container">
+                            {items.map(element =>
+                                <CreatorInfo
+                                    img={element.img}
+                                    name={element.name}
+                                    FundingNum={element.FundingNum}
+                                    percent={element.percent}
+                                    Deadline={element.Deadline}
+                                    sort={element.sort}
+                                    sector={element.sector}
+                                    fundingAim={element.fundingAim}
+                                />
+                            )}
+                            <NewCreatorInfo />
+                        </div>
+                        <div style={{
+                            fontSize: 22,
+                            fontWeight: "bold",
+                            color: "#202426",
+                            marginBottom: 20,
+                            alignSelf: "flex-start"
+                        }}>와이닷 NOW</div>
+                        <div style={{
+                            display: "grid",
+                            gridRowGap: 20,
+                            gridTemplateColumns: "auto auto auto auto",
+                            overflowX: "scroll",
+                            width: "100%",
+                            marginBottom: 10,
+                        }}>
+                            <NowCard 
+                                thumbnail={nowcardexample}
+                                title="Lorem ipsum dolor sit amet…"
+                                icon={nowcardicon}
+                                name="햇살한스푼"
+                            />
+                            <NowCard 
+                                thumbnail={nowcardexample}
+                                title="Lorem ipsum dolor sit amet…"
+                                icon={nowcardicon}
+                                name="햇살한스푼"
+                            />
+                            <NowCard 
+                                thumbnail={nowcardexample}
+                                title="Lorem ipsum dolor sit amet…"
+                                icon={nowcardicon}
+                                name="햇살한스푼"
+                            />
+                            <NowCard 
+                                thumbnail={nowcardexample}
+                                title="Lorem ipsum dolor sit amet…"
+                                icon={nowcardicon}
+                                name="햇살한스푼"
+                            />
+                        </div>
+                        <div style={{
+                            width: "100%",
+                            marginBottom: 40,
+
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "flex-end"
+                        }}>
                             <div style={{
-                                fontSize: 21,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 40,
-                                marginTop: 40,
-                            }}>진행중인 펀딩</div>
-                            <div className="grid-container">
-                                {items.map(element =>
-                                    <CreatorInfo
-                                        img={element.img}
-                                        name={element.name}
-                                        FundingNum={element.FundingNum}
-                                        percent={element.percent}
-                                        Deadline={element.Deadline}
-                                        sort={element.sort}
-                                        sector={element.sector}
-                                        fundingAim={element.fundingAim}
-                                    />
-                                )}
-                            </div>
-                            <div style={{
-                                fontSize: 21,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 40,
-                            }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
-                            <div style={{
-                                width: "56vw",
-                                minWidth: 1060,
-                                backgroundColor: "#ffffff",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}>
-                                <div style={{
-                                    width: "100%",
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                }}>
-                                    <CloseBeta
-                                        img={personalInfo}
-                                        title="크리에이터 정보 확인"
-                                        content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
-                    읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
-                    가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
-                                    />
-                                    <CloseBeta
-                                        img={auction}
-                                        title="크라우드 펀딩 참여"
-                                        content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
-                    각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
-                    빠르게 마음에 드는 크리에이터를 선점하세요!"
-                                    />
-                                </div>
-                                <div style={{
-                                    width: "100%",
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                    marginTop: 40,
-                                }}>
-                                    <CloseBeta
-                                        img={moneyBag}
-                                        title="토큰 및 리워드 수령"
-                                        content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
-                                    />
-                                    <CloseBeta
-                                        img={feedback}
-                                        title="피드백은 언제나 환영입니다!"
-                                        content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
-                    언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
-                                    />
-                                </div>
-                            </div>
-                            <div style={{
-                                cursor: "pointer",
-                                background: "#ffffff",
-                                width: 300,
-                                height: 48,
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
                                 fontSize: 16,
-                                fontWeight: "bold",
-                                textAlign: "center",
-                                verticalAlign: "center",
-                                marginTop: 44,
-                                marginBottom: 40,
-                                border: "2px solid #E78276",
-                                borderRadius: 10,
-                            }}>
-                                <a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" target="_blank" style={{
-                                    textDecorationLine: "none",
-                                    color: "#E78276",
-                                }}>자세한 정보를 확인해보세요!</a>
-                            </div>
-                        </>
-                    }
+                                color: "#4c4f51",
+                                cursor: "pointer",
+                            }}>더보기</div>
+                            <BsArrowRightShort 
+                                size={20} color="#4c4f51" 
+                                style={{
+                                    cursor: "pointer"
+                                }}
+                            />
+                        </div>
+                        <div style={{
+                            fontSize: 22,
+                            fontWeight: "bold",
+                            color: "#202426",
+                            marginBottom: 20,
+                            alignSelf: "flex-start"
+                        }}>기획 펀딩 - 먹방</div>
+                        <div className="grid-container">
+                            {items.map(element =>
+                                <CreatorInfo
+                                    img={element.img}
+                                    name={element.name}
+                                    FundingNum={element.FundingNum}
+                                    percent={element.percent}
+                                    Deadline={element.Deadline}
+                                    sort={element.sort}
+                                    sector={element.sector}
+                                    fundingAim={element.fundingAim}
+                                />
+                            )}
+                            <NewCreatorInfo />
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            marginTop: 60,
+                            marginBottom: 40,
+                            width: "100%"
+                        }}>
+                            <YdotCard 
+                                title="크리에이터님인가요?"
+                                content="와이닷 펀딩 오픈하고 빠르게 성장하세요!"
+                                backgroundColor="#6bd69e"
+                                img={ydoticon}
+                            />
+                            <YdotCard 
+                                title="펀딩에 참여하고 싶으신가요?"
+                                content="와이닷 펀딩 A - Z 총정리 !"
+                                backgroundColor="#a5a7a8"
+                                img={ydoticon}
+                            />
+                        </div>
+                    </div>
+                    {/* 랭킹용 */}
+                    {/* </>
+                    } */}
                     <BottomTag />
                 </div>
             </Default>
@@ -507,7 +542,7 @@ export default function SplashScreen() {
                             />
                         </Slider>
                     </div>
-                    {now >= 10 ?
+                    {/* {now >= 10 ?
                         <>
                             <div style={{
                                 fontSize: 18,
@@ -555,7 +590,7 @@ export default function SplashScreen() {
                             </div>
                         </>
                         :
-                        <>
+                        <> */}
                             <div style={{
                                 fontSize: 21,
                                 fontWeight: "bold",
@@ -585,72 +620,8 @@ export default function SplashScreen() {
                                     )}
                                 </div>
                             </div>
-                            <div style={{
-                                fontSize: 21,
-                                fontWeight: "bold",
-                                color: "#202426",
-                                marginBottom: 40,
-                                marginTop: 40,
-                                width: "90vw",
-                                textAlign: "center"
-                            }}>클로즈 베타는 다음과 같이 진행됩니다.</div>
-                            <div style={{
-                                width: "100vw",
-                                minWidth: 300,
-                                backgroundColor: "#ffffff",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}>
-                                <MCloseBeta
-                                    img={personalInfo}
-                                    title="크리에이터 정보 확인"
-                                    content="크리에이터 소개와 성장률, 예상 배당에 대한 정보를 꼼꼼히 
-                    읽어보세요. 각 분야의 크리에이터들은 각기 다른 성장률을 
-                    가지고 있습니다. 마음에 드는 크리에이터에게 펀딩해 보세요."
-                                />
-                                <MCloseBeta
-                                    img={auction}
-                                    title="크라우드 펀딩 참여"
-                                    content="투자하고 싶은 크리에이터에 펀딩을 진행해보세요. 
-                    각 크리에이터의 토큰 개수는 한정적입니다. 또한 목표액 100%에 도달하면 펀딩을 할 수 없습니다.
-                    빠르게 마음에 드는 크리에이터를 선점하세요!"
-                                />
-                                <MCloseBeta
-                                    img={moneyBag}
-                                    title="토큰 및 리워드 수령"
-                                    content="크라우드 펀딩이 성공하면 토큰을 수령받습니다. 일정기간이 지난이후 약속한 기간동안 크리에이터 채널 수익의 일부를 리워드로 수령할 수 있습니다. 이번 베타 테스트에서는 하루를 한달로 잡고 6일동안 리워드를 수령합니다."
-                                />
-                                <MCloseBeta
-                                    img={feedback}
-                                    title="피드백은 언제나 환영입니다!"
-                                    content="잘 안되는 부분이 있나요? 마음에 안드는 부분이 있나요?
-                    언제든 이야기해주세요! 최대한 빠르게 고치고 좋은 서비스를 만들겠습니다."
-                                />
-                            </div>
-                            <div style={{
-                                cursor: "pointer",
-                                background: "#ffffff",
-                                width: 300,
-                                height: 48,
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: 16,
-                                fontWeight: "bold",
-                                textAlign: "center",
-                                verticalAlign: "center",
-                                marginTop: 44,
-                                marginBottom: 40,
-                                border: "2px solid #E78276",
-                                borderRadius: 10,
-                            }}><a href="https://www.notion.so/ydot/Y-7bee7114ad5847f39bdca5a3de935a8f" target="_blank" style={{
-                                textDecorationLine: "none",
-                                color: "#E78276",
-                            }}>자세한 정보를 확인해보세요!</a></div>
-                        </>
-                    }
+                        {/* </>
+                    } */}
                     <MBottomTag />
                 </div>
             </Mobile>
