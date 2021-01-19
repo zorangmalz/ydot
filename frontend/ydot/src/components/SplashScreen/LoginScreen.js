@@ -1,14 +1,17 @@
 import React, { useState } from "react"
 import { Link, useHistory } from 'react-router-dom';
+import { useFirebase, useFirestore } from "react-redux-firebase"
+import NaverLogin from "react-login-by-naver"
+
+//아이콘 및 디자인
 import { FaUserCircle } from "react-icons/fa"
 import { BsCheck } from 'react-icons/bs'
 import { Login } from "../Style";
 import MLoginHeader from "../Mobile";
 
+
 //모바일 대응
 import { useMediaQuery } from 'react-responsive'
-import { useFirebase, useFirestore } from "react-redux-firebase"
-
 
 export default function LoginScreen() {
     //모바일 대응
@@ -30,14 +33,7 @@ export default function LoginScreen() {
 
     //비밀번호 같은지 다른지 확인
     const [differ, setDiffer] = useState(false)
-
-    // Default ID, PASSWORD 값
-    // document.getElementById("DID").value
-    // document.getElementById("DPASS").value
-
-    // Mobile ID, PASSWORD 값
-    // document.getElementById("MID").value
-    // document.getElementById("MPASS").value
+    
     const firebase = useFirebase()
     const history = useHistory()
     const firestore = useFirestore()
@@ -132,6 +128,48 @@ export default function LoginScreen() {
     //     console.log(account)
     //     return account
     // }
+
+    // const [userData, setUserData] = useState()
+    // const NaverLogin = () => {
+    //     Naver()
+    //     UserProfile()
+    // }
+    // const { naver } = window;
+    // const Naver = () => {
+    //     const naverLogin = new naver.LoginWithNaverId({
+    //         clientId: "niz7fq7bMSOMVInWyV3w",
+    //         callbackUrl: "http://localhost:3000",
+    //         isPopup: false,
+    //         loginButton: { color: "green", type: 1, height: 30 },
+    //         callbackHandle: true
+    //     });
+    //     naverLogin.init();
+    // }
+    // const UserProfile = () => {
+    //     window.location.href.includes('access_token') && GetUser();
+    //     function GetUser() {
+    //       const location = window.location.href.split('=')[1];
+    //       const token = location.split('&')[0];
+    //       console.log("token: ", token);
+    //       fetch(`${API}/account/sign-in` , {
+    //         method: "GET",
+    //         headers : {
+    //           "Content-type" : "application/json",
+    //           "Authorization": token
+    //         },
+    //       })
+    //       .then(res => res.json())
+    //       .then(res => {
+    //         localStorage.setItem("access_token", res.token);
+    //         setUserData({
+    //           nickname : res.nickname,
+    //           image : res.image
+    //         })
+    //       })
+    //       .catch(err => console.log("err : ", err));
+    //     }
+    //   };
+
     return (
         <div>
             <Default>
@@ -327,6 +365,26 @@ export default function LoginScreen() {
                                 marginTop: 20,
                                 marginBottom: 20
                             }} />
+                            <NaverLogin 
+                                clientId="niz7fq7bMSOMVInWyV3w"
+                                callbackUrl="http://localhost:3000"
+                                render={(props) => <input onClick={props.onClick} type="button" style={{
+                                    border: 0,
+                                    width: 400,
+                                    height: 56,
+                                    fontSize: 22,
+                                    borderRadius: 10,
+                                    cursor: "pointer",
+                                    outline: 0,
+                                    color: "#ffffff",
+                                    backgroundColor: "#1ec800",
+                                    marginBottom: 20,
+                                    fontWeight: "normal",
+                                    WebkitAppearance: "none"
+                                }} value="네이버로 로그인" />}
+                                onSuccess={(naverUser) => console.log(naverUser + "나 여기 잇어요 이게 뜨는지 모르겠다")}
+                                onFailure={() => console.error("오류")}
+                            />
                             <input type="button" style={{
                                 border: 0,
                                 width: 400,
