@@ -19,76 +19,146 @@ export default function UserList() {
     }
     //진행중인 펀딩
     const [items, setItems] = useState([]);
-    const [itemss, setItemss] = useState([]);
+    const [itemss, setItemss] = useState([[]]);
     const firestore = useFirestore()
     
     async function getInfo(){
-        firestore.collection("User").onSnapshot(querySnapshot=>{
+        var tF=0
+        var aA=0
+        await firestore.collection("User").onSnapshot(querySnapshot=>{
             const list=[]
+           
             querySnapshot.forEach(doc=>{
                 list.push({
                     email:doc.data().email,
                     name:doc.data().name,
                     money:doc.data().totalMoney,
-                    list:doc.data().creator,
-                    uid:doc.data().uid
-                })
-            })
-            setItems(list)
-        })
-    }
-    useEffect(() => {
-      getInfo()
-     getPrice()
-    }, [])
-   const[itemsss,setItemsss]=useState([])
-
-    async function getPrice(){
-       console.log("GetPirce!")
-        for (const i of items){
-            
-            await firestore.collection("User").doc(i.uid).collection("TotalFunding").onSnapshot(querySnapshot => {
-                const list=[]
-                var total=0
-            var accu=0
-            
-                querySnapshot.forEach(doc => {
-                    if(doc.data().ongoing==1){
-                    list.push({
-                        img: "#4c4c4c",
-                        name: doc.data().channel,
-                        unit: doc.data().symbol,
-                        chain: "KRW",
-                        total:doc.data().Money,
-                        number: doc.data().month+"/12",
-                        next: String(Number(doc.data().month)+1)+"/20",
-                        actual: doc.data().monthly,
-                        accumulate: doc.data().total,
-                        dayTime:doc.data().DayTime,
-                        ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
-                        y:doc.data().Money,
-                        color:doc.data().color
-                    })
-                    }
-                })
-                // console.log(list)
-                for(const a of list){
                     
-                    total= Number(a.total)+Number(total)
-                    accu=Number(a.accumulate)+Number(accu)
-                }       
-                console.log(total,accu)
-                firestore.collection("User").doc(i.uid).update({
-                    totalFundingPrice:total,
-                    accumulatedAllocation:accu
-                })    
+                    uid:doc.data().uid,
+                    creator:doc.data().creator,
+                    totalFundingPrice:doc.data().totalFundingPrice,
+                    accumulatedAllocation:doc.data().accumulatedAllocation,
+                    
+                })
+                tF=tF+doc.data().totalFundingPrice
+                aA=aA+doc.data().accumulatedAllocation
             })
-            // console.log(total,accu)
-            
-           
-        }
+            // console.log(list)
+            setItems(list)
+            console.log(tF,aA)
+        })
+        
     }
     
+    useEffect(() => {
+    //   getInfo()
+    //   getData()
+    //  getPrice()
+    }, [])
+    useEffect(()=>{
+        // getData()
+    },[items])
+   const[itemsss,setItemsss]=useState([])
+//    async function getData(){
+
+//     console.log("GetPirce!")
+//     const final=[]
+//      for (const i of items){
+//          const list=[]
+//          const lista=[]    
+//         //  console.log(i.creator)
+//          for(const j of i.creator){
+            
+//              var totalAllocate=0
+//              await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(j).collection("Allocate").onSnapshot(querySnapshot=>{
+//                  querySnapshot.forEach(doc=>{
+//                     totalAllocate=doc.data().allocate+totalAllocate
+//                  })
+//              })
+//             await firestore.collection("User").doc(i.uid).collection("TotalFunding").doc(j).get().then(doc=>{
+//                 lista.push({
+                    
+//                     creator:j,
+//                     money:doc.data().Money,
+//                     allocate:totalAllocate
+//                 })
+//             })
+
+//          }
+//          list.push({
+//              email:i.email,
+//              funding:lista
+//          })
+         
+       
+//        final.push(list)
+//         // setItemss(list)
+//      }
+//     //  console.log(final)
+//      setItemss(final)
+//  }
+
+
+//  useEffect(()=>{
+//      d()
+//     // console.log(itemss)
+//  },[itemss])
+//  function d(){
+//      itemss.map(element=>{
+//          console.log(element[0].email)
+//          console.log(element[0].funding)
+//      })
+//  }
+
+
+
+
+    // async function getPrice(){
+    //    console.log("GetPirce!")
+    //     for (const i of items){
+            
+    //         await firestore.collection("User").doc(i.uid).collection("TotalFunding").onSnapshot(querySnapshot => {
+    //             const list=[]
+    //             var total=0
+    //         var accu=0
+            
+    //             querySnapshot.forEach(doc => {
+    //                 if(doc.data().ongoing==1){
+    //                 list.push({
+    //                     img: "#4c4c4c",
+    //                     name: doc.data().channel,
+    //                     unit: doc.data().symbol,
+    //                     chain: "KRW",
+    //                     total:doc.data().Money,
+    //                     number: doc.data().month+"/12",
+    //                     next: String(Number(doc.data().month)+1)+"/20",
+    //                     actual: doc.data().monthly,
+    //                     accumulate: doc.data().total,
+    //                     dayTime:doc.data().DayTime,
+    //                     ftAmount:(Number(doc.data().Money)/Number(doc.data().fundingAim)).toFixed(6)*10000,
+    //                     y:doc.data().Money,
+    //                     color:doc.data().color
+    //                 })
+    //                 }
+    //             })
+    //             // console.log(list)
+    //             for(const a of list){
+                    
+    //                 total= Number(a.total)+Number(total)
+    //                 accu=Number(a.accumulate)+Number(accu)
+    //             }       
+    //             console.log(total,accu)
+    //             firestore.collection("User").doc(i.uid).update({
+    //                 totalFundingPrice:total,
+    //                 accumulatedAllocation:accu
+    //             })    
+    //         })
+    //         // console.log(total,accu)
+            
+           
+    //     }
+    // }
+   
 
     return (
         <div>
@@ -100,9 +170,18 @@ export default function UserList() {
                     backgroundColor: "#ffffff"
                 }}>
                     <Header bold="Fund" />
+
+
+                    {items.map(element=>
+                        <div>
+                            <div>{element.email}</div>
+                            <div>{element.totalFundingPrice}</div>
+                            <div>{element.accumulatedAllocation}</div>
+
+                        </div>)}
                   
-                     
-                            {items.map(element =>
+{/*                      
+                            {itemss.map(element =>
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
@@ -114,12 +193,20 @@ export default function UserList() {
                                         marginTop: 1,
                                         marginBottom: 5,
                                     }}>
-                                        <div style={{ width: 80, textAlign: "center" }}>{element.name}</div>
-                                        <div style={{ width: 150, textAlign: "center" }}>{element.email}</div>
-                                        <div style={{ width: 90, textAlign: "center" }}>{element.money}</div> 
-                                        <div style={{ width: 90, textAlign: "center" }}>{element.creator}</div> 
+                                        <div >{element[0].email}</div>
+                                        
+                                        {element[0].funding.map(elements =>
+                                        <div>
+                                            <div>{elements.creator}</div>
+                                            <div>{elements.money}</div>
+                                            <div>{elements.allocate}</div>
+                                            </div>
+                                    )}
+
+
+
                                     </div>
-                                )}
+                                )} */}
                         
                     
                   
